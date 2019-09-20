@@ -1,0 +1,73 @@
+---
+title: "Bird metabolic rate and abundance"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Load the data and packages
+
+```{r}
+library(plyr)
+library(socorro)
+library(MASS)
+
+bbs <- read.csv('data/bbs/bbs2011.csv', as.is = TRUE)
+bbsSpInfo <- read.csv('data/bbs/speciesTableBody.csv', as.is = TRUE)
+bbsSpInfo <- bbsSpInfo[, c('sppKey', 'mass')]
+names(bbsSpInfo) <- c('spp', 'mass')
+
+x <- merge(bbs, bbsSpInfo, by = 'spp')
+x$metab <- x$mass^0.75
+```
+
+A naive plot of mean abundance versus metabolism
+
+```{r, fig.width=4, fig.height=4, fig.align='center'}
+foo <- ddply(x, 'spp', function(X) {
+    data.frame(n = sum(X$abund) / nrow(x), b = mean(X$metab))
+})
+
+plot(foo[, 2:3], xlab = 'Abundance', ylab = 'Metabolic rate', log = 'xy',
+     axes = FALSE, frame.plot = TRUE)
+logAxis(1:2)
+```
+
+Now we take the mean metabolic rate for different log$_2$ abundance classes and a clearer pattern emerges
+
+```{r, fig.width=4, fig.height=4, fig.align='center'}
+foo$log2bin <- floor(log(foo$n, 2))
+foo2 <- ddply(foo, 'log2bin', function(X) {
+    data.frame(bmean = mean(X$b))
+})
+
+plot(2^foo2$log2bin, foo2$bmean, log = 'xy', axes = FALSE, 
+     frame.plot = TRUE, 
+     xlab = 'Abundance', ylab = 'Metabolic rate')
+logAxis(1:2)
+```
+
+That's cleaner but still not $b \propto 1/n$.
+
+We also investigated the distribution of $P(b \mid n)$.  It's not anything pretty so far as we can tell.
+
+```{r, fig.align='center', fig.width=4, fig.height=4}
+hist(log(x$metab[x$abund == 1]), xlab = 'log Metabolic rate given n = 1', main = '')
+```
+
+Finally, we look at the mean of $b$ given $n$ but computed across all sites and species.  This means that any given species could contribute multiple times to this mean.  For example, if species `spX` has abundance $n_j$ at 12 different sites then its metabolic rate will figure into $E(b \mid n_j)$ 12 times.
+
+```{r, fig.align='center', fig.width=4, fig.height=4}
+nn <- 1:70
+meanGivenN <- sapply(nn, function(n) {
+    dat <- x[x$abund == n, ]
+    
+    return(mean(dat$metab))
+})
+
+plot(nn, meanGivenN, log = 'x', xlab = 'Abundance', ylab = 'Metabolic rate', 
+     xaxt = 'n')
+logAxis(1)
+```
