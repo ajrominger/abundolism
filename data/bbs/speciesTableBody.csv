@@ -1,0 +1,1465 @@
+"sppKey","english","order","family","genus","species","genSp","mass"
+"10010","Great Tinamou","Tinamiformes","Tinamidae","Tinamus","major","Tinamus major",1025
+"10030","Little Tinamou","Tinamiformes","Tinamidae","Crypturellus","soui","Crypturellus soui",216.5
+"40080","Thicket Tinamou","Tinamiformes","Tinamidae","Crypturellus","cinnamomeus","Crypturellus cinnamomeus",419
+"10050","Slaty-breasted Tinamou","Tinamiformes","Tinamidae","Crypturellus","boucardi","Crypturellus boucardi",443
+"01770","Black-bellied Whistling-Duck","Anseriformes","Anatidae","Dendrocygna","autumnalis","Dendrocygna autumnalis",831
+"10200","West Indian Whistling-Duck","Anseriformes","Anatidae","Dendrocygna","arborea","Dendrocygna arborea",1150
+"01780","Fulvous Whistling-Duck","Anseriformes","Anatidae","Dendrocygna","bicolor","Dendrocygna bicolor",682.5
+"20590","Swan Goose","Anseriformes","Anatidae","Anser","cygnoides","Anser cygnoides",3325
+"01711","Taiga Bean-Goose","Anseriformes","Anatidae","Anser","fabalis","Anser fabalis",3020.5
+"01714","Tundra Bean-Goose","Anseriformes","Anatidae","Anser","serrirostris","Anser serrirostris",2822.16666666667
+"01712","Pink-footed Goose","Anseriformes","Anatidae","Anser","brachyrhynchus","Anser brachyrhynchus",2645
+"01710","Greater White-fronted Goose","Anseriformes","Anatidae","Anser","albifrons","Anser albifrons",2680.5
+"01713","Lesser White-fronted Goose","Anseriformes","Anatidae","Anser","erythropus","Anser erythropus",1797.5
+"20600","Graylag Goose","Anseriformes","Anatidae","Anser","anser","Anser anser",3464.5
+"01760","Emperor Goose","Anseriformes","Anatidae","Chen","canagica","Chen canagica",2789
+"01690","Snow Goose","Anseriformes","Anatidae","Chen","caerulescens","Chen caerulescens",2630.5
+"01691","Blue Goose) Snow Goose","Anseriformes","Anatidae","Chen","caerulescens (blue form","Chen caerulescens",2630.5
+"01700","Ross's Goose","Anseriformes","Anatidae","Chen","rossii","Chen rossii",1589.5
+"01730","Brant","Anseriformes","Anatidae","Branta","bernicla","Branta bernicla",1300
+"01740","Black Brant) Brant","Anseriformes","Anatidae","Branta","bernicla nigricans","Branta bernicla",1300
+"01750","Barnacle Goose","Anseriformes","Anatidae","Branta","leucopsis","Branta leucopsis",1687
+"01725","Cackling Goose","Anseriformes","Anatidae","Branta","hutchinsii","Branta hutchinsii",1962.75
+"01720","Canada Goose","Anseriformes","Anatidae","Branta","canadensis","Branta canadensis",3564
+"01782","Mute Swan","Anseriformes","Anatidae","Cygnus","olor","Cygnus olor",10735
+"80380","Black Swan","Anseriformes","Anatidae","Cygnus","atratus","Cygnus atratus",5650
+"01810","Trumpeter Swan","Anseriformes","Anatidae","Cygnus","buccinator","Cygnus buccinator",10850
+"01800","Tundra Swan","Anseriformes","Anatidae","Cygnus","columbianus","Cygnus columbianus",6781.5
+"01790","Whooper Swan","Anseriformes","Anatidae","Cygnus","cygnus","Cygnus cygnus",11375
+"20630","Egyptian Goose","Anseriformes","Anatidae","Alopochen","aegyptiaca","Alopochen aegyptiaca",1862.5
+"10210","Muscovy Duck","Anseriformes","Anatidae","Cairina","moschata","Cairina moschata",2125
+"01440","Wood Duck","Anseriformes","Anatidae","Aix","sponsa","Aix sponsa",675.5
+"20670","Mandarin Duck","Anseriformes","Anatidae","Aix","galericulata","Aix galericulata",570
+"01350","Gadwall","Anseriformes","Anatidae","Anas","strepera","Anas strepera",919.5
+"01371","Falcated Duck","Anseriformes","Anatidae","Anas","falcata","Anas falcata",649
+"01360","Eurasian Wigeon","Anseriformes","Anatidae","Anas","penelope","Anas penelope",771.5
+"01370","American Wigeon","Anseriformes","Anatidae","Anas","americana","Anas americana",793.5
+"01330","American Black Duck","Anseriformes","Anatidae","Anas","rubripes","Anas rubripes",1181.5
+"01320","Mallard","Anseriformes","Anatidae","Anas","platyrhynchos","Anas platyrhynchos",1161.5
+"01331","Mexican Duck) Mallard","Anseriformes","Anatidae","Anas","platyrhynchos diazi","Anas platyrhynchos",1161.5
+"01340","Mottled Duck","Anseriformes","Anatidae","Anas","fulvigula","Anas fulvigula",999
+"01326","hybrid Mallard x Black Duck or Mottled Duck","Anseriformes","Anatidae","Anas","platyrhynchos x rubripes or fulvigula","Anas platyrhynchos",1161.5
+"01341","Eastern Spot-billed Duck","Anseriformes","Anatidae","Anas","zonorhyncha","Anas zonorhyncha",1195
+"01400","Blue-winged Teal","Anseriformes","Anatidae","Anas","discors","Anas discors",464.5
+"01410","Cinnamon Teal","Anseriformes","Anatidae","Anas","cyanoptera","Anas cyanoptera",385.5
+"01420","Northern Shoveler","Anseriformes","Anatidae","Anas","clypeata","Anas clypeata",613
+"01431","White-cheeked Pintail","Anseriformes","Anatidae","Anas","bahamensis","Anas bahamensis",536
+"01430","Northern Pintail","Anseriformes","Anatidae","Anas","acuta","Anas acuta",945.5
+"01392","Garganey","Anseriformes","Anatidae","Anas","querquedula","Anas querquedula",326
+"01391","Baikal Teal","Anseriformes","Anatidae","Anas","formosa","Anas formosa",434
+"01390","Green-winged Teal","Anseriformes","Anatidae","Anas","crecca","Anas crecca",315
+"01470","Canvasback","Anseriformes","Anatidae","Aythya","valisineria","Aythya valisineria",1204
+"01460","Redhead","Anseriformes","Anatidae","Aythya","americana","Aythya americana",1045
+"01461","Common Pochard","Anseriformes","Anatidae","Aythya","ferina","Aythya ferina",828
+"01500","Ring-necked Duck","Anseriformes","Anatidae","Aythya","collaris","Aythya collaris",707.5
+"01491","Tufted Duck","Anseriformes","Anatidae","Aythya","fuligula","Aythya fuligula",701.5
+"01480","Greater Scaup","Anseriformes","Anatidae","Aythya","marila","Aythya marila",1013.5
+"01490","Lesser Scaup","Anseriformes","Anatidae","Aythya","affinis","Aythya affinis",786.5
+"01489","unid. Greater Scaup / Lesser Scaup","Anseriformes","Anatidae","Aythya","marila / affinis","Aythya marila",1013.5
+"01570","Steller's Eider","Anseriformes","Anatidae","Polysticta","stelleri","Polysticta stelleri",807.5
+"01580","Spectacled Eider","Anseriformes","Anatidae","Somateria","fischeri","Somateria fischeri",1368
+"01620","King Eider","Anseriformes","Anatidae","Somateria","spectabilis","Somateria spectabilis",1617.5
+"01590","Common Eider","Anseriformes","Anatidae","Somateria","mollissima","Somateria mollissima",2066.5
+"01550","Harlequin Duck","Anseriformes","Anatidae","Histrionicus","histrionicus","Histrionicus histrionicus",603
+"01660","Surf Scoter","Anseriformes","Anatidae","Melanitta","perspicillata","Melanitta perspicillata",950
+"01650","White-winged Scoter","Anseriformes","Anatidae","Melanitta","fusca","Melanitta fusca",1762
+"01630","Black Scoter","Anseriformes","Anatidae","Melanitta","americana","Melanitta americana",950
+"01657","unid. Scoter","Anseriformes","Anatidae","Melanitta","perspicillata / fusca / americana","Melanitta perspicillata",950
+"01540","Long-tailed Duck","Anseriformes","Anatidae","Clangula","hyemalis","Clangula hyemalis",648.5
+"01530","Bufflehead","Anseriformes","Anatidae","Bucephala","albeola","Bucephala albeola",424
+"01510","Common Goldeneye","Anseriformes","Anatidae","Bucephala","clangula","Bucephala clangula",900
+"01520","Barrow's Goldeneye","Anseriformes","Anatidae","Bucephala","islandica","Bucephala islandica",910
+"01512","unid. Common Goldeneye / Barrow's Goldeneye","Anseriformes","Anatidae","Bucephala","clangula / islandica","Bucephala clangula",900
+"01311","Smew","Anseriformes","Anatidae","Mergellus","albellus","Mergellus albellus",610
+"01310","Hooded Merganser","Anseriformes","Anatidae","Lophodytes","cucullatus","Lophodytes cucullatus",610
+"01290","Common Merganser","Anseriformes","Anatidae","Mergus","merganser","Mergus merganser",1470.5
+"01300","Red-breasted Merganser","Anseriformes","Anatidae","Mergus","serrator","Mergus serrator",1021.5
+"01680","Masked Duck","Anseriformes","Anatidae","Nomonyx","dominicus","Nomonyx dominicus",372.5
+"01670","Ruddy Duck","Anseriformes","Anatidae","Oxyura","jamaicensis","Oxyura jamaicensis",544.5
+"03110","Plain Chachalaca","Galliformes","Cracidae","Ortalis","vetula","Ortalis vetula",563
+"10572","Rufous-bellied Chachalaca","Galliformes","Cracidae","Ortalis","wagleri","Ortalis wagleri",587.333333333333
+"10570","West Mexican Chachalaca","Galliformes","Cracidae","Ortalis","poliocephala","Ortalis poliocephala",760
+"10571","White-bellied Chachalaca","Galliformes","Cracidae","Ortalis","leucogastra","Ortalis leucogastra",439
+"10600","Crested Guan","Galliformes","Cracidae","Penelope","purpurascens","Penelope purpurascens",2060
+"10590","Highland Guan","Galliformes","Cracidae","Penelopina","nigra","Penelopina nigra",890
+"10610","Horned Guan","Galliformes","Cracidae","Oreophasis","derbianus","Oreophasis derbianus",NA
+"10620","Great Curassow","Galliformes","Cracidae","Crax","rubra","Crax rubra",3942.5
+"02961","Helmeted Guineafowl","Galliformes","Numididae","Numida","meleagris","Numida meleagris",1587.5
+"10650","Bearded Wood-Partridge","Galliformes","Odontophoridae","Dendrortyx","barbatus","Dendrortyx barbatus",432
+"10640","Long-tailed Wood-Partridge","Galliformes","Odontophoridae","Dendrortyx","macroura","Dendrortyx macroura",431
+"10660","Buffy-crowned Wood-Partridge","Galliformes","Odontophoridae","Dendrortyx","leucophrys","Dendrortyx leucophrys",350
+"02920","Mountain Quail","Galliformes","Odontophoridae","Oreortyx","pictus","Oreortyx pictus",239.2
+"02930","Scaled Quail","Galliformes","Odontophoridae","Callipepla","squamata","Callipepla squamata",184
+"10780","Elegant Quail","Galliformes","Odontophoridae","Callipepla","douglasii","Callipepla douglasii",175
+"02940","California Quail","Galliformes","Odontophoridae","Callipepla","californica","Callipepla californica",174.2
+"02950","Gambel's Quail","Galliformes","Odontophoridae","Callipepla","gambelii","Callipepla gambelii",169.25
+"10770","Banded Quail","Galliformes","Odontophoridae","Philortyx","fasciatus","Philortyx fasciatus",130
+"02890","Northern Bobwhite","Galliformes","Odontophoridae","Colinus","virginianus","Colinus virginianus",171.5
+"10760","Black-throated Bobwhite","Galliformes","Odontophoridae","Colinus","nigrogularis","Colinus nigrogularis",127
+"10710","Spotted Wood-Quail","Galliformes","Odontophoridae","Odontophorus","guttatus","Odontophorus guttatus",314
+"10720","Singing Quail","Galliformes","Odontophoridae","Dactylortyx","thoracicus","Dactylortyx thoracicus",223
+"02960","Montezuma Quail","Galliformes","Odontophoridae","Cyrtonyx","montezumae","Cyrtonyx montezumae",185.55
+"10730","Ocellated Quail","Galliformes","Odontophoridae","Cyrtonyx","ocellatus","Cyrtonyx ocellatus",218
+"02882","Chukar","Galliformes","Phasianidae","Alectoris","chukar","Alectoris chukar",518.5
+"02883","Black Francolin","Galliformes","Phasianidae","Francolinus","francolinus","Francolinus francolinus",456.25
+"21430","Himalayan Snowcock","Galliformes","Phasianidae","Tetraogallus","himalayensis","Tetraogallus himalayensis",2428
+"02881","Gray Partridge","Galliformes","Phasianidae","Perdix","perdix","Perdix perdix",382
+"03094","Red Junglefowl","Galliformes","Phasianidae","Gallus","gallus","Gallus gallus",672
+"03091","Ring-necked Pheasant","Galliformes","Phasianidae","Phasianus","colchicus","Phasianus colchicus",1087.5
+"03095","Common Peafowl","Galliformes","Phasianidae","Pavo","cristatus","Pavo cristatus",5000
+"03000","Ruffed Grouse","Galliformes","Phasianidae","Bonasa","umbellus","Bonasa umbellus",528.5
+"03090","Greater Sage-Grouse","Galliformes","Phasianidae","Centrocercus","urophasianus","Centrocercus urophasianus",2450
+"03089","Gunnison Sage-Grouse","Galliformes","Phasianidae","Centrocercus","minimus","Centrocercus minimus",2450
+"02980","Spruce Grouse","Galliformes","Phasianidae","Falcipennis","canadensis","Falcipennis canadensis",458
+"03010","Willow Ptarmigan","Galliformes","Phasianidae","Lagopus","lagopus","Lagopus lagopus",595
+"03020","Rock Ptarmigan","Galliformes","Phasianidae","Lagopus","muta","Lagopus muta",426.5
+"03040","White-tailed Ptarmigan","Galliformes","Phasianidae","Lagopus","leucura","Lagopus leucura",355
+"02970","Dusky Grouse","Galliformes","Phasianidae","Dendragapus","obscurus","Dendragapus obscurus",1056
+"02971","Sooty Grouse","Galliformes","Phasianidae","Dendragapus","fuliginosus","Dendragapus fuliginosus",1056
+"02973","unid. Dusky Grouse / Sooty Grouse","Galliformes","Phasianidae","Dendragapus","obscurus / fuliginosus","Dendragapus obscurus",1056
+"03080","Sharp-tailed Grouse","Galliformes","Phasianidae","Tympanuchus","phasianellus","Tympanuchus phasianellus",885
+"03050","Greater Prairie-Chicken","Galliformes","Phasianidae","Tympanuchus","cupido","Tympanuchus cupido",864
+"03070","Lesser Prairie-Chicken","Galliformes","Phasianidae","Tympanuchus","pallidicinctus","Tympanuchus pallidicinctus",685.5
+"03100","Wild Turkey","Galliformes","Phasianidae","Meleagris","gallopavo","Meleagris gallopavo",5811
+"10630","Ocellated Turkey","Galliformes","Phasianidae","Meleagris","ocellata","Meleagris ocellata",5525
+"00110","Red-throated Loon","Gaviiformes","Gaviidae","Gavia","stellata","Gavia stellata",1603
+"00090","Arctic Loon","Gaviiformes","Gaviidae","Gavia","arctica","Gavia arctica",2804.5
+"00100","Pacific Loon","Gaviiformes","Gaviidae","Gavia","pacifica","Gavia pacifica",2232
+"00101","unid. Arctic Loon / Pacific Loon","Gaviiformes","Gaviidae","Gavia","arctica / pacifica","Gavia arctica",2804.5
+"00070","Common Loon","Gaviiformes","Gaviidae","Gavia","immer","Gavia immer",4980
+"00080","Yellow-billed Loon","Gaviiformes","Gaviidae","Gavia","adamsii","Gavia adamsii",5056.25
+"00050","Least Grebe","Podicipediformes","Podicipedidae","Tachybaptus","dominicus","Tachybaptus dominicus",130.85
+"00060","Pied-billed Grebe","Podicipediformes","Podicipedidae","Podilymbus","podiceps","Podilymbus podiceps",440
+"00030","Horned Grebe","Podicipediformes","Podicipedidae","Podiceps","auritus","Podiceps auritus",449.5
+"00020","Red-necked Grebe","Podicipediformes","Podicipedidae","Podiceps","grisegena","Podiceps grisegena",829.45
+"00040","Eared Grebe","Podicipediformes","Podicipedidae","Podiceps","nigricollis","Podiceps nigricollis",294.5
+"00010","Western Grebe","Podicipediformes","Podicipedidae","Aechmophorus","occidentalis","Aechmophorus occidentalis",1314
+"00011","Clark's Grebe","Podicipediformes","Podicipedidae","Aechmophorus","clarkii","Aechmophorus clarkii",1237
+"00012","unid. Western Grebe / Clark's Grebe","Podicipediformes","Podicipedidae","Aechmophorus","occidentalis / clarkii","Aechmophorus occidentalis",1314
+"01820","American Flamingo","Phoenicopteriformes","Phoenicopteridae","Phoenicopterus","ruber","Phoenicopterus ruber",3052
+"00830","Yellow-nosed Albatross","Procellariiformes","Diomedeidae","Thalassarche","chlororhynchos","Thalassarche chlororhynchos",2460
+"00823","Shy Albatross","Procellariiformes","Diomedeidae","Thalassarche","cauta","Thalassarche cauta",4025
+"00822","Black-browed Albatross","Procellariiformes","Diomedeidae","Thalassarche","melanophris","Thalassarche melanophris",3440
+"00811","Wandering Albatross","Procellariiformes","Diomedeidae","Diomedea","exulans","Diomedea exulans",8190
+"00821","Laysan Albatross","Procellariiformes","Diomedeidae","Phoebastria","immutabilis","Phoebastria immutabilis",3150
+"00810","Black-footed Albatross","Procellariiformes","Diomedeidae","Phoebastria","nigripes","Phoebastria nigripes",3195
+"00820","Short-tailed Albatross","Procellariiformes","Diomedeidae","Phoebastria","albatrus","Phoebastria albatrus",3172.5
+"00860","Northern Fulmar","Procellariiformes","Procellariidae","Fulmarus","glacialis","Fulmarus glacialis",795
+"50400","Great-winged Petrel","Procellariiformes","Procellariidae","Pterodroma","macroptera","Pterodroma macroptera",667.5
+"00984","Kermadec Petrel","Procellariiformes","Procellariidae","Pterodroma","neglecta","Pterodroma neglecta",321.19375
+"00986","Herald Petrel","Procellariiformes","Procellariidae","Pterodroma","arminjoniana","Pterodroma arminjoniana",161
+"01001","Murphy's Petrel","Procellariiformes","Procellariidae","Pterodroma","ultima","Pterodroma ultima",360
+"00990","Mottled Petrel","Procellariiformes","Procellariidae","Pterodroma","inexpectata","Pterodroma inexpectata",263.55
+"00981","Bermuda Petrel","Procellariiformes","Procellariidae","Pterodroma","cahow","Pterodroma cahow",246
+"00980","Black-capped Petrel","Procellariiformes","Procellariidae","Pterodroma","hasitata","Pterodroma hasitata",278
+"09870","Juan Fernandez Petrel","Procellariiformes","Procellariidae","Pterodroma","externa","Pterodroma externa",321.19375
+"00985","Galapagos Petrel","Procellariiformes","Procellariidae","Pterodroma","phaeopygia","Pterodroma phaeopygia",429.5
+"00983","Cook's Petrel","Procellariiformes","Procellariidae","Pterodroma","cookii","Pterodroma cookii",164
+"01003","Stejneger's Petrel","Procellariiformes","Procellariidae","Pterodroma","longirostris","Pterodroma longirostris",321.19375
+"20060","Tahiti Petrel","Procellariiformes","Procellariidae","Pterodroma","rostrata","Pterodroma rostrata",321.19375
+"01010","Bulwer's Petrel","Procellariiformes","Procellariidae","Bulweria","bulwerii","Bulweria bulwerii",103.5
+"01008","Parkinson's Petrel","Procellariiformes","Procellariidae","Procellaria","parkinsoni","Procellaria parkinsoni",702.5
+"00881","Streaked Shearwater","Procellariiformes","Procellariidae","Calonectris","leucomelas","Calonectris leucomelas",886.45
+"00880","Cory's Shearwater","Procellariiformes","Procellariidae","Calonectris","diomedea","Calonectris diomedea",886.45
+"00910","Pink-footed Shearwater","Procellariiformes","Procellariidae","Puffinus","creatopus","Puffinus creatopus",721
+"00951","Flesh-footed Shearwater","Procellariiformes","Procellariidae","Puffinus","carneipes","Puffinus carneipes",568
+"00890","Great Shearwater","Procellariiformes","Procellariidae","Puffinus","gravis","Puffinus gravis",849
+"00961","Wedge-tailed Shearwater","Procellariiformes","Procellariidae","Puffinus","pacificus","Puffinus pacificus",465.8
+"00962","Buller's Shearwater","Procellariiformes","Procellariidae","Puffinus","bulleri","Puffinus bulleri",325.75
+"00950","Sooty Shearwater","Procellariiformes","Procellariidae","Puffinus","griseus","Puffinus griseus",787
+"00960","Short-tailed Shearwater","Procellariiformes","Procellariidae","Puffinus","tenuirostris","Puffinus tenuirostris",544
+"00963","Christmas Shearwater","Procellariiformes","Procellariidae","Puffinus","nativitatis","Puffinus nativitatis",356
+"00900","Manx Shearwater","Procellariiformes","Procellariidae","Puffinus","puffinus","Puffinus puffinus",521.5
+"00931","Townsend's Shearwater","Procellariiformes","Procellariidae","Puffinus","auricularis","Puffinus auricularis",323
+"00930","Black-vented Shearwater","Procellariiformes","Procellariidae","Puffinus","opisthomelas","Puffinus opisthomelas",276
+"00920","Audubon's Shearwater","Procellariiformes","Procellariidae","Puffinus","lherminieri","Puffinus lherminieri",168
+"00921","Little Shearwater","Procellariiformes","Procellariidae","Puffinus","assimilis","Puffinus assimilis",226
+"01090","Wilson's Storm-Petrel","Procellariiformes","Hydrobatidae","Oceanites","oceanicus","Oceanites oceanicus",34.9
+"01110","White-faced Storm-Petrel","Procellariiformes","Hydrobatidae","Pelagodroma","marina","Pelagodroma marina",40.8
+"01040","European Storm-Petrel","Procellariiformes","Hydrobatidae","Hydrobates","pelagicus","Hydrobates pelagicus",25
+"01050","Fork-tailed Storm-Petrel","Procellariiformes","Hydrobatidae","Oceanodroma","furcata","Oceanodroma furcata",54
+"01060","Leach's Storm-Petrel","Procellariiformes","Hydrobatidae","Oceanodroma","leucorhoa","Oceanodroma leucorhoa",45.35
+"01080","Ashy Storm-Petrel","Procellariiformes","Hydrobatidae","Oceanodroma","homochroa","Oceanodroma homochroa",38.1
+"01062","Band-rumped Storm-Petrel","Procellariiformes","Hydrobatidae","Oceanodroma","castro","Oceanodroma castro",45.3
+"01063","Wedge-rumped Storm-Petrel","Procellariiformes","Hydrobatidae","Oceanodroma","tethys","Oceanodroma tethys",24
+"01070","Black Storm-Petrel","Procellariiformes","Hydrobatidae","Oceanodroma","melania","Oceanodroma melania",61.5
+"10090","Markham's Storm-Petrel","Procellariiformes","Hydrobatidae","Oceanodroma","markhami","Oceanodroma markhami",41.3214285714286
+"01030","Least Storm-Petrel","Procellariiformes","Hydrobatidae","Oceanodroma","microsoma","Oceanodroma microsoma",21
+"01120","White-tailed Tropicbird","Phaethontiformes","Phaethontidae","Phaethon","lepturus","Phaethon lepturus",367.3
+"01130","Red-billed Tropicbird","Phaethontiformes","Phaethontidae","Phaethon","aethereus","Phaethon aethereus",750
+"01131","Red-tailed Tropicbird","Phaethontiformes","Phaethontidae","Phaethon","rubricauda","Phaethon rubricauda",219.45
+"01890","Jabiru","Ciconiiformes","Ciconiidae","Jabiru","mycteria","Jabiru mycteria",6892
+"01880","Wood Stork","Ciconiiformes","Ciconiidae","Mycteria","americana","Mycteria americana",2377.5
+"01280","Magnificent Frigatebird","Suliformes","Fregatidae","Fregata","magnificens","Fregata magnificens",1474
+"01281","Great Frigatebird","Suliformes","Fregatidae","Fregata","minor","Fregata minor",1434.5
+"01282","Lesser Frigatebird","Suliformes","Fregatidae","Fregata","ariel","Fregata ariel",806
+"01140","Masked Booby","Suliformes","Sulidae","Sula","dactylatra","Sula dactylatra",2266.65
+"01142","Nazca Booby","Suliformes","Sulidae","Sula","granti","Sula granti",1518.1875
+"01141","Blue-footed Booby","Suliformes","Sulidae","Sula","nebouxii","Sula nebouxii",1542
+"01150","Brown Booby","Suliformes","Sulidae","Sula","leucogaster","Sula leucogaster",1266.1
+"01160","Red-footed Booby","Suliformes","Sulidae","Sula","sula","Sula sula",998
+"01170","Northern Gannet","Suliformes","Sulidae","Morus","bassanus","Morus bassanus",2999.5
+"01220","Brandt's Cormorant","Suliformes","Phalacrocoracidae","Phalacrocorax","penicillatus","Phalacrocorax penicillatus",2250
+"01210","Neotropic Cormorant","Suliformes","Phalacrocoracidae","Phalacrocorax","brasilianus","Phalacrocorax brasilianus",1165
+"01200","Double-crested Cormorant","Suliformes","Phalacrocoracidae","Phalacrocorax","auritus","Phalacrocorax auritus",2254.5
+"01190","Great Cormorant","Suliformes","Phalacrocoracidae","Phalacrocorax","carbo","Phalacrocorax carbo",2200
+"01240","Red-faced Cormorant","Suliformes","Phalacrocoracidae","Phalacrocorax","urile","Phalacrocorax urile",2151.25
+"01230","Pelagic Cormorant","Suliformes","Phalacrocoracidae","Phalacrocorax","pelagicus","Phalacrocorax pelagicus",1868
+"01180","Anhinga","Suliformes","Anhingidae","Anhinga","anhinga","Anhinga anhinga",1337.5
+"01250","American White Pelican","Pelecaniformes","Pelecanidae","Pelecanus","erythrorhynchos","Pelecanus erythrorhynchos",5945
+"01260","Brown Pelican","Pelecaniformes","Pelecanidae","Pelecanus","occidentalis","Pelecanus occidentalis",3057
+"01014","Pinnated Bittern","Pelecaniformes","Ardeidae","Botaurus","pinnatus","Botaurus pinnatus",584
+"01900","American Bittern","Pelecaniformes","Ardeidae","Botaurus","lentiginosus","Botaurus lentiginosus",372
+"20270","Yellow Bittern","Pelecaniformes","Ardeidae","Ixobrychus","sinensis","Ixobrychus sinensis",104
+"01910","Least Bittern","Pelecaniformes","Ardeidae","Ixobrychus","exilis","Ixobrychus exilis",80.45
+"10130","Bare-throated Tiger-Heron","Pelecaniformes","Ardeidae","Tigrisoma","mexicanum","Tigrisoma mexicanum",1274
+"01940","Great Blue Heron","Pelecaniformes","Ardeidae","Ardea","herodias","Ardea herodias",2295
+"01920","Great White Heron","Pelecaniformes","Ardeidae","Ardea","herodias occidentalis","Ardea herodias",2295
+"01950","Gray Heron","Pelecaniformes","Ardeidae","Ardea","cinerea","Ardea cinerea",1433
+"01960","Great Egret","Pelecaniformes","Ardeidae","Ardea","alba","Ardea alba",995
+"20340","Intermediate Egret","Pelecaniformes","Ardeidae","Mesophoyx","intermedia","Mesophoyx intermedia",500
+"01962","Chinese Egret","Pelecaniformes","Ardeidae","Egretta","eulophotes","Egretta eulophotes",500
+"01961","Little Egret","Pelecaniformes","Ardeidae","Egretta","garzetta","Egretta garzetta",532.5
+"01971","Western Reef-Heron","Pelecaniformes","Ardeidae","Egretta","gularis","Egretta gularis",400
+"01970","Snowy Egret","Pelecaniformes","Ardeidae","Egretta","thula","Egretta thula",369
+"02000","Little Blue Heron","Pelecaniformes","Ardeidae","Egretta","caerulea","Egretta caerulea",339.5
+"01990","Tricolored Heron","Pelecaniformes","Ardeidae","Egretta","tricolor","Egretta tricolor",262.5
+"01980","Reddish Egret","Pelecaniformes","Ardeidae","Egretta","rufescens","Egretta rufescens",613.5
+"02001","Cattle Egret","Pelecaniformes","Ardeidae","Bubulcus","ibis","Bubulcus ibis",307.5
+"02010","Green Heron","Pelecaniformes","Ardeidae","Butorides","virescens","Butorides virescens",241
+"10141","Striated Heron","Pelecaniformes","Ardeidae","Butorides","striata","Butorides striata",226.7
+"10150","Agami Heron","Pelecaniformes","Ardeidae","Agamia","agami","Agamia agami",505
+"02020","Black-crowned Night-Heron","Pelecaniformes","Ardeidae","Nycticorax","nycticorax","Nycticorax nycticorax",636
+"02030","Yellow-crowned Night-Heron","Pelecaniformes","Ardeidae","Nyctanassa","violacea","Nyctanassa violacea",682.5
+"02035","unid Black-crowned / Yellow-crowned Night-Heron","Pelecaniformes","Ardeidae","Nycticorax / Nyctanassa","nycticorax / violacea","Nycticorax nycticorax",636
+"10170","Boat-billed Heron","Pelecaniformes","Ardeidae","Cochlearius","cochlearius","Cochlearius cochlearius",657
+"01840","White Ibis","Pelecaniformes","Threskiornithidae","Eudocimus","albus","Eudocimus albus",900
+"01850","Scarlet Ibis","Pelecaniformes","Threskiornithidae","Eudocimus","ruber","Eudocimus ruber",588
+"01860","Glossy Ibis","Pelecaniformes","Threskiornithidae","Plegadis","falcinellus","Plegadis falcinellus",633.75
+"01870","White-faced Ibis","Pelecaniformes","Threskiornithidae","Plegadis","chihi","Plegadis chihi",612.5
+"01861","unid. Glossy Ibis / White-faced Ibis","Pelecaniformes","Threskiornithidae","Plegadis","falcinellus / chihi","Plegadis falcinellus",633.75
+"01830","Roseate Spoonbill","Pelecaniformes","Threskiornithidae","Platalea","ajaja","Platalea ajaja",1475
+"03260","Black Vulture","Accipitriformes","Cathartidae","Coragyps","atratus","Coragyps atratus",2097.25
+"03250","Turkey Vulture","Accipitriformes","Cathartidae","Cathartes","aura","Cathartes aura",1507.5
+"10230","Lesser Yellow-headed Vulture","Accipitriformes","Cathartidae","Cathartes","burrovianus","Cathartes burrovianus",953
+"03240","California Condor","Accipitriformes","Cathartidae","Gymnogyps","californianus","Gymnogyps californianus",8450
+"03261","King Vulture","Accipitriformes","Cathartidae","Sarcoramphus","papa","Sarcoramphus papa",3400
+"03640","Osprey","Accipitriformes","Pandionidae","Pandion","haliaetus","Pandion haliaetus",1527.5
+"10240","Gray-headed Kite","Accipitriformes","Accipitridae","Leptodon","cayanensis","Leptodon cayanensis",484
+"03271","Hook-billed Kite","Accipitriformes","Accipitridae","Chondrohierax","uncinatus","Chondrohierax uncinatus",267.5
+"03270","Swallow-tailed Kite","Accipitriformes","Accipitridae","Elanoides","forficatus","Elanoides forficatus",577
+"03280","White-tailed Kite","Accipitriformes","Accipitridae","Elanus","leucurus","Elanus leucurus",311.65
+"03300","Snail Kite","Accipitriformes","Accipitridae","Rostrhamus","sociabilis","Rostrhamus sociabilis",420
+"10270","Double-toothed Kite","Accipitriformes","Accipitridae","Harpagus","bidentatus","Harpagus bidentatus",182
+"03290","Mississippi Kite","Accipitriformes","Accipitridae","Ictinia","mississippiensis","Ictinia mississippiensis",278
+"10280","Plumbeous Kite","Accipitriformes","Accipitridae","Ictinia","plumbea","Ictinia plumbea",247
+"03520","Bald Eagle","Accipitriformes","Accipitridae","Haliaeetus","leucocephalus","Haliaeetus leucocephalus",4740
+"03510","White-tailed Eagle","Accipitriformes","Accipitridae","Haliaeetus","albicilla","Haliaeetus albicilla",4793
+"03521","Steller's Sea-Eagle","Accipitriformes","Accipitridae","Haliaeetus","pelagicus","Haliaeetus pelagicus",7757
+"10400","Black-collared Hawk","Accipitriformes","Accipitridae","Busarellus","nigricollis","Busarellus nigricollis",614
+"03310","Northern Harrier","Accipitriformes","Accipitridae","Circus","cyaneus","Circus cyaneus",436.5
+"03320","Sharp-shinned Hawk","Accipitriformes","Accipitridae","Accipiter","striatus","Accipiter striatus",138.5
+"03330","Cooper's Hawk","Accipitriformes","Accipitridae","Accipiter","cooperii","Accipiter cooperii",121.5
+"10300","Bicolored Hawk","Accipitriformes","Accipitridae","Accipiter","bicolor","Accipiter bicolor",245
+"03340","Northern Goshawk","Accipitriformes","Accipitridae","Accipiter","gentilis","Accipiter gentilis",926
+"10320","Crane Hawk","Accipitriformes","Accipitridae","Geranospiza","caerulescens","Geranospiza caerulescens",338
+"10360","White Hawk","Accipitriformes","Accipitridae","Leucopternis","albicollis","Leucopternis albicollis",600
+"03450","Common Black-Hawk","Accipitriformes","Accipitridae","Buteogallus","anthracinus","Buteogallus anthracinus",996
+"10380","Great Black-Hawk","Accipitriformes","Accipitridae","Buteogallus","urubitinga","Buteogallus urubitinga",925
+"03350","Harris's Hawk","Accipitriformes","Accipitridae","Parabuteo","unicinctus","Parabuteo unicinctus",843.7
+"10410","Solitary Eagle","Accipitriformes","Accipitridae","Harpyhaliaetus","solitarius","Harpyhaliaetus solitarius",NA
+"03431","Roadside Hawk","Accipitriformes","Accipitridae","Buteo","magnirostris","Buteo magnirostris",325.35
+"03390","Red-shouldered Hawk","Accipitriformes","Accipitridae","Buteo","lineatus","Buteo lineatus",625.5
+"03430","Broad-winged Hawk","Accipitriformes","Accipitridae","Buteo","platypterus","Buteo platypterus",398.5
+"03460","Gray Hawk","Accipitriformes","Accipitridae","Buteo","nitidus","Buteo nitidus",509.5
+"03440","Short-tailed Hawk","Accipitriformes","Accipitridae","Buteo","brachyurus","Buteo brachyurus",460
+"03420","Swainson's Hawk","Accipitriformes","Accipitridae","Buteo","swainsoni","Buteo swainsoni",958.5
+"03410","White-tailed Hawk","Accipitriformes","Accipitridae","Buteo","albicaudatus","Buteo albicaudatus",884
+"03400","Zone-tailed Hawk","Accipitriformes","Accipitridae","Buteo","albonotatus","Buteo albonotatus",628
+"03370","Red-tailed Hawk","Accipitriformes","Accipitridae","Buteo","jamaicensis","Buteo jamaicensis",1126
+"03380","Harlan's Hawk) Red-tailed Hawk","Accipitriformes","Accipitridae","Buteo","jamaicensis harlani","Buteo jamaicensis",1126
+"03480","Ferruginous Hawk","Accipitriformes","Accipitridae","Buteo","regalis","Buteo regalis",1469.5
+"03470","Rough-legged Hawk","Accipitriformes","Accipitridae","Buteo","lagopus","Buteo lagopus",925.8
+"10430","Crested Eagle","Accipitriformes","Accipitridae","Morphnus","guianensis","Morphnus guianensis",1750
+"03500","Harpy Eagle","Accipitriformes","Accipitridae","Harpia","harpyja","Harpia harpyja",4800
+"03490","Golden Eagle","Accipitriformes","Accipitridae","Aquila","chrysaetos","Aquila chrysaetos",4383
+"10450","Black Hawk-Eagle","Accipitriformes","Accipitridae","Spizaetus","tyrannus","Spizaetus tyrannus",1025
+"10460","Ornate Hawk-Eagle","Accipitriformes","Accipitridae","Spizaetus","ornatus","Spizaetus ornatus",1237.5
+"10440","Black-and-white Hawk-Eagle","Accipitriformes","Accipitridae","Spizaetus","melanoleucus","Spizaetus melanoleucus",850
+"10500","Barred Forest-Falcon","Falconiformes","Falconidae","Micrastur","ruficollis","Micrastur ruficollis",178.5
+"10520","Collared Forest-Falcon","Falconiformes","Falconidae","Micrastur","semitorquatus","Micrastur semitorquatus",562
+"10470","Red-throated Caracara","Falconiformes","Falconidae","Ibycter","americanus","Ibycter americanus",586
+"03620","Crested Caracara","Falconiformes","Falconidae","Caracara","cheriway","Caracara cheriway",1167.5
+"10490","Laughing Falcon","Falconiformes","Falconidae","Herpetotheres","cachinnans","Herpetotheres cachinnans",667.5
+"03591","Eurasian Kestrel","Falconiformes","Falconidae","Falco","tinnunculus","Falco tinnunculus",232.5
+"03600","American Kestrel","Falconiformes","Falconidae","Falco","sparverius","Falco sparverius",115.5
+"03570","Merlin","Falconiformes","Falconidae","Falco","columbarius","Falco columbarius",187
+"03561","Eurasian Hobby","Falconiformes","Falconidae","Falco","subbuteo","Falco subbuteo",211
+"03590","Aplomado Falcon","Falconiformes","Falconidae","Falco","femoralis","Falco femoralis",333.5
+"10530","Bat Falcon","Falconiformes","Falconidae","Falco","rufigularis","Falco rufigularis",165.5
+"10540","Orange-breasted Falcon","Falconiformes","Falconidae","Falco","deiroleucus","Falco deiroleucus",654
+"03540","Gyrfalcon","Falconiformes","Falconidae","Falco","rusticolus","Falco rusticolus",1425
+"03560","Peregrine Falcon","Falconiformes","Falconidae","Falco","peregrinus","Falco peregrinus",722.4
+"03550","Prairie Falcon","Falconiformes","Falconidae","Falco","mexicanus","Falco mexicanus",754.5
+"10900","Sunbittern","Eurypygiformes","Eurypygidae","Eurypyga","helias","Eurypyga helias",227
+"02150","Yellow Rail","Gruiformes","Rallidae","Coturnicops","noveboracensis","Coturnicops noveboracensis",55.7
+"10800","Ruddy Crake","Gruiformes","Rallidae","Laterallus","ruber","Laterallus ruber",45
+"10820","Gray-breasted Crake","Gruiformes","Rallidae","Laterallus","exilis","Laterallus exilis",33
+"02160","Black Rail","Gruiformes","Rallidae","Laterallus","jamaicensis","Laterallus jamaicensis",35.4
+"02170","Corn Crake","Gruiformes","Rallidae","Crex","crex","Crex crex",155.5
+"02110","Clapper Rail","Gruiformes","Rallidae","Rallus","longirostris","Rallus longirostris",239.25
+"02080","King Rail","Gruiformes","Rallidae","Rallus","elegans","Rallus elegans",415
+"02090","unid. Clapper / King Rail","Gruiformes","Rallidae","Rallus","elegans /longirostris","Rallus elegans",415
+"02120","Virginia Rail","Gruiformes","Rallidae","Rallus","limicola","Rallus limicola",79.35
+"10840","Rufous-necked Wood-Rail","Gruiformes","Rallidae","Aramides","axillaris","Aramides axillaris",268
+"10830","Gray-necked Wood-Rail","Gruiformes","Rallidae","Aramides","cajanea","Aramides cajanea",397
+"10850","Uniform Crake","Gruiformes","Rallidae","Amaurolimnas","concolor","Amaurolimnas concolor",133
+"02140","Sora","Gruiformes","Rallidae","Porzana","carolina","Porzana carolina",79.65
+"10860","Yellow-breasted Crake","Gruiformes","Rallidae","Porzana","flaviventer","Porzana flaviventer",25
+"02171","Paint-billed Crake","Gruiformes","Rallidae","Neocrex","erythrops","Neocrex erythrops",62
+"02122","Spotted Rail","Gruiformes","Rallidae","Pardirallus","maculatus","Pardirallus maculatus",171
+"02180","Purple Gallinule","Gruiformes","Rallidae","Porphyrio","martinica","Porphyrio martinica",218.45
+"21930","Purple Swamphen","Gruiformes","Rallidae","Porphyrio","porphyrio","Porphyrio porphyrio",796.5
+"02190","Common Gallinule","Gruiformes","Rallidae","Gallinula","galeata","Gallinula galeata",348.5
+"02200","Eurasian Coot","Gruiformes","Rallidae","Fulica","atra","Fulica atra",775
+"02210","American Coot","Gruiformes","Rallidae","Fulica","americana","Fulica americana",540
+"02211","Caribbean Coot","Gruiformes","Rallidae","Fulica","caribaea","Fulica caribaea",657.5
+"10890","Sungrebe","Gruiformes","Heliornithidae","Heliornis","fulica","Heliornis fulica",135
+"02070","Limpkin","Gruiformes","Aramidae","Aramus","guarauna","Aramus guarauna",1160
+"02060","Sandhill Crane","Gruiformes","Gruidae","Grus","canadensis","Grus canadensis",4455
+"02061","Common Crane","Gruiformes","Gruidae","Grus","grus","Grus grus",4797.5
+"02040","Whooping Crane","Gruiformes","Gruidae","Grus","americana","Grus americana",7496.5
+"02692","Double-striped Thick-knee","Charadriiformes","Burhinidae","Burhinus","bistriatus","Burhinus bistriatus",787
+"02690","Northern Lapwing","Charadriiformes","Charadriidae","Vanellus","vanellus","Vanellus vanellus",218.5
+"10910","Southern Lapwing","Charadriiformes","Charadriidae","Vanellus","chilensis","Vanellus chilensis",352.5
+"02700","Black-bellied Plover","Charadriiformes","Charadriidae","Pluvialis","squatarola","Pluvialis squatarola",240.4
+"02720","American Golden-Plover","Charadriiformes","Charadriidae","Pluvialis","dominica","Pluvialis dominica",145.5
+"02721","Pacific Golden-Plover","Charadriiformes","Charadriidae","Pluvialis","fulva","Pluvialis fulva",135
+"02722","unid. Golden-Plover","Charadriiformes","Charadriidae","Pluvialis","apricaria / dominica / fulva","Pluvialis apricaria",175.5
+"02790","Lesser Sand-Plover","Charadriiformes","Charadriidae","Charadrius","mongolus","Charadrius mongolus",58
+"10920","Collared Plover","Charadriiformes","Charadriidae","Charadrius","collaris","Charadrius collaris",28
+"02780","Snowy Plover","Charadriiformes","Charadriidae","Charadrius","nivosus","Charadrius nivosus",69.5944444444444
+"02800","Wilson's Plover","Charadriiformes","Charadriidae","Charadrius","wilsonia","Charadrius wilsonia",61
+"02750","Common Ringed Plover","Charadriiformes","Charadriidae","Charadrius","hiaticula","Charadrius hiaticula",64.1
+"02740","Semipalmated Plover","Charadriiformes","Charadriidae","Charadrius","semipalmatus","Charadrius semipalmatus",46.95
+"02770","Piping Plover","Charadriiformes","Charadriidae","Charadrius","melodus","Charadrius melodus",55.25
+"02730","Killdeer","Charadriiformes","Charadriidae","Charadrius","vociferus","Charadrius vociferus",96.55
+"02810","Mountain Plover","Charadriiformes","Charadriidae","Charadrius","montanus","Charadrius montanus",108
+"02691","Eurasian Dotterel","Charadriiformes","Charadriidae","Charadrius","morinellus","Charadrius morinellus",108.5
+"02860","American Oystercatcher","Charadriiformes","Haematopodidae","Haematopus","palliatus","Haematopus palliatus",560
+"02870","Black Oystercatcher","Charadriiformes","Haematopodidae","Haematopus","bachmani","Haematopus bachmani",681
+"02260","Black-necked Stilt","Charadriiformes","Recurvirostridae","Himantopus","mexicanus","Himantopus mexicanus",169.55
+"02250","American Avocet","Charadriiformes","Recurvirostridae","Recurvirostra","americana","Recurvirostra americana",316.6
+"02880","Northern Jacana","Charadriiformes","Jacanidae","Jacana","spinosa","Jacana spinosa",116.15
+"02632","Terek Sandpiper","Charadriiformes","Scolopacidae","Xenus","cinereus","Xenus cinereus",72.1
+"02631","Common Sandpiper","Charadriiformes","Scolopacidae","Actitis","hypoleucos","Actitis hypoleucos",47.75
+"02630","Spotted Sandpiper","Charadriiformes","Scolopacidae","Actitis","macularius","Actitis macularius",42.45
+"02560","Solitary Sandpiper","Charadriiformes","Scolopacidae","Tringa","solitaria","Tringa solitaria",48.6
+"02591","Gray-tailed Tattler","Charadriiformes","Scolopacidae","Tringa","brevipes","Tringa brevipes",107
+"02590","Wandering Tattler","Charadriiformes","Scolopacidae","Tringa","incana","Tringa incana",108.5
+"02532","Spotted Redshank","Charadriiformes","Scolopacidae","Tringa","erythropus","Tringa erythropus",151.5
+"02540","Greater Yellowlegs","Charadriiformes","Scolopacidae","Tringa","melanoleuca","Tringa melanoleuca",170
+"02530","Common Greenshank","Charadriiformes","Scolopacidae","Tringa","nebularia","Tringa nebularia",173.5
+"02580","Willet","Charadriiformes","Scolopacidae","Tringa","semipalmata","Tringa semipalmata",287.2
+"02550","Lesser Yellowlegs","Charadriiformes","Scolopacidae","Tringa","flavipes","Tringa flavipes",81.85
+"02555","unid. Greater Yellowlegs / Lesser Yellowlegs","Charadriiformes","Scolopacidae","Tringa","melanoleuca / flavipes","Tringa melanoleuca",170
+"02571","Wood Sandpiper","Charadriiformes","Scolopacidae","Tringa","glareola","Tringa glareola",67.5
+"02610","Upland Sandpiper","Charadriiformes","Scolopacidae","Bartramia","longicauda","Bartramia longicauda",150.5
+"02660","Eskimo Curlew","Charadriiformes","Scolopacidae","Numenius","borealis","Numenius borealis",375
+"02650","Whimbrel","Charadriiformes","Scolopacidae","Numenius","phaeopus","Numenius phaeopus",383
+"02680","Bristle-thighed Curlew","Charadriiformes","Scolopacidae","Numenius","tahitiensis","Numenius tahitiensis",433.5
+"02641","Far Eastern Curlew","Charadriiformes","Scolopacidae","Numenius","madagascariensis","Numenius madagascariensis",752.55
+"02640","Long-billed Curlew","Charadriiformes","Scolopacidae","Numenius","americanus","Numenius americanus",699.35
+"02520","Black-tailed Godwit","Charadriiformes","Scolopacidae","Limosa","limosa","Limosa limosa",289.5
+"02510","Hudsonian Godwit","Charadriiformes","Scolopacidae","Limosa","haemastica","Limosa haemastica",255.5
+"02500","Bar-tailed Godwit","Charadriiformes","Scolopacidae","Limosa","lapponica","Limosa lapponica",333.5
+"02490","Marbled Godwit","Charadriiformes","Scolopacidae","Limosa","fedoa","Limosa fedoa",370.5
+"02830","Ruddy Turnstone","Charadriiformes","Scolopacidae","Arenaria","interpres","Arenaria interpres",110.5
+"02840","Black Turnstone","Charadriiformes","Scolopacidae","Arenaria","melanocephala","Arenaria melanocephala",118.9
+"02820","Surfbird","Charadriiformes","Scolopacidae","Aphriza","virgata","Aphriza virgata",201.55
+"02341","Great Knot","Charadriiformes","Scolopacidae","Calidris","tenuirostris","Calidris tenuirostris",165
+"02340","Red Knot","Charadriiformes","Scolopacidae","Calidris","canutus","Calidris canutus",137
+"02480","Sanderling","Charadriiformes","Scolopacidae","Calidris","alba","Calidris alba",54.1
+"02460","Semipalmated Sandpiper","Charadriiformes","Scolopacidae","Calidris","pusilla","Calidris pusilla",26
+"02470","Western Sandpiper","Charadriiformes","Scolopacidae","Calidris","mauri","Calidris mauri",29.5
+"02422","Red-necked Stint","Charadriiformes","Scolopacidae","Calidris","ruficollis","Calidris ruficollis",26.15
+"02423","Little Stint","Charadriiformes","Scolopacidae","Calidris","minuta","Calidris minuta",25.55
+"02411","Temminck's Stint","Charadriiformes","Scolopacidae","Calidris","temminckii","Calidris temminckii",26.05
+"02421","Long-toed Stint","Charadriiformes","Scolopacidae","Calidris","subminuta","Calidris subminuta",30.5
+"02420","Least Sandpiper","Charadriiformes","Scolopacidae","Calidris","minutilla","Calidris minutilla",21.25
+"02400","White-rumped Sandpiper","Charadriiformes","Scolopacidae","Calidris","fuscicollis","Calidris fuscicollis",42.75
+"02410","Baird's Sandpiper","Charadriiformes","Scolopacidae","Calidris","bairdii","Calidris bairdii",39.5
+"02390","Pectoral Sandpiper","Charadriiformes","Scolopacidae","Calidris","melanotos","Calidris melanotos",81.45
+"02380","Sharp-tailed Sandpiper","Charadriiformes","Scolopacidae","Calidris","acuminata","Calidris acuminata",66.9
+"02350","Purple Sandpiper","Charadriiformes","Scolopacidae","Calidris","maritima","Calidris maritima",71.95
+"02356","Rock Sandpiper","Charadriiformes","Scolopacidae","Calidris","ptilocnemis","Calidris ptilocnemis",79.65
+"02430","Dunlin","Charadriiformes","Scolopacidae","Calidris","alpina","Calidris alpina",43.05
+"02440","Curlew Sandpiper","Charadriiformes","Scolopacidae","Calidris","ferruginea","Calidris ferruginea",63.25
+"02330","Stilt Sandpiper","Charadriiformes","Scolopacidae","Calidris","himantopus","Calidris himantopus",58.1
+"02620","Buff-breasted Sandpiper","Charadriiformes","Scolopacidae","Tryngites","subruficollis","Tryngites subruficollis",61.75
+"02600","Ruff","Charadriiformes","Scolopacidae","Philomachus","pugnax","Philomachus pugnax",158.5
+"02310","Short-billed Dowitcher","Charadriiformes","Scolopacidae","Limnodromus","griseus","Limnodromus griseus",113.5
+"02320","Long-billed Dowitcher","Charadriiformes","Scolopacidae","Limnodromus","scolopaceus","Limnodromus scolopaceus",104.5
+"02327","unid. Short-billed / Long-billed Dowitcher","Charadriiformes","Scolopacidae","Limnodromus","griseus / scolopaceus","Limnodromus griseus",113.5
+"02300","Wilson's Snipe","Charadriiformes","Scolopacidae","Gallinago","delicata","Gallinago delicata",119.5
+"02280","American Woodcock","Charadriiformes","Scolopacidae","Scolopax","minor","Scolopax minor",189.45
+"02240","Wilson's Phalarope","Charadriiformes","Scolopacidae","Phalaropus","tricolor","Phalaropus tricolor",59.15
+"02230","Red-necked Phalarope","Charadriiformes","Scolopacidae","Phalaropus","lobatus","Phalaropus lobatus",34.9
+"02220","Red Phalarope","Charadriiformes","Scolopacidae","Phalaropus","fulicarius","Phalaropus fulicarius",55.9
+"00400","Black-legged Kittiwake","Charadriiformes","Laridae","Rissa","tridactyla","Rissa tridactyla",418
+"00410","Red-legged Kittiwake","Charadriiformes","Laridae","Rissa","brevirostris","Rissa brevirostris",391
+"00390","Ivory Gull","Charadriiformes","Laridae","Pagophila","eburnea","Pagophila eburnea",562
+"00620","Sabine's Gull","Charadriiformes","Laridae","Xema","sabini","Xema sabini",185.5
+"00600","Bonaparte's Gull","Charadriiformes","Laridae","Chroicocephalus","philadelphia","Chroicocephalus philadelphia",179.5
+"00551","Black-headed Gull","Charadriiformes","Laridae","Chroicocephalus","ridibundus","Chroicocephalus ridibundus",280.5
+"00601","Little Gull","Charadriiformes","Laridae","Hydrocoloeus","minutus","Hydrocoloeus minutus",98.5
+"00610","Ross's Gull","Charadriiformes","Laridae","Rhodostethia","rosea","Rhodostethia rosea",187
+"10940","Gray Gull","Charadriiformes","Laridae","Leucophaeus","modestus","Leucophaeus modestus",360
+"00580","Laughing Gull","Charadriiformes","Laridae","Leucophaeus","atricilla","Leucophaeus atricilla",300
+"00590","Franklin's Gull","Charadriiformes","Laridae","Leucophaeus","pipixcan","Leucophaeus pipixcan",280
+"00542","Belcher's Gull","Charadriiformes","Laridae","Larus","belcheri","Larus belcheri",600
+"00541","Black-tailed Gull","Charadriiformes","Laridae","Larus","crassirostris","Larus crassirostris",556.5
+"00570","Heermann's Gull","Charadriiformes","Laridae","Larus","heermanni","Larus heermanni",500
+"00550","Mew Gull","Charadriiformes","Laridae","Larus","canus","Larus canus",386.5
+"00540","Ring-billed Gull","Charadriiformes","Laridae","Larus","delawarensis","Larus delawarensis",518.5
+"00490","Western Gull","Charadriiformes","Laridae","Larus","occidentalis","Larus occidentalis",886.4
+"00491","Yellow-footed Gull","Charadriiformes","Laridae","Larus","livens","Larus livens",1321.5
+"00530","California Gull","Charadriiformes","Laridae","Larus","californicus","Larus californicus",775.5
+"00510","Herring Gull","Charadriiformes","Laridae","Larus","argentatus","Larus argentatus",895
+"00431","Thayer's Gull","Charadriiformes","Laridae","Larus","thayeri","Larus thayeri",1093
+"00430","Iceland Gull","Charadriiformes","Laridae","Larus","glaucoides","Larus glaucoides",863
+"00500","Lesser Black-backed Gull","Charadriiformes","Laridae","Larus","fuscus","Larus fuscus",817.5
+"00480","Slaty-backed Gull","Charadriiformes","Laridae","Larus","schistisagus","Larus schistisagus",1327
+"00440","Glaucous-winged Gull","Charadriiformes","Laridae","Larus","glaucescens","Larus glaucescens",1063.05
+"00495","hybrid Western Gull x Glaucous-winged Gull","Charadriiformes","Laridae","Larus","occidentalis x glaucescens","Larus occidentalis",886.4
+"00420","Glaucous Gull","Charadriiformes","Laridae","Larus","hyperboreus","Larus hyperboreus",1412.5
+"00470","Great Black-backed Gull","Charadriiformes","Laridae","Larus","marinus","Larus marinus",1606.5
+"51540","Kelp Gull","Charadriiformes","Laridae","Larus","dominicanus","Larus dominicanus",1008
+"00790","Brown Noddy","Charadriiformes","Laridae","Anous","stolidus","Anous stolidus",184.35
+"00791","Black Noddy","Charadriiformes","Laridae","Anous","minutus","Anous minutus",97.5
+"00793","White Tern","Charadriiformes","Laridae","Gygis","alba","Gygis alba",138.5
+"00750","Sooty Tern","Charadriiformes","Laridae","Onychoprion","fuscatus","Onychoprion fuscatus",180
+"00760","Bridled Tern","Charadriiformes","Laridae","Onychoprion","anaethetus","Onychoprion anaethetus",96
+"00730","Aleutian Tern","Charadriiformes","Laridae","Onychoprion","aleuticus","Onychoprion aleuticus",120
+"00740","Least Tern","Charadriiformes","Laridae","Sternula","antillarum","Sternula antillarum",48.1
+"10960","Large-billed Tern","Charadriiformes","Laridae","Phaetusa","simplex","Phaetusa simplex",232
+"00630","Gull-billed Tern","Charadriiformes","Laridae","Gelochelidon","nilotica","Gelochelidon nilotica",233
+"00640","Caspian Tern","Charadriiformes","Laridae","Hydroprogne","caspia","Hydroprogne caspia",634
+"00770","Black Tern","Charadriiformes","Laridae","Chlidonias","niger","Chlidonias niger",60.25
+"00720","Roseate Tern","Charadriiformes","Laridae","Sterna","dougallii","Sterna dougallii",110
+"00700","Common Tern","Charadriiformes","Laridae","Sterna","hirundo","Sterna hirundo",125
+"00710","Arctic Tern","Charadriiformes","Laridae","Sterna","paradisaea","Sterna paradisaea",114.5
+"00690","Forster's Tern","Charadriiformes","Laridae","Sterna","forsteri","Sterna forsteri",158
+"00650","Royal Tern","Charadriiformes","Laridae","Thalasseus","maximus","Thalasseus maximus",470
+"00670","Sandwich Tern","Charadriiformes","Laridae","Thalasseus","sandvicensis","Thalasseus sandvicensis",208
+"00660","Elegant Tern","Charadriiformes","Laridae","Thalasseus","elegans","Thalasseus elegans",257
+"00800","Black Skimmer","Charadriiformes","Laridae","Rynchops","niger","Rynchops niger",301.5
+"00350","Great Skua","Charadriiformes","Laridae","Stercorarius","skua","Stercorarius skua",1835
+"00352","South Polar Skua","Charadriiformes","Laridae","Stercorarius","maccormicki","Stercorarius maccormicki",1349
+"00360","Pomarine Jaeger","Charadriiformes","Laridae","Stercorarius","pomarinus","Stercorarius pomarinus",694
+"00370","Parasitic Jaeger","Charadriiformes","Laridae","Stercorarius","parasiticus","Stercorarius parasiticus",384.5
+"00380","Long-tailed Jaeger","Charadriiformes","Laridae","Stercorarius","longicaudus","Stercorarius longicaudus",288.55
+"00340","Dovekie","Charadriiformes","Laridae","Alle","alle","Alle alle",152.5
+"00300","Common Murre","Charadriiformes","Laridae","Uria","aalge","Uria aalge",983
+"00310","Thick-billed Murre","Charadriiformes","Laridae","Uria","lomvia","Uria lomvia",944.5
+"00315","unid. Common Murre / Thick-billed Murre","Charadriiformes","Laridae","Uria","aalge / lomvia","Uria aalge",983
+"00320","Razorbill","Charadriiformes","Laridae","Alca","torda","Alca torda",717
+"00270","Black Guillemot","Charadriiformes","Alcidae","Cepphus","grylle","Cepphus grylle",381
+"00290","Pigeon Guillemot","Charadriiformes","Alcidae","Cepphus","columba","Cepphus columba",485
+"00230","Marbled Murrelet","Charadriiformes","Alcidae","Brachyramphus","marmoratus","Brachyramphus marmoratus",219.85
+"00240","Kittlitz's Murrelet","Charadriiformes","Alcidae","Brachyramphus","brevirostris","Brachyramphus brevirostris",224
+"00250","Xantus's Murrelet","Charadriiformes","Alcidae","Synthliboramphus","hypoleucus","Synthliboramphus hypoleucus",169.65
+"00260","Craveri's Murrelet","Charadriiformes","Alcidae","Synthliboramphus","craveri","Synthliboramphus craveri",151
+"00210","Ancient Murrelet","Charadriiformes","Alcidae","Synthliboramphus","antiquus","Synthliboramphus antiquus",206
+"00160","Cassin's Auklet","Charadriiformes","Alcidae","Ptychoramphus","aleuticus","Ptychoramphus aleuticus",188
+"00170","Parakeet Auklet","Charadriiformes","Alcidae","Aethia","psittacula","Aethia psittacula",289
+"00200","Least Auklet","Charadriiformes","Alcidae","Aethia","pusilla","Aethia pusilla",81.4
+"00190","Whiskered Auklet","Charadriiformes","Alcidae","Aethia","pygmaea","Aethia pygmaea",122.55
+"00180","Crested Auklet","Charadriiformes","Alcidae","Aethia","cristatella","Aethia cristatella",259.55
+"00150","Rhinoceros Auklet","Charadriiformes","Alcidae","Cerorhinca","monocerata","Cerorhinca monocerata",483
+"00130","Atlantic Puffin","Charadriiformes","Alcidae","Fratercula","arctica","Fratercula arctica",376
+"00140","Horned Puffin","Charadriiformes","Alcidae","Fratercula","corniculata","Fratercula corniculata",637.16
+"00120","Tufted Puffin","Charadriiformes","Alcidae","Fratercula","cirrhata","Fratercula cirrhata",774.6
+"03131","Rock Pigeon","Columbiformes","Columbidae","Columba","livia","Columba livia",280.5
+"10970","Pale-vented Pigeon","Columbiformes","Columbidae","Patagioenas","cayennensis","Patagioenas cayennensis",240
+"10980","Scaled Pigeon","Columbiformes","Columbidae","Patagioenas","speciosa","Patagioenas speciosa",262
+"03141","Scaly-naped Pigeon","Columbiformes","Columbidae","Patagioenas","squamosa","Patagioenas squamosa",250
+"03140","White-crowned Pigeon","Columbiformes","Columbidae","Patagioenas","leucocephala","Patagioenas leucocephala",237.3
+"03130","Red-billed Pigeon","Columbiformes","Columbidae","Patagioenas","flavirostris","Patagioenas flavirostris",244
+"10990","Plain Pigeon","Columbiformes","Columbidae","Patagioenas","inornata","Patagioenas inornata",250
+"03120","Band-tailed Pigeon","Columbiformes","Columbidae","Patagioenas","fasciata","Patagioenas fasciata",341.7
+"11020","Short-billed Pigeon","Columbiformes","Columbidae","Patagioenas","nigrirostris","Patagioenas nigrirostris",176
+"03152","African Collared-Dove (a.k.a. Ringed Turtle-Dove","Columbiformes","Columbidae","Streptopelia","roseogrisea","Streptopelia roseogrisea",149
+"22860","Eurasian Collared-Dove","Columbiformes","Columbidae","Streptopelia","decaocto","Streptopelia decaocto",193
+"03151","Spotted Dove","Columbiformes","Columbidae","Streptopelia","chinensis","Streptopelia chinensis",160.4
+"03190","White-winged Dove","Columbiformes","Columbidae","Zenaida","asiatica","Zenaida asiatica",153
+"03170","Zenaida Dove","Columbiformes","Columbidae","Zenaida","aurita","Zenaida aurita",159
+"03160","Mourning Dove","Columbiformes","Columbidae","Zenaida","macroura","Zenaida macroura",126.5
+"11040","Socorro Dove","Columbiformes","Columbidae","Zenaida","graysoni","Zenaida graysoni",192
+"03210","Inca Dove","Columbiformes","Columbidae","Columbina","inca","Columbina inca",54.4
+"03200","Common Ground-Dove","Columbiformes","Columbidae","Columbina","passerina","Columbina passerina",37
+"11050","Plain-breasted Ground-Dove","Columbiformes","Columbidae","Columbina","minuta","Columbina minuta",33
+"03201","Ruddy Ground-Dove","Columbiformes","Columbidae","Columbina","talpacoti","Columbina talpacoti",46.5
+"11060","Blue Ground-Dove","Columbiformes","Columbidae","Claravis","pretiosa","Claravis pretiosa",69.7
+"11070","Maroon-chested Ground-Dove","Columbiformes","Columbidae","Claravis","mondetoura","Claravis mondetoura",90
+"03180","White-tipped Dove","Columbiformes","Columbidae","Leptotila","verreauxi","Leptotila verreauxi",118.5
+"11081","Gray-headed Dove","Columbiformes","Columbidae","Leptotila","plumbeiceps","Leptotila plumbeiceps",170
+"11090","Caribbean Dove","Columbiformes","Columbidae","Leptotila","jamaicensis","Leptotila jamaicensis",160
+"11100","Gray-chested Dove","Columbiformes","Columbidae","Leptotila","cassini","Leptotila cassini",159
+"03220","Key West Quail-Dove","Columbiformes","Columbidae","Geotrygon","chrysia","Geotrygon chrysia",171
+"11120","Bridled Quail-Dove","Columbiformes","Columbidae","Geotrygon","mystacea","Geotrygon mystacea",230
+"11130","White-faced Quail-Dove","Columbiformes","Columbidae","Geotrygon","albifacies","Geotrygon albifacies",316
+"11140","Tuxtla Quail-Dove","Columbiformes","Columbidae","Geotrygon","carrikeri","Geotrygon carrikeri",208
+"03221","Ruddy Quail-Dove","Columbiformes","Columbidae","Geotrygon","montana","Geotrygon montana",115
+"81650","Cockatiel","Psittaciformes","Cacatuidae","Nymphicus","hollandicus","Nymphicus hollandicus",86.95
+"03822","Budgerigar","Psittaciformes","Psittacidae","Melopsittacus","undulatus","Melopsittacus undulatus",29.05
+"03823","Rose-ringed Parakeet","Psittaciformes","Psittacidae","Psittacula","krameri","Psittacula krameri",148.75
+"61970","Rosy-faced Lovebird","Psittaciformes","Psittacidae","Agapornis","roseicollis","Agapornis roseicollis",54
+"51830","Nanday (Black-hooded) Parakeet","Psittaciformes","Psittacidae","Nandayus","nenday","Nandayus nenday",128
+"51780","Green-cheeked Parakeet","Psittaciformes","Psittacidae","Pyrrhura","molinae","Pyrrhura molinae",NA
+"03824","Monk Parakeet","Psittaciformes","Psittacidae","Myiopsitta","monachus","Myiopsitta monachus",120
+"41070","Blue-crowned Parakeet","Psittaciformes","Psittacidae","Aratinga","acuticaudata","Aratinga acuticaudata",99.8
+"11230","Green Parakeet","Psittaciformes","Psittacidae","Aratinga","holochlora","Aratinga holochlora",99.8
+"11240","Pacific Parakeet","Psittaciformes","Psittacidae","Aratinga","strenua","Aratinga strenua",99.8
+"51850","Mitred Parakeet","Psittaciformes","Psittacidae","Aratinga","mitrata","Aratinga mitrata",99.8
+"51860","Red-masked Parakeet","Psittaciformes","Psittacidae","Aratinga","erythrogenys","Aratinga erythrogenys",99.8
+"41080","White-eyed Parakeet","Psittaciformes","Psittacidae","Aratinga","leucophthalma","Aratinga leucophthalma",157
+"41110","Dusky-headed Parakeet","Psittaciformes","Psittacidae","Aratinga","weddellii","Aratinga weddellii",108
+"11260","Hispaniolan Parakeet","Psittaciformes","Psittacidae","Aratinga","chloroptera","Aratinga chloroptera",99.8
+"11280","Olive-throated Parakeet","Psittaciformes","Psittacidae","Aratinga","nana","Aratinga nana",77
+"11290","Orange-fronted Parakeet","Psittaciformes","Psittacidae","Aratinga","canicularis","Aratinga canicularis",71
+"11300","Brown-throated Parakeet","Psittaciformes","Psittacidae","Aratinga","pertinax","Aratinga pertinax",86
+"11310","Chestnut-fronted Macaw","Psittaciformes","Psittacidae","Ara","severus","Ara severus",430
+"11320","Military Macaw","Psittaciformes","Psittacidae","Ara","militaris","Ara militaris",1134
+"11350","Scarlet Macaw","Psittaciformes","Psittacidae","Ara","macao","Ara macao",1015
+"11371","Blue-and-yellow Macaw","Psittaciformes","Psittacidae","Ara","ararauna","Ara ararauna",1125
+"03821","Thick-billed Parrot","Psittaciformes","Psittacidae","Rhynchopsitta","pachyrhyncha","Rhynchopsitta pachyrhyncha",325
+"11380","Maroon-fronted Parrot","Psittaciformes","Psittacidae","Rhynchopsitta","terrisi","Rhynchopsitta terrisi",442
+"11390","Barred Parakeet","Psittaciformes","Psittacidae","Bolborhynchus","lineola","Bolborhynchus lineola",54
+"11410","Mexican Parrotlet","Psittaciformes","Psittacidae","Forpus","cyanopygius","Forpus cyanopygius",33
+"11430","Orange-chinned Parakeet","Psittaciformes","Psittacidae","Brotogeris","jugularis","Brotogeris jugularis",61
+"03825","White-winged Parakeet","Psittaciformes","Psittacidae","Brotogeris","versicolurus","Brotogeris versicolurus",71.6
+"52021","Yellow-chevroned Parakeet","Psittaciformes","Psittacidae","Brotogeris","chiriri","Brotogeris chiriri",62
+"11470","Brown-hooded Parrot","Psittaciformes","Psittacidae","Pyrilia","haematotis","Pyrilia haematotis",NA
+"11490","White-crowned Parrot","Psittaciformes","Psittacidae","Pionus","senilis","Pionus senilis",212
+"11500","White-fronted Parrot","Psittaciformes","Psittacidae","Amazona","albifrons","Amazona albifrons",206
+"11510","Yellow-lored Parrot","Psittaciformes","Psittacidae","Amazona","xantholora","Amazona xantholora",217
+"11540","Hispaniolan Parrot","Psittaciformes","Psittacidae","Amazona","ventralis","Amazona ventralis",359
+"11550","Puerto Rican Parrot","Psittaciformes","Psittacidae","Amazona","vittata","Amazona vittata",275
+"03826","Red-crowned Parrot","Psittaciformes","Psittacidae","Amazona","viridigenalis","Amazona viridigenalis",316
+"11570","Lilac-crowned Parrot","Psittaciformes","Psittacidae","Amazona","finschi","Amazona finschi",302
+"11580","Red-lored Parrot","Psittaciformes","Psittacidae","Amazona","autumnalis","Amazona autumnalis",416
+"52170","Blue-fronted Parrot","Psittaciformes","Psittacidae","Amazona","aestiva","Amazona aestiva",400
+"11590","Mealy Parrot","Psittaciformes","Psittacidae","Amazona","farinosa","Amazona farinosa",610
+"41360","Orange-winged Parrot","Psittaciformes","Psittacidae","Amazona","amazonica","Amazona amazonica",338
+"11600","Yellow-headed Parrot","Psittaciformes","Psittacidae","Amazona","oratrix","Amazona oratrix",359
+"11610","Yellow-naped Parrot","Psittaciformes","Psittacidae","Amazona","auropalliata","Amazona auropalliata",359
+"11620","Yellow-crowned Parrot","Psittaciformes","Psittacidae","Amazona","ochrocephala","Amazona ochrocephala",510
+"03882","Common Cuckoo","Cuculiformes","Cuculidae","Cuculus","canorus","Cuculus canorus",111.5
+"03881","Oriental Cuckoo","Cuculiformes","Cuculidae","Cuculus","optatus","Cuculus optatus",96.5
+"11740","Squirrel Cuckoo","Cuculiformes","Cuculidae","Piaya","cayana","Piaya cayana",108
+"03870","Yellow-billed Cuckoo","Cuculiformes","Cuculidae","Coccyzus","americanus","Coccyzus americanus",60.7
+"03860","Mangrove Cuckoo","Cuculiformes","Cuculidae","Coccyzus","minor","Coccyzus minor",66.65
+"03880","Black-billed Cuckoo","Cuculiformes","Cuculidae","Coccyzus","erythropthalmus","Coccyzus erythropthalmus",50.65
+"11690","Puerto Rican Lizard-Cuckoo","Cuculiformes","Cuculidae","Coccyzus","vieilloti","Coccyzus vieilloti",59.3333333333333
+"11760","Striped Cuckoo","Cuculiformes","Cuculidae","Tapera","naevia","Tapera naevia",52
+"11770","Pheasant Cuckoo","Cuculiformes","Cuculidae","Dromococcyx","phasianellus","Dromococcyx phasianellus",85
+"11780","Lesser Ground-Cuckoo","Cuculiformes","Cuculidae","Morococcyx","erythropygus","Morococcyx erythropygus",65
+"11790","Lesser Roadrunner","Cuculiformes","Cuculidae","Geococcyx","velox","Geococcyx velox",203
+"03850","Greater Roadrunner","Cuculiformes","Cuculidae","Geococcyx","californianus","Geococcyx californianus",302.7
+"03830","Smooth-billed Ani","Cuculiformes","Cuculidae","Crotophaga","ani","Crotophaga ani",97.35
+"03840","Groove-billed Ani","Cuculiformes","Cuculidae","Crotophaga","sulcirostris","Crotophaga sulcirostris",74.5
+"03650","Barn Owl","Strigiformes","Tytonidae","Tyto","alba","Tyto alba",353
+"03740","Flammulated Owl","Strigiformes","Strigidae","Otus","flammeolus","Otus flammeolus",60.15
+"03741","Oriental Scops-Owl","Strigiformes","Strigidae","Otus","sunia","Otus sunia",84
+"03732","Western Screech-Owl","Strigiformes","Strigidae","Megascops","kennicottii","Megascops kennicottii",213.55
+"03730","Eastern Screech-Owl","Strigiformes","Strigidae","Megascops","asio","Megascops asio",180
+"11830","Balsas Screech-Owl","Strigiformes","Strigidae","Megascops","seductus","Megascops seductus",136.54
+"11840","Pacific Screech-Owl","Strigiformes","Strigidae","Megascops","cooperi","Megascops cooperi",136.54
+"03731","Whiskered Screech-Owl","Strigiformes","Strigidae","Megascops","trichopsis","Megascops trichopsis",90.15
+"11870","Bearded Screech-Owl","Strigiformes","Strigidae","Megascops","barbarus","Megascops barbarus",69
+"11851","Vermiculated Screech-Owl","Strigiformes","Strigidae","Megascops","guatemalae","Megascops guatemalae",136.54
+"11890","Puerto Rican Screech-Owl","Strigiformes","Strigidae","Megascops","nudipes","Megascops nudipes",130
+"11910","Crested Owl","Strigiformes","Strigidae","Lophostrix","cristata","Lophostrix cristata",468
+"11920","Spectacled Owl","Strigiformes","Strigidae","Pulsatrix","perspicillata","Pulsatrix perspicillata",873
+"03750","Great Horned Owl","Strigiformes","Strigidae","Bubo","virginianus","Bubo virginianus",1505
+"03760","Snowy Owl","Strigiformes","Strigidae","Bubo","scandiacus","Bubo scandiacus",1726
+"03770","Northern Hawk Owl","Strigiformes","Strigidae","Surnia","ulula","Surnia ulula",295
+"03790","Northern Pygmy-Owl","Strigiformes","Strigidae","Glaucidium","gnoma","Glaucidium gnoma",67.45
+"11940","Central American Pygmy-Owl","Strigiformes","Strigidae","Glaucidium","griseiceps","Glaucidium griseiceps",68.55
+"11950","Tamaulipas Pygmy-Owl","Strigiformes","Strigidae","Glaucidium","sanchezi","Glaucidium sanchezi",68.55
+"11960","Colima Pygmy-Owl","Strigiformes","Strigidae","Glaucidium","palmarum","Glaucidium palmarum",68.55
+"03800","Ferruginous Pygmy-Owl","Strigiformes","Strigidae","Glaucidium","brasilianum","Glaucidium brasilianum",69.65
+"03810","Elf Owl","Strigiformes","Strigidae","Micrathene","whitneyi","Micrathene whitneyi",44.5
+"03780","Burrowing Owl","Strigiformes","Strigidae","Athene","cunicularia","Athene cunicularia",151.2
+"03671","Mottled Owl","Strigiformes","Strigidae","Ciccaba","virgata","Ciccaba virgata",250
+"11970","Black-and-white Owl","Strigiformes","Strigidae","Ciccaba","nigrolineata","Ciccaba nigrolineata",250
+"03690","Spotted Owl","Strigiformes","Strigidae","Strix","occidentalis","Strix occidentalis",621
+"03680","Barred Owl","Strigiformes","Strigidae","Strix","varia","Strix varia",626.95
+"11980","Fulvous Owl","Strigiformes","Strigidae","Strix","fulvescens","Strix fulvescens",760.983333333333
+"03700","Great Gray Owl","Strigiformes","Strigidae","Strix","nebulosa","Strix nebulosa",1035
+"03660","Long-eared Owl","Strigiformes","Strigidae","Asio","otus","Asio otus",255.5
+"11990","Stygian Owl","Strigiformes","Strigidae","Asio","stygius","Asio stygius",675
+"03670","Short-eared Owl","Strigiformes","Strigidae","Asio","flammeus","Asio flammeus",295
+"12000","Striped Owl","Strigiformes","Strigidae","Pseudoscops","clamator","Pseudoscops clamator",NA
+"03710","Boreal Owl","Strigiformes","Strigidae","Aegolius","funereus","Aegolius funereus",134
+"03720","Northern Saw-whet Owl","Strigiformes","Strigidae","Aegolius","acadicus","Aegolius acadicus",104.25
+"12020","Unspotted Saw-whet Owl","Strigiformes","Strigidae","Aegolius","ridgwayi","Aegolius ridgwayi",80
+"12030","Short-tailed Nighthawk","Caprimulgiformes","Caprimulgidae","Lurocalis","semitorquatus","Lurocalis semitorquatus",87
+"04210","Lesser Nighthawk","Caprimulgiformes","Caprimulgidae","Chordeiles","acutipennis","Chordeiles acutipennis",49.9
+"04200","Common Nighthawk","Caprimulgiformes","Caprimulgidae","Chordeiles","minor","Chordeiles minor",79.3
+"04201","Antillean Nighthawk","Caprimulgiformes","Caprimulgidae","Chordeiles","gundlachii","Chordeiles gundlachii",64.6
+"04190","Common Pauraque","Caprimulgiformes","Caprimulgidae","Nyctidromus","albicollis","Nyctidromus albicollis",53.05
+"04180","Common Poorwill","Caprimulgiformes","Caprimulgidae","Phalaenoptilus","nuttallii","Phalaenoptilus nuttallii",48.35
+"12060","Eared Poorwill","Caprimulgiformes","Caprimulgidae","Nyctiphrynus","mcleodii","Nyctiphrynus mcleodii",35
+"12070","Yucatan Poorwill","Caprimulgiformes","Caprimulgidae","Nyctiphrynus","yucatanicus","Nyctiphrynus yucatanicus",25
+"04160","Chuck-will's-widow","Caprimulgiformes","Caprimulgidae","Caprimulgus","carolinensis","Caprimulgus carolinensis",108.9
+"12120","Tawny-collared Nightjar","Caprimulgiformes","Caprimulgidae","Caprimulgus","salvini","Caprimulgus salvini",59
+"12121","Yucatan Nightjar","Caprimulgiformes","Caprimulgidae","Caprimulgus","badius","Caprimulgus badius",64
+"04161","Buff-collared Nightjar","Caprimulgiformes","Caprimulgidae","Caprimulgus","ridgwayi","Caprimulgus ridgwayi",48
+"04171","Eastern Whip-poor-will","Caprimulgiformes","Caprimulgidae","Caprimulgus","vociferus","Caprimulgus vociferus",53.4
+"04172","Mexican Whip-poor-will","Caprimulgiformes","Caprimulgidae","Caprimulgus","arizonae","Caprimulgus arizonae",60.5222222222222
+"04170","unid. Mexican / Eastern Whip-poor-will","Caprimulgiformes","Caprimulgidae","Caprimulgus","vociferus / arizonae","Caprimulgus vociferus",53.4
+"12130","Puerto Rican Nightjar","Caprimulgiformes","Caprimulgidae","Caprimulgus","noctitherus","Caprimulgus noctitherus",36
+"12150","White-tailed Nightjar","Caprimulgiformes","Caprimulgidae","Caprimulgus","cayennensis","Caprimulgus cayennensis",35
+"12160","Spot-tailed Nightjar","Caprimulgiformes","Caprimulgidae","Caprimulgus","maculicaudus","Caprimulgus maculicaudus",60.5222222222222
+"04162","Gray Nightjar","Caprimulgiformes","Caprimulgidae","Caprimulgus","indicus","Caprimulgus indicus",87
+"12170","Great Potoo","Caprimulgiformes","Nyctibiidae","Nyctibius","grandis","Nyctibius grandis",575
+"12180","Northern Potoo","Caprimulgiformes","Nyctibiidae","Nyctibius","jamaicensis","Nyctibius jamaicensis",575
+"04220","Black Swift","Apodiformes","Apodidae","Cypseloides","niger","Cypseloides niger",45.6
+"12210","White-fronted Swift","Apodiformes","Apodidae","Cypseloides","storeri","Cypseloides storeri",45.6
+"12220","Chestnut-collared Swift","Apodiformes","Apodidae","Streptoprocne","rutila","Streptoprocne rutila",107
+"04221","White-collared Swift","Apodiformes","Apodidae","Streptoprocne","zonaris","Streptoprocne zonaris",98
+"12230","White-naped Swift","Apodiformes","Apodidae","Streptoprocne","semicollaris","Streptoprocne semicollaris",175
+"04230","Chimney Swift","Apodiformes","Apodidae","Chaetura","pelagica","Chaetura pelagica",23.6
+"04240","Vaux's Swift","Apodiformes","Apodidae","Chaetura","vauxi","Chaetura vauxi",18.5
+"04222","White-throated Needletail","Apodiformes","Apodidae","Hirundapus","caudacutus","Hirundapus caudacutus",118
+"04242","Common Swift","Apodiformes","Apodidae","Apus","apus","Apus apus",39.65
+"04241","Fork-tailed Swift","Apodiformes","Apodidae","Apus","pacificus","Apus pacificus",43.55
+"04250","White-throated Swift","Apodiformes","Apodidae","Aeronautes","saxatalis","Aeronautes saxatalis",31.2
+"12310","Lesser Swallow-tailed Swift","Apodiformes","Apodidae","Panyptila","cayennensis","Panyptila cayennensis",21
+"12320","Great Swallow-tailed Swift","Apodiformes","Apodidae","Panyptila","sanctihieronymi","Panyptila sanctihieronymi",48
+"04251","Antillean Palm-Swift","Apodiformes","Apodidae","Tachornis","phoenicobia","Tachornis phoenicobia",9
+"12370","Long-billed Hermit","Apodiformes","Trochilidae","Phaethornis","longirostris","Phaethornis longirostris",NA
+"12390","Stripe-throated Hermit","Apodiformes","Trochilidae","Phaethornis","striigularis","Phaethornis striigularis",NA
+"12430","Scaly-breasted Hummingbird","Apodiformes","Trochilidae","Phaeochroa","cuvierii","Phaeochroa cuvierii",8.65
+"12440","Wedge-tailed Sabrewing","Apodiformes","Trochilidae","Campylopterus","curvipennis","Campylopterus curvipennis",6.9
+"12450","Long-tailed Sabrewing","Apodiformes","Trochilidae","Campylopterus","excellens","Campylopterus excellens",6.9
+"12460","Rufous Sabrewing","Apodiformes","Trochilidae","Campylopterus","rufus","Campylopterus rufus",7.7
+"12470","Violet Sabrewing","Apodiformes","Trochilidae","Campylopterus","hemileucurus","Campylopterus hemileucurus",10.35
+"12480","White-necked Jacobin","Apodiformes","Trochilidae","Florisuga","mellivora","Florisuga mellivora",7.2
+"04271","Green Violetear","Apodiformes","Trochilidae","Colibri","thalassinus","Colibri thalassinus",5.15
+"12500","Green-breasted Mango","Apodiformes","Trochilidae","Anthracothorax","prevostii","Anthracothorax prevostii",6.9
+"12530","Antillean Mango","Apodiformes","Trochilidae","Anthracothorax","dominicus","Anthracothorax dominicus",5
+"12540","Green Mango","Apodiformes","Trochilidae","Anthracothorax","viridis","Anthracothorax viridis",7
+"12560","Green-throated Carib","Apodiformes","Trochilidae","Eulampis","holosericeus","Eulampis holosericeus",6
+"12570","Antillean Crested Hummingbird","Apodiformes","Trochilidae","Orthorhyncus","cristatus","Orthorhyncus cristatus",3
+"12590","Emerald-chinned Hummingbird","Apodiformes","Trochilidae","Abeillia","abeillei","Abeillia abeillei",3
+"12601","Short-crested Coquette","Apodiformes","Trochilidae","Lophornis","brachylophus","Lophornis brachylophus",3
+"12610","Black-crested Coquette","Apodiformes","Trochilidae","Lophornis","helenae","Lophornis helenae",3
+"12641","Golden-crowned Emerald","Apodiformes","Trochilidae","Chlorostilbon","auriceps","Chlorostilbon auriceps",2.875
+"12642","Cozumel Emerald","Apodiformes","Trochilidae","Chlorostilbon","forficatus","Chlorostilbon forficatus",2.875
+"12640","Canivet's Emerald","Apodiformes","Trochilidae","Chlorostilbon","canivetii","Chlorostilbon canivetii",2.75
+"12680","Puerto Rican Emerald","Apodiformes","Trochilidae","Chlorostilbon","maugaeus","Chlorostilbon maugaeus",3
+"12690","Dusky Hummingbird","Apodiformes","Trochilidae","Cynanthus","sordidus","Cynanthus sordidus",3.8
+"04410","Broad-billed Hummingbird","Apodiformes","Trochilidae","Cynanthus","latirostris","Cynanthus latirostris",3.3
+"12710","Mexican Woodnymph","Apodiformes","Trochilidae","Thalurania","ridgwayi","Thalurania ridgwayi",NA
+"12760","Blue-throated Goldentail","Apodiformes","Trochilidae","Hylocharis","eliciae","Hylocharis eliciae",3.9
+"04401","White-eared Hummingbird","Apodiformes","Trochilidae","Hylocharis","leucotis","Hylocharis leucotis",4.05
+"04400","Xantus's Hummingbird","Apodiformes","Trochilidae","Hylocharis","xantusii","Hylocharis xantusii",3.45
+"12800","White-bellied Emerald","Apodiformes","Trochilidae","Amazilia","candida","Amazilia candida",3.75
+"12850","Azure-crowned Hummingbird","Apodiformes","Trochilidae","Amazilia","cyanocephala","Amazilia cyanocephala",5.75
+"04381","Berylline Hummingbird","Apodiformes","Trochilidae","Amazilia","beryllina","Amazilia beryllina",4.8
+"12870","Blue-tailed Hummingbird","Apodiformes","Trochilidae","Amazilia","cyanura","Amazilia cyanura",4
+"04380","Rufous-tailed Hummingbird","Apodiformes","Trochilidae","Amazilia","tzacatl","Amazilia tzacatl",5.05
+"04390","Buff-bellied Hummingbird","Apodiformes","Trochilidae","Amazilia","yucatanensis","Amazilia yucatanensis",3.9
+"12900","Cinnamon Hummingbird","Apodiformes","Trochilidae","Amazilia","rutila","Amazilia rutila",4.2
+"04391","Violet-crowned Hummingbird","Apodiformes","Trochilidae","Amazilia","violiceps","Amazilia violiceps",5.1
+"12910","Green-fronted Hummingbird","Apodiformes","Trochilidae","Amazilia","viridifrons","Amazilia viridifrons",5.4
+"12920","Stripe-tailed Hummingbird","Apodiformes","Trochilidae","Eupherusa","eximia","Eupherusa eximia",4.5
+"12930","Blue-capped Hummingbird","Apodiformes","Trochilidae","Eupherusa","cyanophrys","Eupherusa cyanophrys",4.75
+"12940","White-tailed Hummingbird","Apodiformes","Trochilidae","Eupherusa","poliocerca","Eupherusa poliocerca",4.625
+"13010","Green-throated Mountain-gem","Apodiformes","Trochilidae","Lampornis","viridipallens","Lampornis viridipallens",5.35
+"13030","Amethyst-throated Hummingbird","Apodiformes","Trochilidae","Lampornis","amethystinus","Lampornis amethystinus",6.05
+"04270","Blue-throated Hummingbird","Apodiformes","Trochilidae","Lampornis","clemenciae","Lampornis clemenciae",7.25
+"13070","Garnet-throated Hummingbird","Apodiformes","Trochilidae","Lamprolaima","rhami","Lamprolaima rhami",8.25
+"04260","Magnificent Hummingbird","Apodiformes","Trochilidae","Eugenes","fulgens","Eugenes fulgens",7.9
+"13100","Purple-crowned Fairy","Apodiformes","Trochilidae","Heliothryx","barroti","Heliothryx barroti",6
+"13110","Long-billed Starthroat","Apodiformes","Trochilidae","Heliomaster","longirostris","Heliomaster longirostris",6.8
+"04261","Plain-capped Starthroat","Apodiformes","Trochilidae","Heliomaster","constantii","Heliomaster constantii",7
+"04371","Bahama Woodstar","Apodiformes","Trochilidae","Calliphlox","evelynae","Calliphlox evelynae",2
+"13130","Slender Sheartail","Apodiformes","Trochilidae","Doricha","enicura","Doricha enicura",2
+"13140","Mexican Sheartail","Apodiformes","Trochilidae","Doricha","eliza","Doricha eliza",2
+"13150","Sparkling-tailed Hummingbird","Apodiformes","Trochilidae","Tilmatura","dupontii","Tilmatura dupontii",2
+"04370","Lucifer Hummingbird","Apodiformes","Trochilidae","Calothorax","lucifer","Calothorax lucifer",3.35
+"13160","Beautiful Hummingbird","Apodiformes","Trochilidae","Calothorax","pulcher","Calothorax pulcher",2.5
+"04280","Ruby-throated Hummingbird","Apodiformes","Trochilidae","Archilochus","colubris","Archilochus colubris",3.6
+"04290","Black-chinned Hummingbird","Apodiformes","Trochilidae","Archilochus","alexandri","Archilochus alexandri",3.45
+"04295","unid. Ruby-throated / Black-chinned Hummingbird","Apodiformes","Trochilidae","Archilochus","colubris / alexandri","Archilochus colubris",3.6
+"04310","Anna's Hummingbird","Apodiformes","Trochilidae","Calypte","anna","Calypte anna",4.25
+"04300","Costa's Hummingbird","Apodiformes","Trochilidae","Calypte","costae","Calypte costae",3.15
+"04360","Calliope Hummingbird","Apodiformes","Trochilidae","Stellula","calliope","Stellula calliope",2.8
+"04350","Bumblebee Hummingbird","Apodiformes","Trochilidae","Atthis","heloisa","Atthis heloisa",2
+"13190","Wine-throated Hummingbird","Apodiformes","Trochilidae","Atthis","ellioti","Atthis ellioti",2
+"04320","Broad-tailed Hummingbird","Apodiformes","Trochilidae","Selasphorus","platycercus","Selasphorus platycercus",3.45
+"04330","Rufous Hummingbird","Apodiformes","Trochilidae","Selasphorus","rufus","Selasphorus rufus",3.45
+"04340","Allen's Hummingbird","Apodiformes","Trochilidae","Selasphorus","sasin","Selasphorus sasin",3.1
+"04335","unid. Rufous Hummingbird / Allen's Hummingbird","Apodiformes","Trochilidae","Selasphorus","rufus / sasin","Selasphorus rufus",3.45
+"13360","Slaty-tailed Trogon","Trogoniformes","Trogonidae","Trogon","massena","Trogon massena",141
+"13260","Black-headed Trogon","Trogoniformes","Trogonidae","Trogon","melanocephalus","Trogon melanocephalus",84.66
+"13270","Citreoline Trogon","Trogoniformes","Trogonidae","Trogon","citreolus","Trogon citreolus",83
+"13300","Gartered Trogon","Trogoniformes","Trogonidae","Trogon","caligatus","Trogon caligatus",84.66
+"03890","Elegant Trogon","Trogoniformes","Trogonidae","Trogon","elegans","Trogon elegans",67.3
+"13310","Mountain Trogon","Trogoniformes","Trogonidae","Trogon","mexicanus","Trogon mexicanus",69
+"13320","Collared Trogon","Trogoniformes","Trogonidae","Trogon","collaris","Trogon collaris",63
+"03891","Eared Quetzal","Trogoniformes","Trogonidae","Euptilotis","neoxenus","Euptilotis neoxenus",NA
+"13390","Resplendent Quetzal","Trogoniformes","Trogonidae","Pharomachrus","mocinno","Pharomachrus mocinno",206
+"03911","Eurasian Hoopoe","Upupiformes","Upupidae","Upupa","epops","Upupa epops",66.2
+"13440","Puerto Rican Tody","Coraciiformes","Todidae","Todus","mexicanus","Todus mexicanus",5
+"13450","Tody Motmot","Coraciiformes","Momotidae","Hylomanes","momotula","Hylomanes momotula",29
+"13460","Blue-throated Motmot","Coraciiformes","Momotidae","Aspatha","gularis","Aspatha gularis",61
+"13480","Russet-crowned Motmot","Coraciiformes","Momotidae","Momotus","mexicanus","Momotus mexicanus",76
+"13470","Blue-crowned Motmot","Coraciiformes","Momotidae","Momotus","momota","Momotus momota",112
+"13500","Keel-billed Motmot","Coraciiformes","Momotidae","Electron","carinatum","Electron carinatum",65
+"13520","Turquoise-browed Motmot","Coraciiformes","Momotidae","Eumomota","superciliosa","Eumomota superciliosa",63
+"03901","Ringed Kingfisher","Coraciiformes","Alcedinidae","Megaceryle","torquata","Megaceryle torquata",317
+"03900","Belted Kingfisher","Coraciiformes","Alcedinidae","Megaceryle","alcyon","Megaceryle alcyon",147.6
+"13530","Amazon Kingfisher","Coraciiformes","Alcedinidae","Chloroceryle","amazona","Chloroceryle amazona",121
+"03910","Green Kingfisher","Coraciiformes","Alcedinidae","Chloroceryle","americana","Chloroceryle americana",32.05
+"13550","American Pygmy Kingfisher","Coraciiformes","Alcedinidae","Chloroceryle","aenea","Chloroceryle aenea",14
+"13570","White-necked Puffbird","Piciformes","Bucconidae","Notharchus","hyperrhynchus","Notharchus hyperrhynchus",122.5
+"13600","White-whiskered Puffbird","Piciformes","Bucconidae","Malacoptila","panamensis","Malacoptila panamensis",43
+"13650","Rufous-tailed Jacamar","Piciformes","Galbulidae","Galbula","ruficauda","Galbula ruficauda",27
+"13700","Emerald Toucanet","Piciformes","Ramphastidae","Aulacorhynchus","prasinus","Aulacorhynchus prasinus",175
+"13710","Collared Aracari","Piciformes","Ramphastidae","Pteroglossus","torquatus","Pteroglossus torquatus",236
+"13740","Keel-billed Toucan","Piciformes","Ramphastidae","Ramphastos","sulfuratus","Ramphastos sulfuratus",339
+"04151","Eurasian Wryneck","Piciformes","Picidae","Jynx","torquilla","Jynx torquilla",37.35
+"04080","Lewis's Woodpecker","Piciformes","Picidae","Melanerpes","lewis","Melanerpes lewis",102
+"13790","Puerto Rican Woodpecker","Piciformes","Picidae","Melanerpes","portoricensis","Melanerpes portoricensis",60
+"04060","Red-headed Woodpecker","Piciformes","Picidae","Melanerpes","erythrocephalus","Melanerpes erythrocephalus",71.6
+"04070","Acorn Woodpecker","Piciformes","Picidae","Melanerpes","formicivorus","Melanerpes formicivorus",79.05
+"13810","Black-cheeked Woodpecker","Piciformes","Picidae","Melanerpes","pucherani","Melanerpes pucherani",66
+"13840","Golden-cheeked Woodpecker","Piciformes","Picidae","Melanerpes","chrysogenys","Melanerpes chrysogenys",72
+"13850","Gray-breasted Woodpecker","Piciformes","Picidae","Melanerpes","hypopolius","Melanerpes hypopolius",52
+"13860","Yucatan Woodpecker","Piciformes","Picidae","Melanerpes","pygmaeus","Melanerpes pygmaeus",40
+"04110","Gila Woodpecker","Piciformes","Picidae","Melanerpes","uropygialis","Melanerpes uropygialis",68.65
+"04100","Golden-fronted Woodpecker","Piciformes","Picidae","Melanerpes","aurifrons","Melanerpes aurifrons",80.9
+"04090","Red-bellied Woodpecker","Piciformes","Picidae","Melanerpes","carolinus","Melanerpes carolinus",70.45
+"04040","Williamson's Sapsucker","Piciformes","Picidae","Sphyrapicus","thyroideus","Sphyrapicus thyroideus",47.6
+"04020","Yellow-bellied Sapsucker","Piciformes","Picidae","Sphyrapicus","varius","Sphyrapicus varius",50.3
+"04021","Red-naped Sapsucker","Piciformes","Picidae","Sphyrapicus","nuchalis","Sphyrapicus nuchalis",49.85
+"04030","Red-breasted Sapsucker","Piciformes","Picidae","Sphyrapicus","ruber","Sphyrapicus ruber",58
+"04031","hybrid Red-naped x Red-breasted Sapsucker","Piciformes","Picidae","Sphyrapicus","nuchalis x ruber","Sphyrapicus nuchalis",49.85
+"04032","unid. Yellow-bellied Sapsucker Complex","Piciformes","Picidae","Sphyrapicus","varius / nuchalis / ruber","Sphyrapicus varius",50.3
+"03960","Ladder-backed Woodpecker","Piciformes","Picidae","Picoides","scalaris","Picoides scalaris",30.3
+"03970","Nuttall's Woodpecker","Piciformes","Picidae","Picoides","nuttallii","Picoides nuttallii",37.85
+"03940","Downy Woodpecker","Piciformes","Picidae","Picoides","pubescens","Picoides pubescens",28.2
+"03930","Hairy Woodpecker","Piciformes","Picidae","Picoides","villosus","Picoides villosus",65.5
+"03975","Arizona Woodpecker","Piciformes","Picidae","Picoides","arizonae","Picoides arizonae",48.8
+"03980","Strickland's Woodpecker","Piciformes","Picidae","Picoides","stricklandi","Picoides stricklandi",46.75
+"03950","Red-cockaded Woodpecker","Piciformes","Picidae","Picoides","borealis","Picoides borealis",47.7
+"03990","White-headed Woodpecker","Piciformes","Picidae","Picoides","albolarvatus","Picoides albolarvatus",61.1
+"04010","American Three-toed Woodpecker","Piciformes","Picidae","Picoides","dorsalis","Picoides dorsalis",48.8
+"04000","Black-backed Woodpecker","Piciformes","Picidae","Picoides","arcticus","Picoides arcticus",73
+"13910","Smoky-brown Woodpecker","Piciformes","Picidae","Veniliornis","fumigatus","Veniliornis fumigatus",35
+"13950","Golden-olive Woodpecker","Piciformes","Picidae","Colaptes","rubiginosus","Colaptes rubiginosus",135.7
+"13960","Gray-crowned Woodpecker","Piciformes","Picidae","Colaptes","auricularis","Colaptes auricularis",135.7
+"04120","Yellow-shafted Flicker) Northern Flicker","Piciformes","Picidae","Colaptes","auratus auratus","Colaptes auratus",135.7
+"04130","Red-shafted Flicker) Northern Flicker","Piciformes","Picidae","Colaptes","auratus cafer","Colaptes auratus",135.7
+"04123","unid. Red/Yellow Shafted) Northern Flicker","Piciformes","Picidae","Colaptes","auratus","Colaptes auratus",135.7
+"04125","hybrid Northern Flicker (Red x Yellow-shafted","Piciformes","Picidae","Colaptes","auratus auratus x auratus cafer","Colaptes auratus",135.7
+"04140","Gilded Flicker","Piciformes","Picidae","Colaptes","chrysoides","Colaptes chrysoides",135.7
+"14000","Chestnut-colored Woodpecker","Piciformes","Picidae","Celeus","castaneus","Celeus castaneus",87
+"14010","Lineated Woodpecker","Piciformes","Picidae","Dryocopus","lineatus","Dryocopus lineatus",194
+"04050","Pileated Woodpecker","Piciformes","Picidae","Dryocopus","pileatus","Dryocopus pileatus",302.75
+"14040","Pale-billed Woodpecker","Piciformes","Picidae","Campephilus","guatemalensis","Campephilus guatemalensis",242
+"14050","Imperial Woodpecker","Piciformes","Picidae","Campephilus","imperialis","Campephilus imperialis",242
+"14500","Great Antshrike","Passeriformes","Thamnophilidae","Taraba","major","Taraba major",68
+"14510","Barred Antshrike","Passeriformes","Thamnophilidae","Thamnophilus","doliatus","Thamnophilus doliatus",28
+"14560","Russet Antshrike","Passeriformes","Thamnophilidae","Thamnistes","anabatinus","Thamnistes anabatinus",21
+"14570","Plain Antvireo","Passeriformes","Thamnophilidae","Dysithamnus","mentalis","Dysithamnus mentalis",13
+"14640","Slaty Antwren","Passeriformes","Thamnophilidae","Myrmotherula","schisticolor","Myrmotherula schisticolor",10
+"14660","Dot-winged Antwren","Passeriformes","Thamnophilidae","Microrhopias","quixensis","Microrhopias quixensis",8
+"14690","Dusky Antbird","Passeriformes","Thamnophilidae","Cercomacra","tyrannina","Cercomacra tyrannina",17.05
+"14840","Scaled Antpitta","Passeriformes","Grallariidae","Grallaria","guatimalensis","Grallaria guatimalensis",94
+"14800","Black-faced Antthrush","Passeriformes","Formicariidae","Formicarius","analis","Formicarius analis",61.75
+"14260","Tawny-throated Leaftosser","Passeriformes","Furnariidae","Sclerurus","mexicanus","Sclerurus mexicanus",25
+"14280","Scaly-throated Leaftosser","Passeriformes","Furnariidae","Sclerurus","guatemalensis","Sclerurus guatemalensis",35
+"14080","Rufous-breasted Spinetail","Passeriformes","Furnariidae","Synallaxis","erythrothorax","Synallaxis erythrothorax",17
+"14180","Scaly-throated Foliage-gleaner","Passeriformes","Furnariidae","Anabacerthia","variegaticeps","Anabacerthia variegaticeps",NA
+"14210","Buff-throated Foliage-gleaner","Passeriformes","Furnariidae","Automolus","ochrolaemus","Automolus ochrolaemus",40
+"14220","Ruddy Foliage-gleaner","Passeriformes","Furnariidae","Automolus","rubiginosus","Automolus rubiginosus",37
+"14240","Plain Xenops","Passeriformes","Furnariidae","Xenops","minutus","Xenops minutus",11
+"14310","Tawny-winged Woodcreeper","Passeriformes","Furnariidae","Dendrocincla","anabatina","Dendrocincla anabatina",37
+"14320","Ruddy Woodcreeper","Passeriformes","Furnariidae","Dendrocincla","homochroa","Dendrocincla homochroa",45
+"14330","Olivaceous Woodcreeper","Passeriformes","Furnariidae","Sittasomus","griseicapillus","Sittasomus griseicapillus",14
+"14350","Wedge-billed Woodcreeper","Passeriformes","Furnariidae","Glyphorynchus","spirurus","Glyphorynchus spirurus",NA
+"14360","Strong-billed Woodcreeper","Passeriformes","Furnariidae","Xiphocolaptes","promeropirhynchus","Xiphocolaptes promeropirhynchus",NA
+"14370","Northern Barred-Woodcreeper","Passeriformes","Furnariidae","Dendrocolaptes","sanctithomae","Dendrocolaptes sanctithomae",74
+"14380","Black-banded Woodcreeper","Passeriformes","Furnariidae","Dendrocolaptes","picumnus","Dendrocolaptes picumnus",74
+"14410","Ivory-billed Woodcreeper","Passeriformes","Furnariidae","Xiphorhynchus","flavigaster","Xiphorhynchus flavigaster",47
+"14430","Spotted Woodcreeper","Passeriformes","Furnariidae","Xiphorhynchus","erythropygius","Xiphorhynchus erythropygius",47
+"14440","White-striped Woodcreeper","Passeriformes","Furnariidae","Lepidocolaptes","leucogaster","Lepidocolaptes leucogaster",36
+"14450","Streak-headed Woodcreeper","Passeriformes","Furnariidae","Lepidocolaptes","souleyetii","Lepidocolaptes souleyetii",26
+"14460","Spot-crowned Woodcreeper","Passeriformes","Furnariidae","Lepidocolaptes","affinis","Lepidocolaptes affinis",35
+"14940","Yellow-bellied Tyrannulet","Passeriformes","Tyrannidae","Ornithion","semiflavum","Ornithion semiflavum",7
+"04720","Northern Beardless-Tyrannulet","Passeriformes","Tyrannidae","Camptostoma","imberbe","Camptostoma imberbe",7.4
+"15030","Greenish Elaenia","Passeriformes","Tyrannidae","Myiopagis","viridicata","Myiopagis viridicata",14
+"15040","Caribbean Elaenia","Passeriformes","Tyrannidae","Elaenia","martinica","Elaenia martinica",23
+"15050","Yellow-bellied Elaenia","Passeriformes","Tyrannidae","Elaenia","flavogaster","Elaenia flavogaster",24
+"15110","Ochre-bellied Flycatcher","Passeriformes","Tyrannidae","Mionectes","oleagineus","Mionectes oleagineus",12
+"15120","Sepia-capped Flycatcher","Passeriformes","Tyrannidae","Leptopogon","amaurocephalus","Leptopogon amaurocephalus",12
+"14930","Paltry Tyrannulet","Passeriformes","Tyrannidae","Zimmerius","vilissimus","Zimmerius vilissimus",10
+"15210","Northern Bentbill","Passeriformes","Tyrannidae","Oncostoma","cinereigulare","Oncostoma cinereigulare",6
+"15230","Slate-headed Tody-Flycatcher","Passeriformes","Tyrannidae","Poecilotriccus","sylvia","Poecilotriccus sylvia",7
+"15240","Common Tody-Flycatcher","Passeriformes","Tyrannidae","Todirostrum","cinereum","Todirostrum cinereum",6
+"15270","Eye-ringed Flatbill","Passeriformes","Tyrannidae","Rhynchocyclus","brevirostris","Rhynchocyclus brevirostris",23
+"15290","Yellow-olive Flycatcher","Passeriformes","Tyrannidae","Tolmomyias","sulphurescens","Tolmomyias sulphurescens",15
+"15310","Stub-tailed Spadebill","Passeriformes","Tyrannidae","Platyrinchus","cancrominus","Platyrinchus cancrominus",NA
+"15340","Royal Flycatcher","Passeriformes","Tyrannidae","Onychorhynchus","coronatus","Onychorhynchus coronatus",16.85
+"15350","Ruddy-tailed Flycatcher","Passeriformes","Tyrannidae","Terenotriccus","erythrurus","Terenotriccus erythrurus",7
+"15370","Sulphur-rumped Flycatcher","Passeriformes","Tyrannidae","Myiobius","sulphureipygius","Myiobius sulphureipygius",12
+"15420","Belted Flycatcher","Passeriformes","Tyrannidae","Xenotriccus","callizonus","Xenotriccus callizonus",11
+"15430","Pileated Flycatcher","Passeriformes","Tyrannidae","Xenotriccus","mexicanus","Xenotriccus mexicanus",14
+"15440","Tufted Flycatcher","Passeriformes","Tyrannidae","Mitrephanes","phaeocercus","Mitrephanes phaeocercus",9
+"04590","Olive-sided Flycatcher","Passeriformes","Tyrannidae","Contopus","cooperi","Contopus cooperi",33.2
+"04600","Greater Pewee","Passeriformes","Tyrannidae","Contopus","pertinax","Contopus pertinax",27.2
+"04620","Western Wood-Pewee","Passeriformes","Tyrannidae","Contopus","sordidulus","Contopus sordidulus",12.5
+"04610","Eastern Wood-Pewee","Passeriformes","Tyrannidae","Contopus","virens","Contopus virens",14.1
+"15470","Tropical Pewee","Passeriformes","Tyrannidae","Contopus","cinereus","Contopus cinereus",12
+"15490","Lesser Antillean Pewee","Passeriformes","Tyrannidae","Contopus","latirostris","Contopus latirostris",11
+"04630","Yellow-bellied Flycatcher","Passeriformes","Tyrannidae","Empidonax","flaviventris","Empidonax flaviventris",11.3
+"04650","Acadian Flycatcher","Passeriformes","Tyrannidae","Empidonax","virescens","Empidonax virescens",12.8
+"04661","Alder Flycatcher","Passeriformes","Tyrannidae","Empidonax","alnorum","Empidonax alnorum",13.5
+"04660","Willow Flycatcher","Passeriformes","Tyrannidae","Empidonax","traillii","Empidonax traillii",12.6
+"04665","unid. Alder Flycatcher / Willow Flycatcher","Passeriformes","Tyrannidae","Empidonax","alnorum / traillii","Empidonax alnorum",13.5
+"15500","White-throated Flycatcher","Passeriformes","Tyrannidae","Empidonax","albigularis","Empidonax albigularis",11
+"04670","Least Flycatcher","Passeriformes","Tyrannidae","Empidonax","minimus","Empidonax minimus",10.65
+"04680","Hammond's Flycatcher","Passeriformes","Tyrannidae","Empidonax","hammondii","Empidonax hammondii",10.45
+"04691","Gray Flycatcher","Passeriformes","Tyrannidae","Empidonax","wrightii","Empidonax wrightii",12.5
+"04690","Dusky Flycatcher","Passeriformes","Tyrannidae","Empidonax","oberholseri","Empidonax oberholseri",10.4
+"04689","unid. Hammond's Flycatcher / Dusky Flycatcher","Passeriformes","Tyrannidae","Empidonax","hammondii / oberholseri","Empidonax hammondii",10.45
+"15520","Pine Flycatcher","Passeriformes","Tyrannidae","Empidonax","affinis","Empidonax affinis",10.46
+"04641","Pacific-slope Flycatcher","Passeriformes","Tyrannidae","Empidonax","difficilis","Empidonax difficilis",10.7
+"04640","Cordilleran Flycatcher","Passeriformes","Tyrannidae","Empidonax","occidentalis","Empidonax occidentalis",11.4
+"04642","unid. Cordilleran / Pacific-slope Flycatcher","Passeriformes","Tyrannidae","Empidonax","difficilis / occidentalis","Empidonax difficilis",10.7
+"15530","Yellowish Flycatcher","Passeriformes","Tyrannidae","Empidonax","flavescens","Empidonax flavescens",12
+"04700","Buff-breasted Flycatcher","Passeriformes","Tyrannidae","Empidonax","fulvifrons","Empidonax fulvifrons",7.9
+"04580","Black Phoebe","Passeriformes","Tyrannidae","Sayornis","nigricans","Sayornis nigricans",18.25
+"04560","Eastern Phoebe","Passeriformes","Tyrannidae","Sayornis","phoebe","Sayornis phoebe",20
+"04570","Say's Phoebe","Passeriformes","Tyrannidae","Sayornis","saya","Sayornis saya",21.2
+"04710","Vermilion Flycatcher","Passeriformes","Tyrannidae","Pyrocephalus","rubinus","Pyrocephalus rubinus",12.9
+"15580","Bright-rumped Attila","Passeriformes","Tyrannidae","Attila","spadiceus","Attila spadiceus",39
+"15600","Rufous Mourner","Passeriformes","Tyrannidae","Rhytipterna","holerythra","Rhytipterna holerythra",37
+"15620","Yucatan Flycatcher","Passeriformes","Tyrannidae","Myiarchus","yucatanensis","Myiarchus yucatanensis",21
+"04550","Dusky-capped Flycatcher","Passeriformes","Tyrannidae","Myiarchus","tuberculifer","Myiarchus tuberculifer",20
+"04540","Ash-throated Flycatcher","Passeriformes","Tyrannidae","Myiarchus","cinerascens","Myiarchus cinerascens",27.95
+"04531","Nutting's Flycatcher","Passeriformes","Tyrannidae","Myiarchus","nuttingi","Myiarchus nuttingi",23
+"04520","Great Crested Flycatcher","Passeriformes","Tyrannidae","Myiarchus","crinitus","Myiarchus crinitus",33.5
+"04530","Brown-crested Flycatcher","Passeriformes","Tyrannidae","Myiarchus","tyrannulus","Myiarchus tyrannulus",43.75
+"04551","La Sagra's Flycatcher","Passeriformes","Tyrannidae","Myiarchus","sagrae","Myiarchus sagrae",18.167
+"15680","Puerto Rican Flycatcher","Passeriformes","Tyrannidae","Myiarchus","antillarum","Myiarchus antillarum",23.615
+"15700","Flammulated Flycatcher","Passeriformes","Tyrannidae","Deltarhynchus","flammulatus","Deltarhynchus flammulatus",17
+"04490","Great Kiskadee","Passeriformes","Tyrannidae","Pitangus","sulphuratus","Pitangus sulphuratus",74
+"15720","Boat-billed Flycatcher","Passeriformes","Tyrannidae","Megarynchus","pitangua","Megarynchus pitangua",NA
+"04500","Social Flycatcher","Passeriformes","Tyrannidae","Myiozetetes","similis","Myiozetetes similis",28
+"15780","Streaked Flycatcher","Passeriformes","Tyrannidae","Myiodynastes","maculatus","Myiodynastes maculatus",43
+"04510","Sulphur-bellied Flycatcher","Passeriformes","Tyrannidae","Myiodynastes","luteiventris","Myiodynastes luteiventris",47.1
+"15790","Piratic Flycatcher","Passeriformes","Tyrannidae","Legatus","leucophaius","Legatus leucophaius",23
+"04511","Variegated Flycatcher","Passeriformes","Tyrannidae","Empidonomus","varius","Empidonomus varius",27
+"04460","Tropical Kingbird","Passeriformes","Tyrannidae","Tyrannus","melancholicus","Tyrannus melancholicus",37.55
+"04461","Couch's Kingbird","Passeriformes","Tyrannidae","Tyrannus","couchii","Tyrannus couchii",39
+"04462","unid. Tropical Kingbird / Couch's Kingbird","Passeriformes","Tyrannidae","Tyrannus","melancholicus / couchii","Tyrannus melancholicus",37.55
+"04480","Cassin's Kingbird","Passeriformes","Tyrannidae","Tyrannus","vociferans","Tyrannus vociferans",43.2
+"04451","Thick-billed Kingbird","Passeriformes","Tyrannidae","Tyrannus","crassirostris","Tyrannus crassirostris",55.65
+"04470","Western Kingbird","Passeriformes","Tyrannidae","Tyrannus","verticalis","Tyrannus verticalis",37.9
+"04440","Eastern Kingbird","Passeriformes","Tyrannidae","Tyrannus","tyrannus","Tyrannus tyrannus",42.2
+"04450","Gray Kingbird","Passeriformes","Tyrannidae","Tyrannus","dominicensis","Tyrannus dominicensis",43.8
+"04452","Loggerhead Kingbird","Passeriformes","Tyrannidae","Tyrannus","caudifasciatus","Tyrannus caudifasciatus",44.4
+"04430","Scissor-tailed Flycatcher","Passeriformes","Tyrannidae","Tyrannus","forficatus","Tyrannus forficatus",39.3
+"04420","Fork-tailed Flycatcher","Passeriformes","Tyrannidae","Tyrannus","savana","Tyrannus savana",29.65
+"16010","Thrush-like Schiffornis","Passeriformes","Tityridae","Schiffornis","turdina","Schiffornis turdina",32
+"15590","Speckled Mourner","Passeriformes","Tityridae","Laniocera","rufescens","Laniocera rufescens",49
+"15890","Masked Tityra","Passeriformes","Tityridae","Tityra","semifasciata","Tityra semifasciata",79
+"15900","Black-crowned Tityra","Passeriformes","Tityridae","Tityra","inquisitor","Tityra inquisitor",43
+"15830","Cinnamon Becard","Passeriformes","Tityridae","Pachyramphus","cinnamomeus","Pachyramphus cinnamomeus",20
+"15840","White-winged Becard","Passeriformes","Tityridae","Pachyramphus","polychopterus","Pachyramphus polychopterus",22
+"15860","Gray-collared Becard","Passeriformes","Tityridae","Pachyramphus","major","Pachyramphus major",25
+"04411","Rose-throated Becard","Passeriformes","Tityridae","Pachyramphus","aglaiae","Pachyramphus aglaiae",30
+"15920","Lovely Cotinga","Passeriformes","Cotingidae","Cotinga","amabilis","Cotinga amabilis",71.9
+"15910","Rufous Piha","Passeriformes","Cotingidae","Lipaugus","unirufus","Lipaugus unirufus",82
+"16050","White-collared Manakin","Passeriformes","Pipridae","Manacus","candei","Manacus candei",18.2
+"16090","Long-tailed Manakin","Passeriformes","Pipridae","Chiroxiphia","linearis","Chiroxiphia linearis",19.05
+"16130","Red-capped Manakin","Passeriformes","Pipridae","Pipra","mentalis","Pipra mentalis",17.55
+"06211","Brown Shrike","Passeriformes","Laniidae","Lanius","cristatus","Lanius cristatus",33.8
+"06220","Loggerhead Shrike","Passeriformes","Laniidae","Lanius","ludovicianus","Lanius ludovicianus",47.7
+"06210","Northern Shrike","Passeriformes","Laniidae","Lanius","excubitor","Lanius excubitor",63.4
+"17260","Slaty Vireo","Passeriformes","Vireonidae","Vireo","brevipennis","Vireo brevipennis",11.8
+"06310","White-eyed Vireo","Passeriformes","Vireonidae","Vireo","griseus","Vireo griseus",11.6
+"17270","Thick-billed Vireo","Passeriformes","Vireonidae","Vireo","crassirostris","Vireo crassirostris",13.1
+"17280","Mangrove Vireo","Passeriformes","Vireonidae","Vireo","pallens","Vireo pallens",11.6
+"17290","Cozumel Vireo","Passeriformes","Vireonidae","Vireo","bairdi","Vireo bairdi",12
+"17330","Puerto Rican Vireo","Passeriformes","Vireonidae","Vireo","latimeri","Vireo latimeri",11.2
+"06330","Bell's Vireo","Passeriformes","Vireonidae","Vireo","bellii","Vireo bellii",9.8
+"06300","Black-capped Vireo","Passeriformes","Vireonidae","Vireo","atricapilla","Vireo atricapilla",8.85
+"17350","Dwarf Vireo","Passeriformes","Vireonidae","Vireo","nelsoni","Vireo nelsoni",9.4
+"06340","Gray Vireo","Passeriformes","Vireonidae","Vireo","vicinior","Vireo vicinior",12.4
+"06280","Yellow-throated Vireo","Passeriformes","Vireonidae","Vireo","flavifrons","Vireo flavifrons",18
+"06292","Plumbeous Vireo","Passeriformes","Vireonidae","Vireo","plumbeus","Vireo plumbeus",16.25
+"06291","Cassin's Vireo","Passeriformes","Vireonidae","Vireo","cassinii","Vireo cassinii",14.6
+"06290","Blue-headed Vireo","Passeriformes","Vireonidae","Vireo","solitarius","Vireo solitarius",15.35
+"06295","unid. Plumbeous / Cassin's / Blue-headed Vireo","Passeriformes","Vireonidae","Vireo","plumbeus / cassinii / solitarius","Vireo plumbeus",16.25
+"06320","Hutton's Vireo","Passeriformes","Vireonidae","Vireo","huttoni","Vireo huttoni",10.9
+"17380","Golden Vireo","Passeriformes","Vireonidae","Vireo","hypochryseus","Vireo hypochryseus",12
+"06270","Warbling Vireo","Passeriformes","Vireonidae","Vireo","gilvus","Vireo gilvus",11.7
+"17390","Brown-capped Vireo","Passeriformes","Vireonidae","Vireo","leucophrys","Vireo leucophrys",13
+"06260","Philadelphia Vireo","Passeriformes","Vireonidae","Vireo","philadelphicus","Vireo philadelphicus",12.2
+"06240","Red-eyed Vireo","Passeriformes","Vireonidae","Vireo","olivaceus","Vireo olivaceus",16.4
+"06250","Yellow-green Vireo","Passeriformes","Vireonidae","Vireo","flavoviridis","Vireo flavoviridis",18
+"06230","Black-whiskered Vireo","Passeriformes","Vireonidae","Vireo","altiloquus","Vireo altiloquus",17.9
+"06231","Yucatan Vireo","Passeriformes","Vireonidae","Vireo","magister","Vireo magister",15.4
+"17420","Tawny-crowned Greenlet","Passeriformes","Vireonidae","Hylophilus","ochraceiceps","Hylophilus ochraceiceps",11
+"17440","Lesser Greenlet","Passeriformes","Vireonidae","Hylophilus","decurtatus","Hylophilus decurtatus",9
+"17450","Chestnut-sided Shrike-Vireo","Passeriformes","Vireonidae","Vireolanius","melitophrys","Vireolanius melitophrys",35
+"17460","Green Shrike-Vireo","Passeriformes","Vireonidae","Vireolanius","pulchellus","Vireolanius pulchellus",24
+"17480","Rufous-browed Peppershrike","Passeriformes","Vireonidae","Cyclarhis","gujanensis","Cyclarhis gujanensis",29
+"04840","Gray Jay","Passeriformes","Corvidae","Perisoreus","canadensis","Perisoreus canadensis",71.7
+"16340","White-throated Jay","Passeriformes","Corvidae","Cyanolyca","mirabilis","Cyanolyca mirabilis",52
+"16320","Dwarf Jay","Passeriformes","Corvidae","Cyanolyca","nana","Cyanolyca nana",41
+"16310","Black-throated Jay","Passeriformes","Corvidae","Cyanolyca","pumilo","Cyanolyca pumilo",47
+"16300","Azure-hooded Jay","Passeriformes","Corvidae","Cyanolyca","cucullata","Cyanolyca cucullata",109
+"16230","Black-throated Magpie-Jay","Passeriformes","Corvidae","Calocitta","colliei","Calocitta colliei",234
+"16240","White-throated Magpie-Jay","Passeriformes","Corvidae","Calocitta","formosa","Calocitta formosa",210
+"04832","Brown Jay","Passeriformes","Corvidae","Psilorhinus","morio","Psilorhinus morio",243.5
+"16250","Tufted Jay","Passeriformes","Corvidae","Cyanocorax","dickeyi","Cyanocorax dickeyi",176
+"04830","Green Jay","Passeriformes","Corvidae","Cyanocorax","yncas","Cyanocorax yncas",82.35
+"04831","San Blas Jay","Passeriformes","Corvidae","Cyanocorax","sanblasianus","Cyanocorax sanblasianus",73
+"16280","Yucatan Jay","Passeriformes","Corvidae","Cyanocorax","yucatanicus","Cyanocorax yucatanicus",118
+"16290","Purplish-backed Jay","Passeriformes","Corvidae","Cyanocorax","beecheii","Cyanocorax beecheii",193
+"04920","Pinyon Jay","Passeriformes","Corvidae","Gymnorhinus","cyanocephalus","Gymnorhinus cyanocephalus",105
+"04780","Steller's Jay","Passeriformes","Corvidae","Cyanocitta","stelleri","Cyanocitta stelleri",94
+"04770","Blue Jay","Passeriformes","Corvidae","Cyanocitta","cristata","Cyanocitta cristata",71.65
+"04790","Florida Scrub-Jay","Passeriformes","Corvidae","Aphelocoma","coerulescens","Aphelocoma coerulescens",77.1
+"04811","Island Scrub-Jay","Passeriformes","Corvidae","Aphelocoma","insularis","Aphelocoma insularis",117.95
+"04810","Western Scrub-Jay","Passeriformes","Corvidae","Aphelocoma","californica","Aphelocoma californica",93.05
+"04821","Transvolcanic Jay","Passeriformes","Corvidae","Aphelocoma","ultramarina","Aphelocoma ultramarina",130.15
+"04820","Mexican Jay","Passeriformes","Corvidae","Aphelocoma","wollweberi","Aphelocoma wollweberi",130.15
+"16350","Unicolored Jay","Passeriformes","Corvidae","Aphelocoma","unicolor","Aphelocoma unicolor",124
+"04910","Clark's Nutcracker","Passeriformes","Corvidae","Nucifraga","columbiana","Nucifraga columbiana",130
+"04750","Black-billed Magpie","Passeriformes","Corvidae","Pica","hudsonia","Pica hudsonia",228
+"04760","Yellow-billed Magpie","Passeriformes","Corvidae","Pica","nuttalli","Pica nuttalli",154.05
+"04903","Eurasian Jackdaw","Passeriformes","Corvidae","Corvus","monedula","Corvus monedula",224.5
+"04880","American Crow","Passeriformes","Corvidae","Corvus","brachyrhynchos","Corvus brachyrhynchos",399.7
+"04890","Northwestern Crow","Passeriformes","Corvidae","Corvus","caurinus","Corvus caurinus",387
+"16380","White-necked Crow","Passeriformes","Corvidae","Corvus","leucognaphalus","Corvus leucognaphalus",467.828571428571
+"04891","Tamaulipas Crow","Passeriformes","Corvidae","Corvus","imparatus","Corvus imparatus",467.828571428571
+"16351","Sinaloa Crow","Passeriformes","Corvidae","Corvus","sinaloae","Corvus sinaloae",244
+"04900","Fish Crow","Passeriformes","Corvidae","Corvus","ossifragus","Corvus ossifragus",285.05
+"04870","Chihuahuan Raven","Passeriformes","Corvidae","Corvus","cryptoleucus","Corvus cryptoleucus",534
+"04860","Common Raven","Passeriformes","Corvidae","Corvus","corax","Corvus corax",1200.55
+"04730","Sky Lark","Passeriformes","Alaudidae","Alauda","arvensis","Alauda arvensis",36.4
+"04740","Horned Lark","Passeriformes","Alaudidae","Eremophila","alpestris","Eremophila alpestris",38.35
+"06110","Purple Martin","Passeriformes","Hirundinidae","Progne","subis","Progne subis",48.5
+"06111","Cuban Martin","Passeriformes","Hirundinidae","Progne","cryptoleuca","Progne cryptoleuca",41.4
+"06113","Caribbean Martin","Passeriformes","Hirundinidae","Progne","dominicensis","Progne dominicensis",40
+"16160","Sinaloa Martin","Passeriformes","Hirundinidae","Progne","sinaloae","Progne sinaloae",41.4
+"06112","Gray-breasted Martin","Passeriformes","Hirundinidae","Progne","chalybea","Progne chalybea",42
+"06114","Southern Martin","Passeriformes","Hirundinidae","Progne","elegans","Progne elegans",41.4
+"06115","Brown-chested Martin","Passeriformes","Hirundinidae","Progne","tapera","Progne tapera",35.1
+"06140","Tree Swallow","Passeriformes","Hirundinidae","Tachycineta","bicolor","Tachycineta bicolor",21.2
+"16170","Mangrove Swallow","Passeriformes","Hirundinidae","Tachycineta","albilinea","Tachycineta albilinea",14
+"06150","Violet-green Swallow","Passeriformes","Hirundinidae","Tachycineta","thalassina","Tachycineta thalassina",14.15
+"06151","Bahama Swallow","Passeriformes","Hirundinidae","Tachycineta","cyaneoviridis","Tachycineta cyaneoviridis",18
+"16190","Blue-and-white Swallow","Passeriformes","Hirundinidae","Pygochelidon","cyanoleuca","Pygochelidon cyanoleuca",11.6
+"16200","Black-capped Swallow","Passeriformes","Hirundinidae","Notiochelidon","pileata","Notiochelidon pileata",12
+"06170","Northern Rough-winged Swallow","Passeriformes","Hirundinidae","Stelgidopteryx","serripennis","Stelgidopteryx serripennis",13.9
+"16220","Southern Rough-winged Swallow","Passeriformes","Hirundinidae","Stelgidopteryx","ruficollis","Stelgidopteryx ruficollis",15
+"06160","Bank Swallow","Passeriformes","Hirundinidae","Riparia","riparia","Riparia riparia",13.15
+"06120","Cliff Swallow","Passeriformes","Hirundinidae","Petrochelidon","pyrrhonota","Petrochelidon pyrrhonota",24.05
+"06121","Cave Swallow","Passeriformes","Hirundinidae","Petrochelidon","fulva","Petrochelidon fulva",18.1
+"06122","unid. Cave Swallow / Cliff Swallow","Passeriformes","Hirundinidae","Petrochelidon","pyrrhonota / fulva","Petrochelidon pyrrhonota",24.05
+"06130","Barn Swallow","Passeriformes","Hirundinidae","Hirundo","rustica","Hirundo rustica",19.1
+"06152","Common House-Martin","Passeriformes","Hirundinidae","Delichon","urbicum","Delichon urbicum",19.55
+"07360","Carolina Chickadee","Passeriformes","Paridae","Poecile","carolinensis","Poecile carolinensis",10
+"07350","Black-capped Chickadee","Passeriformes","Paridae","Poecile","atricapillus","Poecile atricapillus",12.95
+"07380","Mountain Chickadee","Passeriformes","Paridae","Poecile","gambeli","Poecile gambeli",11.3
+"07370","Mexican Chickadee","Passeriformes","Paridae","Poecile","sclateri","Poecile sclateri",10.3
+"07410","Chestnut-backed Chickadee","Passeriformes","Paridae","Poecile","rufescens","Poecile rufescens",9.4
+"07400","Boreal Chickadee","Passeriformes","Paridae","Poecile","hudsonicus","Poecile hudsonicus",9.8
+"07390","Gray-headed Chickadee","Passeriformes","Paridae","Poecile","cinctus","Poecile cinctus",12.05
+"07340","Bridled Titmouse","Passeriformes","Paridae","Baeolophus","wollweberi","Baeolophus wollweberi",10.4
+"07330","Oak Titmouse","Passeriformes","Paridae","Baeolophus","inornatus","Baeolophus inornatus",15.95
+"07331","Juniper Titmouse","Passeriformes","Paridae","Baeolophus","ridgwayi","Baeolophus ridgwayi",16.93
+"07332","unid. Oak Titmouse / Juniper Titmouse","Passeriformes","Paridae","Baeolophus","inornatus / ridgwayi","Baeolophus inornatus",16.93
+"07310","Tufted Titmouse","Passeriformes","Paridae","Baeolophus","bicolor","Baeolophus bicolor",21.15
+"07320","Black-crested Titmouse","Passeriformes","Paridae","Baeolophus","atricristatus","Baeolophus atricristatus",16
+"07315","unid. Tufted Titmouse / Black-crested Titmouse","Passeriformes","Paridae","Baeolophus","bicolor / atricristatus","Baeolophus bicolor",21.15
+"07460","Verdin","Passeriformes","Remizidae","Auriparus","flaviceps","Auriparus flaviceps",8
+"07430","Bushtit","Passeriformes","Aegithalidae","Psaltriparus","minimus","Psaltriparus minimus",5.3
+"07280","Red-breasted Nuthatch","Passeriformes","Sittidae","Sitta","canadensis","Sitta canadensis",10.5
+"07270","White-breasted Nuthatch","Passeriformes","Sittidae","Sitta","carolinensis","Sitta carolinensis",21.1
+"07300","Pygmy Nuthatch","Passeriformes","Sittidae","Sitta","pygmaea","Sitta pygmaea",10.4
+"07290","Brown-headed Nuthatch","Passeriformes","Sittidae","Sitta","pusilla","Sitta pusilla",11.15
+"07260","Brown Creeper","Passeriformes","Certhiidae","Certhia","americana","Certhia americana",7.9
+"16420","Band-backed Wren","Passeriformes","Troglodytidae","Campylorhynchus","zonatus","Campylorhynchus zonatus",35
+"16430","Gray-barred Wren","Passeriformes","Troglodytidae","Campylorhynchus","megalopterus","Campylorhynchus megalopterus",33
+"16440","Giant Wren","Passeriformes","Troglodytidae","Campylorhynchus","chiapensis","Campylorhynchus chiapensis",51
+"16450","Rufous-naped Wren","Passeriformes","Troglodytidae","Campylorhynchus","rufinucha","Campylorhynchus rufinucha",30
+"16460","Spotted Wren","Passeriformes","Troglodytidae","Campylorhynchus","gularis","Campylorhynchus gularis",30
+"16470","Boucard's Wren","Passeriformes","Troglodytidae","Campylorhynchus","jocosus","Campylorhynchus jocosus",28
+"16480","Yucatan Wren","Passeriformes","Troglodytidae","Campylorhynchus","yucatanicus","Campylorhynchus yucatanicus",36
+"07130","Cactus Wren","Passeriformes","Troglodytidae","Campylorhynchus","brunneicapillus","Campylorhynchus brunneicapillus",38.9
+"07150","Rock Wren","Passeriformes","Troglodytidae","Salpinctes","obsoletus","Salpinctes obsoletus",16.5
+"07170","Canyon Wren","Passeriformes","Troglodytidae","Catherpes","mexicanus","Catherpes mexicanus",11.25
+"16490","Sumichrast's Wren","Passeriformes","Troglodytidae","Hylorchilus","sumichrasti","Hylorchilus sumichrasti",NA
+"16500","Nava's Wren","Passeriformes","Troglodytidae","Hylorchilus","navai","Hylorchilus navai",NA
+"16580","Spot-breasted Wren","Passeriformes","Troglodytidae","Thryothorus","maculipectus","Thryothorus maculipectus",16
+"16590","Rufous-and-white Wren","Passeriformes","Troglodytidae","Thryothorus","rufalbus","Thryothorus rufalbus",28
+"16600","Sinaloa Wren","Passeriformes","Troglodytidae","Thryothorus","sinaloa","Thryothorus sinaloa",15
+"16610","Banded Wren","Passeriformes","Troglodytidae","Thryothorus","pleurostictus","Thryothorus pleurostictus",18
+"07180","Carolina Wren","Passeriformes","Troglodytidae","Thryothorus","ludovicianus","Thryothorus ludovicianus",19.3
+"16620","Happy Wren","Passeriformes","Troglodytidae","Thryothorus","felix","Thryothorus felix",13
+"16640","Plain Wren","Passeriformes","Troglodytidae","Thryothorus","modestus","Thryothorus modestus",20
+"07190","Bewick's Wren","Passeriformes","Troglodytidae","Thryomanes","bewickii","Thryomanes bewickii",9.9
+"07210","House Wren","Passeriformes","Troglodytidae","Troglodytes","aedon","Troglodytes aedon",11.45
+"16650","Socorro Wren","Passeriformes","Troglodytidae","Troglodytes","sissonii","Troglodytes sissonii",8
+"16670","Clarion Wren","Passeriformes","Troglodytidae","Troglodytes","tanneri","Troglodytes tanneri",9.525
+"16680","Rufous-browed Wren","Passeriformes","Troglodytidae","Troglodytes","rufociliatus","Troglodytes rufociliatus",11
+"07221","Pacific Wren","Passeriformes","Troglodytidae","Troglodytes","pacificus","Troglodytes pacificus",8.9
+"07222","Winter Wren","Passeriformes","Troglodytidae","Troglodytes","hiemalis","Troglodytes hiemalis",8.9
+"07220","unid. Pacific Wren / Winter Wren","Passeriformes","Troglodytidae","Troglodytes","pacificus / hiemalis","Troglodytes pacificus",8.9
+"07240","Sedge Wren","Passeriformes","Troglodytidae","Cistothorus","platensis","Cistothorus platensis",8
+"07250","Marsh Wren","Passeriformes","Troglodytidae","Cistothorus","palustris","Cistothorus palustris",10
+"16700","White-bellied Wren","Passeriformes","Troglodytidae","Uropsila","leucogastra","Uropsila leucogastra",10
+"16720","White-breasted Wood-Wren","Passeriformes","Troglodytidae","Henicorhina","leucosticta","Henicorhina leucosticta",16
+"16730","Gray-breasted Wood-Wren","Passeriformes","Troglodytidae","Henicorhina","leucophrys","Henicorhina leucophrys",18
+"16741","Nightingale Wren","Passeriformes","Troglodytidae","Microcerculus","philomela","Microcerculus philomela",19
+"16770","Long-billed Gnatwren","Passeriformes","Polioptilidae","Ramphocaenus","melanurus","Ramphocaenus melanurus",9.95
+"07510","Blue-gray Gnatcatcher","Passeriformes","Polioptilidae","Polioptila","caerulea","Polioptila caerulea",6.25
+"07530","California Gnatcatcher","Passeriformes","Polioptilidae","Polioptila","californica","Polioptila californica",6
+"07520","Black-tailed Gnatcatcher","Passeriformes","Polioptilidae","Polioptila","melanura","Polioptila melanura",5.2
+"07531","Black-capped Gnatcatcher","Passeriformes","Polioptilidae","Polioptila","nigriceps","Polioptila nigriceps",6
+"16790","White-lored Gnatcatcher","Passeriformes","Polioptilidae","Polioptila","albiloris","Polioptila albiloris",6
+"16800","Tropical Gnatcatcher","Passeriformes","Polioptilidae","Polioptila","plumbea","Polioptila plumbea",6
+"07010","American Dipper","Passeriformes","Cinclidae","Cinclus","mexicanus","Cinclus mexicanus",56.8
+"07261","Red-whiskered Bulbul","Passeriformes","Pycnonotidae","Pycnonotus","jocosus","Pycnonotus jocosus",27
+"07480","Golden-crowned Kinglet","Passeriformes","Regulidae","Regulus","satrapa","Regulus satrapa",6.2
+"07490","Ruby-crowned Kinglet","Passeriformes","Regulidae","Regulus","calendula","Regulus calendula",6.65
+"07473","Wood Warbler","Passeriformes","Phylloscopidae","Phylloscopus","sibilatrix","Phylloscopus sibilatrix",9.95
+"07474","Dusky Warbler","Passeriformes","Phylloscopidae","Phylloscopus","fuscatus","Phylloscopus fuscatus",10.35
+"07470","Arctic Warbler","Passeriformes","Phylloscopidae","Phylloscopus","borealis","Phylloscopus borealis",9.5
+"07420","Wrentit","Passeriformes","Sylviidae","Chamaea","fasciata","Chamaea fasciata",14.75
+"07471","Middendorff's Grasshopper-Warbler","Passeriformes","Megaluridae","Locustella","ochotensis","Locustella ochotensis",19
+"07475","Lanceolated Warbler","Passeriformes","Megaluridae","Locustella","lanceolata","Locustella lanceolata",11.45
+"07730","Gray-streaked Flycatcher","Passeriformes","Muscicapidae","Muscicapa","griseisticta","Muscicapa griseisticta",16
+"07720","Dark-sided Flycatcher","Passeriformes","Muscicapidae","Muscicapa","sibirica","Muscicapa sibirica",10
+"07641","Siberian Rubythroat","Passeriformes","Muscicapidae","Luscinia","calliope","Luscinia calliope",24.7
+"07640","Bluethroat","Passeriformes","Muscicapidae","Luscinia","svecica","Luscinia svecica",18.25
+"26320","Narcissus Flycatcher","Passeriformes","Muscicapidae","Ficedula","narcissina","Ficedula narcissina",14
+"07710","Taiga Flycatcher","Passeriformes","Muscicapidae","Ficedula","albicilla","Ficedula albicilla",14
+"07650","Northern Wheatear","Passeriformes","Muscicapidae","Oenanthe","oenanthe","Oenanthe oenanthe",23.95
+"07660","Eastern Bluebird","Passeriformes","Turdidae","Sialia","sialis","Sialia sialis",27.9
+"07670","Western Bluebird","Passeriformes","Turdidae","Sialia","mexicana","Sialia mexicana",26.45
+"07680","Mountain Bluebird","Passeriformes","Turdidae","Sialia","currucoides","Sialia currucoides",29.6
+"07540","Townsend's Solitaire","Passeriformes","Turdidae","Myadestes","townsendi","Myadestes townsendi",32.5
+"16820","Brown-backed Solitaire","Passeriformes","Turdidae","Myadestes","occidentalis","Myadestes occidentalis",42
+"16870","Slate-colored Solitaire","Passeriformes","Turdidae","Myadestes","unicolor","Myadestes unicolor",37
+"16890","Orange-billed Nightingale-Thrush","Passeriformes","Turdidae","Catharus","aurantiirostris","Catharus aurantiirostris",27
+"16910","Russet Nightingale-Thrush","Passeriformes","Turdidae","Catharus","occidentalis","Catharus occidentalis",23.77
+"16920","Ruddy-capped Nightingale-Thrush","Passeriformes","Turdidae","Catharus","frantzii","Catharus frantzii",31
+"16930","Black-headed Nightingale-Thrush","Passeriformes","Turdidae","Catharus","mexicanus","Catharus mexicanus",33
+"16940","Spotted Nightingale-Thrush","Passeriformes","Turdidae","Catharus","dryas","Catharus dryas",35
+"07560","Veery","Passeriformes","Turdidae","Catharus","fuscescens","Catharus fuscescens",41.5
+"07570","Gray-cheeked Thrush","Passeriformes","Turdidae","Catharus","minimus","Catharus minimus",29.3
+"07571","Bicknell's Thrush","Passeriformes","Turdidae","Catharus","bicknelli","Catharus bicknelli",29.3
+"07580","Swainson's Thrush","Passeriformes","Turdidae","Catharus","ustulatus","Catharus ustulatus",29.8
+"07590","Hermit Thrush","Passeriformes","Turdidae","Catharus","guttatus","Catharus guttatus",27.31
+"07550","Wood Thrush","Passeriformes","Turdidae","Hylocichla","mustelina","Hylocichla mustelina",50.15
+"07611","Eurasian Blackbird","Passeriformes","Turdidae","Turdus","merula","Turdus merula",95.85
+"07613","Eyebrowed Thrush","Passeriformes","Turdidae","Turdus","obscurus","Turdus obscurus",63
+"07614","Dusky Thrush","Passeriformes","Turdidae","Turdus","naumanni","Turdus naumanni",72
+"07612","Fieldfare","Passeriformes","Turdidae","Turdus","pilaris","Turdus pilaris",105.05
+"07600","Redwing","Passeriformes","Turdidae","Turdus","iliacus","Turdus iliacus",62.85
+"16960","Black Thrush","Passeriformes","Turdidae","Turdus","infuscatus","Turdus infuscatus",74
+"16970","Mountain Thrush","Passeriformes","Turdidae","Turdus","plebejus","Turdus plebejus",81
+"07621","Clay-colored Thrush","Passeriformes","Turdidae","Turdus","grayi","Turdus grayi",72.45
+"17020","White-throated Thrush","Passeriformes","Turdidae","Turdus","assimilis","Turdus assimilis",68
+"07622","Rufous-backed Robin","Passeriformes","Turdidae","Turdus","rufopalliatus","Turdus rufopalliatus",77
+"17030","Rufous-collared Robin","Passeriformes","Turdidae","Turdus","rufitorques","Turdus rufitorques",72
+"07610","American Robin","Passeriformes","Turdidae","Turdus","migratorius","Turdus migratorius",79.95
+"17070","Red-legged Thrush","Passeriformes","Turdidae","Turdus","plumbeus","Turdus plumbeus",75
+"07630","Varied Thrush","Passeriformes","Turdidae","Ixoreus","naevius","Ixoreus naevius",79.35
+"07631","Aztec Thrush","Passeriformes","Turdidae","Ridgwayia","pinicola","Ridgwayia pinicola",88
+"07040","Gray Catbird","Passeriformes","Mimidae","Dumetella","carolinensis","Dumetella carolinensis",37.65
+"17090","Black Catbird","Passeriformes","Mimidae","Melanoptila","glabrirostris","Melanoptila glabrirostris",36
+"07030","Northern Mockingbird","Passeriformes","Mimidae","Mimus","polyglottos","Mimus polyglottos",48.45
+"17100","Tropical Mockingbird","Passeriformes","Mimidae","Mimus","gilvus","Mimus gilvus",58
+"17110","Socorro Mockingbird","Passeriformes","Mimidae","Mimus","graysoni","Mimus graysoni",76
+"07031","Bahama Mockingbird","Passeriformes","Mimidae","Mimus","gundlachii","Mimus gundlachii",67
+"07020","Sage Thrasher","Passeriformes","Mimidae","Oreoscoptes","montanus","Oreoscoptes montanus",44.25
+"07050","Brown Thrasher","Passeriformes","Mimidae","Toxostoma","rufum","Toxostoma rufum",68.5
+"07060","Long-billed Thrasher","Passeriformes","Mimidae","Toxostoma","longirostre","Toxostoma longirostre",67.5
+"17120","Cozumel Thrasher","Passeriformes","Mimidae","Toxostoma","guttatum","Toxostoma guttatum",52.8
+"07090","Gray Thrasher","Passeriformes","Mimidae","Toxostoma","cinereum","Toxostoma cinereum",64
+"07080","Bendire's Thrasher","Passeriformes","Mimidae","Toxostoma","bendirei","Toxostoma bendirei",62.2
+"17130","Ocellated Thrasher","Passeriformes","Mimidae","Toxostoma","ocellatum","Toxostoma ocellatum",84
+"07070","Curve-billed Thrasher","Passeriformes","Mimidae","Toxostoma","curvirostre","Toxostoma curvirostre",78.35
+"07100","California Thrasher","Passeriformes","Mimidae","Toxostoma","redivivum","Toxostoma redivivum",84.4
+"07120","Crissal Thrasher","Passeriformes","Mimidae","Toxostoma","crissale","Toxostoma crissale",62.7
+"07110","Le Conte's Thrasher","Passeriformes","Mimidae","Toxostoma","lecontei","Toxostoma lecontei",61.8
+"17150","Blue Mockingbird","Passeriformes","Mimidae","Melanotis","caerulescens","Melanotis caerulescens",63
+"17160","Blue-and-white Mockingbird","Passeriformes","Mimidae","Melanotis","hypoleucus","Melanotis hypoleucus",62
+"17180","Pearly-eyed Thrasher","Passeriformes","Mimidae","Margarops","fuscatus","Margarops fuscatus",75
+"04930","European Starling","Passeriformes","Sturnidae","Sturnus","vulgaris","Sturnus vulgaris",80.5
+"04932","Common Myna","Passeriformes","Sturnidae","Acridotheres","tristis","Acridotheres tristis",137
+"17520","Hill Myna","Passeriformes","Sturnidae","Gracula","religiosa","Gracula religiosa",192
+"04931","Crested Myna","Passeriformes","Sturnidae","Acridotheres","cristatellus","Acridotheres cristatellus",113
+"07491","Siberian Accentor","Passeriformes","Prunellidae","Prunella","montanella","Prunella montanella",17.45
+"06960","Eastern Yellow Wagtail","Passeriformes","Motacillidae","Motacilla","tschutschensis","Motacilla tschutschensis",17.45
+"06961","Gray Wagtail","Passeriformes","Motacillidae","Motacilla","cinerea","Motacilla cinerea",17.35
+"06940","White Wagtail","Passeriformes","Motacillidae","Motacilla","alba","Motacilla alba",20.75
+"06982","Tree Pipit","Passeriformes","Motacillidae","Anthus","trivialis","Anthus trivialis",23.4
+"06983","Olive-backed Pipit","Passeriformes","Motacillidae","Anthus","hodgsoni","Anthus hodgsoni",22.65
+"06981","Pechora Pipit","Passeriformes","Motacillidae","Anthus","gustavi","Anthus gustavi",19.8
+"06990","Red-throated Pipit","Passeriformes","Motacillidae","Anthus","cervinus","Anthus cervinus",20.4
+"06970","American Pipit","Passeriformes","Motacillidae","Anthus","rubescens","Anthus rubescens",20.85
+"07000","Sprague's Pipit","Passeriformes","Motacillidae","Anthus","spragueii","Anthus spragueii",23.45
+"06180","Bohemian Waxwing","Passeriformes","Bombycillidae","Bombycilla","garrulus","Bombycilla garrulus",50.5
+"06190","Cedar Waxwing","Passeriformes","Bombycillidae","Bombycilla","cedrorum","Bombycilla cedrorum",32.35
+"06185","unid. Cedar Waxwing / Bohemian Waxwing","Passeriformes","Bombycillidae","Bombycilla","garrulus / cedrorum","Bombycilla garrulus",50.5
+"17220","Gray Silky-flycatcher","Passeriformes","Ptilogonatidae","Ptilogonys","cinereus","Ptilogonys cinereus",34
+"06200","Phainopepla","Passeriformes","Ptilogonatidae","Phainopepla","nitens","Phainopepla nitens",20.85
+"06510","Olive Warbler","Passeriformes","Peucedramidae","Peucedramus","taeniatus","Peucedramus taeniatus",11.15
+"05360","Lapland Longspur","Passeriformes","Calcariidae","Calcarius","lapponicus","Calcarius lapponicus",23.65
+"05380","Chestnut-collared Longspur","Passeriformes","Calcariidae","Calcarius","ornatus","Calcarius ornatus",19.95
+"05370","Smith's Longspur","Passeriformes","Calcariidae","Calcarius","pictus","Calcarius pictus",26.4
+"05390","McCown's Longspur","Passeriformes","Calcariidae","Rhynchophanes","mccownii","Rhynchophanes mccownii",25.2
+"05340","Snow Bunting","Passeriformes","Calcariidae","Plectrophenax","nivalis","Plectrophenax nivalis",37.35
+"05350","McKay's Bunting","Passeriformes","Calcariidae","Plectrophenax","hyperboreus","Plectrophenax hyperboreus",42.9
+"06740","Ovenbird","Passeriformes","Parulidae","Seiurus","aurocapilla","Seiurus aurocapilla",22.1
+"06390","Worm-eating Warbler","Passeriformes","Parulidae","Helmitheros","vermivorum","Helmitheros vermivorum",14.2
+"06760","Louisiana Waterthrush","Passeriformes","Parulidae","Parkesia","motacilla","Parkesia motacilla",20.65
+"06750","Northern Waterthrush","Passeriformes","Parulidae","Parkesia","noveboracensis","Parkesia noveboracensis",16.5
+"06420","Golden-winged Warbler","Passeriformes","Parulidae","Vermivora","chrysoptera","Vermivora chrysoptera",9.3
+"06410","Blue-winged Warbler","Passeriformes","Parulidae","Vermivora","cyanoptera","Vermivora cyanoptera",9
+"06412","Brewster's Warbler (Golden-winged x Blue-winged","Passeriformes","Parulidae","Vermivora","chrysoptera x cyanoptera","Vermivora chrysoptera",9.3
+"06413","Lawrence's Warbler (Golden-winged x Blue-winged","Passeriformes","Parulidae","Vermivora","chrysoptera x cyanoptera","Vermivora chrysoptera",9.3
+"06360","Black-and-white Warbler","Passeriformes","Parulidae","Mniotilta","varia","Mniotilta varia",12
+"06370","Prothonotary Warbler","Passeriformes","Parulidae","Protonotaria","citrea","Protonotaria citrea",14.9
+"06380","Swainson's Warbler","Passeriformes","Parulidae","Limnothlypis","swainsonii","Limnothlypis swainsonii",13.15
+"06492","Crescent-chested Warbler","Passeriformes","Parulidae","Oreothlypis","superciliosa","Oreothlypis superciliosa",9
+"06470","Tennessee Warbler","Passeriformes","Parulidae","Oreothlypis","peregrina","Oreothlypis peregrina",9.55
+"06460","Orange-crowned Warbler","Passeriformes","Parulidae","Oreothlypis","celata","Oreothlypis celata",9.2
+"06471","Colima Warbler","Passeriformes","Parulidae","Oreothlypis","crissalis","Oreothlypis crissalis",10
+"06430","Lucy's Warbler","Passeriformes","Parulidae","Oreothlypis","luciae","Oreothlypis luciae",6.6
+"06450","Nashville Warbler","Passeriformes","Parulidae","Oreothlypis","ruficapilla","Oreothlypis ruficapilla",8.75
+"06440","Virginia's Warbler","Passeriformes","Parulidae","Oreothlypis","virginiae","Oreothlypis virginiae",8.2
+"06780","Connecticut Warbler","Passeriformes","Parulidae","Oporornis","agilis","Oporornis agilis",15.3
+"06821","Gray-crowned Yellowthroat","Passeriformes","Parulidae","Geothlypis","poliocephala","Geothlypis poliocephala",15
+"06800","MacGillivray's Warbler","Passeriformes","Parulidae","Geothlypis","tolmiei","Geothlypis tolmiei",11.2
+"06790","Mourning Warbler","Passeriformes","Parulidae","Geothlypis","philadelphia","Geothlypis philadelphia",12.3
+"06770","Kentucky Warbler","Passeriformes","Parulidae","Geothlypis","formosa","Geothlypis formosa",14.45
+"17610","Black-polled Yellowthroat","Passeriformes","Parulidae","Geothlypis","speciosa","Geothlypis speciosa",11
+"06820","Belding's Yellowthroat","Passeriformes","Parulidae","Geothlypis","beldingi","Geothlypis beldingi",16
+"17580","Altamira Yellowthroat","Passeriformes","Parulidae","Geothlypis","flavovelata","Geothlypis flavovelata",11
+"06810","Common Yellowthroat","Passeriformes","Parulidae","Geothlypis","trichas","Geothlypis trichas",10.1
+"17620","Hooded Yellowthroat","Passeriformes","Parulidae","Geothlypis","nelsoni","Geothlypis nelsoni",11
+"17560","Elfin-woods Warbler","Passeriformes","Parulidae","Setophaga","angelae","Setophaga angelae",10.6882142857143
+"06840","Hooded Warbler","Passeriformes","Parulidae","Setophaga","citrina","Setophaga citrina",10.55
+"06870","American Redstart","Passeriformes","Parulidae","Setophaga","ruticilla","Setophaga ruticilla",8.65
+"06700","Kirtland's Warbler","Passeriformes","Parulidae","Setophaga","kirtlandii","Setophaga kirtlandii",13.95
+"06500","Cape May Warbler","Passeriformes","Parulidae","Setophaga","tigrina","Setophaga tigrina",10.65
+"06580","Cerulean Warbler","Passeriformes","Parulidae","Setophaga","cerulea","Setophaga cerulea",8.65
+"06480","Northern Parula","Passeriformes","Parulidae","Setophaga","americana","Setophaga americana",7.9
+"06490","Tropical Parula","Passeriformes","Parulidae","Setophaga","pitiayumi","Setophaga pitiayumi",6.9
+"06570","Magnolia Warbler","Passeriformes","Parulidae","Setophaga","magnolia","Setophaga magnolia",8.6
+"06600","Bay-breasted Warbler","Passeriformes","Parulidae","Setophaga","castanea","Setophaga castanea",12
+"06620","Blackburnian Warbler","Passeriformes","Parulidae","Setophaga","fusca","Setophaga fusca",10.2
+"06520","Yellow Warbler","Passeriformes","Parulidae","Setophaga","petechia","Setophaga petechia",9.8
+"06590","Chestnut-sided Warbler","Passeriformes","Parulidae","Setophaga","pensylvanica","Setophaga pensylvanica",12.4
+"06610","Blackpoll Warbler","Passeriformes","Parulidae","Setophaga","striata","Setophaga striata",12.3
+"06540","Black-throated Blue Warbler","Passeriformes","Parulidae","Setophaga","caerulescens","Setophaga caerulescens",9.4
+"06720","Palm Warbler","Passeriformes","Parulidae","Setophaga","palmarum","Setophaga palmarum",10.15
+"06710","Pine Warbler","Passeriformes","Parulidae","Setophaga","pinus","Setophaga pinus",11.9
+"06550","Myrtle Warbler) Yellow-rumped Warbler","Passeriformes","Parulidae","Setophaga","coronata coronata","Setophaga coronata",12.55
+"06560","Audubon's Warbler) Yellow-rumped Warbler","Passeriformes","Parulidae","Setophaga","coronata audoboni","Setophaga coronata",12.55
+"06556","unid. Myrtle/Audubon's) Yellow-rumped Warbler","Passeriformes","Parulidae","Setophaga","coronata","Setophaga coronata",12.55
+"06630","Yellow-throated Warbler","Passeriformes","Parulidae","Setophaga","dominica","Setophaga dominica",9.7
+"06730","Prairie Warbler","Passeriformes","Parulidae","Setophaga","discolor","Setophaga discolor",7.5
+"17510","Adelaide's Warbler","Passeriformes","Parulidae","Setophaga","adelaidae","Setophaga adelaidae",25.52
+"06640","Grace's Warbler","Passeriformes","Parulidae","Setophaga","graciae","Setophaga graciae",7.75
+"06650","Black-throated Gray Warbler","Passeriformes","Parulidae","Setophaga","nigrescens","Setophaga nigrescens",10.6882142857143
+"06680","Townsend's Warbler","Passeriformes","Parulidae","Setophaga","townsendi","Setophaga townsendi",8.85
+"06690","Hermit Warbler","Passeriformes","Parulidae","Setophaga","occidentalis","Setophaga occidentalis",10.35
+"06685","unid. Townsend's Warbler / Hermit Wabler","Passeriformes","Parulidae","Setophaga","townsendi / occidentalis","Setophaga townsendi",8.85
+"06660","Golden-cheeked Warbler","Passeriformes","Parulidae","Setophaga","chrysoparia","Setophaga chrysoparia",9.9
+"06670","Black-throated Green Warbler","Passeriformes","Parulidae","Setophaga","virens","Setophaga virens",9.2
+"06881","Fan-tailed Warbler","Passeriformes","Parulidae","Basileuterus","lachrymosus","Basileuterus lachrymosus",10.5
+"06921","Rufous-capped Warbler","Passeriformes","Parulidae","Basileuterus","rufifrons","Basileuterus rufifrons",10
+"06930","Golden-browed Warbler","Passeriformes","Parulidae","Basileuterus","belli","Basileuterus belli",10.5
+"06920","Golden-crowned Warbler","Passeriformes","Parulidae","Basileuterus","culicivorus","Basileuterus culicivorus",11
+"06860","Canada Warbler","Passeriformes","Parulidae","Cardellina","canadensis","Cardellina canadensis",10.4
+"06850","Wilson's Warbler","Passeriformes","Parulidae","Cardellina","pusilla","Cardellina pusilla",7.9
+"06900","Red-faced Warbler","Passeriformes","Parulidae","Cardellina","rubrifrons","Cardellina rubrifrons",9.8
+"06910","Red Warbler","Passeriformes","Parulidae","Cardellina","rubra","Cardellina rubra",9.36666666666667
+"17680","Pink-headed Warbler","Passeriformes","Parulidae","Cardellina","versicolor","Cardellina versicolor",9.36666666666667
+"06880","Painted Redstart","Passeriformes","Parulidae","Myioborus","pictus","Myioborus pictus",9.8
+"06890","Slate-throated Redstart","Passeriformes","Parulidae","Myioborus","miniatus","Myioborus miniatus",14
+"06830","Yellow-breasted Chat","Passeriformes","Parulidae","Icteria","virens","Icteria virens",25.1
+"06350","Bananaquit","Passeriformes","Genus Incertae Sedis","Coereba","flaveola","Coereba flaveola",9.85
+"18480","Puerto Rican Tanager","Passeriformes","Thraupidae","Nesospingus","speculiferus","Nesospingus speculiferus",36
+"18400","Rosy Thrush-Tanager","Passeriformes","Thraupidae","Rhodinocichla","rosea","Rhodinocichla rosea",48
+"18180","Gray-headed Tanager","Passeriformes","Thraupidae","Eucometis","penicillata","Eucometis penicillata",27
+"18190","Black-throated Shrike-Tanager","Passeriformes","Thraupidae","Lanio","aurantius","Lanio aurantius",35
+"18330","Crimson-collared Tanager","Passeriformes","Thraupidae","Ramphocelus","sanguinolentus","Ramphocelus sanguinolentus",41
+"18350","Passerini's Tanager","Passeriformes","Thraupidae","Ramphocelus","passerinii","Ramphocelus passerinii",31.05
+"06101","Western Spindalis","Passeriformes","Thraupidae","Spindalis","zena","Spindalis zena",21
+"18143","Puerto Rican Spindalis","Passeriformes","Thraupidae","Spindalis","portoricensis","Spindalis portoricensis",21
+"18120","Blue-gray Tanager","Passeriformes","Thraupidae","Thraupis","episcopus","Thraupis episcopus",34
+"18130","Yellow-winged Tanager","Passeriformes","Thraupidae","Thraupis","abbas","Thraupis abbas",45
+"17800","Azure-rumped Tanager","Passeriformes","Thraupidae","Tangara","cabanisi","Tangara cabanisi",20
+"17880","Golden-hooded Tanager","Passeriformes","Thraupidae","Tangara","larvata","Tangara larvata",20
+"17940","Green Honeycreeper","Passeriformes","Thraupidae","Chlorophanes","spiza","Chlorophanes spiza",19
+"17950","Shining Honeycreeper","Passeriformes","Thraupidae","Cyanerpes","lucidus","Cyanerpes lucidus",11
+"17970","Red-legged Honeycreeper","Passeriformes","Thraupidae","Cyanerpes","cyaneus","Cyanerpes cyaneus",14.15
+"18530","Grayish Saltator","Passeriformes","Genus Incertae Sedis","Saltator","coerulescens","Saltator coerulescens",55
+"18540","Buff-throated Saltator","Passeriformes","Genus Incertae Sedis","Saltator","maximus","Saltator maximus",47
+"18550","Black-headed Saltator","Passeriformes","Genus Incertae Sedis","Saltator","atriceps","Saltator atriceps",80
+"18810","Blue-black Grassquit","Passeriformes","Emberizidae","Volatinia","jacarina","Volatinia jacarina",10
+"18830","Variable Seedeater","Passeriformes","Emberizidae","Sporophila","americana","Sporophila americana",11
+"06020","White-collared Seedeater","Passeriformes","Emberizidae","Sporophila","torqueola","Sporophila torqueola",9
+"18850","Ruddy-breasted Seedeater","Passeriformes","Emberizidae","Sporophila","minuta","Sporophila minuta",8
+"18871","Thick-billed Seed-Finch","Passeriformes","Emberizidae","Oryzoborus","funereus","Oryzoborus funereus",NA
+"06032","Yellow-faced Grassquit","Passeriformes","Emberizidae","Tiaris","olivaceus","Tiaris olivaceus",9.1
+"06030","Black-faced Grassquit","Passeriformes","Emberizidae","Tiaris","bicolor","Tiaris bicolor",10
+"18910","Puerto Rican Bullfinch","Passeriformes","Emberizidae","Loxigilla","portoricensis","Loxigilla portoricensis",35
+"18970","Slaty Finch","Passeriformes","Emberizidae","Haplospiza","rustica","Haplospiza rustica",16
+"18990","Cinnamon-bellied Flowerpiercer","Passeriformes","Emberizidae","Diglossa","baritula","Diglossa baritula",8
+"05861","Saffron Finch","Passeriformes","Emberizidae","Sicalis","flaveola","Sicalis flaveola",19.15
+"19010","Grassland Yellow-Finch","Passeriformes","Emberizidae","Sicalis","luteola","Sicalis luteola",16
+"05922","Red-crested Cardinal","Passeriformes","Emberizidae","Paroaria","coronata","Paroaria coronata",38.3
+"18730","Orange-billed Sparrow","Passeriformes","Emberizidae","Arremon","aurantiirostris","Arremon aurantiirostris",35
+"18700","Chestnut-capped Brush-Finch","Passeriformes","Emberizidae","Arremon","brunneinucha","Arremon brunneinucha",46.6
+"18710","Green-striped Brush-Finch","Passeriformes","Emberizidae","Arremon","virenticeps","Arremon virenticeps",40.8
+"05860","Olive Sparrow","Passeriformes","Emberizidae","Arremonops","rufivirgatus","Arremonops rufivirgatus",22.45
+"18740","Green-backed Sparrow","Passeriformes","Emberizidae","Arremonops","chloronotus","Arremonops chloronotus",22.45
+"18670","White-naped Brush-Finch","Passeriformes","Emberizidae","Atlapetes","albinucha","Atlapetes albinucha",32.4
+"18690","Rufous-capped Brush-Finch","Passeriformes","Emberizidae","Atlapetes","pileatus","Atlapetes pileatus",24
+"18790","Collared Towhee","Passeriformes","Emberizidae","Pipilo","ocai","Pipilo ocai",64.5
+"05900","Green-tailed Towhee","Passeriformes","Emberizidae","Pipilo","chlorurus","Pipilo chlorurus",29.2
+"05880","Spotted Towhee","Passeriformes","Emberizidae","Pipilo","maculatus","Pipilo maculatus",38.4
+"05870","Eastern Towhee","Passeriformes","Emberizidae","Pipilo","erythrophthalmus","Pipilo erythrophthalmus",40.5
+"05871","unid. Spotted Towhee / Eastern Towhee","Passeriformes","Emberizidae","Pipilo","maculatus / erythrophthalmus","Pipilo maculatus",38.4
+"19080","Rusty Sparrow","Passeriformes","Emberizidae","Aimophila","rufescens","Aimophila rufescens",34
+"05800","Rufous-crowned Sparrow","Passeriformes","Emberizidae","Aimophila","ruficeps","Aimophila ruficeps",17.75
+"19070","Oaxaca Sparrow","Passeriformes","Emberizidae","Aimophila","notosticta","Aimophila notosticta",27
+"18780","White-eared Ground-Sparrow","Passeriformes","Emberizidae","Melozone","leucotis","Melozone leucotis",43
+"18770","Prevost's Ground-Sparrow","Passeriformes","Emberizidae","Melozone","biarcuata","Melozone biarcuata",28
+"18760","Rusty-crowned Ground-Sparrow","Passeriformes","Emberizidae","Melozone","kieneri","Melozone kieneri",47.55
+"05910","Canyon Towhee","Passeriformes","Emberizidae","Melozone","fusca","Melozone fusca",45
+"18800","White-throated Towhee","Passeriformes","Emberizidae","Melozone","albicollis","Melozone albicollis",43.4916666666667
+"05911","California Towhee","Passeriformes","Emberizidae","Melozone","crissalis","Melozone crissalis",51.3
+"05920","Abert's Towhee","Passeriformes","Emberizidae","Melozone","aberti","Melozone aberti",46.1
+"19060","Cinnamon-tailed Sparrow","Passeriformes","Emberizidae","Peucaea","sumichrasti","Peucaea sumichrasti",18.525
+"05790","Rufous-winged Sparrow","Passeriformes","Emberizidae","Peucaea","carpalis","Peucaea carpalis",15
+"19050","Stripe-headed Sparrow","Passeriformes","Emberizidae","Peucaea","ruficauda","Peucaea ruficauda",18.525
+"19040","Black-chested Sparrow","Passeriformes","Emberizidae","Peucaea","humeralis","Peucaea humeralis",18.525
+"19030","Bridled Sparrow","Passeriformes","Emberizidae","Peucaea","mystacalis","Peucaea mystacalis",18.525
+"05760","Botteri's Sparrow","Passeriformes","Emberizidae","Peucaea","botterii","Peucaea botterii",20.35
+"05780","Cassin's Sparrow","Passeriformes","Emberizidae","Peucaea","cassinii","Peucaea cassinii",17.95
+"05750","Bachman's Sparrow","Passeriformes","Emberizidae","Peucaea","aestivalis","Peucaea aestivalis",20.8
+"19090","Striped Sparrow","Passeriformes","Emberizidae","Oriturus","superciliosus","Oriturus superciliosus",42
+"05590","American Tree Sparrow","Passeriformes","Emberizidae","Spizella","arborea","Spizella arborea",17.85
+"05600","Chipping Sparrow","Passeriformes","Emberizidae","Spizella","passerina","Spizella passerina",12.75
+"05610","Clay-colored Sparrow","Passeriformes","Emberizidae","Spizella","pallida","Spizella pallida",11.95
+"05620","Brewer's Sparrow","Passeriformes","Emberizidae","Spizella","breweri","Spizella breweri",8.95
+"05630","Field Sparrow","Passeriformes","Emberizidae","Spizella","pusilla","Spizella pusilla",13.1
+"05640","Worthen's Sparrow","Passeriformes","Emberizidae","Spizella","wortheni","Spizella wortheni",12.6333333333333
+"05650","Black-chinned Sparrow","Passeriformes","Emberizidae","Spizella","atrogularis","Spizella atrogularis",11.2
+"05400","Vesper Sparrow","Passeriformes","Emberizidae","Pooecetes","gramineus","Pooecetes gramineus",23.5
+"05520","Lark Sparrow","Passeriformes","Emberizidae","Chondestes","grammacus","Chondestes grammacus",28.05
+"05742","Five-striped Sparrow","Passeriformes","Emberizidae","Amphispiza","quinquestriata","Amphispiza quinquestriata",20.33
+"05730","Black-throated Sparrow","Passeriformes","Emberizidae","Amphispiza","bilineata","Amphispiza bilineata",13.75
+"05740","Sage Sparrow","Passeriformes","Emberizidae","Amphispiza","belli","Amphispiza belli",18.1
+"06050","Lark Bunting","Passeriformes","Emberizidae","Calamospiza","melanocorys","Calamospiza melanocorys",36
+"05420","Savannah Sparrow","Passeriformes","Emberizidae","Passerculus","sandwichensis","Passerculus sandwichensis",19.5
+"05460","Grasshopper Sparrow","Passeriformes","Emberizidae","Ammodramus","savannarum","Ammodramus savannarum",18.05
+"05450","Baird's Sparrow","Passeriformes","Emberizidae","Ammodramus","bairdii","Ammodramus bairdii",18.35
+"05470","Henslow's Sparrow","Passeriformes","Emberizidae","Ammodramus","henslowii","Ammodramus henslowii",12.75
+"05480","Le Conte's Sparrow","Passeriformes","Emberizidae","Ammodramus","leconteii","Ammodramus leconteii",13.8
+"05491","Nelson's Sparrow","Passeriformes","Emberizidae","Ammodramus","nelsoni","Ammodramus nelsoni",17.175
+"05490","Saltmarsh Sparrow","Passeriformes","Emberizidae","Ammodramus","caudacutus","Ammodramus caudacutus",16.85
+"05492","unid. Nelson's Sparrow / Saltmarsh Sparrow","Passeriformes","Emberizidae","Ammodramus","nelsoni / caudacutus","Ammodramus nelsoni",17.175
+"05500","Seaside Sparrow","Passeriformes","Emberizidae","Ammodramus","maritimus","Ammodramus maritimus",23.25
+"19110","Sierra Madre Sparrow","Passeriformes","Emberizidae","Xenospiza","baileyi","Xenospiza baileyi",17
+"05850","Fox Sparrow","Passeriformes","Emberizidae","Passerella","iliaca","Passerella iliaca",36.1
+"05810","Song Sparrow","Passeriformes","Emberizidae","Melospiza","melodia","Melospiza melodia",24.2
+"05830","Lincoln's Sparrow","Passeriformes","Emberizidae","Melospiza","lincolnii","Melospiza lincolnii",18.8
+"05840","Swamp Sparrow","Passeriformes","Emberizidae","Melospiza","georgiana","Melospiza georgiana",18.8
+"19120","Rufous-collared Sparrow","Passeriformes","Emberizidae","Zonotrichia","capensis","Zonotrichia capensis",20.35
+"05580","White-throated Sparrow","Passeriformes","Emberizidae","Zonotrichia","albicollis","Zonotrichia albicollis",25.75
+"05530","Harris's Sparrow","Passeriformes","Emberizidae","Zonotrichia","querula","Zonotrichia querula",35.55
+"05540","White-crowned Sparrow","Passeriformes","Emberizidae","Zonotrichia","leucophrys","Zonotrichia leucophrys",28.9
+"05570","Golden-crowned Sparrow","Passeriformes","Emberizidae","Zonotrichia","atricapilla","Zonotrichia atricapilla",32
+"05670","Slate-colored Junco) Dark-eyed Junco","Passeriformes","Emberizidae","Junco","hyemalis hyemalis","Junco hyemalis",19.05
+"05671","Oregon Junco) Dark-eyed Junco","Passeriformes","Emberizidae","Junco","hyemalis oreganus","Junco hyemalis",19.05
+"05680","Pink-sided Junco) Dark-eyed Junco","Passeriformes","Emberizidae","Junco","hyemalis mearnsi","Junco hyemalis",19.05
+"05660","White-winged Junco) Dark-eyed Junco","Passeriformes","Emberizidae","Junco","hyemalis aikeni","Junco hyemalis",19.05
+"05690","Gray-headed Junco) Dark-eyed Junco","Passeriformes","Emberizidae","Junco","hyemalis caniceps","Junco hyemalis",19.05
+"05720","Guadalupe Junco) Dark-eyed Junco","Passeriformes","Emberizidae","Junco","hyemalis insularis","Junco hyemalis",19.05
+"05677","unid. race) Dark-eyed Junco","Passeriformes","Emberizidae","Junco","hyemalis","Junco hyemalis",19.05
+"05700","Yellow-eyed Junco","Passeriformes","Emberizidae","Junco","phaeonotus","Junco phaeonotus",20.4
+"18420","Common Bush-Tanager","Passeriformes","Emberizidae","Chlorospingus","ophthalmicus","Chlorospingus ophthalmicus",16
+"05351","Rustic Bunting","Passeriformes","Emberizidae","Emberiza","rustica","Emberiza rustica",19.05
+"18290","Rose-throated Tanager","Passeriformes","Cardinalidae","Piranga","roseogularis","Piranga roseogularis",24
+"06090","Hepatic Tanager","Passeriformes","Cardinalidae","Piranga","flava","Piranga flava",42
+"06100","Summer Tanager","Passeriformes","Cardinalidae","Piranga","rubra","Piranga rubra",29.3
+"06080","Scarlet Tanager","Passeriformes","Cardinalidae","Piranga","olivacea","Piranga olivacea",28.3
+"06070","Western Tanager","Passeriformes","Cardinalidae","Piranga","ludoviciana","Piranga ludoviciana",30.05
+"06071","Flame-colored Tanager","Passeriformes","Cardinalidae","Piranga","bidentata","Piranga bidentata",34.7
+"18310","White-winged Tanager","Passeriformes","Cardinalidae","Piranga","leucoptera","Piranga leucoptera",16
+"18320","Red-headed Tanager","Passeriformes","Cardinalidae","Piranga","erythrocephala","Piranga erythrocephala",21.8
+"18260","Red-crowned Ant-Tanager","Passeriformes","Cardinalidae","Habia","rubica","Habia rubica",34
+"18270","Red-throated Ant-Tanager","Passeriformes","Cardinalidae","Habia","fuscicauda","Habia fuscicauda",41
+"18570","Black-faced Grosbeak","Passeriformes","Cardinalidae","Caryothraustes","poliogaster","Caryothraustes poliogaster",42
+"05941","Crimson-collared Grosbeak","Passeriformes","Cardinalidae","Rhodothraupis","celaeno","Rhodothraupis celaeno",NA
+"05930","Northern Cardinal","Passeriformes","Cardinalidae","Cardinalis","cardinalis","Cardinalis cardinalis",41.35
+"05940","Pyrrhuloxia","Passeriformes","Cardinalidae","Cardinalis","sinuatus","Cardinalis sinuatus",37
+"05935","unid. Northern Cardinal / Pyrrhuloxia","Passeriformes","Cardinalidae","Cardinalis","cardinalis / sinuatus","Cardinalis cardinalis",41.35
+"05961","Yellow Grosbeak","Passeriformes","Cardinalidae","Pheucticus","chrysopeplus","Pheucticus chrysopeplus",63
+"05950","Rose-breasted Grosbeak","Passeriformes","Cardinalidae","Pheucticus","ludovicianus","Pheucticus ludovicianus",44.6
+"05960","Black-headed Grosbeak","Passeriformes","Cardinalidae","Pheucticus","melanocephalus","Pheucticus melanocephalus",47.15
+"17750","Red-breasted Chat","Passeriformes","Cardinalidae","Granatellus","venustus","Granatellus venustus",11
+"17760","Gray-throated Chat","Passeriformes","Cardinalidae","Granatellus","sallaei","Granatellus sallaei",10
+"18880","Blue Seedeater","Passeriformes","Cardinalidae","Amaurospiza","concolor","Amaurospiza concolor",13
+"18600","Blue-black Grosbeak","Passeriformes","Cardinalidae","Cyanocompsa","cyanoides","Cyanocompsa cyanoides",30
+"05971","Blue Bunting","Passeriformes","Cardinalidae","Cyanocompsa","parellina","Cyanocompsa parellina",15
+"05970","Blue Grosbeak","Passeriformes","Cardinalidae","Passerina","caerulea","Passerina caerulea",28.4
+"05990","Lazuli Bunting","Passeriformes","Cardinalidae","Passerina","amoena","Passerina amoena",15.15
+"05980","Indigo Bunting","Passeriformes","Cardinalidae","Passerina","cyanea","Passerina cyanea",14.7
+"05986","hybrid Lazuli Bunting x Indigo Bunting","Passeriformes","Cardinalidae","Passerina","amoena x cyanea","Passerina amoena",15.15
+"18610","Rose-bellied Bunting","Passeriformes","Cardinalidae","Passerina","rositae","Passerina rositae",20
+"18620","Orange-breasted Bunting","Passeriformes","Cardinalidae","Passerina","leclancherii","Passerina leclancherii",14
+"06000","Varied Bunting","Passeriformes","Cardinalidae","Passerina","versicolor","Passerina versicolor",12.9
+"06010","Painted Bunting","Passeriformes","Cardinalidae","Passerina","ciris","Passerina ciris",15.6
+"06040","Dickcissel","Passeriformes","Cardinalidae","Spiza","americana","Spiza americana",26.85
+"04940","Bobolink","Passeriformes","Icteridae","Dolichonyx","oryzivorus","Dolichonyx oryzivorus",31.55
+"04980","Red-winged Blackbird","Passeriformes","Icteridae","Agelaius","phoeniceus","Agelaius phoeniceus",48.45
+"05000","Tricolored Blackbird","Passeriformes","Icteridae","Agelaius","tricolor","Agelaius tricolor",56.5
+"05001","Tawny-shouldered Blackbird","Passeriformes","Icteridae","Agelaius","humeralis","Agelaius humeralis",37
+"19140","Yellow-shouldered Blackbird","Passeriformes","Icteridae","Agelaius","xanthomus","Agelaius xanthomus",38
+"05010","Eastern Meadowlark","Passeriformes","Icteridae","Sturnella","magna","Sturnella magna",87.9
+"05011","Western Meadowlark","Passeriformes","Icteridae","Sturnella","neglecta","Sturnella neglecta",97.7
+"05012","unid. Eastern Meadowlark / Western Meadowlark","Passeriformes","Icteridae","Sturnella","magna / neglecta","Sturnella magna",87.9
+"04970","Yellow-headed Blackbird","Passeriformes","Icteridae","Xanthocephalus","xanthocephalus","Xanthocephalus xanthocephalus",69.5
+"19170","Melodious Blackbird","Passeriformes","Icteridae","Dives","dives","Dives dives",96
+"05090","Rusty Blackbird","Passeriformes","Icteridae","Euphagus","carolinus","Euphagus carolinus",59.75
+"05100","Brewer's Blackbird","Passeriformes","Icteridae","Euphagus","cyanocephalus","Euphagus cyanocephalus",62.65
+"05110","Common Grackle","Passeriformes","Icteridae","Quiscalus","quiscula","Quiscalus quiscula",105.9
+"05130","Boat-tailed Grackle","Passeriformes","Icteridae","Quiscalus","major","Quiscalus major",158.85
+"05120","Great-tailed Grackle","Passeriformes","Icteridae","Quiscalus","mexicanus","Quiscalus mexicanus",168.7
+"05135","unid. Boat-tailed Grackle / Great-tailed Grackle","Passeriformes","Icteridae","Quiscalus","major / mexicanus","Quiscalus major",158.85
+"19210","Greater Antillean Grackle","Passeriformes","Icteridae","Quiscalus","niger","Quiscalus niger",75
+"04961","Shiny Cowbird","Passeriformes","Icteridae","Molothrus","bonariensis","Molothrus bonariensis",37.05
+"04960","Bronzed Cowbird","Passeriformes","Icteridae","Molothrus","aeneus","Molothrus aeneus",62.9
+"04950","Brown-headed Cowbird","Passeriformes","Icteridae","Molothrus","ater","Molothrus ater",42.55
+"19240","Giant Cowbird","Passeriformes","Icteridae","Molothrus","oryzivorus","Molothrus oryzivorus",219
+"19250","Puerto Rican Oriole","Passeriformes","Icteridae","Icterus","portoricensis","Icterus portoricensis",40.99625
+"05041","Black-vented Oriole","Passeriformes","Icteridae","Icterus","wagleri","Icterus wagleri",42
+"19290","Bar-winged Oriole","Passeriformes","Icteridae","Icterus","maculialatus","Icterus maculialatus",40.99625
+"19251","Black-cowled Oriole","Passeriformes","Icteridae","Icterus","prosthemelas","Icterus prosthemelas",40.99625
+"05060","Orchard Oriole","Passeriformes","Icteridae","Icterus","spurius","Icterus spurius",20.05
+"05050","Hooded Oriole","Passeriformes","Icteridae","Icterus","cucullatus","Icterus cucullatus",24.3
+"19300","Yellow-backed Oriole","Passeriformes","Icteridae","Icterus","chrysater","Icterus chrysater",54
+"19320","Yellow-tailed Oriole","Passeriformes","Icteridae","Icterus","mesomelas","Icterus mesomelas",40
+"05020","Venezuelan Troupial","Passeriformes","Icteridae","Icterus","icterus","Icterus icterus",72
+"05051","Streak-backed Oriole","Passeriformes","Icteridae","Icterus","pustulatus","Icterus pustulatus",37
+"05080","Bullock's Oriole","Passeriformes","Icteridae","Icterus","bullockii","Icterus bullockii",37.85
+"19330","Orange Oriole","Passeriformes","Icteridae","Icterus","auratus","Icterus auratus",32
+"05032","Spot-breasted Oriole","Passeriformes","Icteridae","Icterus","pectoralis","Icterus pectoralis",52.34
+"05031","Altamira Oriole","Passeriformes","Icteridae","Icterus","gularis","Icterus gularis",55.3
+"05030","Audubon's Oriole","Passeriformes","Icteridae","Icterus","graduacauda","Icterus graduacauda",41.95
+"05070","Baltimore Oriole","Passeriformes","Icteridae","Icterus","galbula","Icterus galbula",35.75
+"05078","hybrid Bullock's Oriole x Baltimore Oriole","Passeriformes","Icteridae","Icterus","bullockii x galbula","Icterus bullockii",37.85
+"05077","unid. Bullock's Oriole / Baltimore Oriole","Passeriformes","Icteridae","Icterus","bullockii / galbula","Icterus bullockii",37.85
+"19341","Black-backed Oriole","Passeriformes","Icteridae","Icterus","abeillei","Icterus abeillei",40.99625
+"05040","Scott's Oriole","Passeriformes","Icteridae","Icterus","parisorum","Icterus parisorum",35.7
+"19350","Yellow-billed Cacique","Passeriformes","Icteridae","Amblycercus","holosericeus","Amblycercus holosericeus",71
+"19380","Yellow-winged Cacique","Passeriformes","Icteridae","Cacicus","melanicterus","Cacicus melanicterus",90
+"19400","Chestnut-headed Oropendola","Passeriformes","Icteridae","Psarocolius","wagleri","Psarocolius wagleri",161.45
+"19410","Montezuma Oropendola","Passeriformes","Icteridae","Psarocolius","montezuma","Psarocolius montezuma",314.15
+"05143","Common Chaffinch","Passeriformes","Fringillidae","Fringilla","coelebs","Fringilla coelebs",22.2
+"05141","Brambling","Passeriformes","Fringillidae","Fringilla","montifringilla","Fringilla montifringilla",22.65
+"18010","Scrub Euphonia","Passeriformes","Fringillidae","Euphonia","affinis","Euphonia affinis",10
+"18040","Yellow-throated Euphonia","Passeriformes","Fringillidae","Euphonia","hirundinacea","Euphonia hirundinacea",14
+"18050","Antillean Euphonia","Passeriformes","Fringillidae","Euphonia","musica","Euphonia musica",13
+"06060","Elegant Euphonia","Passeriformes","Fringillidae","Euphonia","elegantissima","Euphonia elegantissima",15
+"18080","Olive-backed Euphonia","Passeriformes","Fringillidae","Euphonia","gouldi","Euphonia gouldi",14
+"18090","White-vented Euphonia","Passeriformes","Fringillidae","Euphonia","minuta","Euphonia minuta",10
+"17980","Blue-crowned Chlorophonia","Passeriformes","Fringillidae","Chlorophonia","occipitalis","Chlorophonia occipitalis",26
+"05240","Gray-crowned Rosy-Finch","Passeriformes","Fringillidae","Leucosticte","tephrocotis","Leucosticte tephrocotis",23.85
+"05250","Black Rosy-Finch","Passeriformes","Fringillidae","Leucosticte","atrata","Leucosticte atrata",25.25
+"05260","Brown-capped Rosy-Finch","Passeriformes","Fringillidae","Leucosticte","australis","Leucosticte australis",27
+"05241","unid. Rosy-Finch","Passeriformes","Fringillidae","Leucosticte","tephrocotis / atrata / australis","Leucosticte tephrocotis",23.85
+"05150","Pine Grosbeak","Passeriformes","Fringillidae","Pinicola","enucleator","Pinicola enucleator",53.15
+"05170","Purple Finch","Passeriformes","Fringillidae","Carpodacus","purpureus","Carpodacus purpureus",25.25
+"05180","Cassin's Finch","Passeriformes","Fringillidae","Carpodacus","cassinii","Carpodacus cassinii",27.55
+"05190","House Finch","Passeriformes","Fringillidae","Carpodacus","mexicanus","Carpodacus mexicanus",21.75
+"05195","unid. Purple Finch / Cassin's Finch / House Finch","Passeriformes","Fringillidae","Carpodacus","purpureus / cassinii / mexicanus","Carpodacus purpureus",25.25
+"05210","Red Crossbill","Passeriformes","Fringillidae","Loxia","curvirostra","Loxia curvirostra",40.85
+"05220","White-winged Crossbill","Passeriformes","Fringillidae","Loxia","leucoptera","Loxia leucoptera",32.8
+"05225","unid. Red Crossbill / White-winged Crossbill","Passeriformes","Fringillidae","Loxia","curvirostra / leucoptera","Loxia curvirostra",40.85
+"05280","Common Redpoll","Passeriformes","Fringillidae","Acanthis","flammea","Acanthis flammea",13.05
+"05270","Hoary Redpoll","Passeriformes","Fringillidae","Acanthis","hornemanni","Acanthis hornemanni",13.15
+"05275","unid. Common Redpoll / Hoary Redpoll","Passeriformes","Fringillidae","Carduelis","flammea / hornemanni","Carduelis flammea",13.05
+"05330","Pine Siskin","Passeriformes","Fringillidae","Spinus","pinus","Spinus pinus",12.9
+"19430","Black-capped Siskin","Passeriformes","Fringillidae","Spinus","atriceps","Spinus atriceps",11.0125
+"19440","Black-headed Siskin","Passeriformes","Fringillidae","Spinus","notatus","Spinus notatus",11.0125
+"19460","Red Siskin","Passeriformes","Fringillidae","Spinus","cucullatus","Spinus cucullatus",11.0125
+"05300","Lesser Goldfinch","Passeriformes","Fringillidae","Spinus","psaltria","Spinus psaltria",8.85
+"05310","Lawrence's Goldfinch","Passeriformes","Fringillidae","Spinus","lawrencei","Spinus lawrencei",10.15
+"05290","American Goldfinch","Passeriformes","Fringillidae","Spinus","tristis","Spinus tristis",12.15
+"05262","Oriental Greenfinch","Passeriformes","Fringillidae","Chloris","sinica","Chloris sinica",NA
+"05332","Yellow-fronted Canary","Passeriformes","Fringillidae","Serinus","mozambicus","Serinus mozambicus",12.9
+"05331","Common Canary","Passeriformes","Fringillidae","Serinus","canaria","Serinus canaria",15.25
+"19480","Hooded Grosbeak","Passeriformes","Fringillidae","Coccothraustes","abeillei","Coccothraustes abeillei",49
+"05140","Evening Grosbeak","Passeriformes","Fringillidae","Coccothraustes","vespertinus","Coccothraustes vespertinus",59.5
+"06882","House Sparrow","Passeriformes","Passeridae","Passer","domesticus","Passer domesticus",30.2
+"06883","Eurasian Tree Sparrow","Passeriformes","Passeridae","Passer","montanus","Passer montanus",22.1
+"19500","Orange Bishop","Passeriformes","Ploceidae","Euplectes","franciscanus","Euplectes franciscanus",17
+"19510","Yellow-crowned Bishop","Passeriformes","Ploceidae","Euplectes","afer","Euplectes afer",14.45
+"08070","Orange-cheeked Waxbill","Passeriformes","Estrildidae","Estrilda","melpoda","Estrilda melpoda",7.75
+"08080","Black-rumped Waxbill","Passeriformes","Estrildidae","Estrilda","troglodytes","Estrilda troglodytes",7.7
+"08090","Red Avadavat","Passeriformes","Estrildidae","Amandava","amandava","Amandava amandava",9.9
+"08100","Indian Silverbill","Passeriformes","Estrildidae","Lonchura","malabarica","Lonchura malabarica",12
+"19530","Bronze Mannikin","Passeriformes","Estrildidae","Lonchura","cucullata","Lonchura cucullata",9.2
+"08110","Nutmeg Mannikin","Passeriformes","Estrildidae","Lonchura","punctulata","Lonchura punctulata",14
+"81200","Tricolored Munia","Passeriformes","Estrildidae","Lonchura","malacca","Lonchura malacca",13
+"08130","Java Sparrow","Passeriformes","Estrildidae","Padda","oryzivora","Padda oryzivora",25
+"19540","Pin-tailed Whydah","Passeriformes","Viduidae","Vidua","macroura","Vidua macroura",15.75
+"00077","unid. Loon","Gaviiformes","Gaviidae","Gavia","sp","Gavia sp",3246.70833333333
+"01207","unid. Cormorant","Suliformes","Phalacrocoracidae","Phalacrocorax","sp","Phalacrocorax sp",1981.45833333333
+"03333","unid. Accipiter Hawk","Accipitriformes","Accipitridae","Accipiter","sp","Accipiter sp",357.75
+"03451","unid. Buteo Hawk","Accipitriformes","Accipitridae","Buteo","sp","Buteo sp",786.3875
+"02429","unid. small ''peep'' sandpiper","Charadriiformes","Scolopacidae","Calidris","sp","Calidris sp",57.2473684210526
+"00387","unid. Jaeger","Charadriiformes","Laridae","Stercorarius","sp","Stercorarius sp",910.21
+"03827","unid. Brotogeris Parakeet","Psittaciformes","Psittacidae","Brotogeris","sp","Brotogeris sp",64.8666666666667
+"03875","unid. Cuckoo","Cuculiformes","Cuculidae","Coccyzus","sp","Coccyzus sp",59.3333333333333
+"03737","unid. Screech-Owl","Strigiformes","Strigidae","Megascops","sp","Megascops sp",136.54
+"04205","unid. Nighthawk","Caprimulgiformes","Caprimulgidae","Chordeiles","sp","Chordeiles sp",64.6
+"04022","unid. Sapsucker","Piciformes","Picidae","Sphyrapicus","sp","Sphyrapicus sp",50.9833333333333
+"04679","unid. Empidonax Flycatcher","Passeriformes","Tyrannidae","Empidonax","sp","Empidonax sp",11.3123529411765
+"04447","unid. Kingbird","Passeriformes","Tyrannidae","Tyrannus","sp","Tyrannus sp",40.9272727272727
+"04881","unid. Crow","Passeriformes","Corvidae","Corvus","sp","Corvus sp",467.828571428571
+"04865","unid. Raven","Passeriformes","Corvidae","Corvus","sp","Corvus sp",467.828571428571
+"07351","unid. Chickadee","Passeriformes","Paridae","Poecile","sp","Poecile sp",10.8285714285714
+"07539","unid. Gnatcatcher","Passeriformes","Polioptilidae","Polioptila","sp","Polioptila sp",5.90833333333333
+"04955","unid. Cowbird","Passeriformes","Icteridae","Molothrus","sp","Molothrus sp",90.375
+"01945","unid. Heron / Egret","Pelecaniformes","Ardeidae","Ardeidae","sp","Ardeidae sp",673.646
+"03255","unid. Vulture","Accipitriformes","Cathartidae","Cathartidae","sp","Cathartidae sp",3281.55
+"00534","unid. Gull","Charadriiformes","Laridae","Laridae","sp","Laridae sp",549.268965517241
+"00634","unid. Tern","Charadriiformes","Laridae","Laridae","sp","Laridae sp",549.268965517241
+"04402","unid. Hummingbird","Apodiformes","Trochilidae","Trochilidae","sp","Trochilidae sp",4.55362903225806
+"03920","unid. Woodpecker","Piciformes","Picidae","Picidae","sp","Picidae sp",88.940243902439
+"14035","unid. Woodcreeper","Passeriformes","Furnariidae","Furnariidae","sp","Furnariidae sp",37.5
