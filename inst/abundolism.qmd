@@ -57,6 +57,9 @@ sim_dat <- sim_BDI_spec(la = la, mu = mu, g = g, m_prop = m_prop,
 Now we can plot the results and find out how abundance relates to speciation in this model
 
 ```{r}
+#| fig-width: 4
+#| fig-height: 3
+
 library(ggplot2)
 library(hexbin)
 
@@ -68,15 +71,26 @@ mod <- glm(speciation ~ log_pop + I(log_pop^2), data = sim_dat,
 # add to data
 sim_dat$mod_pred <- predict(mod, type = "response")
 
-ggplot(sim_dat, aes(x = mean_pop_size, y = speciation)) +
+p <- ggplot(sim_dat, aes(x = mean_pop_size, y = speciation)) +
     geom_hex(bins = 40) + 
-    scale_x_log10() +
-    scale_fill_viridis_c(trans = "log", breaks = c(2, 5, 20)) +
+    scale_x_log10()
+
+pdat <- ggplot_build(p)$data[[1]]
+tk <- round(10^seq(floor(min(log(pdat$count, 10))), 
+                   ceiling(max(log(pdat$count, 10))), 
+                   by = 0.5))
+for(i in c(10, 100, 1000)) {
+    tk[tk > i] <- round(tk[tk > i] / i) * i
+}
+
+p + scale_fill_viridis_c(trans = "log", breaks = tk) +
     geom_line(aes(x = mean_pop_size, y = mod_pred)) +
     scale_y_continuous(breaks = c(0, 1)) + 
     xlab("Mean population size") +
     ylab("Speciation (no = 0, yes = 1") +
     theme(panel.grid.minor.y = element_blank())
+
+
 ```
 
 
