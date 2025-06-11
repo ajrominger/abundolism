@@ -1,0 +1,19 @@
+Package: abundolism
+Type: Package
+Title: foo
+Version: 0.1.0
+Date: 2022-09-15
+Author: Andrew Rominger
+Description: testing
+License: GPL (>= 3) 
+LazyData: true
+Encoding: UTF-8
+Depends:
+    R (>= 3.5.0)
+Imports: 
+    Rcpp,
+    RcppArmadillo
+LinkingTo: Rcpp, RcppArmadillo
+RoxygenNote: 7.3.2
+VignetteBuilder: knitr
+
