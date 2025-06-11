@@ -26,8 +26,8 @@ Here are the parameters:
 - $\gamma$ (`g`): immigration rate from global source pool
 - $m_p$ (`m_prop`): proportional immigration rate between local populations; immigration rate $m = \gamma \times m_p$ 
 - $\nu$ (`nu`): incipient speciation rate
-- $\mu$ (`tau`): wait time to full speciation in the absence of immigration
-- $\mu$ (`xi`): amount each immigrant sets back the progression toward speciation
+- $\tau$ (`tau`): wait time to full speciation in the absence of immigration
+- $\xi$ (`xi`): amount each immigrant sets back the progression toward speciation
 - (`np`): number of local populations
 - (`nstep`): number of iterations to run simulation for
 
