@@ -3,6 +3,56 @@ title: "Playing with abundance and speciation"
 format: pdf
 ---
 
+## Introduction
+
+- @jablonski2003: "Late Cretaceous gastropod genera exhibit a strong negative relation between the geographical ranges of constituent species and speciation rate per species per million years...These results support the view that the factors promoting broad geographical ranges also tend to damp speciation rates" analysis of modern only might not reveal this pattern---why Hawawi\'i could be a good place to look
+- @krug2008: uses spp:gen ratio. widespread bival genera have more species. "Species within these cosmopolitan genera may have life-history traits or other attributes that allow for rapid adaptation to new environments, promoting both speciation and range expansion of a lineage"
+- @birand2012: ABM, but about range and pixles are agents. found increased dispersal decreases speciation
+- @hay2022: Provides good background on range size +/- corr with speciation. "Honeyeater speciation rate differs considerably between islands and the continental setting across the clade’s distribution, with range size contributing positively in the continental setting, while dispersal ability influences speciation regardless of setting. These outcomes support Darwin’s original proposal for a positive relationship between range size and speciation likelihood, while extending the evidence for the contribution of dispersal ability to speciation."
+- @goldberg2011: GeoSSE model assumes speciation increases with range size, extinction decreases with it
+- @smyvcka2023: hard to say if range size is + or - corr with speciation (could be impacted by change in range size with speciation)
+- @kisel2010: gene flow important for speciation; islands good for studying speciation
+- @gaston2002: classic reference on range size + corr with speciation 
+- @pigot2010: model of range size and diversification: finds larger ranges produce more speciation, but with specaition, ranges shrink, causing specaition slow down
+- @ashby2020: ABM showing itermediate dispersal produces most speciation
+- @price2004: speciation in Hawai\`i plants; intermediate disperal hypothesis; should check for possible data usability on lineage designation 
+- @claramunt2012: "Using a surrogate for flight performance and a species-level DNA-based phylogeny of a large South American bird radiation (the Furnariidae), we found that lineages with higher dispersal ability experienced lower speciation rates."
+- @ciccheto2024: model shows intermediate dispersal is optimum for diversification
+- @casey2021: extinction up with decreasing abundance (range size also, but less predictive)
+- @claramunt2025: "we found mixed evidence for the effect of dispersal on diversification rates: dispersive lineages show either slightly higher speciation rates or higher extinction rates.  Our results therefore suggest that high dispersal ability increases range expansion and turnover, perhaps because dispersive lineages expand into islands or other geographically restricted environments and have lower population sizes...even though per capita dispersal rates may be high for highly dispersive species, levels of gene flow may be relatively low due to lower population size. This effect may explain why population genetic studies have not consistently found the expected negative relationship between dispersal ability and genetic differentiation71,72,73 and why rates of speciation remain relatively stable across a wide range of dispersal capabilities" 
+- @makarieva2004: relationship between abundance and speciation open question. they go into neutral pop gen which we should too
+- @afonso2025: negative relationship between gen div and diversification. go into how low gen div, and thus Ne, could drive speciation
+
+maurer 89. diversity dependent species dynamics. paleobiology
+
+maurer and nott 98. geographic range frag. in biodiversity dynamics
+
+vrba 80 (evol, species, fossils. south african j science) and eldredge 89 (macroevo dyn): impala and wildebeast, mate choice and competitive advantage of specialists lead to higher speciation and/or better coexistence of new spp
+
+stanley 1990 (general correlation between rate... in causes of evolution: a paleo perspective, ed ross allmon): speciation and extinction are correlated
+
+stanley 1986 (pop size, extinction, specaition. paleobio) had a model worth looking at for humped speciation (maybe drawn in stanley 1990)
+
+darwin: widespread, more common leads to more speciation because of superiority
+
+maurer (eco complex) models this and organizes darwin's argument
+
+
+
+
+
+ Wagner CE, Harmon LJ, Seehausen O (2012) Ecological opportunity and sexual selection together predict adaptive radiation. Nature
+
+
+Jablonski D, Roy K (2003) Geographical range and speciation in fossil and living molluscs. Proc Biol Sci 270(
+
+
+
+
+
+
+
+
 ## Birth-death-immigration model with speciation
 
 We simulate a birth-death-immigration model (BDI) with speciation (BDIS) in a metapopulation setting. This is the set-up
@@ -95,3 +145,10 @@ p + scale_fill_viridis_c(trans = "log", breaks = tk) +
 
 
 So we see there is a sweet spot of intermediate abundance where speciation is most likely to take place!
+
+## To-do
+
+- intro
+- bring in HI arth data
+- figure out if want to model arth data with stan
+- if yes, connect prob(speciation) to rate (r = delta_t p o(delta_t)) and connect that to neg binom regression
