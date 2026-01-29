@@ -1,5 +1,13 @@
 ---
 title: "Intermediate abundance promotes speciation when dispersal is limited"
+author:
+  - name: Andrew J. Rominger
+  - name: Luke J. Harmon
+  - name: Isaac Overcast
+  - name: Christine E. Parent
+  - name: James L. Rosindell
+  - name: Catherine E. Wagner
+
 format:
   pdf:
     keep-tex: true
@@ -9,13 +17,14 @@ format:
         \externaldocument{ab_supp}
         \newcommand{\sfig}[1]{Supplementary Figure~\ref{#1}}
         \newcommand{\ssec}[1]{Supplementary Section~\ref{#1}}
+
 csl: oikos.csl
 bibliography: abundolism.bib
 ---
 
 ## Abstract 
 
-Foo foo foo
+Stub
 
 
 
@@ -27,7 +36,9 @@ Foo foo foo
 #| label: setup
 #| include: false
 
-# maybe need nothing
+library(knitr)
+
+opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
 ```
 
 ```{r}
@@ -40,50 +51,19 @@ quarto::quarto_render("ab_supp.qmd", quiet = TRUE)
 tinytex::xelatex("ab_supp.tex", clean = FALSE)
 ```
 
+A fundamental question in evolutionary ecology concerns why some clades are diverse while others are not. Are there properties of species and lineages that promote speciation? One line of inquiry with a long and convoluted history is the role of rarity and commonness is driving diversification. Going back over 150 years, @darwin argued that widespread, abundant species should be superior competitors and thus more likely to give rise to new species. 
 
-WTF \sfig{fig-one}
+This line of thinking carried forward to macroecologists who attempted to model, with some empirical support, the presumed positive association between commonness, fitness, and speciation [@maurer1999]. Paleontologists searched for relationships between commonness and diversification, alternately finding evidence for a positive relationship [@krug2008] but also a negative relationship [stanley1986; @jablonski2003]. Empirical studies of modern taxa have largely found that commonness is negatively or inconclusively related to measures of diversification [@jablonski2003; makarieva2004; @greenberg2017; smyvcka2023; afonso2025; but see @hay2022]. While some of these studies focus specifically on average abundance, others on range size, and some on both, the two macroecological properties are most often strongly correlated [@brown1995; gaston2002] and for now we will treat both as existing on a continuum between rarity and commonness.
 
-OMG \ssec{sec-intro}
+More recent theoretical and modeling work has largely assumed a positive relationship between commonness and diversification. @hubbell2001 perhaps started this trend with the inclusion of "point mutation" speciation in the Unified Neutral Theory of Biodiversity (UNTB). Because point mutation speciation assumes a constant probability of specaition for every individual, lineages with more individuals will experience more speciation events in the UNTB [@hubbell2001; etienne2007modes]. The speciation mechanism first proposed by @hubbell2001 was never an accurate model of real diversification, but even later attempts to increase the realism of speciation in the UNTB retain the emergent property that more abundant lineages will undergo more specaition: protracted speciation [@rosindell2010protracted] again assumes that incipient speciation is constant across individuals and thus full speciation will scale positively with lineage abundance; fission speciation [@etienne2011fission] also assumes the probability of fission (the event that leads to speciation) increases with the number of individuals in a species.  Largely independently from UNTB and its descendants, phylogenetic models of geographic change and diversification also explicitly assume that more widespread species have greater opportunity for speciation [@goldberg2011].
 
+However, another process underlies speciation itself, the study of speciation in relation to commonness, and the relationship between abundance and range size: dispersal.  Dispersal is a key mechanism by which populations can become isolated or connected, potentially leading to specaition or admixture [@yamaguchi2022]; it is a key process in phylogenetic models of geographic change and diversification [@matzke2014]; it is necessary to maintain biodiversity in the UNTB [@hubbell2001]; and it is the mechanism connecting abundance to range size in both neutral [@hubbell2001] and non-neutral [@brown1995] macroecological models. 
 
-- @jablonski2003: "Late Cretaceous gastropod genera exhibit a strong negative relation between the geographical ranges of constituent species and speciation rate per species per million years...These results support the view that the factors promoting broad geographical ranges also tend to damp speciation rates" analysis of modern only might not reveal this pattern---why Hawawi\'i could be a good place to look
-- @krug2008: uses spp:gen ratio. widespread bival genera have more species. "Species within these cosmopolitan genera may have life-history traits or other attributes that allow for rapid adaptation to new environments, promoting both speciation and range expansion of a lineage"
-- @birand2012: ABM, but about range and pixles are agents. found increased dispersal decreases speciation
-- @hay2022: Provides good background on range size +/- corr with speciation. "Honeyeater speciation rate differs considerably between islands and the continental setting across the clade’s distribution, with range size contributing positively in the continental setting, while dispersal ability influences speciation regardless of setting. These outcomes support Darwin’s original proposal for a positive relationship between range size and speciation likelihood, while extending the evidence for the contribution of dispersal ability to speciation."
-- @goldberg2011: GeoSSE model assumes speciation increases with range size, extinction decreases with it
-- @smyvcka2023: hard to say if range size is + or - corr with speciation (could be impacted by change in range size with speciation)
-- @kisel2010: gene flow important for speciation; islands good for studying speciation
-- @gaston2002: classic reference on range size + corr with speciation 
-- @pigot2010: model of range size and diversification: finds larger ranges produce more speciation, but with specaition, ranges shrink, causing specaition slow down
-- @ashby2020: ABM showing itermediate dispersal produces most speciation
-- @price2004: speciation in Hawai\`i plants; intermediate disperal hypothesis; should check for possible data usability on lineage designation 
-- @claramunt2012: "Using a surrogate for flight performance and a species-level DNA-based phylogeny of a large South American bird radiation (the Furnariidae), we found that lineages with higher dispersal ability experienced lower speciation rates."
-- @ciccheto2024: model shows intermediate dispersal is optimum for diversification
-- @casey2021: extinction up with decreasing abundance (range size also, but less predictive)
-- @claramunt2025: "we found mixed evidence for the effect of dispersal on diversification rates: dispersive lineages show either slightly higher speciation rates or higher extinction rates.  Our results therefore suggest that high dispersal ability increases range expansion and turnover, perhaps because dispersive lineages expand into islands or other geographically restricted environments and have lower population sizes...even though per capita dispersal rates may be high for highly dispersive species, levels of gene flow may be relatively low due to lower population size. This effect may explain why population genetic studies have not consistently found the expected negative relationship between dispersal ability and genetic differentiation71,72,73 and why rates of speciation remain relatively stable across a wide range of dispersal capabilities" 
-- @makarieva2004: relationship between abundance and speciation open question. they go into neutral pop gen which we should too
-- @afonso2025: negative relationship between gen div and diversification. go into how low gen div, and thus Ne, could drive speciation
-- @rosindell2010protracted: protracted speciation; still most abundant is speciator 
-- @etienne2011fission: fission speciation; still most abundant is speciator 
-- @etienne2007modes: makes explicit "the speciation rate of a species is directly proportional to its abundance in the metacommunity." Find abundance-independent speciation is poor fit to data, indicates speciation matters
-- @stanley1990: speciation and extinction are correlated; could be abundance driven, dispersal driven, specialization driven
-- @stanley1986: speciation, extinction correlated in Neogene bivalvs he was looking at; proposed a model for humped speciation across abundance
-- @darwin: widespread, more common leads to more speciation because of superiority
-- @maurer1999: organizes darwin's argument about widespread species being greater speciators
-- @brown1995: abundance range size correlation
-- @czekanski2019: review finding that poor dispersal is key in producing "nonadatpive" radiations
-- @greenberg2017: link between extant species diversity and extinction risk (arguing for correlation between etinciton and speciation)
+Due to the potential for dispersal to create population isolates but also swamp out regional differences that could have led to specaition, it remains an intriguing question what the connection is between dispersal ability as a biological trait and speciation as an evolutionary outcome [@yamaguchi2022]. Some empirical studies have found that measures of diversification have a hump-shaped or negative relationship with morphological proxies for dispersal ability [@price2004; @claramunt2012; @czekanski2019] while others have found a positive to flat relationship between dispersal ability and diversification [@claramunt2025]. Agent-based model simulations have supported the idea of a trade-off between too little dispersal leading to population instability and too much dispersal leading to admixture with intermediate dispersal balancing the two extremes allowing for speciation [@birand2012; @ashby2020; @ciccheto2024]. 
 
+But dispersal is not just a trait connected to morphology or imposed in a simulation, it emerges from population dynamics: each individual carries some probability of dispersing, thus species with more individuals will present with higher dispersal. This is the assumption, a realistic one, in birth-death-immigration models [@kendall1948] of which the UNTB is one [@hubbell2001; alonso2004]. Therefore, commonness and dispersal are interconnected and interdependent in their effects on speciation if they indeed have any consistent effects. It also remains an open debate whether their effects result from the determinism of adaptive evolution as @darwin believed or instead emerge from chance. 
 
-
-
-
-
-
-
-
-
-
+Here we develop a birth-death-immigration model with protracted specaition embedded in a landscape of multiple local populations connected with limited dispersal to investigate the role of abundance and chance in modulating the probability of speciation. Contrary to @darwin and UNTB [@hubbell2001; @etienne2007modes; @rosindell2010protracted; @etienne2011fission], we find that intermediate abundances lead to the greatest probability for dispersal. Critically, this result does not depend in any way on whether populations are more or less adaptively fit, it only depends on a balance between large enough population sizes to accrue sufficient probability of incipient speciation but small enough population sizes to not loose regional differentiation due to increased dispersal. We also analyze real data on the species richness and abundance of endemic arthropods in the pae ʻāina Hawaiʻi finding empirical evidence for intermediate abundance promoting speciation.
 
 
 ## Methods
@@ -113,7 +93,7 @@ These processes are governed by the following parameters:
 - $n_p$ (`np`): number of local populations
 - $n_\text{step}$ (`nstep`): number of iterations to run the simulation for
 
-Full details of the simulation are provided in \ref{sec-sim}. Underlying C++ and R source code is available in the R package *abondolism* [@abundolism-package] accompanying this paper.
+Full details of the simulation are provided in \ssec{sec-sim}. Underlying C++ and R source code is available in the R package *abondolism* [@abundolism-package] accompanying this paper.
 
 ### Simulation experiment
 
@@ -125,6 +105,19 @@ Bishop checklist: *generally* each native genus got here once and radiated
 
 ## Results 
 
+```{r}
+#| label: fig-sim
+
+f <- grep("make-sim-fig.*RData", 
+           list.files("ab_supp_cache/pdf", full.names = TRUE), 
+           value = TRUE) |> 
+    gsub("\\.RData", "", x = _)
+
+lazyLoad(f)
+
+sim_fig
+```
+
 So we see there is a sweet spot of intermediate abundance where speciation is most likely to take place!
 
 ## To-do
@@ -133,3 +126,6 @@ So we see there is a sweet spot of intermediate abundance where speciation is mo
 - bring in HI arth data
 - figure out if want to model arth data with stan
 - if yes, connect prob(speciation) to rate (r = delta_t p o(delta_t)) and connect that to neg binom regression
+
+
+## References 
