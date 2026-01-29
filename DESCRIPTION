@@ -12,8 +12,11 @@ Depends:
     R (>= 3.5.0)
 Imports: 
     Rcpp,
-    RcppArmadillo
+    RcppArmadillo, 
+    cmdstanr
 LinkingTo: Rcpp, RcppArmadillo
 RoxygenNote: 7.3.2
 VignetteBuilder: knitr
+Additional_repositories:
+    https://stan-dev.r-universe.dev
 
