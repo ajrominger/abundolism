@@ -27,7 +27,24 @@ full speciation}
 \item{nstep}{scalar, number of simulation steps}
 }
 \value{
-a data.frame with columns
+a data.frame with columns for input parameter values and output
+results
+\itemize{
+\item \code{la}
+\item \code{mu}
+\item \code{g}
+\item \code{m_prop}
+\item \code{nu}
+\item \code{tau}
+\item \code{xi}
+\item \code{np}
+\item \code{nstep}
+\item \code{time}: simulation time step, if speciation occurred this number will
+be \verb{< nstep}, if not this number will be \verb{== nstep}
+\item \code{mean_pop_size}: the mean population size across all time steps and
+populations
+\item \code{speciation}: 0 (no speciation) or 1 (yes specaition)
+}
 }
 \description{
 A fast simulation of speciation in a meta-population
