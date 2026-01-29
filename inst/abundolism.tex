@@ -1,0 +1,712 @@
+% Options for packages loaded elsewhere
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
+%
+\documentclass[
+  letterpaper,
+  DIV=11,
+  numbers=noendperiod]{scrartcl}
+\usepackage{xcolor}
+\usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+% Make \paragraph and \subparagraph free-standing
+\makeatletter
+\ifx\paragraph\undefined\else
+  \let\oldparagraph\paragraph
+  \renewcommand{\paragraph}{
+    \@ifstar
+      \xxxParagraphStar
+      \xxxParagraphNoStar
+  }
+  \newcommand{\xxxParagraphStar}[1]{\oldparagraph*{#1}\mbox{}}
+  \newcommand{\xxxParagraphNoStar}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+  \let\oldsubparagraph\subparagraph
+  \renewcommand{\subparagraph}{
+    \@ifstar
+      \xxxSubParagraphStar
+      \xxxSubParagraphNoStar
+  }
+  \newcommand{\xxxSubParagraphStar}[1]{\oldsubparagraph*{#1}\mbox{}}
+  \newcommand{\xxxSubParagraphNoStar}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+\makeatother
+
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{241,243,245}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.40,0.45,0.13}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\BuiltInTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\ExtensionTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.28,0.35,0.67}{#1}}
+\newcommand{\ImportTok}[1]{\textcolor[rgb]{0.00,0.46,0.62}{#1}}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.07,0.07,0.07}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+
+
+% definitions for citeproc citations
+\NewDocumentCommand\citeproctext{}{}
+\NewDocumentCommand\citeproc{mm}{%
+  \begingroup\def\citeproctext{#2}\cite{#1}\endgroup}
+\makeatletter
+ % allow citations to break across lines
+ \let\@cite@ofmt\@firstofone
+ % avoid brackets around text for \cite:
+ \def\@biblabel#1{}
+ \def\@cite#1#2{{#1\if@tempswa , #2\fi}}
+\makeatother
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newenvironment{CSLReferences}[2] % #1 hanging-indent, #2 entry-spacing
+ {\begin{list}{}{%
+  \setlength{\itemindent}{0pt}
+  \setlength{\leftmargin}{0pt}
+  \setlength{\parsep}{0pt}
+  % turn on hanging indent if param 1 is 1
+  \ifodd #1
+   \setlength{\leftmargin}{\cslhangindent}
+   \setlength{\itemindent}{-1\cslhangindent}
+  \fi
+  % set entry spacing
+  \setlength{\itemsep}{#2\baselineskip}}}
+ {\end{list}}
+\usepackage{calc}
+\newcommand{\CSLBlock}[1]{\hfill\break\parbox[t]{\linewidth}{\strut\ignorespaces#1\strut}}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{\strut#1\strut}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{\strut#1\strut}}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
+
+
+
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+
+
+ 
+
+
+\usepackage{xr}
+\externaldocument{ab_supp}
+\newcommand{\sfig}[1]{Supplementary Figure~\ref{#1}}
+\newcommand{\ssec}[1]{Supplementary Section~\ref{#1}}
+\KOMAoption{captions}{tableheading}
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\AtBeginDocument{%
+\ifdefined\contentsname
+  \renewcommand*\contentsname{Table of contents}
+\else
+  \newcommand\contentsname{Table of contents}
+\fi
+\ifdefined\listfigurename
+  \renewcommand*\listfigurename{List of Figures}
+\else
+  \newcommand\listfigurename{List of Figures}
+\fi
+\ifdefined\listtablename
+  \renewcommand*\listtablename{List of Tables}
+\else
+  \newcommand\listtablename{List of Tables}
+\fi
+\ifdefined\figurename
+  \renewcommand*\figurename{Figure}
+\else
+  \newcommand\figurename{Figure}
+\fi
+\ifdefined\tablename
+  \renewcommand*\tablename{Table}
+\else
+  \newcommand\tablename{Table}
+\fi
+}
+\@ifpackageloaded{float}{}{\usepackage{float}}
+\floatstyle{ruled}
+\@ifundefined{c@chapter}{\newfloat{codelisting}{h}{lop}}{\newfloat{codelisting}{h}{lop}[chapter]}
+\floatname{codelisting}{Listing}
+\newcommand*\listoflistings{\listof{codelisting}{List of Listings}}
+\makeatother
+\makeatletter
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
+\makeatother
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Intermediate abundance promotes speciation},
+  colorlinks=true,
+  linkcolor={blue},
+  filecolor={Maroon},
+  citecolor={Blue},
+  urlcolor={Blue},
+  pdfcreator={LaTeX via pandoc}}
+
+
+\title{Intermediate abundance promotes speciation}
+\author{}
+\date{}
+\begin{document}
+\maketitle
+
+
+\subsection{Abstract}\label{abstract}
+
+Foo foo foo
+
+\subsection{Introduction}\label{introduction}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{print}\NormalTok{(}\FunctionTok{Sys.time}\NormalTok{())}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "2026-01-28 16:19:56 HST"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{quarto}\SpecialCharTok{::}\FunctionTok{quarto\_render}\NormalTok{(}\StringTok{"ab\_supp.qmd"}\NormalTok{, }\AttributeTok{quiet =} \ConstantTok{TRUE}\NormalTok{)}
+\NormalTok{tinytex}\SpecialCharTok{::}\FunctionTok{xelatex}\NormalTok{(}\StringTok{"ab\_supp.tex"}\NormalTok{, }\AttributeTok{clean =} \ConstantTok{FALSE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "ab_supp.pdf"
+\end{verbatim}
+
+WTF \sfig{fig-one}
+
+OMG \ssec{sec-intro}
+
+\begin{itemize}
+\tightlist
+\item
+  Jablonski and Roy (2003): ``Late Cretaceous gastropod genera exhibit a
+  strong negative relation between the geographical ranges of
+  constituent species and speciation rate per species per million
+  years\ldots These results support the view that the factors promoting
+  broad geographical ranges also tend to damp speciation rates''
+  analysis of modern only might not reveal this pattern---why
+  Hawawi\textquotesingle i could be a good place to look
+\item
+  Krug et al. (2008): uses spp:gen ratio. widespread bival genera have
+  more species. ``Species within these cosmopolitan genera may have
+  life-history traits or other attributes that allow for rapid
+  adaptation to new environments, promoting both speciation and range
+  expansion of a lineage''
+\item
+  Birand et al. (2012): ABM, but about range and pixles are agents.
+  found increased dispersal decreases speciation
+\item
+  Hay et al. (2022): Provides good background on range size +/- corr
+  with speciation. ``Honeyeater speciation rate differs considerably
+  between islands and the continental setting across the clade's
+  distribution, with range size contributing positively in the
+  continental setting, while dispersal ability influences speciation
+  regardless of setting. These outcomes support Darwin's original
+  proposal for a positive relationship between range size and speciation
+  likelihood, while extending the evidence for the contribution of
+  dispersal ability to speciation.''
+\item
+  Goldberg et al. (2011): GeoSSE model assumes speciation increases with
+  range size, extinction decreases with it
+\item
+  Smyčka et al. (2023): hard to say if range size is + or - corr with
+  speciation (could be impacted by change in range size with speciation)
+\item
+  Kisel and Barraclough (2010): gene flow important for speciation;
+  islands good for studying speciation
+\item
+  Gaston (2003): classic reference on range size + corr with speciation
+\item
+  Pigot et al. (2010): model of range size and diversification: finds
+  larger ranges produce more speciation, but with specaition, ranges
+  shrink, causing specaition slow down
+\item
+  Ashby et al. (2020): ABM showing itermediate dispersal produces most
+  speciation
+\item
+  Price and Wagner (2004): speciation in Hawai`i plants; intermediate
+  disperal hypothesis; should check for possible data usability on
+  lineage designation
+\item
+  Claramunt et al. (2012): ``Using a surrogate for flight performance
+  and a species-level DNA-based phylogeny of a large South American bird
+  radiation (the Furnariidae), we found that lineages with higher
+  dispersal ability experienced lower speciation rates.''
+\item
+  Ciccheto et al. (2024): model shows intermediate dispersal is optimum
+  for diversification
+\item
+  Casey et al. (2021): extinction up with decreasing abundance (range
+  size also, but less predictive)
+\item
+  Claramunt et al. (2025): ``we found mixed evidence for the effect of
+  dispersal on diversification rates: dispersive lineages show either
+  slightly higher speciation rates or higher extinction rates. Our
+  results therefore suggest that high dispersal ability increases range
+  expansion and turnover, perhaps because dispersive lineages expand
+  into islands or other geographically restricted environments and have
+  lower population sizes\ldots even though per capita dispersal rates
+  may be high for highly dispersive species, levels of gene flow may be
+  relatively low due to lower population size. This effect may explain
+  why population genetic studies have not consistently found the
+  expected negative relationship between dispersal ability and genetic
+  differentiation71,72,73 and why rates of speciation remain relatively
+  stable across a wide range of dispersal capabilities''
+\item
+  Makarieva and Gorshkov (2004): relationship between abundance and
+  speciation open question. they go into neutral pop gen which we should
+  too
+\item
+  Afonso Silva et al. (2025): negative relationship between gen div and
+  diversification. go into how low gen div, and thus Ne, could drive
+  speciation
+\item
+  Rosindell et al. (2010): protracted speciation; still most abundant is
+  speciator
+\item
+  Etienne and Haegeman (2011): fission speciation; still most abundant
+  is speciator
+\item
+  Etienne et al. (2007): makes explicit ``the speciation rate of a
+  species is directly proportional to its abundance in the
+  metacommunity.'' Find abundance-independent speciation is poor fit to
+  data, indicates speciation matters
+\item
+  Stanley (1990): speciation and extinction are correlated; could be
+  abundance driven, dispersal driven, specialization driven
+\item
+  Stanley (1986): speciation, extinction correlated in Neogene bivalvs
+  he was looking at; proposed a model for humped speciation across
+  abundance
+\item
+  Darwin (1859): widespread, more common leads to more speciation
+  because of superiority
+\item
+  Maurer (1999): organizes darwin's argument about widespread species
+  being greater speciators
+\item
+  Brown (1995): abundance range size correlation
+\item
+  Czekanski-Moir and Rundell (2019): review finding that poor dispersal
+  is key in producing ``nonadatpive'' radiations
+\item
+  Greenberg and Mooers (2017): link between extant species diversity and
+  extinction risk (arguing for correlation between etinciton and
+  speciation)
+\end{itemize}
+
+\subsection{Birth-death-immigration model with
+speciation}\label{birth-death-immigration-model-with-speciation}
+
+We simulate a birth-death-immigration model (BDI) with speciation (BDIS)
+in a metapopulation setting. This is the set-up
+
+\begin{itemize}
+\tightlist
+\item
+  There are \texttt{np} number of local populations in the
+  metapopulation
+\item
+  There is a global source pool
+\end{itemize}
+
+Here are the biological process steps:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Birth, death, immigration, and speciation all happen indipendently and
+  are determined by respective rates (see params below)
+\item
+  Speciation has 2 steps:
+
+  \begin{enumerate}
+  \def\labelenumii{\roman{enumii}.}
+  \tightlist
+  \item
+    incipient speciation happens by turning one local population into an
+    incipient new species
+  \item
+    if the incipient species lasts long enough it becomes a new species
+  \end{enumerate}
+\item
+  Immigration between local communities and from the global source pool
+  slows the progress toward speciation (technically if an incipient
+  species has to wait \(\tau\) time (in the absence of immigration)
+  until it's a full species, each immigration event adds an increment to
+  \(\tau\) of \(\xi / n_i\) where \(\xi\) is a parameter we can set and
+  \(n_i\) is the population size of the incipient species)
+\item
+  Once full speciation occurs the simulation is stopped; if the
+  simulation reaches the maximum designated number of iterations
+  (\texttt{nstep}) without full speciation, then the simulation stops
+  anyway
+\end{enumerate}
+
+Here are the parameters:
+
+\begin{itemize}
+\tightlist
+\item
+  \(\lambda\) (\texttt{la}): birth rate
+\item
+  \(\mu\) (\texttt{mu}): death rate
+\item
+  \(\gamma\) (\texttt{g}): immigration rate from global source pool
+\item
+  \(m_p\) (\texttt{m\_prop}): proportional immigration rate between
+  local populations; immigration rate \(m = \gamma \times m_p\)
+\item
+  \(\nu\) (\texttt{nu}): incipient speciation rate
+\item
+  \(\tau\) (\texttt{tau}): wait time to full speciation in the absence
+  of immigration
+\item
+  \(\xi\) (\texttt{xi}): amount each immigrant sets back the progression
+  toward speciation
+\item
+  (\texttt{np}): number of local populations
+\item
+  (\texttt{nstep}): number of iterations to run simulation for
+\end{itemize}
+
+And we can now actually run this thing and see what happens
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(abundolism)}
+
+\NormalTok{nrep }\OtherTok{\textless{}{-}} \DecValTok{1000} \CommentTok{\# number of different parameter combos to look at}
+\NormalTok{la }\OtherTok{\textless{}{-}} \FunctionTok{runif}\NormalTok{(nrep, }\DecValTok{1}\NormalTok{, }\DecValTok{10}\NormalTok{)}
+\NormalTok{mu }\OtherTok{\textless{}{-}} \FunctionTok{runif}\NormalTok{(nrep, }\DecValTok{1}\NormalTok{, }\DecValTok{10}\NormalTok{)}
+\NormalTok{g }\OtherTok{\textless{}{-}}\NormalTok{ la }\SpecialCharTok{*} \FunctionTok{runif}\NormalTok{(nrep, }\DecValTok{0}\NormalTok{, }\FloatTok{0.1}\NormalTok{)}
+\NormalTok{m\_prop }\OtherTok{\textless{}{-}} \FunctionTok{runif}\NormalTok{(nrep, }\DecValTok{0}\NormalTok{, }\FloatTok{0.1}\NormalTok{)}
+\NormalTok{nu }\OtherTok{\textless{}{-}} \FunctionTok{runif}\NormalTok{(nrep, }\DecValTok{0}\NormalTok{, }\FloatTok{0.001}\NormalTok{)}
+\NormalTok{tau }\OtherTok{\textless{}{-}} \FunctionTok{runif}\NormalTok{(nrep, }\DecValTok{0}\NormalTok{, }\DecValTok{4}\NormalTok{) }\CommentTok{\#10 / (la + mu + runif(nrep, 0, 1))}
+\NormalTok{xi }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(}\DecValTok{1}\NormalTok{, nrep)}
+\NormalTok{np }\OtherTok{\textless{}{-}} \DecValTok{4}
+\NormalTok{nstep }\OtherTok{\textless{}{-}} \DecValTok{100000}
+
+
+\CommentTok{\# \textasciigrave{}sim\_BDI\_spec\textasciigrave{} is the workhorse function}
+\NormalTok{sim\_dat }\OtherTok{\textless{}{-}} \FunctionTok{sim\_BDI\_spec}\NormalTok{(}\AttributeTok{la =}\NormalTok{ la, }\AttributeTok{mu =}\NormalTok{ mu, }\AttributeTok{g =}\NormalTok{ g, }\AttributeTok{m\_prop =}\NormalTok{ m\_prop,}
+                        \AttributeTok{nu =}\NormalTok{ nu, }\AttributeTok{tau =}\NormalTok{ tau, }\AttributeTok{xi =}\NormalTok{ xi, }\AttributeTok{np =}\NormalTok{ np,}
+                        \AttributeTok{nstep =}\NormalTok{ nstep)}
+
+\FunctionTok{ggplot}\NormalTok{(sim\_dat, }
+       \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ tau, speciation)) }\SpecialCharTok{+}
+    \FunctionTok{geom\_pointdensity}\NormalTok{(}\AttributeTok{method =} \StringTok{"kde2d"}\NormalTok{) }\SpecialCharTok{+}
+    \FunctionTok{scale\_shape\_binned}\NormalTok{() }\SpecialCharTok{+}
+    \FunctionTok{scale\_color\_viridis\_c}\NormalTok{() }\SpecialCharTok{+}
+    \CommentTok{\# scale\_x\_log10() +}
+    \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{method =} \StringTok{"glm"}\NormalTok{, }
+                \AttributeTok{method.args =} \FunctionTok{list}\NormalTok{(}\AttributeTok{family =} \StringTok{"binomial"}\NormalTok{), }
+                \AttributeTok{color =} \StringTok{"black"}\NormalTok{)}
+
+\FunctionTok{ggplot}\NormalTok{(sim\_dat, }\FunctionTok{aes}\NormalTok{(time, mean\_pop\_size)) }\SpecialCharTok{+}
+    \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{data =} \FunctionTok{select}\NormalTok{(sim\_dat, }\SpecialCharTok{!}\NormalTok{speciation), }
+               \AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(time, mean\_pop\_size), }\AttributeTok{color =} \StringTok{"gray50"}\NormalTok{) }\SpecialCharTok{+}
+    \FunctionTok{geom\_pointdensity}\NormalTok{() }\SpecialCharTok{+} 
+    \FunctionTok{facet\_wrap}\NormalTok{(}\FunctionTok{vars}\NormalTok{(speciation)) }\SpecialCharTok{+}
+    \FunctionTok{scale\_x\_log10}\NormalTok{() }\SpecialCharTok{+}
+    \FunctionTok{scale\_y\_log10}\NormalTok{() }\SpecialCharTok{+} 
+    \FunctionTok{scale\_color\_viridis\_c}\NormalTok{(}\AttributeTok{trans =} \StringTok{"log10"}\NormalTok{)}
+
+\FunctionTok{ggplot}\NormalTok{(sim\_dat, }\FunctionTok{aes}\NormalTok{(mean\_pop\_size)) }\SpecialCharTok{+}
+    \FunctionTok{geom\_histogram}\NormalTok{() }\SpecialCharTok{+}
+    \FunctionTok{scale\_x\_log10}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+Now we can plot the results and find out how abundance relates to
+speciation in this model
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(ggplot2)}
+\FunctionTok{library}\NormalTok{(ggpointdensity)}
+
+\CommentTok{\# make a quadratic logistic model}
+\NormalTok{sim\_dat}\SpecialCharTok{$}\NormalTok{log\_pop }\OtherTok{\textless{}{-}} \FunctionTok{log}\NormalTok{(sim\_dat}\SpecialCharTok{$}\NormalTok{mean\_pop\_size, }\DecValTok{10}\NormalTok{)}
+\NormalTok{mod }\OtherTok{\textless{}{-}} \FunctionTok{glm}\NormalTok{(speciation }\SpecialCharTok{\textasciitilde{}}\NormalTok{ log\_pop }\SpecialCharTok{+} \FunctionTok{I}\NormalTok{(log\_pop}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{), }\AttributeTok{data =}\NormalTok{ sim\_dat, }
+           \AttributeTok{family =} \StringTok{"binomial"}\NormalTok{)}
+
+\CommentTok{\# add to data}
+\NormalTok{sim\_dat}\SpecialCharTok{$}\NormalTok{mod\_pred }\OtherTok{\textless{}{-}} \FunctionTok{predict}\NormalTok{(mod, }\AttributeTok{type =} \StringTok{"response"}\NormalTok{)}
+
+\FunctionTok{ggplot}\NormalTok{(sim\_dat, }
+       \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ mean\_pop\_size, }\AttributeTok{y =}\NormalTok{ speciation)) }\SpecialCharTok{+}
+    \FunctionTok{geom\_pointdensity}\NormalTok{() }\SpecialCharTok{+}
+    \FunctionTok{scale\_color\_viridis\_c}\NormalTok{() }\SpecialCharTok{+}
+    \FunctionTok{scale\_x\_log10}\NormalTok{() }\SpecialCharTok{+}
+    \FunctionTok{scale\_y\_continuous}\NormalTok{(}\AttributeTok{breaks =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{)) }\SpecialCharTok{+} 
+    \FunctionTok{xlab}\NormalTok{(}\StringTok{"Mean population size"}\NormalTok{) }\SpecialCharTok{+}
+    \FunctionTok{ylab}\NormalTok{(}\StringTok{"Speciation probability"}\NormalTok{) }\SpecialCharTok{+}
+    \FunctionTok{theme}\NormalTok{(}\AttributeTok{panel.grid.minor.y =} \FunctionTok{element\_blank}\NormalTok{()) }\SpecialCharTok{+}
+    \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{method =}\NormalTok{ glm, }\AttributeTok{formula =}\NormalTok{ y }\SpecialCharTok{\textasciitilde{}}\NormalTok{ x }\SpecialCharTok{+} \FunctionTok{I}\NormalTok{(x}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{), }
+                \AttributeTok{method.args =} \FunctionTok{list}\NormalTok{(}\AttributeTok{family =} \StringTok{"binomial"}\NormalTok{), }\AttributeTok{color =} \StringTok{"black"}\NormalTok{)}
+
+
+
+\FunctionTok{ggplot}\NormalTok{(sim\_dat, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ mean\_pop\_size)) }\SpecialCharTok{+}
+    \FunctionTok{geom\_histogram}\NormalTok{() }\SpecialCharTok{+}
+    \FunctionTok{scale\_x\_continuous}\NormalTok{(}\AttributeTok{transform =} \StringTok{"log10"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+So we see there is a sweet spot of intermediate abundance where
+speciation is most likely to take place!
+
+\subsection{To-do}\label{to-do}
+
+\begin{itemize}
+\tightlist
+\item
+  intro
+\item
+  bring in HI arth data
+\item
+  figure out if want to model arth data with stan
+\item
+  if yes, connect prob(speciation) to rate (r = delta\_t p o(delta\_t))
+  and connect that to neg binom regression
+\end{itemize}
+
+\phantomsection\label{refs}
+\begin{CSLReferences}{1}{1}
+\bibitem[\citeproctext]{ref-afonso2025}
+Afonso Silva, A. C., Maliet, O., Aristide, L., Nogués-Bravo, D., Upham,
+N., Jetz, W. and Morlon, H. 2025. Negative global-scale association
+between genetic diversity and speciation rates in mammals. - Nature
+communications 16: 1796.
+
+\bibitem[\citeproctext]{ref-ashby2020}
+Ashby, B., Shaw, A. K. and Kokko, H. 2020. An inordinate fondness for
+species with intermediate dispersal abilities. - Oikos 129: 311--319.
+
+\bibitem[\citeproctext]{ref-birand2012}
+Birand, A., Vose, A. and Gavrilets, S. 2012. Patterns of species ranges,
+speciation, and extinction. - The American Naturalist 179: 1--21.
+
+\bibitem[\citeproctext]{ref-brown1995}
+Brown, J. H. 1995. Macroecology. - University of Chicago Press.
+
+\bibitem[\citeproctext]{ref-casey2021}
+Casey, M. M., Saupe, E. E. and Lieberman, B. S. 2021. The effects of
+geographic range size and abundance on extinction during a time of
+{``sluggish''}'evolution. - Paleobiology 47: 54--67.
+
+\bibitem[\citeproctext]{ref-ciccheto2024}
+Ciccheto, J. R. M., Carnaval, A. C. and Araujo, S. B. L. 2024. The
+influence of fragmented landscapes on speciation. - Journal of
+Evolutionary Biology 37: 1499--1509.
+
+\bibitem[\citeproctext]{ref-claramunt2012}
+Claramunt, S., Derryberry, E. P., Remsen Jr, J. and Brumfield, R. T.
+2012. High dispersal ability inhibits speciation in a continental
+radiation of passerine birds. - Proceedings of the Royal Society B:
+Biological Sciences 279: 1567--1574.
+
+\bibitem[\citeproctext]{ref-claramunt2025}
+Claramunt, S., Sheard, C., Brown, J. W., Cortés-Ramı́rez, G., Cracraft,
+J., Su, M. M., Weeks, B. C. and Tobias, J. A. 2025. A new time tree of
+birds reveals the interplay between dispersal, geographic range size,
+and diversification. - Current Biology 35: 3883--3895.
+
+\bibitem[\citeproctext]{ref-czekanski2019}
+Czekanski-Moir, J. E. and Rundell, R. J. 2019. The ecology of
+nonecological speciation and nonadaptive radiations. - Trends in Ecology
+\& Evolution 34: 400--415.
+
+\bibitem[\citeproctext]{ref-darwin}
+Darwin, C. 1859. On the origin of species by means of natural selection,
+or the preservation of favoured races in the struggle for life. - John
+Murray.
+
+\bibitem[\citeproctext]{ref-etienne2011fission}
+Etienne, R. S. and Haegeman, B. 2011. The neutral theory of biodiversity
+with random fission speciation. - Theoretical Ecology 4: 87--109.
+
+\bibitem[\citeproctext]{ref-etienne2007modes}
+Etienne, R. S., Apol, M. E. F., Olff, H. and Weissing, F. J. 2007. Modes
+of speciation and the neutral theory of biodiversity. - Oikos 116:
+241--258.
+
+\bibitem[\citeproctext]{ref-gaston2002}
+Gaston, K. J. 2003. The structure and dynamics of geographic ranges. -
+Oxford University Press.
+
+\bibitem[\citeproctext]{ref-goldberg2011}
+Goldberg, E. E., Lancaster, L. T. and Ree, R. H. 2011. Phylogenetic
+inference of reciprocal effects between geographic range evolution and
+diversification. - Systematic biology 60: 451--465.
+
+\bibitem[\citeproctext]{ref-greenberg2017}
+Greenberg, D. A. and Mooers, A. Ø. 2017. Linking speciation to
+extinction: Diversification raises contemporary extinction risk in
+amphibians. - Evolution Letters 1: 40--48.
+
+\bibitem[\citeproctext]{ref-hay2022}
+Hay, E. M., McGee, M. D. and Chown, S. L. 2022. Geographic range size
+and speciation in honeyeaters. - BMC Ecology and Evolution 22: 86.
+
+\bibitem[\citeproctext]{ref-jablonski2003}
+Jablonski, D. and Roy, K. 2003. Geographical range and speciation in
+fossil and living molluscs. - Proceedings of the Royal Society of
+London. Series B: Biological Sciences 270: 401--406.
+
+\bibitem[\citeproctext]{ref-kisel2010}
+Kisel, Y. and Barraclough, T. G. 2010. Speciation has a spatial scale
+that depends on levels of gene flow. - The American Naturalist 175:
+316--334.
+
+\bibitem[\citeproctext]{ref-krug2008}
+Krug, A. Z., Jablonski, D. and Valentine, J. W. 2008. Species--genus
+ratios reflect a global history of diversification and range expansion
+in marine bivalves. - Proceedings of the Royal Society B: Biological
+Sciences 275: 1117--1123.
+
+\bibitem[\citeproctext]{ref-makarieva2004}
+Makarieva, A. M. and Gorshkov, V. G. 2004. On the dependence of
+speciation rates on species abundance and characteristic population
+size. - Journal of Biosciences 29: 119--128.
+
+\bibitem[\citeproctext]{ref-maurer1999}
+Maurer, B. A. 1999. Untangling ecological complexity: The macroscopic
+perspective. - University of Chicago Press.
+
+\bibitem[\citeproctext]{ref-pigot2010}
+Pigot, A. L., Phillimore, A. B., Owens, I. P. and Orme, C. D. L. 2010.
+The shape and temporal dynamics of phylogenetic trees arising from
+geographic speciation. - Systematic biology 59: 660--673.
+
+\bibitem[\citeproctext]{ref-price2004}
+Price, J. P. and Wagner, W. L. 2004. Speciation in hawaiian angiosperm
+lineages: Cause, consequence, and mode. - Evolution 58: 2185--2200.
+
+\bibitem[\citeproctext]{ref-rosindell2010protracted}
+Rosindell, J., Cornell, S. J., Hubbell, S. P. and Etienne, R. S. 2010.
+Protracted speciation revitalizes the neutral theory of biodiversity. -
+Ecology Letters 13: 716--727.
+
+\bibitem[\citeproctext]{ref-smyvcka2023}
+Smyčka, J., Toszogyova, A. and Storch, D. 2023. The relationship between
+geographic range size and rates of species diversification. - Nature
+Communications 14: 5559.
+
+\bibitem[\citeproctext]{ref-stanley1986}
+Stanley, S. M. 1986. Population size, extinction, and speciation: The
+fission effect in neogene bivalvia. - Paleobiology 12: 89--110.
+
+\bibitem[\citeproctext]{ref-stanley1990}
+Stanley, S. M. 1990. The general correlation between rate of speciation
+and rate of extinction: Fortuitous causal linkages. - Causes of
+evolution: a paleontological perspective: 103.
+
+\end{CSLReferences}
+
+
+
+
+\end{document}

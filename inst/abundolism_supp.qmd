@@ -1,50 +1,25 @@
 ---
-title: "Intermediate abundance promotes speciation when dispersal is limited"
+title: "Supplement to: *Speciation peaks at intermediate abundance*"
 format:
   pdf:
-    keep-tex: true
     include-in-header: 
       text: |
-        \usepackage{xr}
-        \externaldocument{ab_supp}
-        \newcommand{\sfig}[1]{Supplementary Figure~\ref{#1}}
-        \newcommand{\ssec}[1]{Supplementary Section~\ref{#1}}
+        \renewcommand{\figurename}{Supplementary Figure}
+        \renewcommand*{\thesection}{S\arabic{section}}
+    keep-tex: false
 csl: oikos.csl
 bibliography: abundolism.bib
 ---
 
-## Abstract 
-
-Foo foo foo
-
-
-
 
 ## Introduction
-
 
 ```{r}
 #| label: setup
 #| include: false
 
-# maybe need nothing
+# quarto::quarto_render()
 ```
-
-```{r}
-#| label: supp
-#| include: false
-#| cache: true
-#| cache.extra: !expr file.info("ab_supp.qmd")$mtime
-
-quarto::quarto_render("ab_supp.qmd", quiet = TRUE)
-tinytex::xelatex("ab_supp.tex", clean = FALSE)
-```
-
-
-WTF \sfig{fig-one}
-
-OMG \ssec{sec-intro}
-
 
 - @jablonski2003: "Late Cretaceous gastropod genera exhibit a strong negative relation between the geographical ranges of constituent species and speciation rate per species per million years...These results support the view that the factors promoting broad geographical ranges also tend to damp speciation rates" analysis of modern only might not reveal this pattern---why Hawawi\'i could be a good place to look
 - @krug2008: uses spp:gen ratio. widespread bival genera have more species. "Species within these cosmopolitan genera may have life-history traits or other attributes that allow for rapid adaptation to new environments, promoting both speciation and range expansion of a lineage"
@@ -86,42 +61,131 @@ OMG \ssec{sec-intro}
 
 
 
-## Methods
 
-### Simulating a birth-death-immigration process with speciation
+## Birth-death-immigration model with speciation
 
-We simulate a birth-death-immigration process (BDI) with speciation (BDIS) in a modified metapopulation [@hanski1998] setting. In this setting there are a number of local populations connected by dispersal as well as an global source pool connected to each local population by dispersal. The global source pool is considered extremely large relative to local populations such that extinction of the global source pool is unlikely on the time scale of local dynamics (we approximate this assumption by never allowing the source pool to go extinct). Local populations grow and shrink according to local births and deaths, dispersal between local populations, and dispersal from the source pool. New species arise via a modified protracted speciation process [@rosindell2010protracted] similar to the model of @tao2021. Our simulation model is consistent with other models derived from the Unified Neutral Theory of Biodiversity [UNTB; @hubbell2001], but unlike those models' multi-species perspectives, we only concern ourselves with a single species and whether that one species undergoes a speciation event. In that way we do not in fact make the assumption of per capita neutrality across species, meaning our results could be generalization to multi-species eco-evolutionary models based on niche theories [@niche-stuff].
+We simulate a birth-death-immigration model (BDI) with speciation (BDIS) in a metapopulation setting. This is the set-up
 
-Our simulation proceeds according to these rules:
+- There are `np` number of local populations in the metapopulation
+- There is a global source pool
 
-1. Birth, death, immigration, and speciation all happen independently and are determined by their own respective rates 
+Here are the biological process steps:
+
+1. Birth, death, immigration, and speciation all happen indipendently and are determined by respective rates (see params below)
 2. Speciation has 2 steps:
     i. incipient speciation happens by turning one local population into an incipient new species
-    ii. if the incipient species lasts long enough it becomes a new species; "long engough" is determined by a waiting time parameter $\tau$---the larger $\tau$, the longer an incipient species must wait before becoming a genuinely new species
-3. Immigration between local communities and from the global source pool slows the progress toward speciation;  if an incipient species has to wait $\tau$ time (in the absence of immigration) until it is a full species, each immigration event adds an increment to $\tau$ of $\xi / n_i$ where $\xi$ is a parameter we can set and $n_i$ is the population size of the incipient species
-4. Once full speciation occurs the simulation is stopped; if the simulation reaches the maximum designated number of iterations without full speciation, then the simulation stops anyway
+    ii. if the incipient species lasts long enough it becomes a new species
+3. Immigration between local communities and from the global source pool slows the progress toward speciation (technically if an incipient species has to wait $\tau$ time (in the absence of immigration) until it's a full species, each immigration event adds an increment to $\tau$ of $\xi / n_i$ where $\xi$ is a parameter we can set and $n_i$ is the population size of the incipient species)
+4. Once full speciation occurs the simulation is stopped; if the simulation reaches the maximum designated number of iterations (`nstep`) without full speciation, then the simulation stops anyway
 
-These processes are governed by the following parameters:
+Here are the parameters:
 
-- $\lambda$ (`la`): local birth rate
-- $\mu$ (`mu`): local death rate
-- $\gamma$ (`g`): dispersal rate from the global source pool to one local population
-- $m_p$ (`m_prop`): proportional dispersal rate between local populations relative to global rate; immigration rate $m = \gamma \times m_p$ 
+- $\lambda$ (`la`): birth rate
+- $\mu$ (`mu`): death rate
+- $\gamma$ (`g`): immigration rate from global source pool
+- $m_p$ (`m_prop`): proportional immigration rate between local populations; immigration rate $m = \gamma \times m_p$ 
 - $\nu$ (`nu`): incipient speciation rate
-- $\tau$ (`tau`): wait time to full speciation in the absence of dispersal
-- $\xi$ (`xi`): amount each dispersal event sets back the progression toward speciation
-- $n_p$ (`np`): number of local populations
-- $n_\text{step}$ (`nstep`): number of iterations to run the simulation for
+- $\tau$ (`tau`): wait time to full speciation in the absence of immigration
+- $\xi$ (`xi`): amount each immigrant sets back the progression toward speciation
+- (`np`): number of local populations
+- (`nstep`): number of iterations to run simulation for
 
-Full details of the simulation are provided in \ref{sec-sim}. Underlying C++ and R source code is available in the R package *abondolism* [@abundolism-package] accompanying this paper.
+And we can now actually run this thing and see what happens
 
-### Analysis of arthropod richness and abundance from the pae ʻāina Hawaiʻi
+```{r}
+#| eval: false
 
-Gruner abundance: calculate mean across sites
 
-Bishop checklist: *generally* each native genus got here once and radiated
+library(abundolism)
 
-## Results 
+nrep <- 1000 # number of different parameter combos to look at
+la <- runif(nrep, 1, 10)
+mu <- runif(nrep, 1, 10)
+g <- la * runif(nrep, 0, 0.1)
+m_prop <- runif(nrep, 0, 0.1)
+nu <- runif(nrep, 0, 0.001)
+tau <- runif(nrep, 0, 4) #10 / (la + mu + runif(nrep, 0, 1))
+xi <- rep(1, nrep)
+np <- 4
+nstep <- 100000
+
+
+# `sim_BDI_spec` is the workhorse function
+sim_dat <- sim_BDI_spec(la = la, mu = mu, g = g, m_prop = m_prop,
+                        nu = nu, tau = tau, xi = xi, np = np,
+                        nstep = nstep)
+
+ggplot(sim_dat, 
+       aes(x = tau, speciation)) +
+    geom_pointdensity(method = "kde2d") +
+    scale_shape_binned() +
+    scale_color_viridis_c() +
+    # scale_x_log10() +
+    geom_smooth(method = "glm", 
+                method.args = list(family = "binomial"), 
+                color = "black")
+
+ggplot(sim_dat, aes(time, mean_pop_size)) +
+    geom_point(data = select(sim_dat, !speciation), 
+               mapping = aes(time, mean_pop_size), color = "gray50") +
+    geom_pointdensity() + 
+    facet_wrap(vars(speciation)) +
+    scale_x_log10() +
+    scale_y_log10() + 
+    scale_color_viridis_c(trans = "log10")
+
+ggplot(sim_dat, aes(mean_pop_size)) +
+    geom_histogram() +
+    scale_x_log10()
+
+```
+
+Now we can plot the results and find out how abundance relates to speciation in this model
+
+```{r}
+#| eval: false
+#| fig-width: 4
+#| fig-height: 3
+
+library(ggplot2)
+library(ggpointdensity)
+
+# make a quadratic logistic model
+sim_dat$log_pop <- log(sim_dat$mean_pop_size, 10)
+mod <- glm(speciation ~ log_pop + I(log_pop^2), data = sim_dat, 
+           family = "binomial")
+
+# add to data
+sim_dat$mod_pred <- predict(mod, type = "response")
+
+ggplot(sim_dat, 
+       aes(x = mean_pop_size, y = speciation)) +
+    geom_pointdensity() +
+    scale_color_viridis_c() +
+    scale_x_log10() +
+    scale_y_continuous(breaks = c(0, 1)) + 
+    xlab("Mean population size") +
+    ylab("Speciation probability") +
+    theme(panel.grid.minor.y = element_blank()) +
+    geom_smooth(method = glm, formula = y ~ x + I(x^2), 
+                method.args = list(family = "binomial"), color = "black")
+
+
+
+ggplot(sim_dat, aes(x = mean_pop_size)) +
+    geom_histogram() +
+    scale_x_continuous(transform = "log10")
+
+```
+
+```{r}
+#| label: fig-one
+#| fig-cap: |
+#|     A test figure
+
+plot(1)
+```
+
 
 So we see there is a sweet spot of intermediate abundance where speciation is most likely to take place!
 

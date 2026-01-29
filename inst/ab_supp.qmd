@@ -1,0 +1,173 @@
+---
+title: "Supplement to: *Intermediate abundance promotes speciation when dispersal is limited*"
+format:
+  pdf:
+    number-sections: true
+    keep-tex: true
+    include-in-header: 
+      text: |
+        \renewcommand{\thefigure}{S\arabic{figure}}
+        \renewcommand{\thesection}{S\arabic{section}}
+crossref:
+  fig-title: "Supplementary Figure"
+  fig-prefix: "Supplementary Figure"
+csl: oikos.csl
+bibliography: abundolism.bib
+---
+
+
+## Computation set-up
+
+We created a make use of a custom R package *abundolism* which can be installed from github. 
+
+```{r}
+#| label: ab-setup
+#| eval: false
+
+devtools::install_github("ajrominger/abundolism")
+```
+
+The following R computing environment is used for all simulations and analyses:
+
+```{r}
+#| label: setup
+
+library(abundolism)
+library(dplyr)
+library(ggplot2)
+library(ggpointdensity)
+library(knitr)
+
+sessionInfo() |> 
+    print(locale = FALSE)
+
+```
+
+The quarto [@quarto] document used to generate this supplement can be found with the R command `system.file("ab_supp.qmd", package = "abundolism")`.
+
+
+## Simulation details {#sec-intro}
+
+Foo foo foo 
+
+
+## Simulation experiment details
+
+
+Simulation parameters are drawn from uniform distributions with the following minimum and maximum limits:
+
+```{r}
+#| label: par-range
+
+par_range <- data.frame(
+    param = c("la", "mu", "g", "m_prop", "nu", "tau", "xi"), 
+    min   = c(1,    1,    0,   0,        0,     0,    0.5), 
+    max   = c(10,   10,   0.1, 0.1,      0.001, 4,    2)
+)
+
+# fixed params
+np <- 2
+nstep <- 100000
+
+# number of simulation replicates
+nrep <- 1000
+
+# format param names for printing
+mutate(par_range, 
+       param = sprintf("`%s`", param)) |> 
+    kable(format.args = list(scientific = FALSE))
+```
+
+The parameters governing number of populations (`np`) and number of time steps (`nstep`) do not vary across simulations and are set to `np =` `r np` and `nstep =` `r nstep`. We simulate a total of `nrep =` `r nrep` replicates, each with a unique, randomly sampled set of parameter values.
+
+
+### Running the simulation experiment
+
+Parameter values for each simulation replicate are stored in a `data.frame` with one column for each parameter.
+
+```{r}
+#| label: par-sample
+
+# change or remove for different results
+set.seed(123)
+
+# data.frame of randomly sampled param values
+# one param per column
+pars <- sapply(par_range$param, function(p) {
+    runif(nrep, 
+          par_range[par_range$param == p, "min"], 
+          par_range[par_range$param == p, "max"])
+}) |> 
+    as.data.frame()
+```
+
+```{r}
+#| label: run-sim
+#| cache: true
+
+# now run the simulation, see `?sim_BDI_spec` for details 
+# on input and output
+sim_dat <- sim_BDI_spec(la = pars$la, mu = pars$mu, g = pars$g, 
+                        m_prop = pars$m_prop, nu = pars$nu, 
+                        tau = pars$tau, xi = pars$xi, 
+                        np = np, nstep = nstep)
+
+```
+
+Now we can plot the results and find out how abundance relates to speciation in this model
+
+```{r}
+#| label: fig-messing
+#| eval: false
+#| fig-width: 4
+#| fig-height: 3
+
+ggplot(sim_dat, 
+       aes(x = tau, speciation)) +
+    geom_pointdensity(method = "kde2d") +
+    scale_shape_binned() +
+    scale_color_viridis_c() +
+    # scale_x_log10() +
+    geom_smooth(method = "glm", 
+                method.args = list(family = "binomial"), 
+                color = "black")
+
+ggplot(sim_dat, aes(time, mean_pop_size)) +
+    geom_point(data = select(sim_dat, !speciation), 
+               mapping = aes(time, mean_pop_size), color = "gray50") +
+    geom_pointdensity() + 
+    facet_wrap(vars(speciation)) +
+    scale_x_log10() +
+    scale_y_log10() + 
+    scale_color_viridis_c(trans = "log10")
+
+ggplot(sim_dat, aes(mean_pop_size)) +
+    geom_histogram() +
+    scale_x_log10()
+
+```
+
+This is the main figure 
+
+```{r}
+#| label: sim_fig
+#| fig-width: 4
+#| fig-height: 3
+#| cache: true
+
+sim_fig <- ggplot(sim_dat, 
+                  aes(x = mean_pop_size, y = speciation)) +
+    geom_pointdensity() +
+    scale_color_viridis_c() +
+    scale_x_log10() +
+    scale_y_continuous(breaks = c(0, 1)) + 
+    xlab("Mean population size") +
+    ylab("Speciation probability") +
+    theme(panel.grid.minor.y = element_blank()) +
+    geom_smooth(method = glm, formula = y ~ x + I(x^2), 
+                method.args = list(family = "binomial"), color = "black")
+
+sim_fig
+```
+
+
