@@ -324,7 +324,7 @@ The quarto (Allaire et al. 2025) document used to generate this
 supplement can be found with the R command
 \texttt{system.file("ab\_supp.qmd",\ package\ =\ "abundolism")}.
 
-\section{Simulation details}\label{sec-intro}
+\section{Simulation details}\label{sec-sim}
 
 Foo foo foo
 
@@ -457,11 +457,15 @@ This is the main figure
     \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{method =}\NormalTok{ glm, }\AttributeTok{formula =}\NormalTok{ y }\SpecialCharTok{\textasciitilde{}}\NormalTok{ x }\SpecialCharTok{+} \FunctionTok{I}\NormalTok{(x}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{), }
                 \AttributeTok{method.args =} \FunctionTok{list}\NormalTok{(}\AttributeTok{family =} \StringTok{"binomial"}\NormalTok{), }\AttributeTok{color =} \StringTok{"black"}\NormalTok{)}
 
+
 \NormalTok{sim\_fig}
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{ab_supp_files/figure-pdf/sim_fig-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{ab_supp_files/figure-pdf/make-sim-fig-1.pdf}}
+
+\section*{References}\label{references}
+\addcontentsline{toc}{section}{References}
 
 \phantomsection\label{refs}
 \begin{CSLReferences}{1}{1}

@@ -65,46 +65,6 @@
 \fi
 \makeatother
 
-\usepackage{color}
-\usepackage{fancyvrb}
-\newcommand{\VerbBar}{|}
-\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
-\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
-% Add ',fontsize=\small' for more characters per line
-\usepackage{framed}
-\definecolor{shadecolor}{RGB}{241,243,245}
-\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
-\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
-\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
-\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.40,0.45,0.13}{#1}}
-\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
-\newcommand{\BuiltInTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
-\newcommand{\CharTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
-\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
-\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
-\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
-\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{\textbf{#1}}}
-\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
-\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
-\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
-\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
-\newcommand{\ExtensionTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
-\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
-\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.28,0.35,0.67}{#1}}
-\newcommand{\ImportTok}[1]{\textcolor[rgb]{0.00,0.46,0.62}{#1}}
-\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
-\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{\textbf{#1}}}
-\newcommand{\NormalTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
-\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
-\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
-\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
-\newcommand{\RegionMarkerTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
-\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
-\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
-\newcommand{\StringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
-\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.07,0.07,0.07}{#1}}
-\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
-\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
 
 \usepackage{longtable,booktabs,array}
 \usepackage{calc} % for calculating minipage widths
@@ -229,7 +189,8 @@
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \urlstyle{same}
 \hypersetup{
-  pdftitle={Intermediate abundance promotes speciation},
+  pdftitle={Intermediate abundance promotes speciation when dispersal is limited},
+  pdfauthor={Andrew J. Rominger; Luke J. Harmon; Isaac Overcast; Christine E Parent; James L. Rosindell; Catherine E. Wagner},
   colorlinks=true,
   linkcolor={blue},
   filecolor={Maroon},
@@ -238,8 +199,11 @@
   pdfcreator={LaTeX via pandoc}}
 
 
-\title{Intermediate abundance promotes speciation}
-\author{}
+\title{Intermediate abundance promotes speciation when dispersal is
+limited}
+\author{Andrew J. Rominger \and Luke J. Harmon \and Isaac
+Overcast \and Christine E Parent \and James L. Rosindell \and Catherine
+E. Wagner}
 \date{}
 \begin{document}
 \maketitle
@@ -250,31 +214,6 @@
 Foo foo foo
 
 \subsection{Introduction}\label{introduction}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{print}\NormalTok{(}\FunctionTok{Sys.time}\NormalTok{())}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-[1] "2026-01-28 16:19:56 HST"
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{quarto}\SpecialCharTok{::}\FunctionTok{quarto\_render}\NormalTok{(}\StringTok{"ab\_supp.qmd"}\NormalTok{, }\AttributeTok{quiet =} \ConstantTok{TRUE}\NormalTok{)}
-\NormalTok{tinytex}\SpecialCharTok{::}\FunctionTok{xelatex}\NormalTok{(}\StringTok{"ab\_supp.tex"}\NormalTok{, }\AttributeTok{clean =} \ConstantTok{FALSE}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-[1] "ab_supp.pdf"
-\end{verbatim}
-
-WTF \sfig{fig-one}
-
-OMG \ssec{sec-intro}
 
 \begin{itemize}
 \tightlist
@@ -395,29 +334,40 @@ OMG \ssec{sec-intro}
   speciation)
 \end{itemize}
 
-\subsection{Birth-death-immigration model with
-speciation}\label{birth-death-immigration-model-with-speciation}
+\subsection{Methods}\label{methods}
 
-We simulate a birth-death-immigration model (BDI) with speciation (BDIS)
-in a metapopulation setting. This is the set-up
+\subsubsection{Simulating a birth-death-immigration process with
+speciation}\label{simulating-a-birth-death-immigration-process-with-speciation}
 
-\begin{itemize}
-\tightlist
-\item
-  There are \texttt{np} number of local populations in the
-  metapopulation
-\item
-  There is a global source pool
-\end{itemize}
+We simulate a birth-death-immigration process (BDI) with speciation
+(BDIS) in a modified metapopulation (Hanski 1998) setting. In this
+setting there are a number of local populations connected by dispersal
+as well as an global source pool connected to each local population by
+dispersal. The global source pool is considered extremely large relative
+to local populations such that extinction of the global source pool is
+unlikely on the time scale of local dynamics (we approximate this
+assumption by never allowing the source pool to go extinct). Local
+populations grow and shrink according to local births and deaths,
+dispersal between local populations, and dispersal from the source pool.
+New species arise via a modified protracted speciation process
+(Rosindell et al. 2010) similar to the model of Tao et al. (2021). Our
+simulation model is consistent with other models derived from the
+Unified Neutral Theory of Biodiversity {[}UNTB; Hubbell (2001){]}, but
+unlike those models' multi-species perspectives, we only concern
+ourselves with a single species and whether that one species undergoes a
+speciation event. In that way we do not in fact make the assumption of
+per capita neutrality across species, meaning our results could be
+generalization to multi-species eco-evolutionary models based on niche
+theories (\textbf{niche-stuff?}).
 
-Here are the biological process steps:
+Our simulation proceeds according to these rules:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  Birth, death, immigration, and speciation all happen indipendently and
-  are determined by respective rates (see params below)
+  Birth, death, immigration, and speciation all happen independently and
+  are determined by their own respective rates
 \item
   Speciation has 2 steps:
 
@@ -428,132 +378,86 @@ Here are the biological process steps:
     incipient speciation happens by turning one local population into an
     incipient new species
   \item
-    if the incipient species lasts long enough it becomes a new species
+    if the incipient species lasts long enough it becomes a new species;
+    ``long engough'' is determined by a waiting time parameter
+    \(\tau\)---the larger \(\tau\), the longer an incipient species must
+    wait before becoming a genuinely new species
   \end{enumerate}
 \item
   Immigration between local communities and from the global source pool
-  slows the progress toward speciation (technically if an incipient
-  species has to wait \(\tau\) time (in the absence of immigration)
-  until it's a full species, each immigration event adds an increment to
-  \(\tau\) of \(\xi / n_i\) where \(\xi\) is a parameter we can set and
-  \(n_i\) is the population size of the incipient species)
+  slows the progress toward speciation; if an incipient species has to
+  wait \(\tau\) time (in the absence of immigration) until it is a full
+  species, each immigration event adds an increment to \(\tau\) of
+  \(\xi / n_i\) where \(\xi\) is a parameter we can set and \(n_i\) is
+  the population size of the incipient species
 \item
   Once full speciation occurs the simulation is stopped; if the
-  simulation reaches the maximum designated number of iterations
-  (\texttt{nstep}) without full speciation, then the simulation stops
-  anyway
+  simulation reaches the maximum designated number of iterations without
+  full speciation, then the simulation stops anyway
 \end{enumerate}
 
-Here are the parameters:
+These processes are governed by the following parameters:
 
 \begin{itemize}
 \tightlist
 \item
-  \(\lambda\) (\texttt{la}): birth rate
+  \(\lambda\) (\texttt{la}): local birth rate
 \item
-  \(\mu\) (\texttt{mu}): death rate
+  \(\mu\) (\texttt{mu}): local death rate
 \item
-  \(\gamma\) (\texttt{g}): immigration rate from global source pool
+  \(\gamma\) (\texttt{g}): dispersal rate from the global source pool to
+  one local population
 \item
-  \(m_p\) (\texttt{m\_prop}): proportional immigration rate between
-  local populations; immigration rate \(m = \gamma \times m_p\)
+  \(m_p\) (\texttt{m\_prop}): proportional dispersal rate between local
+  populations relative to global rate; immigration rate
+  \(m = \gamma \times m_p\)
 \item
   \(\nu\) (\texttt{nu}): incipient speciation rate
 \item
   \(\tau\) (\texttt{tau}): wait time to full speciation in the absence
-  of immigration
+  of dispersal
 \item
-  \(\xi\) (\texttt{xi}): amount each immigrant sets back the progression
-  toward speciation
+  \(\xi\) (\texttt{xi}): amount each dispersal event sets back the
+  progression toward speciation
 \item
-  (\texttt{np}): number of local populations
+  \(n_p\) (\texttt{np}): number of local populations
 \item
-  (\texttt{nstep}): number of iterations to run simulation for
+  \(n_\text{step}\) (\texttt{nstep}): number of iterations to run the
+  simulation for
 \end{itemize}
 
-And we can now actually run this thing and see what happens
+Full details of the simulation are provided in \ssec{sec-sim}.
+Underlying C++ and R source code is available in the R package
+\emph{abondolism} (Rominger 2026) accompanying this paper.
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{library}\NormalTok{(abundolism)}
+\subsubsection{Simulation experiment}\label{simulation-experiment}
 
-\NormalTok{nrep }\OtherTok{\textless{}{-}} \DecValTok{1000} \CommentTok{\# number of different parameter combos to look at}
-\NormalTok{la }\OtherTok{\textless{}{-}} \FunctionTok{runif}\NormalTok{(nrep, }\DecValTok{1}\NormalTok{, }\DecValTok{10}\NormalTok{)}
-\NormalTok{mu }\OtherTok{\textless{}{-}} \FunctionTok{runif}\NormalTok{(nrep, }\DecValTok{1}\NormalTok{, }\DecValTok{10}\NormalTok{)}
-\NormalTok{g }\OtherTok{\textless{}{-}}\NormalTok{ la }\SpecialCharTok{*} \FunctionTok{runif}\NormalTok{(nrep, }\DecValTok{0}\NormalTok{, }\FloatTok{0.1}\NormalTok{)}
-\NormalTok{m\_prop }\OtherTok{\textless{}{-}} \FunctionTok{runif}\NormalTok{(nrep, }\DecValTok{0}\NormalTok{, }\FloatTok{0.1}\NormalTok{)}
-\NormalTok{nu }\OtherTok{\textless{}{-}} \FunctionTok{runif}\NormalTok{(nrep, }\DecValTok{0}\NormalTok{, }\FloatTok{0.001}\NormalTok{)}
-\NormalTok{tau }\OtherTok{\textless{}{-}} \FunctionTok{runif}\NormalTok{(nrep, }\DecValTok{0}\NormalTok{, }\DecValTok{4}\NormalTok{) }\CommentTok{\#10 / (la + mu + runif(nrep, 0, 1))}
-\NormalTok{xi }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(}\DecValTok{1}\NormalTok{, nrep)}
-\NormalTok{np }\OtherTok{\textless{}{-}} \DecValTok{4}
-\NormalTok{nstep }\OtherTok{\textless{}{-}} \DecValTok{100000}
+\subsubsection{Analysis of arthropod richness and abundance from the pae
+ʻāina
+Hawaiʻi}\label{analysis-of-arthropod-richness-and-abundance-from-the-pae-ux2bbux101ina-hawaiux2bbi}
 
+Gruner abundance: calculate mean across sites
 
-\CommentTok{\# \textasciigrave{}sim\_BDI\_spec\textasciigrave{} is the workhorse function}
-\NormalTok{sim\_dat }\OtherTok{\textless{}{-}} \FunctionTok{sim\_BDI\_spec}\NormalTok{(}\AttributeTok{la =}\NormalTok{ la, }\AttributeTok{mu =}\NormalTok{ mu, }\AttributeTok{g =}\NormalTok{ g, }\AttributeTok{m\_prop =}\NormalTok{ m\_prop,}
-                        \AttributeTok{nu =}\NormalTok{ nu, }\AttributeTok{tau =}\NormalTok{ tau, }\AttributeTok{xi =}\NormalTok{ xi, }\AttributeTok{np =}\NormalTok{ np,}
-                        \AttributeTok{nstep =}\NormalTok{ nstep)}
+Bishop checklist: \emph{generally} each native genus got here once and
+radiated
 
-\FunctionTok{ggplot}\NormalTok{(sim\_dat, }
-       \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ tau, speciation)) }\SpecialCharTok{+}
-    \FunctionTok{geom\_pointdensity}\NormalTok{(}\AttributeTok{method =} \StringTok{"kde2d"}\NormalTok{) }\SpecialCharTok{+}
-    \FunctionTok{scale\_shape\_binned}\NormalTok{() }\SpecialCharTok{+}
-    \FunctionTok{scale\_color\_viridis\_c}\NormalTok{() }\SpecialCharTok{+}
-    \CommentTok{\# scale\_x\_log10() +}
-    \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{method =} \StringTok{"glm"}\NormalTok{, }
-                \AttributeTok{method.args =} \FunctionTok{list}\NormalTok{(}\AttributeTok{family =} \StringTok{"binomial"}\NormalTok{), }
-                \AttributeTok{color =} \StringTok{"black"}\NormalTok{)}
+\subsection{Results}\label{results}
 
-\FunctionTok{ggplot}\NormalTok{(sim\_dat, }\FunctionTok{aes}\NormalTok{(time, mean\_pop\_size)) }\SpecialCharTok{+}
-    \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{data =} \FunctionTok{select}\NormalTok{(sim\_dat, }\SpecialCharTok{!}\NormalTok{speciation), }
-               \AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(time, mean\_pop\_size), }\AttributeTok{color =} \StringTok{"gray50"}\NormalTok{) }\SpecialCharTok{+}
-    \FunctionTok{geom\_pointdensity}\NormalTok{() }\SpecialCharTok{+} 
-    \FunctionTok{facet\_wrap}\NormalTok{(}\FunctionTok{vars}\NormalTok{(speciation)) }\SpecialCharTok{+}
-    \FunctionTok{scale\_x\_log10}\NormalTok{() }\SpecialCharTok{+}
-    \FunctionTok{scale\_y\_log10}\NormalTok{() }\SpecialCharTok{+} 
-    \FunctionTok{scale\_color\_viridis\_c}\NormalTok{(}\AttributeTok{trans =} \StringTok{"log10"}\NormalTok{)}
+\begin{verbatim}
+NULL
+\end{verbatim}
 
-\FunctionTok{ggplot}\NormalTok{(sim\_dat, }\FunctionTok{aes}\NormalTok{(mean\_pop\_size)) }\SpecialCharTok{+}
-    \FunctionTok{geom\_histogram}\NormalTok{() }\SpecialCharTok{+}
-    \FunctionTok{scale\_x\_log10}\NormalTok{()}
-\end{Highlighting}
-\end{Shaded}
+\begin{figure}
 
-Now we can plot the results and find out how abundance relates to
-speciation in this model
+\centering{
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{library}\NormalTok{(ggplot2)}
-\FunctionTok{library}\NormalTok{(ggpointdensity)}
+\pandocbounded{\includegraphics[keepaspectratio]{abundolism_files/figure-pdf/fig-sim-1.pdf}}
 
-\CommentTok{\# make a quadratic logistic model}
-\NormalTok{sim\_dat}\SpecialCharTok{$}\NormalTok{log\_pop }\OtherTok{\textless{}{-}} \FunctionTok{log}\NormalTok{(sim\_dat}\SpecialCharTok{$}\NormalTok{mean\_pop\_size, }\DecValTok{10}\NormalTok{)}
-\NormalTok{mod }\OtherTok{\textless{}{-}} \FunctionTok{glm}\NormalTok{(speciation }\SpecialCharTok{\textasciitilde{}}\NormalTok{ log\_pop }\SpecialCharTok{+} \FunctionTok{I}\NormalTok{(log\_pop}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{), }\AttributeTok{data =}\NormalTok{ sim\_dat, }
-           \AttributeTok{family =} \StringTok{"binomial"}\NormalTok{)}
+}
 
-\CommentTok{\# add to data}
-\NormalTok{sim\_dat}\SpecialCharTok{$}\NormalTok{mod\_pred }\OtherTok{\textless{}{-}} \FunctionTok{predict}\NormalTok{(mod, }\AttributeTok{type =} \StringTok{"response"}\NormalTok{)}
+\caption{\label{fig-sim}}
 
-\FunctionTok{ggplot}\NormalTok{(sim\_dat, }
-       \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ mean\_pop\_size, }\AttributeTok{y =}\NormalTok{ speciation)) }\SpecialCharTok{+}
-    \FunctionTok{geom\_pointdensity}\NormalTok{() }\SpecialCharTok{+}
-    \FunctionTok{scale\_color\_viridis\_c}\NormalTok{() }\SpecialCharTok{+}
-    \FunctionTok{scale\_x\_log10}\NormalTok{() }\SpecialCharTok{+}
-    \FunctionTok{scale\_y\_continuous}\NormalTok{(}\AttributeTok{breaks =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{)) }\SpecialCharTok{+} 
-    \FunctionTok{xlab}\NormalTok{(}\StringTok{"Mean population size"}\NormalTok{) }\SpecialCharTok{+}
-    \FunctionTok{ylab}\NormalTok{(}\StringTok{"Speciation probability"}\NormalTok{) }\SpecialCharTok{+}
-    \FunctionTok{theme}\NormalTok{(}\AttributeTok{panel.grid.minor.y =} \FunctionTok{element\_blank}\NormalTok{()) }\SpecialCharTok{+}
-    \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{method =}\NormalTok{ glm, }\AttributeTok{formula =}\NormalTok{ y }\SpecialCharTok{\textasciitilde{}}\NormalTok{ x }\SpecialCharTok{+} \FunctionTok{I}\NormalTok{(x}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{), }
-                \AttributeTok{method.args =} \FunctionTok{list}\NormalTok{(}\AttributeTok{family =} \StringTok{"binomial"}\NormalTok{), }\AttributeTok{color =} \StringTok{"black"}\NormalTok{)}
-
-
-
-\FunctionTok{ggplot}\NormalTok{(sim\_dat, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ mean\_pop\_size)) }\SpecialCharTok{+}
-    \FunctionTok{geom\_histogram}\NormalTok{() }\SpecialCharTok{+}
-    \FunctionTok{scale\_x\_continuous}\NormalTok{(}\AttributeTok{transform =} \StringTok{"log10"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
+\end{figure}%
 
 So we see there is a sweet spot of intermediate abundance where
 speciation is most likely to take place!
@@ -572,6 +476,9 @@ speciation is most likely to take place!
   if yes, connect prob(speciation) to rate (r = delta\_t p o(delta\_t))
   and connect that to neg binom regression
 \end{itemize}
+
+\subsection*{References}\label{references}
+\addcontentsline{toc}{subsection}{References}
 
 \phantomsection\label{refs}
 \begin{CSLReferences}{1}{1}
@@ -647,9 +554,16 @@ Greenberg, D. A. and Mooers, A. Ø. 2017. Linking speciation to
 extinction: Diversification raises contemporary extinction risk in
 amphibians. - Evolution Letters 1: 40--48.
 
+\bibitem[\citeproctext]{ref-hanski1998}
+Hanski, I. 1998. Metapopulation dynamics. - Nature 396: 41--49.
+
 \bibitem[\citeproctext]{ref-hay2022}
 Hay, E. M., McGee, M. D. and Chown, S. L. 2022. Geographic range size
 and speciation in honeyeaters. - BMC Ecology and Evolution 22: 86.
+
+\bibitem[\citeproctext]{ref-hubbell2001}
+Hubbell, S. P. 2001. The unified neutral theory of biodiversity and
+biogeography. - Princeton University Press.
 
 \bibitem[\citeproctext]{ref-jablonski2003}
 Jablonski, D. and Roy, K. 2003. Geographical range and speciation in
@@ -685,6 +599,10 @@ geographic speciation. - Systematic biology 59: 660--673.
 Price, J. P. and Wagner, W. L. 2004. Speciation in hawaiian angiosperm
 lineages: Cause, consequence, and mode. - Evolution 58: 2185--2200.
 
+\bibitem[\citeproctext]{ref-abundolism-package}
+Rominger, A. J. 2026.
+\href{https://doi.org/10.5281/zenodo.18410689}{{abundolism}}.
+
 \bibitem[\citeproctext]{ref-rosindell2010protracted}
 Rosindell, J., Cornell, S. J., Hubbell, S. P. and Etienne, R. S. 2010.
 Protracted speciation revitalizes the neutral theory of biodiversity. -
@@ -703,6 +621,10 @@ fission effect in neogene bivalvia. - Paleobiology 12: 89--110.
 Stanley, S. M. 1990. The general correlation between rate of speciation
 and rate of extinction: Fortuitous causal linkages. - Causes of
 evolution: a paleontological perspective: 103.
+
+\bibitem[\citeproctext]{ref-tao2021}
+Tao, R., Sack, L. and Rosindell, J. 2021. Biogeographic drivers of
+evolutionary radiations. - Frontiers in Ecology and Evolution 9: 644328.
 
 \end{CSLReferences}
 

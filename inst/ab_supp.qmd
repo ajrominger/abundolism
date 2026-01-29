@@ -46,7 +46,7 @@ sessionInfo() |>
 The quarto [@quarto] document used to generate this supplement can be found with the R command `system.file("ab_supp.qmd", package = "abundolism")`.
 
 
-## Simulation details {#sec-intro}
+## Simulation details {#sec-sim}
 
 Foo foo foo 
 
@@ -150,7 +150,7 @@ ggplot(sim_dat, aes(mean_pop_size)) +
 This is the main figure 
 
 ```{r}
-#| label: sim_fig
+#| label: make-sim-fig
 #| fig-width: 4
 #| fig-height: 3
 #| cache: true
@@ -166,6 +166,7 @@ sim_fig <- ggplot(sim_dat,
     theme(panel.grid.minor.y = element_blank()) +
     geom_smooth(method = glm, formula = y ~ x + I(x^2), 
                 method.args = list(family = "binomial"), color = "black")
+
 
 sim_fig
 ```
