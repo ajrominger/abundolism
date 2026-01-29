@@ -115,6 +115,8 @@ These processes are governed by the following parameters:
 
 Full details of the simulation are provided in \ref{sec-sim}. Underlying C++ and R source code is available in the R package *abondolism* [@abundolism-package] accompanying this paper.
 
+### Simulation experiment
+
 ### Analysis of arthropod richness and abundance from the pae ʻāina Hawaiʻi
 
 Gruner abundance: calculate mean across sites
