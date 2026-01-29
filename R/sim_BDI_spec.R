@@ -13,7 +13,24 @@
 #' @param np number of local populations in the meta population
 #' @param nstep scalar, number of simulation steps
 #'
-#' @returns a data.frame with columns
+#' @returns a data.frame with columns for input parameter values and output
+#' results
+#' - `la`
+#' - `mu`
+#' - `g`
+#' - `m_prop`
+#' - `nu`
+#' - `tau`
+#' - `xi`
+#' - `np`
+#' - `nstep`
+#' - `time`: simulation time step, if speciation occurred this number will
+#' be `< nstep`, if not this number will be `== nstep`
+#' - `mean_pop_size`: the mean population size across all time steps and
+#' populations
+#' - `speciation`: 0 (no speciation) or 1 (yes specaition)
+#' @md
+#'
 #' @export
 
 sim_BDI_spec <- function(la, mu, g, m_prop, nu, tau, xi, np, nstep) {
@@ -22,6 +39,10 @@ sim_BDI_spec <- function(la, mu, g, m_prop, nu, tau, xi, np, nstep) {
     sim <- as.data.frame(sim)
 
     names(sim) <- c("time", "mean_pop_size", "speciation")
+
+    pars <- data.frame(la, mu, g, m_prop, nu, tau, xi, np, nstep)
+
+    sim <- cbind(pars, sim)
 
     return(sim)
 }
