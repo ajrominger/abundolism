@@ -1,7 +1,9 @@
 cff-version: 1.2.0
 title: "abundolism"
 version: 0.0.1
-license: "MIT"
+doi: 10.5281/zenodo.18410689
+date-released: 2026-01-28
+url: "https://github.com/ajrominger/abundolism"
 type: software
 abstract: "Code to simulate abundance-dependent speciation"
 message: "If you use this software, please cite it as below."
@@ -13,4 +15,5 @@ authors:
 keywords:
   - neutral theory
   - abundance
+  - dispersal
   - speciation
