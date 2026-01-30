@@ -37,8 +37,23 @@ Stub
 #| include: false
 
 library(knitr)
+library(kableExtra)
+library(dplyr)
+library(ggplot2)
+library(ggpointdensity)
 
 opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+
+# helper funciton to load cache from supp
+load_supp <- function(cname) {
+    f <- sprintf("%s.*RData", cname) |> 
+        grep(list.files("ab_supp_cache/pdf", full.names = TRUE), 
+              value = TRUE) |> 
+        gsub("\\.RData", "", x = _)
+    
+    o <- lazyLoad(f, envir = globalenv())
+}
+
 ```
 
 ```{r}
@@ -47,13 +62,17 @@ opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
 #| cache: true
 #| cache.extra: !expr file.info("ab_supp.qmd")$mtime
 
+# render the supplement so can be referenced and used in main
+
 quarto::quarto_render("ab_supp.qmd", quiet = TRUE)
+
+# need .aux file for corss referencing
 tinytex::xelatex("ab_supp.tex", clean = FALSE)
 ```
 
 A fundamental question in evolutionary ecology concerns why some clades are diverse while others are not. Are there properties of species and lineages that promote speciation? One line of inquiry with a long and convoluted history is the role of rarity and commonness is driving diversification. Going back over 150 years, @darwin argued that widespread, abundant species should be superior competitors and thus more likely to give rise to new species. 
 
-This line of thinking carried forward to macroecologists who attempted to model, with some empirical support, the presumed positive association between commonness, fitness, and speciation [@maurer1999]. Paleontologists searched for relationships between commonness and diversification, alternately finding evidence for a positive relationship [@krug2008] but also a negative relationship [stanley1986; @jablonski2003]. Empirical studies of modern taxa have largely found that commonness is negatively or inconclusively related to measures of diversification [@jablonski2003; makarieva2004; @greenberg2017; smyvcka2023; afonso2025; but see @hay2022]. While some of these studies focus specifically on average abundance, others on range size, and some on both, the two macroecological properties are most often strongly correlated [@brown1995; gaston2002] and for now we will treat both as existing on a continuum between rarity and commonness.
+This line of thinking carried forward to macroecologists who attempted to model, with some empirical support, the presumed positive association between commonness, fitness, and speciation [@maurer1999]. Paleontologists searched for relationships between commonness and diversification, alternately finding evidence for a positive relationship [@krug2008] but also a negative relationship [stanley1986; @jablonski2003]. Empirical studies of modern taxa have largely found that commonness is negatively or inconclusively related to measures of diversification [@jablonski2003; @makarieva2004; @greenberg2017; @smyvcka2023; @afonso2025; but see @hay2022]. While some of these studies focus specifically on average abundance, others on range size, and some on both, the two macroecological properties are most often strongly correlated [@brown1995; @gaston2002] and for now we will treat both as existing on a continuum between rarity and commonness.
 
 More recent theoretical and modeling work has largely assumed a positive relationship between commonness and diversification. @hubbell2001 perhaps started this trend with the inclusion of "point mutation" speciation in the Unified Neutral Theory of Biodiversity (UNTB). Because point mutation speciation assumes a constant probability of specaition for every individual, lineages with more individuals will experience more speciation events in the UNTB [@hubbell2001; etienne2007modes]. The speciation mechanism first proposed by @hubbell2001 was never an accurate model of real diversification, but even later attempts to increase the realism of speciation in the UNTB retain the emergent property that more abundant lineages will undergo more specaition: protracted speciation [@rosindell2010protracted] again assumes that incipient speciation is constant across individuals and thus full speciation will scale positively with lineage abundance; fission speciation [@etienne2011fission] also assumes the probability of fission (the event that leads to speciation) increases with the number of individuals in a species.  Largely independently from UNTB and its descendants, phylogenetic models of geographic change and diversification also explicitly assume that more widespread species have greater opportunity for speciation [@goldberg2011].
 
@@ -81,21 +100,86 @@ Our simulation proceeds according to these rules:
 3. Immigration between local communities and from the global source pool slows the progress toward speciation;  if an incipient species has to wait $\tau$ time (in the absence of immigration) until it is a full species, each immigration event adds an increment to $\tau$ of $\xi / n_i$ where $\xi$ is a parameter we can set and $n_i$ is the population size of the incipient species
 4. Once full speciation occurs the simulation is stopped; if the simulation reaches the maximum designated number of iterations without full speciation, then the simulation stops anyway
 
-These processes are governed by the following parameters:
-
-- $\lambda$ (`la`): local birth rate
-- $\mu$ (`mu`): local death rate
-- $\gamma$ (`g`): dispersal rate from the global source pool to one local population
-- $m_p$ (`m_prop`): proportional dispersal rate between local populations relative to global rate; immigration rate $m = \gamma \times m_p$ 
-- $\nu$ (`nu`): incipient speciation rate
-- $\tau$ (`tau`): wait time to full speciation in the absence of dispersal
-- $\xi$ (`xi`): amount each dispersal event sets back the progression toward speciation
-- $n_p$ (`np`): number of local populations
-- $n_\text{step}$ (`nstep`): number of iterations to run the simulation for
-
 Full details of the simulation are provided in \ssec{sec-sim}. Underlying C++ and R source code is available in the R package *abondolism* [@abundolism-package] accompanying this paper.
 
 ### Simulation experiment
+
+```{r}
+#| label: pars-info-setup
+
+
+# loads `par_range`, `np`, `nstep`, `nrep`
+load_supp("par-range")
+```
+
+@tbl-pars summarizes the simulation parameters in our model and the range of values we use in our simulation experiment. In all cases parameter values are drawn from a uniform distribution. A total of `r format(nrep, big.mark = ",", scientific = FALSE)` simulations were run, each with a unique set of randomly sampled parameters.
+
+
+```{r}
+#| label: tbl-pars
+#| tbl-cap: |
+#|     Parameters govering the simulation and their ranges over the simulation experiment. Mathematical parameter names are given first followed by their name in the simulation code. Note `np` and `nstep` were fixed throughout the course of the simulation experiment
+
+
+par_info <- data.frame(param = c("np", "nstep"), 
+                       min = c(np, nstep), 
+                       max = c(np, nstep)) |> 
+    (\(x) rbind(par_range, x))() 
+
+par_desc <- c(
+    "local birth rate", 
+    "local death rate", 
+    "dispersal rate from the global source pool to one local population", 
+    "proportional dispersal rate between local populations relative to global rate", 
+    "incipient speciation rate", 
+    "wait time to full speciation in the absence of dispersal", 
+    "amount each dispersal event sets back the progression toward speciation", 
+    "number of local populations", 
+    "number of simulation iterations"
+) |> 
+    setNames(par_info$param)
+
+
+par_tab <- select(par_info, param) |> 
+    mutate(
+        par_name = case_match(param, 
+                              "la" ~ "$\\lambda$", 
+                              "mu" ~ "$\\mu$", 
+                              "g" ~ "$\\gamma$", 
+                              "m_prop" ~ "$m_\\text{prop}$", 
+                              "nu" ~ "$\\nu$", 
+                              "tau" ~ "$\\tau$", 
+                              "xi" ~ "$\\xi$", 
+                              "np" ~ "$n_p$", 
+                              "nstep" ~ "$n_\\text{step}$"), 
+        par_code = sprintf("(\\texttt{%s})", param) |> 
+            gsub("_", "\\\\_", x = _),
+        description = par_desc[param]
+    ) |> 
+    left_join(par_info) |> 
+    select(-param) |> 
+    relocate(description, .after = max)
+    
+
+kable(par_tab, booktabs = TRUE, format = "latex",
+      col.names = NULL, align = "rrrrl", escape = FALSE, 
+      format.args = list(big.mark = ",", scientific = FALSE)) |>
+    add_header_above(c("parameter" = 2, "range" = 2, "description" = 1), 
+                     line = TRUE) |> 
+    column_spec(5, width = "3in")
+
+```
+
+Parameter values were chosen as a balance between biological realism and computational efficiency: rates are sufficiently fast to allow for abundances to reach levels often found in survey data (e.g. the arthropod survey data we analyze here) within 
+
+
+```{r}
+load_supp("run-sim")
+
+
+```
+
+
 
 ### Analysis of arthropod richness and abundance from the pae ʻāina Hawaiʻi
 
@@ -107,13 +191,15 @@ Bishop checklist: *generally* each native genus got here once and radiated
 
 ```{r}
 #| label: fig-sim
+#| fig-width: 4
+#| fig-height: 3
+#| fig-cap: |
+#|     Relationship across simulation runs between average abundance 
+#|     over local populations and speciation. Curve is a quadratic binomial
+#|     generalize linear model and gray region shows 95% confidence envelope 
 
-f <- grep("make-sim-fig.*RData", 
-           list.files("ab_supp_cache/pdf", full.names = TRUE), 
-           value = TRUE) |> 
-    gsub("\\.RData", "", x = _)
-
-lazyLoad(f)
+# loads `sim_fig`
+load_supp("make-sim-fig")
 
 sim_fig
 ```
