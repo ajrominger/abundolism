@@ -41,6 +41,7 @@ results
 \item \code{nstep}
 \item \code{time}: simulation time step, if speciation occurred this number will
 be \verb{< nstep}, if not this number will be \verb{== nstep}
+\item \code{niter}: number of iterations completed
 \item \code{mean_pop_size}: the mean population size across all time steps and
 populations
 \item \code{speciation}: 0 (no speciation) or 1 (yes specaition)

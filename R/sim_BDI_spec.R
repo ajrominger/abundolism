@@ -26,6 +26,7 @@
 #' - `nstep`
 #' - `time`: simulation time step, if speciation occurred this number will
 #' be `< nstep`, if not this number will be `== nstep`
+#' - `niter`: number of iterations completed
 #' - `mean_pop_size`: the mean population size across all time steps and
 #' populations
 #' - `speciation`: 0 (no speciation) or 1 (yes specaition)
