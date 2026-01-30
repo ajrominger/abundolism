@@ -1,1 +1,5 @@
 knitr
+kableExtra
+dplyr
+ggplot2
+ggpointdensity

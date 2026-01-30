@@ -344,10 +344,10 @@ following minimum and maximum limits:
 
 \CommentTok{\# fixed params}
 \NormalTok{np }\OtherTok{\textless{}{-}} \DecValTok{2}
-\NormalTok{nstep }\OtherTok{\textless{}{-}} \DecValTok{100000}
+\NormalTok{nstep }\OtherTok{\textless{}{-}} \DecValTok{10000}
 
 \CommentTok{\# number of simulation replicates}
-\NormalTok{nrep }\OtherTok{\textless{}{-}} \DecValTok{1000}
+\NormalTok{nrep }\OtherTok{\textless{}{-}} \DecValTok{10000}
 
 \CommentTok{\# format param names for printing}
 \FunctionTok{mutate}\NormalTok{(par\_range, }
@@ -374,9 +374,9 @@ param & min & max \\
 
 The parameters governing number of populations (\texttt{np}) and number
 of time steps (\texttt{nstep}) do not vary across simulations and are
-set to \texttt{np\ =} 2 and \texttt{nstep\ =} \ensuremath{10^{5}}. We
-simulate a total of \texttt{nrep\ =} 1000 replicates, each with a
-unique, randomly sampled set of parameter values.
+set to \texttt{np\ =} 2 and \texttt{nstep\ =} \ensuremath{10^{4}}. We
+simulate a total of \texttt{nrep\ =} \ensuremath{10^{4}} replicates,
+each with a unique, randomly sampled set of parameter values.
 
 \subsection{Running the simulation
 experiment}\label{running-the-simulation-experiment}
@@ -426,6 +426,14 @@ speciation in this model
                 \AttributeTok{method.args =} \FunctionTok{list}\NormalTok{(}\AttributeTok{family =} \StringTok{"binomial"}\NormalTok{), }
                 \AttributeTok{color =} \StringTok{"black"}\NormalTok{)}
 
+\FunctionTok{ggplot}\NormalTok{(sim\_dat, }\FunctionTok{aes}\NormalTok{(niter, time)) }\SpecialCharTok{+}
+    \FunctionTok{geom\_pointdensity}\NormalTok{(}\AttributeTok{method =} \StringTok{"kde2d"}\NormalTok{) }\SpecialCharTok{+}
+    \FunctionTok{scale\_color\_viridis\_c}\NormalTok{() }\SpecialCharTok{+}
+    \CommentTok{\# scale\_x\_log10() +}
+    \FunctionTok{scale\_y\_log10}\NormalTok{() }\SpecialCharTok{+}
+    \FunctionTok{facet\_wrap}\NormalTok{(}\FunctionTok{vars}\NormalTok{(speciation))}
+
+
 \FunctionTok{ggplot}\NormalTok{(sim\_dat, }\FunctionTok{aes}\NormalTok{(time, mean\_pop\_size)) }\SpecialCharTok{+}
     \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{data =} \FunctionTok{select}\NormalTok{(sim\_dat, }\SpecialCharTok{!}\NormalTok{speciation), }
                \AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(time, mean\_pop\_size), }\AttributeTok{color =} \StringTok{"gray50"}\NormalTok{) }\SpecialCharTok{+}
@@ -435,8 +443,25 @@ speciation in this model
     \FunctionTok{scale\_y\_log10}\NormalTok{() }\SpecialCharTok{+} 
     \FunctionTok{scale\_color\_viridis\_c}\NormalTok{(}\AttributeTok{trans =} \StringTok{"log10"}\NormalTok{)}
 
-\FunctionTok{ggplot}\NormalTok{(sim\_dat, }\FunctionTok{aes}\NormalTok{(mean\_pop\_size)) }\SpecialCharTok{+}
+\FunctionTok{ggplot}\NormalTok{(sim\_dat, }\FunctionTok{aes}\NormalTok{(time, mean\_pop\_size)) }\SpecialCharTok{+}
+    \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{data =} \FunctionTok{select}\NormalTok{(sim\_dat, }\SpecialCharTok{!}\NormalTok{speciation), }
+               \AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(time, mean\_pop\_size), }\AttributeTok{color =} \StringTok{"gray50"}\NormalTok{) }\SpecialCharTok{+}
+    \FunctionTok{geom\_pointdensity}\NormalTok{() }\SpecialCharTok{+} 
+    \FunctionTok{facet\_wrap}\NormalTok{(}\FunctionTok{vars}\NormalTok{(speciation)) }\SpecialCharTok{+}
+    \FunctionTok{scale\_x\_log10}\NormalTok{() }\SpecialCharTok{+}
+    \FunctionTok{scale\_y\_log10}\NormalTok{() }\SpecialCharTok{+} 
+    \FunctionTok{scale\_color\_viridis\_c}\NormalTok{(}\AttributeTok{trans =} \StringTok{"log10"}\NormalTok{)}
+
+\FunctionTok{ggplot}\NormalTok{(sim\_dat[sim\_dat}\SpecialCharTok{$}\NormalTok{time }\SpecialCharTok{\textless{}} \DecValTok{100}\NormalTok{, ], }\FunctionTok{aes}\NormalTok{(time, mean\_pop\_size)) }\SpecialCharTok{+}
+    \FunctionTok{geom\_pointdensity}\NormalTok{() }\SpecialCharTok{+} 
+    \FunctionTok{facet\_wrap}\NormalTok{(}\FunctionTok{vars}\NormalTok{(speciation)) }\SpecialCharTok{+}
+    \FunctionTok{scale\_x\_log10}\NormalTok{() }\SpecialCharTok{+}
+    \FunctionTok{scale\_y\_log10}\NormalTok{() }\SpecialCharTok{+} 
+    \FunctionTok{scale\_color\_viridis\_c}\NormalTok{(}\AttributeTok{trans =} \StringTok{"log10"}\NormalTok{)}
+
+\FunctionTok{ggplot}\NormalTok{(sim\_dat, }\FunctionTok{aes}\NormalTok{(time)) }\SpecialCharTok{+}
     \FunctionTok{geom\_histogram}\NormalTok{() }\SpecialCharTok{+}
+    \FunctionTok{facet\_wrap}\NormalTok{(}\FunctionTok{vars}\NormalTok{(speciation), }\AttributeTok{ncol =} \DecValTok{1}\NormalTok{) }\SpecialCharTok{+}
     \FunctionTok{scale\_x\_log10}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
@@ -445,10 +470,11 @@ This is the main figure
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{sim\_fig }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(sim\_dat, }
+\NormalTok{sim\_fig }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(sim\_dat,}
                   \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ mean\_pop\_size, }\AttributeTok{y =}\NormalTok{ speciation)) }\SpecialCharTok{+}
-    \FunctionTok{geom\_pointdensity}\NormalTok{() }\SpecialCharTok{+}
+    \FunctionTok{geom\_pointdensity}\NormalTok{(}\AttributeTok{method =} \StringTok{"kde2d"}\NormalTok{) }\SpecialCharTok{+}
     \FunctionTok{scale\_color\_viridis\_c}\NormalTok{() }\SpecialCharTok{+}
+    \CommentTok{\# scale\_size\_continuous(range = c(0.001, 4)) + }
     \FunctionTok{scale\_x\_log10}\NormalTok{() }\SpecialCharTok{+}
     \FunctionTok{scale\_y\_continuous}\NormalTok{(}\AttributeTok{breaks =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{)) }\SpecialCharTok{+} 
     \FunctionTok{xlab}\NormalTok{(}\StringTok{"Mean population size"}\NormalTok{) }\SpecialCharTok{+}
@@ -456,7 +482,6 @@ This is the main figure
     \FunctionTok{theme}\NormalTok{(}\AttributeTok{panel.grid.minor.y =} \FunctionTok{element\_blank}\NormalTok{()) }\SpecialCharTok{+}
     \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{method =}\NormalTok{ glm, }\AttributeTok{formula =}\NormalTok{ y }\SpecialCharTok{\textasciitilde{}}\NormalTok{ x }\SpecialCharTok{+} \FunctionTok{I}\NormalTok{(x}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{), }
                 \AttributeTok{method.args =} \FunctionTok{list}\NormalTok{(}\AttributeTok{family =} \StringTok{"binomial"}\NormalTok{), }\AttributeTok{color =} \StringTok{"black"}\NormalTok{)}
-
 
 \NormalTok{sim\_fig}
 \end{Highlighting}
