@@ -58,19 +58,20 @@ Simulation parameters are drawn from uniform distributions with the following mi
 
 ```{r}
 #| label: par-range
+#| cache: true
 
 par_range <- data.frame(
     param = c("la", "mu", "g", "m_prop", "nu", "tau", "xi"), 
-    min   = c(1,    1,    0,   0,        0,     0,    0.5), 
-    max   = c(10,   10,   0.1, 0.1,      0.001, 4,    2)
+    min   = c(0.1,  0.1,  0,   0,        0,     0,    1), 
+    max   = c(10,   10,   0.1, 0.1,      0.001, 2,    1)
 )
 
 # fixed params
 np <- 2
-nstep <- 100000
+nstep <- 10000
 
 # number of simulation replicates
-nrep <- 1000
+nrep <- 10000
 
 # format param names for printing
 mutate(par_range, 
@@ -89,7 +90,7 @@ Parameter values for each simulation replicate are stored in a `data.frame` with
 #| label: par-sample
 
 # change or remove for different results
-set.seed(123)
+# set.seed(123)
 
 # data.frame of randomly sampled param values
 # one param per column
@@ -99,11 +100,15 @@ pars <- sapply(par_range$param, function(p) {
           par_range[par_range$param == p, "max"])
 }) |> 
     as.data.frame()
+
+# pars$tau <- 10 / (pars$la + pars$mu + runif(nrep, 0, 1))
+
 ```
 
 ```{r}
 #| label: run-sim
 #| cache: true
+#| dependson: par-range
 
 # now run the simulation, see `?sim_BDI_spec` for details 
 # on input and output
@@ -132,6 +137,14 @@ ggplot(sim_dat,
                 method.args = list(family = "binomial"), 
                 color = "black")
 
+ggplot(sim_dat, aes(niter, time)) +
+    geom_pointdensity(method = "kde2d") +
+    scale_color_viridis_c() +
+    # scale_x_log10() +
+    scale_y_log10() +
+    facet_wrap(vars(speciation))
+
+
 ggplot(sim_dat, aes(time, mean_pop_size)) +
     geom_point(data = select(sim_dat, !speciation), 
                mapping = aes(time, mean_pop_size), color = "gray50") +
@@ -141,8 +154,25 @@ ggplot(sim_dat, aes(time, mean_pop_size)) +
     scale_y_log10() + 
     scale_color_viridis_c(trans = "log10")
 
-ggplot(sim_dat, aes(mean_pop_size)) +
+ggplot(sim_dat, aes(time, mean_pop_size)) +
+    geom_point(data = select(sim_dat, !speciation), 
+               mapping = aes(time, mean_pop_size), color = "gray50") +
+    geom_pointdensity() + 
+    facet_wrap(vars(speciation)) +
+    scale_x_log10() +
+    scale_y_log10() + 
+    scale_color_viridis_c(trans = "log10")
+
+ggplot(sim_dat[sim_dat$time < 100, ], aes(time, mean_pop_size)) +
+    geom_pointdensity() + 
+    facet_wrap(vars(speciation)) +
+    scale_x_log10() +
+    scale_y_log10() + 
+    scale_color_viridis_c(trans = "log10")
+
+ggplot(sim_dat, aes(time)) +
     geom_histogram() +
+    facet_wrap(vars(speciation), ncol = 1) +
     scale_x_log10()
 
 ```
@@ -155,10 +185,11 @@ This is the main figure
 #| fig-height: 3
 #| cache: true
 
-sim_fig <- ggplot(sim_dat, 
+sim_fig <- ggplot(sim_dat,
                   aes(x = mean_pop_size, y = speciation)) +
-    geom_pointdensity() +
+    geom_pointdensity(method = "kde2d") +
     scale_color_viridis_c() +
+    # scale_size_continuous(range = c(0.001, 4)) + 
     scale_x_log10() +
     scale_y_continuous(breaks = c(0, 1)) + 
     xlab("Mean population size") +
@@ -167,8 +198,8 @@ sim_fig <- ggplot(sim_dat,
     geom_smooth(method = glm, formula = y ~ x + I(x^2), 
                 method.args = list(family = "binomial"), color = "black")
 
-
 sim_fig
+
 ```
 
 
