@@ -111,7 +111,7 @@ arma::mat sim_spec_abund(const arma::vec& la,
     int nsim = la.n_elem;
 
     // output matrix
-    mat output(nsim, 3);
+    mat output(nsim, 4);
     // output.fill(datum::nan);
 
     // total number of event types:
@@ -262,8 +262,9 @@ arma::mat sim_spec_abund(const arma::vec& la,
 
         // record this simulation
         output(r, 0) = tt;                        // time
-        output(r, 1) = xmean / i / np;            // mean abundance
-        output(r, 2) = any_full_spec ? 1.0 : 0.0; // full speciation = 1
+        output(r, 1) = i + 1;
+        output(r, 2) = xmean / i / np;            // mean abundance should maybe be `xmean / (i + 1) / np
+        output(r, 3) = any_full_spec ? 1.0 : 0.0; // full speciation = 1
     }
 
     return output;

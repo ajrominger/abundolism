@@ -38,7 +38,7 @@ sim_BDI_spec <- function(la, mu, g, m_prop, nu, tau, xi, np, nstep) {
 
     sim <- as.data.frame(sim)
 
-    names(sim) <- c("time", "mean_pop_size", "speciation")
+    names(sim) <- c("time", "niter", "mean_pop_size", "speciation")
 
     pars <- data.frame(la, mu, g, m_prop, nu, tau, xi, np, nstep)
 
