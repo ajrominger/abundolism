@@ -59,11 +59,26 @@ Simulation parameters are drawn from uniform distributions with the following mi
 ```{r}
 #| label: par-range
 
+# testing out no speciation, no between pop imm
 par_range <- data.frame(
-    param = c("la", "mu", "g", "m_prop", "nu", "tau", "xi"), 
-    min   = c(1,    1,    0,   0,        0,     0,    0.5), 
-    max   = c(10,   10,   0.1, 0.1,      0.001, 4,    2)
+    param = c("la", "mu", "g", "m_prop", "nu", "tau", "xi"),
+    min   = c(4,    4,    0,   0,        0,     0,    0.5),
+    max   = c(10,   10,   2, 0,      0.001, 4,    2)
 )
+
+
+# par_range <- data.frame(
+#     param = c("la", "mu", "g", "m_prop", "nu", "tau", "xi"),
+#     min   = c(4,    4,    0,   0,        0,     0,    0.5),
+#     max   = c(10,   10,   2, 0.1,      0, 4,    2)
+# )
+
+
+# par_range <- data.frame(
+#     param = c("la", "mu", "g", "m_prop", "nu", "tau", "xi"), 
+#     min   = c(4,    4,    5,   0,        0,     0,    0.5), 
+#     max   = c(10,   10,   8,   1,        0.001, 4,    2)
+# )
 
 # fixed params
 np <- 2
@@ -143,7 +158,16 @@ ggplot(sim_dat, aes(time, mean_pop_size)) +
 
 ggplot(sim_dat, aes(mean_pop_size)) +
     geom_histogram() +
-    scale_x_log10()
+    scale_x_log10() +
+    facet_wrap(vars(speciation))
+
+
+ggplot(sim_dat, aes(niter, mean_pop_size, color = time)) +
+    geom_point() +
+    facet_wrap(vars(speciation)) +
+    scale_x_log10() +
+    scale_y_log10() + 
+    scale_color_viridis_c(trans = "log10")
 
 ```
 
