@@ -391,6 +391,18 @@ Our simulation proceeds according to these rules:
   full speciation, then the simulation stops anyway
 \end{enumerate}
 
+\begin{figure}
+
+\centering{
+
+\pandocbounded{\includegraphics[keepaspectratio]{abundolism_files/figure-pdf/fig-concpt-1.pdf}}
+
+}
+
+\caption{\label{fig-concpt}Conceptual overview of our simulation model.}
+
+\end{figure}%
+
 Full details of the simulation are provided in \ssec{sec-sim}.
 Underlying C++ and R source code is available in the R package
 \emph{abondolism} (Rominger 2026) accompanying this paper.
@@ -417,14 +429,14 @@ simulation experiment}
 \toprule
 \multicolumn{2}{c}{parameter} & \multicolumn{2}{c}{range} & \multicolumn{1}{c}{description} \\
 \cmidrule(l{3pt}r{3pt}){1-2} \cmidrule(l{3pt}r{3pt}){3-4} \cmidrule(l{3pt}r{3pt}){5-5}
-$\lambda$ & (\texttt{la}) & 1.0 & 10.000 & local birth rate\\
-$\mu$ & (\texttt{mu}) & 1.0 & 10.000 & local death rate\\
+$\lambda$ & (\texttt{la}) & 0.1 & 10.000 & local birth rate\\
+$\mu$ & (\texttt{mu}) & 0.1 & 10.000 & local death rate\\
 $\gamma$ & (\texttt{g}) & 0.0 & 0.100 & dispersal rate from the global source pool to one local population\\
 $m_\text{prop}$ & (\texttt{m\_prop}) & 0.0 & 0.100 & proportional dispersal rate between local populations relative to global rate\\
 $\nu$ & (\texttt{nu}) & 0.0 & 0.001 & incipient speciation rate\\
 \addlinespace
-$\tau$ & (\texttt{tau}) & 0.0 & 4.000 & wait time to full speciation in the absence of dispersal\\
-$\xi$ & (\texttt{xi}) & 0.5 & 2.000 & amount each dispersal event sets back the progression toward speciation\\
+$\tau$ & (\texttt{tau}) & 0.0 & 2.000 & wait time to full speciation in the absence of dispersal\\
+$\xi$ & (\texttt{xi}) & 1.0 & 1.000 & amount each dispersal event sets back the progression toward speciation\\
 $n_p$ & (\texttt{np}) & 2.0 & 2.000 & number of local populations\\
 $n_\text{step}$ & (\texttt{nstep}) & 10,000.0 & 10,000.000 & number of simulation iterations\\
 \bottomrule

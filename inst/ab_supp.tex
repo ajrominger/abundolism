@@ -338,8 +338,8 @@ following minimum and maximum limits:
 \begin{Highlighting}[]
 \NormalTok{par\_range }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}
     \AttributeTok{param =} \FunctionTok{c}\NormalTok{(}\StringTok{"la"}\NormalTok{, }\StringTok{"mu"}\NormalTok{, }\StringTok{"g"}\NormalTok{, }\StringTok{"m\_prop"}\NormalTok{, }\StringTok{"nu"}\NormalTok{, }\StringTok{"tau"}\NormalTok{, }\StringTok{"xi"}\NormalTok{), }
-    \AttributeTok{min   =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,    }\DecValTok{1}\NormalTok{,    }\DecValTok{0}\NormalTok{,   }\DecValTok{0}\NormalTok{,        }\DecValTok{0}\NormalTok{,     }\DecValTok{0}\NormalTok{,    }\FloatTok{0.5}\NormalTok{), }
-    \AttributeTok{max   =} \FunctionTok{c}\NormalTok{(}\DecValTok{10}\NormalTok{,   }\DecValTok{10}\NormalTok{,   }\FloatTok{0.1}\NormalTok{, }\FloatTok{0.1}\NormalTok{,      }\FloatTok{0.001}\NormalTok{, }\DecValTok{4}\NormalTok{,    }\DecValTok{2}\NormalTok{)}
+    \AttributeTok{min   =} \FunctionTok{c}\NormalTok{(}\FloatTok{0.1}\NormalTok{,  }\FloatTok{0.1}\NormalTok{,  }\DecValTok{0}\NormalTok{,   }\DecValTok{0}\NormalTok{,        }\DecValTok{0}\NormalTok{,     }\DecValTok{0}\NormalTok{,    }\DecValTok{1}\NormalTok{), }
+    \AttributeTok{max   =} \FunctionTok{c}\NormalTok{(}\DecValTok{10}\NormalTok{,   }\DecValTok{10}\NormalTok{,   }\FloatTok{0.1}\NormalTok{, }\FloatTok{0.1}\NormalTok{,      }\FloatTok{0.001}\NormalTok{, }\DecValTok{2}\NormalTok{,    }\DecValTok{1}\NormalTok{)}
 \NormalTok{)}
 
 \CommentTok{\# fixed params}
@@ -363,13 +363,13 @@ param & min & max \\
 \endhead
 \bottomrule\noalign{}
 \endlastfoot
-\texttt{la} & 1.0 & 10.000 \\
-\texttt{mu} & 1.0 & 10.000 \\
+\texttt{la} & 0.1 & 10.000 \\
+\texttt{mu} & 0.1 & 10.000 \\
 \texttt{g} & 0.0 & 0.100 \\
 \texttt{m\_prop} & 0.0 & 0.100 \\
 \texttt{nu} & 0.0 & 0.001 \\
-\texttt{tau} & 0.0 & 4.000 \\
-\texttt{xi} & 0.5 & 2.000 \\
+\texttt{tau} & 0.0 & 2.000 \\
+\texttt{xi} & 1.0 & 1.000 \\
 \end{longtable}
 
 The parameters governing number of populations (\texttt{np}) and number
@@ -387,7 +387,7 @@ Parameter values for each simulation replicate are stored in a
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{\# change or remove for different results}
-\FunctionTok{set.seed}\NormalTok{(}\DecValTok{123}\NormalTok{)}
+\CommentTok{\# set.seed(123)}
 
 \CommentTok{\# data.frame of randomly sampled param values}
 \CommentTok{\# one param per column}
@@ -397,6 +397,8 @@ Parameter values for each simulation replicate are stored in a
 \NormalTok{          par\_range[par\_range}\SpecialCharTok{$}\NormalTok{param }\SpecialCharTok{==}\NormalTok{ p, }\StringTok{"max"}\NormalTok{])}
 \NormalTok{\}) }\SpecialCharTok{|\textgreater{}} 
     \FunctionTok{as.data.frame}\NormalTok{()}
+
+\CommentTok{\# pars$tau \textless{}{-} 10 / (pars$la + pars$mu + runif(nrep, 0, 1))}
 \end{Highlighting}
 \end{Shaded}
 

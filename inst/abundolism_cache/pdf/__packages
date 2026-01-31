@@ -3,3 +3,4 @@ kableExtra
 dplyr
 ggplot2
 ggpointdensity
+sf
