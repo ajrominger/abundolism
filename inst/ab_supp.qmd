@@ -71,7 +71,7 @@ np <- 2
 nstep <- 10000
 
 # number of simulation replicates
-nrep <- 10000
+nrep <- 10# 10000
 
 # format param names for printing
 mutate(par_range, 
