@@ -347,7 +347,7 @@ following minimum and maximum limits:
 \NormalTok{nstep }\OtherTok{\textless{}{-}} \DecValTok{10000}
 
 \CommentTok{\# number of simulation replicates}
-\NormalTok{nrep }\OtherTok{\textless{}{-}} \DecValTok{10000}
+\NormalTok{nrep }\OtherTok{\textless{}{-}} \DecValTok{10}\CommentTok{\# 10000}
 
 \CommentTok{\# format param names for printing}
 \FunctionTok{mutate}\NormalTok{(par\_range, }
@@ -375,8 +375,8 @@ param & min & max \\
 The parameters governing number of populations (\texttt{np}) and number
 of time steps (\texttt{nstep}) do not vary across simulations and are
 set to \texttt{np\ =} 2 and \texttt{nstep\ =} \ensuremath{10^{4}}. We
-simulate a total of \texttt{nrep\ =} \ensuremath{10^{4}} replicates,
-each with a unique, randomly sampled set of parameter values.
+simulate a total of \texttt{nrep\ =} 10 replicates, each with a unique,
+randomly sampled set of parameter values.
 
 \subsection{Running the simulation
 experiment}\label{running-the-simulation-experiment}
