@@ -1,0 +1,348 @@
+```{r}
+#| label: ape-setup
+#| include: false
+
+library(ape)
+
+
+tre <- read.tree(text = "((((A:3, (B:1, C:1.5):1.5):3.5, (D:1.5, E:3.5):2):1, 
+                         (F:0.5, ((G:2, H:2):2.5, I:1):2):1):3, J:2);")
+
+# plot tree to get coordinates
+plot(tre)
+tcoord <- get("last_plot.phylo", envir = .PlotPhyloEnv)[c("xx", "yy", "edge")]
+
+```
+
+
+
+```{r}
+#| label: fig-concept
+#| fig-width: 8
+#| fig-height: 3
+#| fig-cap: |
+#|     Conceptual overview of our simulation model. 
+#| cache: true
+#| echo: false
+#| message: false
+
+library(grid)
+library(sf)
+
+
+# function to draw ellipse
+draw_ellipse <- function(x, y, rx, ry, n = 100, gp = gpar()) {
+    theta <- seq(0, 2 * pi, length.out = n)
+    ex <- x + rx * cos(theta)
+    ey <- y + ry * sin(theta)
+    grid.polygon(ex, ey, gp = gp)
+}
+
+# function to draw a cloud shape
+draw_cloud <- function(x, y, r, gp = gpar()) {
+    # sf uniion of circles
+    cloud <- lapply(1:length(x), function(i) {
+        st_buffer(st_point(c(x[i], y[i])), r[i])
+    }) |>
+        st_sfc() |>
+        st_union()
+
+    coords <- st_coordinates(cloud)[, 1:2]
+
+    grid.polygon(coords[, 1], coords[, 2], gp = gp)
+}
+
+
+# function to draw a popout curving triangle kind of thing
+draw_popout <- function(x1, y1, x2, y2, h1, h2, 
+                   n = 100, direction = "up", gp = gpar()) {
+    # add height to y end points
+    y11 <- y1 - h1 / 2
+    y12 <- y1 + h1 / 2
+    y21 <- y2 - h2 / 2
+    y22 <- y2 + h2 / 2
+    
+    # unscaled x (=z) and y coordinates
+    z <- seq(0, 1, length.out = n)
+    y <- exp(z)
+    
+    if (direction == "down") {
+        y <- rev(max(y) - y + min(y))
+    }
+    
+    # rescale 
+    x <- x1 + z * (x2 - x1)
+    ybot <- y11 + (y - min(y)) / (max(y) - min(y)) * (y21 - y11)
+    ytop <- y12 + (y - min(y)) / (max(y) - min(y)) * (y22 - y12)
+    
+    grid.polygon(c(x, rev(x)), c(ytop, rev(ybot)), gp = gp)
+}
+
+
+# colors, sizes, pars
+src_blu <- "#3D9BBA"
+pop_blu <- "#1D4C7F"
+blk <- "#412925"
+gry <- "#C4B6B3"
+txt_gld <- "#FDB318"
+spe_gld <- "#CC6052"
+
+
+lw <- 2
+fsize <- 9
+
+arrow_gp <- gpar(col = gry, lwd = 6)
+txt_gp <- gpar(col = txt_gld, fontsize = fsize)
+pop_gp <- gpar(col = txt_gld, fontsize = fsize * 1.4)
+box_gp <- gpar(fill = blk, col = gry, lwd = lw)
+
+prt <- 0.775
+
+# start ----
+
+grid.newpage()
+
+pushViewport(viewport(name = "base"))
+
+draw_popout(x1 = 0.4, y1 = 0.42, x2 = 0.5 + 2 * (prt - 0.75), y2 = 0.5, 
+            h1 = 0, h2 = 0.85, 
+            gp = gpar(fill = gry, col = gry))
+
+
+# left hand panel ----
+pushViewport(viewport(x = unit(0.25, "npc"), y = unit(0.5, "npc"), 
+                      width = unit(0.5, "npc"), height = unit(1, "npc")))
+
+# grid.rect(gp = gpar(col = gry, lwd = 3))
+
+# global source pool
+draw_cloud(x = c(-0.08, 0.1, 0.25, 0.35, 0.1) + 0.025,
+           y = c(0.85, 0.9, 0.95, 1, 1),
+           r = c(0.175, 0.1, 0.08, 0.1, 0.15),
+           gp = gpar(fill = src_blu, col = blk, lwd = lw))
+grid.text("global source pool",
+          x = 0.01, y = 0.95, just = "left",
+          gp = pop_gp)
+x <- grid.text(expression(italic("size:")~italic(infinity)),
+          x = 0.01, y = 0.87, just = "left",
+          gp = pop_gp)
+
+# local pops
+rx <- 0.2
+ry <- 0.15
+ly <- 0.42
+
+# local pop j
+draw_ellipse(x = 0.25, y = ly, rx = rx, ry = ry,
+             gp = gpar(fill = pop_blu, col = blk, lwd = lw))
+grid.text(expression("local population"~italic(j)),
+          x = 0.25 - rx + 0.025, y = ly + 0.025, just = "left",
+          gp = pop_gp)
+grid.text(expression(italic("size:")~italic(x[j])),
+          x = 0.25 - rx + 0.025, y = ly - 0.045, just = "left",
+          gp = pop_gp)
+
+# local pop i
+draw_ellipse(x = 0.75, y = ly, rx = rx, ry = ry,
+             gp = gpar(fill = pop_blu, col = blk, lwd = lw))
+grid.text(expression("local population"~italic(i)),
+          x = 0.75 - rx + 0.02, y = ly + 0.025, just = "left",
+          gp = pop_gp)
+grid.text(expression(italic("size:")~italic(x[i])),
+          x = 0.75 - rx + 0.02, y = ly - 0.045, just = "left",
+          gp = pop_gp)
+
+# dispersal j to i
+grid.curve(x1 = 0.42, y1 = ly - 0.09, x2 = 0.58, y2 = ly - 0.09,
+           curvature = 0.7, square = FALSE,
+           arrow = arrow(length = unit(0.3, "cm")),
+           gp = arrow_gp)
+grid.roundrect(x = 0.5, y = ly - 0.19, width = 0.28, height = 0.07,
+               r = unit(0.25, "npc"),
+               gp = box_gp)
+grid.text(expression(italic("rate:")~italic(m[prop]*gamma*x[j](k))),
+          x = 0.5, y = ly - 0.19,
+          gp = txt_gp)
+
+# dispersal i to j
+grid.curve(x1 = 0.75, y1 = ly - 0.16, x2 = 0.25, y2 = ly - 0.16,
+           curvature = -0.6, square = FALSE,
+           arrow = arrow(length = unit(0.3, "cm")),
+           gp = arrow_gp)
+grid.roundrect(x = 0.74, y = ly - 0.32, width = 0.28, height = 0.07,
+               r = unit(0.25, "npc"),
+               gp = box_gp)
+grid.text(expression(italic("rate:")~italic(m[prop]*gamma*x[i](k))),
+          x = 0.74, y = ly - 0.32,
+          gp = txt_gp)
+
+# local dispersal tag
+grid.roundrect(x = 0.18, y = ly - 0.32, width = 0.35, height = 0.07,
+               r = unit(0.25, "npc"),
+               gp = box_gp)
+grid.text("multiple local dispersal", 
+          x = 0.18, y = ly - 0.32,
+          gp = txt_gp)
+
+
+# global dispersal
+
+lf <- ly + 0.37
+
+# to j
+grid.curve(x1 = 0.5, y1 = lf, x2 = 0.35, y2 = ly + 0.14,
+           curvature = -0.2, square = FALSE,
+           arrow = arrow(length = unit(0.3, "cm")),
+           gp = arrow_gp)
+
+# to i
+grid.curve(x1 = 0.5, y1 = lf, x2 = 0.65, y2 = ly + 0.14,
+           curvature = -0.2, square = FALSE,
+           arrow = arrow(length = unit(0.3, "cm")),
+           gp = arrow_gp)
+
+# to fork
+grid.curve(x1 = 0.45, y1 = 0.925, x2 = 0.5, y2 = lf,
+           curvature = -0.2, square = FALSE,
+           gp = arrow_gp)
+
+
+# global dispersal tag
+grid.roundrect(x = 0.61, y = lf + 0.13, width = 0.26, height = 0.11,
+               r = unit(0.25, "npc"),
+               gp = box_gp)
+grid.text("global dispersal",
+          x = 0.5, y = lf + 0.15, just = "left",
+          gp = txt_gp)
+grid.text(expression(italic("rate:"~italic(gamma))),
+          x = 0.5, y = lf + 0.1, just = "left",
+          gp = txt_gp)
+
+
+# equal prob tag
+grid.roundrect(x = 0.5, y = lf - 0.1, width = 0.69, height = 0.08,
+               r = unit(0.25, "npc"),
+               gp = box_gp)
+grid.text("recipient population chosen w/ equal probability",
+          x = 0.5, y = lf - 0.1,
+          gp = txt_gp)
+
+seekViewport("base")
+
+# right hand panel ----
+
+pushViewport(viewport(x = unit(prt, "npc"), y = unit(0.5, "npc"), 
+                      width = unit(2 * (1 - prt), "npc"), height = unit(1, "npc")))
+
+
+grid.roundrect(gp = gpar(fill = pop_blu, col = blk, lwd = 3))
+
+grid.text(expression("local population"~italic(i)),
+          x = 0.5, y = 0.95,
+          gp = pop_gp)
+
+
+# make matrices of "from" coordinates and "to" coordinates
+xy <- cbind(tcoord$xx, tcoord$yy)
+frm <- xy[tcoord$edge[, 1], ]
+tto <- xy[tcoord$edge[, 2], ]
+
+# booleans for birth and death
+d <- tcoord$edge[, 2] <= Ntip(tre) & tto[, 1] < max(tto)
+b <- tcoord$edge[, 2] > Ntip(tre)
+
+# graphical params
+phy_gp <- gpar(col = txt_gld, lwd = lw)
+inc_gp <- gpar(col = spe_gld, lwd = lw)
+
+# start
+pushViewport(viewport(xscale = range(xy[, 1]) + c(-2, 1), 
+                      yscale = range(xy[, 2]) + c(-1.5, 1.5)))
+
+# boolean of whether to curve up or down
+crv <- frm[, 2] < tto[, 2]
+
+# boolean of incipient speciation
+inc <- tto[, 2] < 3.1
+
+# top branches
+grid.curve(frm[crv, 1], frm[crv, 2], tto[crv, 1], tto[crv, 2], 
+           curvature = -1, shape = 0,
+           default.units = "native", gp = phy_gp)
+
+# bottom branches
+grid.curve(frm[!crv, 1], frm[!crv, 2], tto[!crv, 1], tto[!crv, 2], 
+           curvature = 1, shape = 0,
+           default.units = "native", gp = phy_gp)
+
+# incipient specation branches
+grid.curve(frm[crv & inc, 1], frm[crv & inc, 2], 
+           tto[crv & inc, 1], tto[crv & inc, 2], 
+           curvature = -1, shape = 0, 
+           default.units = "native", gp = inc_gp)
+grid.curve(frm[!crv & inc, 1], frm[!crv & inc, 2], 
+           tto[!crv & inc, 1], tto[!crv & inc, 2], 
+           curvature = 1, shape = 0, 
+           default.units = "native", gp = inc_gp)
+
+# mark end of simulation
+xend <- convertUnit(unit(max(tto[, 1]), "native"), 
+                    unitTo = "npc", valueOnly = TRUE)
+grid.segments(x0 = xend, y0 = 0.95, 
+              x1 = xend, y1 = 0.05, 
+              default.units = "npc", 
+              gp = gpar(col = gry))
+
+# annotate speciation complete
+grid.text(expression(italic(speciation~complete)), 
+          xend - 0.01, 0.08, just = "right", 
+          gp = gpar(col = spe_gld, fontsize = txt_gp$fontsize))
+
+# annotate simulation complete
+grid.text(expression(italic(end)), 
+          xend - 0.01, 1 - 0.02,
+          gp = gpar(col = gry, fontsize = txt_gp$fontsize))
+
+# death points get "x"
+grid.points(tto[d, 1], tto[d, 2], pch = 4, gp = gpar(col = txt_gld, lwd = 4))
+
+# birth points get dot
+grid.points(frm[b, 1], frm[b, 2], pch = 16, gp = gpar(col = txt_gld))
+
+
+# surviving indibiduals get "|"
+grid.points(tto[!b & !d, 1], tto[!b & !d, 2], pch = "|",
+            gp = gpar(col = txt_gld, fontface = "bold", fontsize = 20))
+
+# highlight new species
+grid.points(tto[tto[, 1] == 10.5 & tto[, 2] < 3.5, 1], 
+            tto[tto[, 1] == 10.5 & tto[, 2] < 3.5, 2], 
+            pch = "|",
+            gp = gpar(col = spe_gld, fontface = "bold", fontsize = 20))
+
+# annotate birth at root
+grid.text(expression(italic(birth)), 
+          x = frm[1, 1] - 0.5, y = frm[1, 2], 
+          just = "right", 
+          default.units = "native", gp = txt_gp)
+
+# annotate first death
+grid.text(expression(italic(death)), 
+          x = tto[nrow(tto), 1] + 0.5, y = tto[nrow(tto), 2], 
+          just = "left", 
+          default.units = "native", gp = txt_gp)
+
+# annotate incipient speciation
+grid.text(expression(italic(incipient)), 
+          x = tto[2, 1] - 0.3, y = tto[2, 2] - 0.15, 
+          hjust = 1, vjust = 2, 
+          default.units = "native", 
+          gp = gpar(col = spe_gld, fontsize = txt_gp$fontsize))
+grid.text(expression(italic(specaition)), 
+          x = tto[2, 1] - 0.3, y = tto[2, 2] - 0.5, 
+          hjust = 1, vjust = 2, 
+          default.units = "native", 
+          gp = gpar(col = spe_gld, fontsize = txt_gp$fontsize))
+
+popViewport()
+```
