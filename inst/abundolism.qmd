@@ -7,7 +7,6 @@ author:
   - name: Christine E. Parent
   - name: James L. Rosindell
   - name: Catherine E. Wagner
-
 format:
   pdf:
     keep-tex: true
@@ -17,7 +16,6 @@ format:
         \externaldocument{ab_supp}
         \newcommand{\sfig}[1]{Supplementary Figure~\ref{#1}}
         \newcommand{\ssec}[1]{Supplementary Section~\ref{#1}}
-
 csl: oikos.csl
 bibliography: abundolism.bib
 ---
@@ -67,6 +65,11 @@ load_supp <- function(cname) {
 # render the supplement so can be referenced and used in main
 
 quarto::quarto_render("ab_supp.qmd", quiet = TRUE)
+```
+
+```{r}
+#| label: supp-tex-render
+#| include: false
 
 # need .aux file for corss referencing
 tinytex::xelatex("ab_supp.tex", clean = FALSE)
@@ -102,8 +105,13 @@ Our simulation proceeds according to these rules:
 3. Immigration between local communities and from the global source pool slows the progress toward speciation;  if an incipient species has to wait $\tau$ time (in the absence of immigration) until it is a full species, each immigration event adds an increment to $\tau$ of $\xi / n_i$ where $\xi$ is a parameter we can set and $n_i$ is the population size of the incipient species
 4. Once full speciation occurs the simulation is stopped; if the simulation reaches the maximum designated number of iterations without full speciation, then the simulation stops anyway
 
+
+{{< include fig-concept.qmd >}}
+
+
 ```{r}
-#| label: fig-concpt
+#| label: foo
+#| eval: false
 #| fig-width: 7
 #| fig-height: 5
 #| fig-cap: |
