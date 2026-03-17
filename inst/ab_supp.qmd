@@ -48,7 +48,48 @@ The quarto [@quarto] document used to generate this supplement can be found with
 
 ## Simulation details {#sec-sim}
 
-Foo foo foo 
+The simulation tracks
+
+- all local population sizes
+- running mean population size per population, per iteration 
+- time relative to all rates (i.e. not simply number of iterations)
+- whether an incipient speciation event has occurred
+- the wait time to full speciation
+- whether full speciation has occurred
+
+Each iteration an event is chosen at random. Possible events for each local population are
+
+- local birth
+- local death
+- local speciation
+- local immigration
+
+There is also one possible global event: immigration from the source pool.
+
+If there are $n_p$ local populations then the total number of possible events are $n_p \times 4 + 1$.
+
+Given that the size of a local population is written $x_i$, the probability of each event is proportional to its respective rate:
+
+
+\begin{align}
+\mathbb{P}(\text{birth in pop. } i) &= \frac{\lambda x_i}{R} \\
+\mathbb{P}(\text{death in pop. } i) &= \frac{\mu x_i}{R} \\
+\mathbb{P}(\text{speciation in pop. } i) &= \frac{\nu x_i}{R} \\
+\mathbb{P}(\text{local immigration from pop. } i) &= \frac{m_{prop}\gamma x_i}{R} \\
+\mathbb{P}(\text{global immigration}) &= \frac{\gamma}{R}
+\end{align}
+
+
+where $R = \gamma + \left( \sum_i x_i \right) (\lambda + \mu + \nu + m_{prop} \gamma)$ is a normalization constant.
+
+In the case of immigration (both local and from the source pool) the recipient of the dispersing individual must also be chosen. We choose the recipient local population at random with equal probability across local populations.
+
+Once an event is randomly sampled, the variables being tracked are updated. Birth and immigration (local or global) augment a local population by 1. Death decrements a local population by 1. Immigration events have no impact on the source or the dispersing individual. Time is updated following the Gillespie algorithm: the sojourn time between events is a random variable with an exponential probability distribution with rate R: $s \sim Exp(R)$. Each time step a random sojourn time is sampled and adding to the running total time since the start of the simulation.
+
+If a population experiences local extirpation all of its speciation-related information is re-set including removing any incipient speciation and restoring the wait time to full speciation back to the default of $\tau$.
+
+If full speciation is achieved the simulation stops. If no speciation occurs but the specified number of simulation iterations is reached, the simulation stops. Once stopped, the simulation returns the tracked variables of time, mean population size, and whether full speciation has occurred.
+
 
 
 ## Simulation experiment details
@@ -62,16 +103,17 @@ Simulation parameters are drawn from uniform distributions with the following mi
 
 par_range <- data.frame(
     param = c("la", "mu", "g", "m_prop", "nu", "tau", "xi"), 
-    min   = c(0.1,  0.1,  0,   0,        0,     0,    1), 
-    max   = c(10,   10,   0.1, 0.1,      0.001, 2,    1)
+    min   = c(0.1,  0.1,  0.1,  0,        0,     20,  10), 
+    max   = c(4,    4,    1,    0.1,      0.01,  200, 100)
 )
+
 
 # fixed params
 np <- 2
 nstep <- 10000
 
 # number of simulation replicates
-nrep <- 10# 10000
+nrep <- 5000
 
 # format param names for printing
 mutate(par_range, 
@@ -108,7 +150,7 @@ pars <- sapply(par_range$param, function(p) {
 ```{r}
 #| label: run-sim
 #| cache: true
-#| dependson: par-range
+#| dependson: [par-range, par-sample]
 
 # now run the simulation, see `?sim_BDI_spec` for details 
 # on input and output
@@ -184,6 +226,7 @@ This is the main figure
 #| fig-width: 4
 #| fig-height: 3
 #| cache: true
+#| dependson: run-sim
 
 sim_fig <- ggplot(sim_dat,
                   aes(x = mean_pop_size, y = speciation)) +
