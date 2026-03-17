@@ -21,7 +21,15 @@ tcoord <- get("last_plot.phylo", envir = .PlotPhyloEnv)[c("xx", "yy", "edge")]
 #| fig-width: 8
 #| fig-height: 3
 #| fig-cap: |
-#|     Conceptual overview of our simulation model. 
+#|     Conceptual overview of our simulation model. Local popoulations are 
+#|     connected by immigration between populations and also from a global 
+#|     source pool. Within local populations birth and death determine 
+#|     population growth and decline, augmented by immigration. Random 
+#|     incipient specaition events can occur but do not lead to full specaition 
+#|     unless the lineage persists for at least a duration of $\tau$ (possibly 
+#|     more in the face of immigration). If full speciation occurs the 
+#|     simulation stops. If no speciation occurs but the maximum number of 
+#|     iterations is reached, the simulation likewise stops.
 #| cache: true
 #| echo: false
 #| message: false
