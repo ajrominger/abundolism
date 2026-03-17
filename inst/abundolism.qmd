@@ -109,171 +109,6 @@ Our simulation proceeds according to these rules:
 {{< include fig-concept.qmd >}}
 
 
-```{r}
-#| label: foo
-#| eval: false
-#| fig-width: 7
-#| fig-height: 5
-#| fig-cap: |
-#|     Conceptual overview of our simulation model. 
-#| cache: true
-
-# function to draw ellipse
-draw_ellipse <- function(x, y, rx, ry, n = 100, gp = gpar()) {
-    theta <- seq(0, 2 * pi, length.out = n)
-    ex <- x + rx * cos(theta)
-    ey <- y + ry * sin(theta)
-    grid.polygon(ex, ey, gp = gp)
-}
-
-# function to draw a cloud shape
-draw_cloud <- function(x, y, r, gp = gpar()) {
-    # sf uniion of circles
-    cloud <- lapply(1:length(x), function(i) {
-        st_buffer(st_point(c(x[i], y[i])), r[i])
-    }) |>
-        st_sfc() |>
-        st_union()
-
-    coords <- st_coordinates(cloud)[, 1:2]
-
-    grid.polygon(coords[, 1], coords[, 2], gp = gp)
-}
-
-
-
-# colors, sizes, pars
-src_blu <- "#3D9BBA"
-pop_blu <- "#1D4C7F"
-blk <- "#412925"
-gry <- "#C4B6B3"
-txt_gld <- "#FDB318"
-
-lw <- 2
-fsize <- 16
-
-arrow_gp <- gpar(col = gry, lwd = 6)
-txt_gp <- gpar(col = txt_gld, fontsize = fsize)
-pop_gp <- gpar(col = txt_gld, fontsize = fsize * 1.4)
-box_gp <- gpar(fill = blk, col = gry, lwd = lw)
-
-# start
-grid.newpage()
-
-# clobal source pool
-draw_cloud(x = c(-0.08, 0.1, 0.25, 0.35, 0.1) + 0.025,
-           y = c(0.85, 0.9, 0.95, 1, 1),
-           r = c(0.175, 0.1, 0.08, 0.1, 0.15),
-           gp = gpar(fill = src_blu, col = blk, lwd = lw))
-grid.text("global source pool",
-          x = 0.01, y = 0.95, just = "left",
-          gp = pop_gp)
-x <- grid.text(expression(italic("size:")~italic(infinity)),
-          x = 0.01, y = 0.87, just = "left",
-          gp = pop_gp)
-
-# local pops
-rx <- 0.2
-ry <- 0.15
-ly <- 0.42
-
-# local pop j
-draw_ellipse(x = 0.25, y = ly, rx = rx, ry = ry,
-             gp = gpar(fill = pop_blu, col = blk, lwd = lw))
-grid.text(expression("local population"~italic(j)),
-          x = 0.25 - rx + 0.025, y = ly + 0.025, just = "left",
-          gp = pop_gp)
-grid.text(expression(italic("size:")~italic(x[j])),
-          x = 0.25 - rx + 0.025, y = ly - 0.045, just = "left",
-          gp = pop_gp)
-
-# local pop i
-draw_ellipse(x = 0.75, y = ly, rx = rx, ry = ry,
-             gp = gpar(fill = pop_blu, col = blk, lwd = lw))
-grid.text(expression("local population"~italic(i)),
-          x = 0.75 - rx + 0.05, y = ly + 0.025, just = "left",
-          gp = pop_gp)
-grid.text(expression(italic("size:")~italic(x[i])),
-          x = 0.75 - rx + 0.05, y = ly - 0.045, just = "left",
-          gp = pop_gp)
-
-# dispersal j to i
-grid.curve(x1 = 0.42, y1 = ly - 0.09, x2 = 0.58, y2 = ly - 0.09,
-           curvature = 0.7, square = FALSE,
-           arrow = arrow(length = unit(0.3, "cm")),
-           gp = arrow_gp)
-grid.roundrect(x = 0.5, y = ly - 0.19, width = 0.28, height = 0.07,
-               r = unit(0.25, "npc"),
-               gp = box_gp)
-grid.text(expression(italic("rate:")~italic(m[prop]*gamma*x[j](k))),
-          x = 0.5, y = ly - 0.19,
-          gp = txt_gp)
-
-# dispersal i to j
-grid.curve(x1 = 0.75, y1 = ly - 0.16, x2 = 0.25, y2 = ly - 0.16,
-           curvature = -0.6, square = FALSE,
-           arrow = arrow(length = unit(0.3, "cm")),
-           gp = arrow_gp)
-grid.roundrect(x = 0.74, y = ly - 0.32, width = 0.28, height = 0.07,
-               r = unit(0.25, "npc"),
-               gp = box_gp)
-grid.text(expression(italic("rate:")~italic(m[prop]*gamma*x[i](k))),
-          x = 0.74, y = ly - 0.32,
-          gp = txt_gp)
-
-# local dispersal tag
-grid.roundrect(x = 0.18, y = ly - 0.32, width = 0.35, height = 0.07,
-               r = unit(0.25, "npc"),
-               gp = box_gp)
-grid.text("multiple local dispersal", 
-          x = 0.18, y = ly - 0.32,
-          gp = txt_gp)
-
-
-# global dispersal
-
-lf <- ly + 0.37
-
-# to j
-grid.curve(x1 = 0.5, y1 = lf, x2 = 0.35, y2 = ly + 0.14,
-           curvature = -0.2, square = FALSE,
-           arrow = arrow(length = unit(0.3, "cm")),
-           gp = arrow_gp)
-
-# to i
-grid.curve(x1 = 0.5, y1 = lf, x2 = 0.65, y2 = ly + 0.14,
-           curvature = -0.2, square = FALSE,
-           arrow = arrow(length = unit(0.3, "cm")),
-           gp = arrow_gp)
-
-# to fork
-grid.curve(x1 = 0.45, y1 = 0.925, x2 = 0.5, y2 = lf,
-           curvature = -0.2, square = FALSE,
-           gp = arrow_gp)
-
-
-# global dispersal tag
-grid.roundrect(x = 0.61, y = lf + 0.13, width = 0.26, height = 0.11,
-               r = unit(0.25, "npc"),
-               gp = box_gp)
-grid.text("global dispersal",
-          x = 0.5, y = lf + 0.15, just = "left",
-          gp = txt_gp)
-grid.text(expression(italic("rate:"~italic(gamma))),
-          x = 0.5, y = lf + 0.1, just = "left",
-          gp = txt_gp)
-
-
-# equal prob tag
-grid.roundrect(x = 0.63, y = lf - 0.1, width = 0.69, height = 0.08,
-               r = unit(0.25, "npc"),
-               gp = box_gp)
-grid.text("recipient population chosen w/ equal probability",
-          x = 0.63, y = lf - 0.1,
-          gp = txt_gp)
-
-```
-
 Full details of the simulation are provided in \ssec{sec-sim}. Underlying C++ and R source code is available in the R package *abondolism* [@abundolism-package] accompanying this paper.
 
 ### Simulation experiment
@@ -286,7 +121,13 @@ Full details of the simulation are provided in \ssec{sec-sim}. Underlying C++ an
 load_supp("par-range")
 ```
 
-@tbl-pars summarizes the simulation parameters in our model and the range of values we use in our simulation experiment. In all cases parameter values are drawn from a uniform distribution. A total of `r format(nrep, big.mark = ",", scientific = FALSE)` simulations were run, each with a unique set of randomly sampled parameters.
+@tbl-pars summarizes the simulation parameters in our model and the range of values we use in our simulation experiment. In all cases parameter values are drawn from a uniform distribution. A total of `r format(nrep, big.mark = ",", scientific = FALSE)` simulations were run, each with a unique set of randomly sampled parameters. Parameter values and the number of iterations were chosen with three considerations in mind: 
+
+1. speciation should be possible to observe in a reasonable number of simulation iterations for computational practicality
+2. population sizes should be within realistic ranges
+3. timescales should be within reasonable bounds
+
+In the context of the speciation-related parameter values we used, timescales should be interpreted as in units of 10,000 years. Thus the maximum value of $\tau$ is `r format(par_range$max[par_range$param == "tau"] * 10000, big.mark = ",", scientific = FALSE)` years and the maximum rate of incipient speciation $\nu$ is `r par_range$max[par_range$param == "nu"]` per individual per 10,000 years.
 
 
 ```{r}
@@ -301,11 +142,11 @@ par_info <- data.frame(param = c("np", "nstep"),
     (\(x) rbind(par_range, x))() 
 
 par_desc <- c(
-    "local birth rate", 
-    "local death rate", 
+    "per capita local birth rate", 
+    "per capita local death rate", 
     "dispersal rate from the global source pool to one local population", 
     "proportional dispersal rate between local populations relative to global rate", 
-    "incipient speciation rate", 
+    "per capita incipient speciation rate", 
     "wait time to full speciation in the absence of dispersal", 
     "amount each dispersal event sets back the progression toward speciation", 
     "number of local populations", 
@@ -386,6 +227,7 @@ So we see there is a sweet spot of intermediate abundance where speciation is mo
 - bring in HI arth data
 - figure out if want to model arth data with stan
 - if yes, connect prob(speciation) to rate (r = delta_t p o(delta_t)) and connect that to neg binom regression
+- slow down of progress toward specation is relative to pop size: `xi(r) / x(receiving_pop);`
 
 
 ## References 
