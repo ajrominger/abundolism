@@ -27,16 +27,17 @@ geom_glm <- function(formula, data, ...) {
     }
 
     # model matrix and reponse
-    X <- model.matrix(m)
+    X <- model.matrix(formula, m)
     y <- model.response(m)
 
     # use linear model with gaussian errors for starting
     # param values
-    p0 <- as.formula(m) |> lm() |> coef()
+    p0 <- lm(formula, data = data) |> coef()
 
     # mle
     fit <- optim(p0, fn = geo_ll, mx = X, my = y,
-                 control = list(fnscale = -1, ...))
+                 control = list(fnscale = -1, reltol = .Machine$double.eps^0.75,
+                                ...))
 
     if(fit$convergence != 0) {
         stop("bad convergence when maximizing log likelihood function")
@@ -199,5 +200,6 @@ geo_ll <- function(pars, mx, my) {
 
     return(sum(logd))
 }
-
-
+#
+# coef(arth_mod)
+# logLik(arth_mod)
