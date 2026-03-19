@@ -36,6 +36,7 @@ library(abundolism)
 library(dplyr)
 library(ggplot2)
 library(ggpointdensity)
+library(cowplot)
 library(knitr)
 
 sessionInfo() |> 
@@ -245,5 +246,149 @@ sim_fig
 
 ```
 
+## Analyzing abundance and richness of arthropod genera in Hawai\`i
+
+
+
+```{r}
+#| label: arth-data
+
+# consider making exported data and sourcing from package
+# read gruner data
+arth <- read.csv("inst/raw_data/arth.csv")
+
+# read checklist data
+arth_check <- read.csv("inst/raw_data/hawaii_arthropod_checklist.csv")
+
+# calculate richness of genera from checklist
+gen_rich <- filter(arth_check, Genus != "") |>
+    group_by(Genus) |>
+    summarize(nspp = length(unique(Genus.and.species))) |>
+    rename(genus = Genus)
+
+# calculate abundances of genera from survey data
+gen_abund <- group_by(arth, genus, species_code) |>
+    summarize(abund = n()) |>
+    ungroup() |>
+    group_by(genus) |>
+    summarize(hmean_abund = n() / sum(1 / abund),
+              mean_abund = mean(abund))
+
+# `gen` holds data ready to analyze for richness ~ abundance
+gen <- inner_join(gen_rich, gen_abund)
+```
+
+
+```{r}
+#| label: arth-mod
+
+# add column for log abundance
+gen$log_abund <- log(gen$mean_abund)
+
+# quadratic model
+arth_mod <- glm_bgeom(nspp ~ log_abund + I(log_abund^2), data = gen)
+
+# straight line model
+arth_mod0 <- glm_bgeom(nspp ~ log_abund, data = gen)
+
+```
+
+
+```{r}
+#| label: lrt
+#| cache: true
+#| dependson: [arth-data, arth-mod]
+
+arth_lrt <- lrt_geom(arth_mod0, arth_mod)
+arth_lrt
+```
+
+
+```{r}
+#| label: fig-arth
+#| fig-width: 6
+#| fig-height: 4
+#| cache: true
+#| dependson: [arth-data, arth-mod]
+
+arth_mod_ci <- cbind(mean_abund = gen$mean_abund, 
+                     ci_bgeom(arth_mod, type = "response"))
+
+arth_p_ci <- cbind(mean_abund = gen$mean_abund, 
+                   ci_bgeom(arth_mod, type = "prob"))
+
+gp_nspp <- ggplot(arth_mod_ci, aes(mean_abund, ymin = y_lwr, ymax = y_upr)) +
+    geom_ribbon(fill = "gray") +
+    scale_x_log10() +
+    scale_y_log10() +
+    xlab("Mean genus abundance") +
+    ylab("Genus richness") +
+    geom_pointdensity(data = gen, mapping = aes(mean_abund, nspp), 
+                      inherit.aes = FALSE) +
+    scale_color_viridis_c() +
+    geom_line(data = arth_mod_ci, 
+              mapping = aes(mean_abund, y_hat), 
+              linewidth = 1)
+
+
+gp_prb <- ggplot(arth_p_ci, aes(mean_abund, y = p_hat, ymin = p_lwr, ymax = p_upr)) +
+    geom_ribbon(fill = "gray") +
+    geom_line(linewidth = 1) +
+    scale_x_log10() +
+    ylim(0, 1) +
+    xlab("Mean genus abundance") +
+    ylab(expression(italic(hat(p))))
+
+gp_arth <- plot_grid(gp_prb, gp_nspp, rel_widths = c(0.75, 1), 
+                     labels = c("A", "B"), label_x = 0.02)
+gp_arth
+```
+
+
+
+
+```{r}
+#| eval: false
+
+
+gen <- mutate(
+    gen, 
+    yhat = pred_geom(arth_mod, 
+                     newdata = data.frame(log_abund = log_abund)))
+
+ggplot(gen, aes(mean_abund, nspp)) +
+    geom_pointdensity(method = "kde2d") +
+    scale_x_continuous(trans = "log10") +
+    scale_y_continuous(trans = "log10") +
+    scale_color_viridis_c() + 
+    geom_line(aes(mean_abund, yhat))
+
+
+
+
+# outliers
+# gen[gen$nspp > 300, ]
+
+mean(gen$nspp[gen$mean_abund <= 3])
+?filter
+
+
+x <- 1:10
+stats::filter(x, rep(1, 3), sides = 1) / 3
+
+```
+
+
+Double check it's not just outliers
+
+```{r}
+arth_mod <- glm_bgeom(nspp ~ log_abund + I(log_abund^2), 
+                      data = gen[gen$nspp < 400 & gen$mean_abund < 1000, ])
+arth_mod0 <- glm_bgeom(nspp ~ log_abund, data = gen[gen$nspp < 400 & gen$mean_abund < 1000, ])
+
+
+
+lrt_geom(arth_mod0, arth_mod)
+```
 
 ## References
