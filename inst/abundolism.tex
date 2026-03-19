@@ -325,9 +325,9 @@ or less adaptively fit, it only depends on a balance between large
 enough population sizes to accrue sufficient probability of incipient
 speciation but small enough population sizes to not loose regional
 differentiation due to increased dispersal. We also analyze real data on
-the species richness and abundance of endemic arthropods in the pae
-ʻāina Hawaiʻi finding empirical evidence for intermediate abundance
-promoting speciation.
+the species richness and abundance of endemic arthropods in Hawai`i
+finding empirical evidence for intermediate abundance promoting
+speciation.
 
 \subsection{Methods}\label{methods}
 
@@ -399,8 +399,15 @@ Our simulation proceeds according to these rules:
 
 }
 
-\caption{\label{fig-concept}Conceptual overview of our simulation
-model.}
+\caption{\label{fig-concept}Conceptual overview of our simulation model.
+Local popoulations are connected by immigration between populations and
+also from a global source pool. Within local populations birth and death
+determine population growth and decline, augmented by immigration.
+Random incipient specaition events can occur but do not lead to full
+specaition unless the lineage persists for at least a duration of
+\(\tau\) (possibly more in the face of immigration). If full speciation
+occurs the simulation stops. If no speciation occurs but the maximum
+number of iterations is reached, the simulation likewise stops.}
 
 \end{figure}%
 
@@ -413,8 +420,26 @@ Underlying C++ and R source code is available in the R package
 Table~\ref{tbl-pars} summarizes the simulation parameters in our model
 and the range of values we use in our simulation experiment. In all
 cases parameter values are drawn from a uniform distribution. A total of
-10 simulations were run, each with a unique set of randomly sampled
-parameters.
+5,000 simulations were run, each with a unique set of randomly sampled
+parameters. Parameter values and the number of iterations were chosen
+with three considerations in mind:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  speciation should be possible to observe in a reasonable number of
+  simulation iterations for computational practicality
+\item
+  population sizes should be within realistic ranges
+\item
+  timescales should be within reasonable bounds
+\end{enumerate}
+
+In the context of the speciation-related parameter values we used,
+timescales should be interpreted as in units of 10,000 years. Thus the
+maximum value of \(\tau\) is 2,000,000 years and the maximum rate of
+incipient speciation \(\nu\) is 0.01 per individual per 10,000 years.
 
 \begin{table}
 
@@ -430,16 +455,16 @@ simulation experiment}
 \toprule
 \multicolumn{2}{c}{parameter} & \multicolumn{2}{c}{range} & \multicolumn{1}{c}{description} \\
 \cmidrule(l{3pt}r{3pt}){1-2} \cmidrule(l{3pt}r{3pt}){3-4} \cmidrule(l{3pt}r{3pt}){5-5}
-$\lambda$ & (\texttt{la}) & 0.1 & 10.000 & local birth rate\\
-$\mu$ & (\texttt{mu}) & 0.1 & 10.000 & local death rate\\
-$\gamma$ & (\texttt{g}) & 0.0 & 0.100 & dispersal rate from the global source pool to one local population\\
-$m_\text{prop}$ & (\texttt{m\_prop}) & 0.0 & 0.100 & proportional dispersal rate between local populations relative to global rate\\
-$\nu$ & (\texttt{nu}) & 0.0 & 0.001 & incipient speciation rate\\
+$\lambda$ & (\texttt{la}) & 0.1 & 4.00 & per capita local birth rate\\
+$\mu$ & (\texttt{mu}) & 0.1 & 4.00 & per capita local death rate\\
+$\gamma$ & (\texttt{g}) & 0.1 & 1.00 & dispersal rate from the global source pool to one local population\\
+$m_\text{prop}$ & (\texttt{m\_prop}) & 0.0 & 0.10 & proportional dispersal rate between local populations relative to global rate\\
+$\nu$ & (\texttt{nu}) & 0.0 & 0.01 & per capita incipient speciation rate\\
 \addlinespace
-$\tau$ & (\texttt{tau}) & 0.0 & 2.000 & wait time to full speciation in the absence of dispersal\\
-$\xi$ & (\texttt{xi}) & 1.0 & 1.000 & amount each dispersal event sets back the progression toward speciation\\
-$n_p$ & (\texttt{np}) & 2.0 & 2.000 & number of local populations\\
-$n_\text{step}$ & (\texttt{nstep}) & 10,000.0 & 10,000.000 & number of simulation iterations\\
+$\tau$ & (\texttt{tau}) & 20.0 & 200.00 & wait time to full speciation in the absence of dispersal\\
+$\xi$ & (\texttt{xi}) & 10.0 & 100.00 & amount each dispersal event sets back the progression toward speciation\\
+$n_p$ & (\texttt{np}) & 2.0 & 2.00 & number of local populations\\
+$n_\text{step}$ & (\texttt{nstep}) & 10,000.0 & 10,000.00 & number of simulation iterations\\
 \bottomrule
 \end{tabular}
 
@@ -452,14 +477,73 @@ computational efficiency: rates are sufficiently fast to allow for
 abundances to reach levels often found in survey data (e.g.~the
 arthropod survey data we analyze here) within
 
-\subsubsection{Analysis of arthropod richness and abundance from the pae
-ʻāina
-Hawaiʻi}\label{analysis-of-arthropod-richness-and-abundance-from-the-pae-ux2bbux101ina-hawaiux2bbi}
+\subsubsection{Analysis of arthropod richness and abundance from
+Hawai`i}\label{analysis-of-arthropod-richness-and-abundance-from-hawaii}
 
-Gruner abundance: calculate mean across sites
+To bring real data to bear on our insights from simulations, we analyze
+the richness and mean abundance of arthropod genera in Hawai`i. Although
+only an approximation, it has been recognized that most arthropod genera
+only arrived in Hawai`i once, meaning all endemic species of those
+genera represent \emph{in situ} diversification (Cowie and Holland
+2008). For the purpose of our analysis, we proceed with this
+approximation.
 
-Bishop checklist: \emph{generally} each native genus got here once and
-radiated
+To calculate species richness per genus we use the Bernice Pauahi Bishop
+Museum's checklist of arthropods in Hawai`i (Nishida 1992). To estimate
+mean abundance per genus we use an extensive survey of arthropods from
+across the Hawaiian Archipelago (Gruner 2007). The survey data from
+Gruner (2007) comprise sample locations from 45 trees across 5 sites.
+Genus abundance was estimated as the mean abundance of all species
+belonging to each genus across all sample locations.
+
+We are interested in determining if number of species per genus (a proxy
+for diversification) peaks at intermediate genus abundances. To do this
+we fit a quadratic generalized linear model with species richness as
+response and abundance as explanatory variable. But the question
+remains, what distribution should we assume for number of species?
+Kendall (1948) showed that a birth-death process will result in a
+geometric distribution of decedents. Conditional on lineage survival at
+time \(t\), we can parameterize the geometric probability mass function
+as
+
+\[
+f(y) = (1 - \psi(t))^{y-1}\psi(t)
+\] where \(y\) is number of species in a lineage and \(1 - \psi(t)\) is
+the probability of at least one bifurcation event occurring prior to
+time \(t\) and decedents of that bifurcation event being extant at time
+\(t\) (\textbf{nee?}). \(\psi(t)\) depends on rates of speciation and
+extinction in addition to time \(t\).
+
+The number of species in any given lineage \(i\) extant at time \(t\)
+will follow a geometric distribution with probability parameter
+\(p_i = \psi_i(t_i)\). But we do not know \(p_i\) because we do not know
+the arrival times of most arthropod lineages in Hawai`i---thus do not
+know \(t_i\)---and we do not know their rates of speciation and
+extinction. However, we can model our uncertainty in \(p_i\) by letting
+it be a random variable drawn from a beta distribution. This results in
+the beta-geometric distribution with parameters \(\alpha\) and
+\(\beta\).
+
+So our final, quadratic model relating genus richness to genus abundance
+will be
+
+\[
+\begin{aligned}
+y_i &\sim \text{BetaGeometric}(\alpha_i, \beta) \\
+\log(\alpha_i) &= a_0 + a_1 x_i + a_2 x_i^2 \\
+\log(\beta) &= b_0
+\end{aligned}
+\]
+
+where \(x_i\) is mean abundance of lineage \(i\). This model means that
+we allow the \(\alpha\) parameter of the beta geometric distribution to
+change with lineage abundance but we assume the \(\beta\) parameter is
+fixed across lineages. In this model, the expected value of \(y_i\)
+given \(x_i\) is
+
+\[
+\mathbb{E}[y_i \mid x_i] = \frac{\alpha_i + \beta}{\alpha_i}
+\]
 
 \subsection{Results}\label{results}
 
@@ -494,6 +578,9 @@ speciation is most likely to take place!
 \item
   if yes, connect prob(speciation) to rate (r = delta\_t p o(delta\_t))
   and connect that to neg binom regression
+\item
+  slow down of progress toward specation is relative to pop size:
+  \texttt{xi(r)\ /\ x(receiving\_pop);}
 \end{itemize}
 
 \subsection*{References}\label{references}
@@ -535,6 +622,12 @@ J., Su, M. M., Weeks, B. C. and Tobias, J. A. 2025. A new time tree of
 birds reveals the interplay between dispersal, geographic range size,
 and diversification. - Current Biology 35: 3883--3895.
 
+\bibitem[\citeproctext]{ref-cowie2008}
+Cowie, R. H. and Holland, B. S. 2008. Molecular biogeography and
+diversification of the endemic terrestrial fauna of the hawaiian
+islands. - Philosophical Transactions of the Royal Society B: Biological
+Sciences 363: 3363--3376.
+
 \bibitem[\citeproctext]{ref-czekanski2019}
 Czekanski-Moir, J. E. and Rundell, R. J. 2019. The ecology of
 nonecological speciation and nonadaptive radiations. - Trends in Ecology
@@ -568,6 +661,11 @@ Greenberg, D. A. and Mooers, A. Ø. 2017. Linking speciation to
 extinction: Diversification raises contemporary extinction risk in
 amphibians. - Evolution Letters 1: 40--48.
 
+\bibitem[\citeproctext]{ref-gruner2007}
+Gruner, D. S. 2007. Geological age, ecosystem development, and local
+resource constraints on arthropod community structure in the hawaiian
+islands. - Biological Journal of the Linnean Society 90: 551--570.
+
 \bibitem[\citeproctext]{ref-hanski1998}
 Hanski, I. 1998. Metapopulation dynamics. - Nature 396: 41--49.
 
@@ -585,8 +683,8 @@ fossil and living molluscs. - Proceedings of the Royal Society of
 London. Series B: Biological Sciences 270: 401--406.
 
 \bibitem[\citeproctext]{ref-kendall1948}
-Kendall, D. G. 1948. On some modes of population growth leading to RA
-fisher's logarithmic series distribution. - Biometrika 35: 6--15.
+Kendall, D. G. 1948. On the generalized" birth-and-death" process. - The
+annals of mathematical statistics: 1--15.
 
 \bibitem[\citeproctext]{ref-krug2008}
 Krug, A. Z., Jablonski, D. and Valentine, J. W. 2008. Species--genus
@@ -607,6 +705,10 @@ Systematic biology 63: 951--970.
 \bibitem[\citeproctext]{ref-maurer1999}
 Maurer, B. A. 1999. Untangling ecological complexity: The macroscopic
 perspective. - University of Chicago Press.
+
+\bibitem[\citeproctext]{ref-hichecklist}
+Nishida, G. M. 1992. Hawaiian terrestrial arthropod checklist. - Bishop
+University Press, Honolulu.
 
 \bibitem[\citeproctext]{ref-price2004}
 Price, J. P. and Wagner, W. L. 2004. Speciation in hawaiian angiosperm

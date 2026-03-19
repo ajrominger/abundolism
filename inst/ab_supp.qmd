@@ -131,6 +131,7 @@ Parameter values for each simulation replicate are stored in a `data.frame` with
 
 ```{r}
 #| label: par-sample
+#| cache: true
 
 # change or remove for different results
 # set.seed(123)
@@ -252,13 +253,14 @@ sim_fig
 
 ```{r}
 #| label: arth-data
+#| cache: true
 
 # consider making exported data and sourcing from package
 # read gruner data
-arth <- read.csv("inst/raw_data/arth.csv")
+arth <- read.csv("raw_data/arth.csv")
 
 # read checklist data
-arth_check <- read.csv("inst/raw_data/hawaii_arthropod_checklist.csv")
+arth_check <- read.csv("raw_data/hawaii_arthropod_checklist.csv")
 
 # calculate richness of genera from checklist
 gen_rich <- filter(arth_check, Genus != "") |>
@@ -281,6 +283,7 @@ gen <- inner_join(gen_rich, gen_abund)
 
 ```{r}
 #| label: arth-mod
+#| cache: true
 
 # add column for log abundance
 gen$log_abund <- log(gen$mean_abund)
@@ -299,7 +302,7 @@ arth_mod0 <- glm_bgeom(nspp ~ log_abund, data = gen)
 #| cache: true
 #| dependson: [arth-data, arth-mod]
 
-arth_lrt <- lrt_geom(arth_mod0, arth_mod)
+arth_lrt <- lrt_bgeom(arth_mod0, arth_mod)
 arth_lrt
 ```
 
@@ -388,7 +391,7 @@ arth_mod0 <- glm_bgeom(nspp ~ log_abund, data = gen[gen$nspp < 400 & gen$mean_ab
 
 
 
-lrt_geom(arth_mod0, arth_mod)
+lrt_bgeom(arth_mod0, arth_mod)
 ```
 
 ## References

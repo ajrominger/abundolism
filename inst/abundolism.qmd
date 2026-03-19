@@ -64,7 +64,7 @@ load_supp <- function(cname) {
 
 # render the supplement so can be referenced and used in main
 
-quarto::quarto_render("ab_supp.qmd", quiet = TRUE)
+quarto::quarto_render("ab_supp.qmd", quiet = FALSE)
 ```
 
 ```{r}
@@ -199,8 +199,7 @@ load_supp("run-sim")
 ### Analysis of arthropod richness and abundance from Hawai\`i
 
 ```{r}
-arth <- read.csv("inst/raw_data/arth.csv")
-unique(arth[, c("site", "tree")]) |> nrow()
+arth <- read.csv("raw_data/arth.csv")
 ```
 
 To bring real data to bear on our insights from simulations, we analyze the richness and mean abundance of arthropod genera in Hawai\`i. Although only an approximation, it has been recognized that most arthropod genera only arrived in Hawai\`i once, meaning all endemic species of those genera represent *in situ* diversification [@cowie2008]. For the purpose of our analysis, we proceed with this approximation. 
@@ -232,17 +231,6 @@ $$
 \mathbb{E}[y_i \mid x_i] = \frac{\alpha_i + \beta}{\alpha_i}
 $$
 
-```{r}
-curve(dbeta(x, 0.1, 1), log = "y")
-curve(dbeta(x, 0.1, 10), col = "red", add = TRUE)
-
-
-plot(dyules(1:1000, 0.01), log = "y")
-points(dyules(1:1000, 1), col = "red")
-```
-
-
-Hold up....could model it as Yule-Simons distribution which would be a geometric compounded with a beta distribution to account for different times of arrival
 
 ## Results 
 
