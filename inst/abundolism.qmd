@@ -87,7 +87,7 @@ Due to the potential for dispersal to create population isolates but also swamp 
 
 But dispersal is not just a trait connected to morphology or imposed in a simulation, it emerges from population dynamics: each individual carries some probability of dispersing, thus species with more individuals will present with higher dispersal. This is the assumption, a realistic one, in birth-death-immigration models [@kendall1948] of which the UNTB is one [@hubbell2001; alonso2004]. Therefore, commonness and dispersal are interconnected and interdependent in their effects on speciation if they indeed have any consistent effects. It also remains an open debate whether their effects result from the determinism of adaptive evolution as @darwin believed or instead emerge from chance. 
 
-Here we develop a birth-death-immigration model with protracted specaition embedded in a landscape of multiple local populations connected with limited dispersal to investigate the role of abundance and chance in modulating the probability of speciation. Contrary to @darwin and UNTB [@hubbell2001; @etienne2007modes; @rosindell2010protracted; @etienne2011fission], we find that intermediate abundances lead to the greatest probability for dispersal. Critically, this result does not depend in any way on whether populations are more or less adaptively fit, it only depends on a balance between large enough population sizes to accrue sufficient probability of incipient speciation but small enough population sizes to not loose regional differentiation due to increased dispersal. We also analyze real data on the species richness and abundance of endemic arthropods in the pae ʻāina Hawaiʻi finding empirical evidence for intermediate abundance promoting speciation.
+Here we develop a birth-death-immigration model with protracted specaition embedded in a landscape of multiple local populations connected with limited dispersal to investigate the role of abundance and chance in modulating the probability of speciation. Contrary to @darwin and UNTB [@hubbell2001; @etienne2007modes; @rosindell2010protracted; @etienne2011fission], we find that intermediate abundances lead to the greatest probability for dispersal. Critically, this result does not depend in any way on whether populations are more or less adaptively fit, it only depends on a balance between large enough population sizes to accrue sufficient probability of incipient speciation but small enough population sizes to not loose regional differentiation due to increased dispersal. We also analyze real data on the species richness and abundance of endemic arthropods in Hawai\`i finding empirical evidence for intermediate abundance promoting speciation.
 
 
 ## Methods
@@ -196,11 +196,53 @@ load_supp("run-sim")
 
 
 
-### Analysis of arthropod richness and abundance from the pae ʻāina Hawaiʻi
+### Analysis of arthropod richness and abundance from Hawai\`i
 
-Gruner abundance: calculate mean across sites
+```{r}
+arth <- read.csv("inst/raw_data/arth.csv")
+unique(arth[, c("site", "tree")]) |> nrow()
+```
 
-Bishop checklist: *generally* each native genus got here once and radiated
+To bring real data to bear on our insights from simulations, we analyze the richness and mean abundance of arthropod genera in Hawai\`i. Although only an approximation, it has been recognized that most arthropod genera only arrived in Hawai\`i once, meaning all endemic species of those genera represent *in situ* diversification [@cowie2008]. For the purpose of our analysis, we proceed with this approximation. 
+
+To calculate species richness per genus we use the Bernice Pauahi Bishop Museum's checklist of arthropods in Hawai\`i [@hichecklist]. To estimate mean abundance per genus we use an extensive survey of arthropods from across the Hawaiian Archipelago [@gruner2007]. The survey data from @gruner2007 comprise sample locations from `r unique(arth[, c("site", "tree")]) |> nrow()` trees across `r unique(arth$site) |> length()` sites. Genus abundance was estimated as the mean abundance of all species belonging to each genus across all sample locations.
+
+We are interested in determining if number of species per genus (a proxy for diversification) peaks at intermediate genus abundances. To do this we fit a quadratic generalized linear model with species richness as response and abundance as explanatory variable. But the question remains, what distribution should we assume for number of species? @kendall1948 showed that a birth-death process will result in a geometric distribution of decedents. Conditional on lineage survival at time $t$, we can parameterize the geometric probability mass function as 
+
+$$
+f(y) = (1 - \psi(t))^{y-1}\psi(t)
+$$
+where $y$ is number of species in a lineage and $1 - \psi(t)$ is the probability of at least one bifurcation event occurring prior to time $t$ and decedents of that bifurcation event being extant at time $t$ [@nee].  $\psi(t)$ depends on rates of speciation and extinction in addition to time $t$. 
+
+The number of species in any given lineage $i$ extant at time $t$ will follow a geometric distribution with probability parameter $p_i = \psi_i(t_i)$. But we do not know $p_i$ because we do not know the arrival times of most arthropod lineages in Hawai\`i---thus do not know $t_i$---and we do not know their rates of speciation and extinction. However, we can model our uncertainty in $p_i$ by letting it be a random variable drawn from a beta distribution. This results in the beta-geometric distribution with parameters $\alpha$ and $\beta$. 
+
+So our final, quadratic model relating genus richness to genus abundance will be
+
+$$
+\begin{aligned}
+y_i &\sim \text{BetaGeometric}(\alpha_i, \beta) \\
+\log(\alpha_i) &= a_0 + a_1 x_i + a_2 x_i^2 \\
+\log(\beta) &= b_0
+\end{aligned}
+$$
+
+where $x_i$ is mean abundance of lineage $i$. This model means that we allow the $\alpha$ parameter of the beta geometric distribution to change with lineage abundance but we assume the $\beta$ parameter is fixed across lineages. In this model, the expected value of $y_i$ given $x_i$ is 
+
+$$
+\mathbb{E}[y_i \mid x_i] = \frac{\alpha_i + \beta}{\alpha_i}
+$$
+
+```{r}
+curve(dbeta(x, 0.1, 1), log = "y")
+curve(dbeta(x, 0.1, 10), col = "red", add = TRUE)
+
+
+plot(dyules(1:1000, 0.01), log = "y")
+points(dyules(1:1000, 1), col = "red")
+```
+
+
+Hold up....could model it as Yule-Simons distribution which would be a geometric compounded with a beta distribution to account for different times of arrival
 
 ## Results 
 
