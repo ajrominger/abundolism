@@ -28,18 +28,18 @@ arma::mat sim_spec_abund(const arma::vec& la,
     // output.fill(datum::nan);
 
     // total number of event types:
-    // emigration (np) + birth (np) + death (np) + speciation (np) +
-    // immigration (1)
+    // emigration (np long) + birth (np) + death (np) + speciation (np) +
+    // immigration (1 long)
     int total_events = 4 * np + 1;
 
     // pre-allocate objects that will be updated in simulations
-    uvec x(np);
-    double xmean;
-    vec s(np);
-    vec stau(np);
-    uvec sfull(np);
-    double tt;
-    bool any_full_spec = false;
+    uvec x(np);     // vector of local population sizes
+    double xmean;   // running sum for calculate mean abund (across pops)
+    vec s(np);      // vector tracking time since incipient speciation
+    vec stau(np);   // vector tracking time to wait for full speciation
+    uvec sfull(np); // vector of booleans to indicate full speciation
+    double tt;      // track total simulation time
+    bool any_full_spec = false; // speciation tracker
 
     // set-up random number generators
     std::random_device rd;
@@ -50,16 +50,16 @@ arma::mat sim_spec_abund(const arma::vec& la,
     for(int r = 0; r < nsim; r++) {
 
         // re-set book keeping objects
-        x.zeros();     // vector of local population sizes
-        xmean = 0.0;   // running sum for calculating mean abundance
-        s.zeros();     // vector tracking time since incipient speciation
-        stau.zeros();  // vector tracking time to wait for full speciation
-        sfull.zeros(); // vector of booleans to indicate full speciation
-        tt = 0.0;      // track total simulation time
-        any_full_spec = false; // speciation tracker
+        x.zeros();
+        xmean = 0.0;
+        s.zeros();
+        stau.zeros();
+        sfull.zeros();
+        tt = 0.0;
+        any_full_spec = false;
 
         // loop over simulation steps
-        int i; // we are going to use this in mean abund calc
+        int i; // define outside loop so we can use `i` in mean abund calc
         for(i = 0; i < nstep; i++) {
 
             // calculate rates
@@ -69,10 +69,12 @@ arma::mat sim_spec_abund(const arma::vec& la,
             vec this_nu = conv_to<vec>::from(x) * nu(r);
             double this_g = g(r);
 
-            // create probability vector for event sampling
+            // create vector of probabilities of each event for
+            // eventual sampling
             std::vector<double> probs(total_events);
 
-            // fill probabilities: emigration, birth, death, speciation, immigration
+            // fill probabilities: emigration, birth, death,
+            //                     speciation, immigration
             for(int j = 0; j < np; j++) {
                 probs[j] = this_m(j);         // emigration from pop j
                 probs[np + j] = this_la(j);   // birth in pop j
@@ -82,7 +84,8 @@ arma::mat sim_spec_abund(const arma::vec& la,
 
             probs[4*np] = this_g;             // immigration
 
-            vec arma_probs(probs.data(), probs.size(), false);
+            // not used
+            // vec arma_probs(probs.data(), probs.size(), false);
 
             // sample event type using weighted discrete distribution
             std::discrete_distribution<int> sample_event(probs.begin(),
@@ -92,26 +95,36 @@ arma::mat sim_spec_abund(const arma::vec& la,
 
             // determine event type and population
             int e_type;
-            int e_pop = -1; // -1 is filler value for immigration
+            int e_pop = -1; // -1 means immigration (updated below as need)
 
+            // note on event coding: the first `np` elements of `event_idx`
+            // are emigration, the next `np` elements are birth, etc
+            // within each chunk of `np` elements, the relative index is
+            // equal to local pop ID
             if(event_idx < np) {
-                e_type = 0;  // emigration
+                // emigration
+                e_type = 0;
                 e_pop = event_idx;
-            } else if(event_idx < 2*np) {
-                e_type = 1;  // birth
+            } else if(event_idx < 2 * np) {
+                // birth
+                e_type = 1;
                 e_pop = event_idx - np;
-            } else if(event_idx < 3*np) {
-                e_type = 2;  // death
-                e_pop = event_idx - 2*np;
-            } else if(event_idx < 4*np) {
-                e_type = 3;  // speciation
-                e_pop = event_idx - 3*np;
+            } else if(event_idx < 3 * np) {
+                // death
+                e_type = 2;
+                e_pop = event_idx - 2 * np;
+            } else if(event_idx < 4 * np) {
+                // speciation
+                e_type = 3;
+                e_pop = event_idx - 3 * np;
             } else {
-                e_type = 4;  // immigration
+                // immigration
+                e_type = 4;
             }
 
             // sample sojourn time
-            double total_rate = std::accumulate(probs.begin(), probs.end(),
+            double total_rate = std::accumulate(probs.begin(),
+                                                probs.end(),
                                                 0.0);
             std::exponential_distribution<double> exp_dist(total_rate);
             double st = exp_dist(gen);
@@ -174,8 +187,8 @@ arma::mat sim_spec_abund(const arma::vec& la,
         }
 
         // record this simulation
-        output(r, 0) = tt;                        // time
-        output(r, 1) = xmean / i / np;            // mean abundance
+        output(r, 0) = tt; // time
+        output(r, 1) = xmean / i / np; // mean abundance per pop per time step
         output(r, 2) = any_full_spec ? 1.0 : 0.0; // full speciation = 1
     }
 
