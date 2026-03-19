@@ -9,7 +9,7 @@ author:
   - name: Catherine E. Wagner
 format:
   pdf:
-    keep-tex: true
+    keep-tex: false
     include-in-header: 
       text: |
         \usepackage{xr}
