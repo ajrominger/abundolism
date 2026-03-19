@@ -188,7 +188,7 @@ arma::mat sim_spec_abund(const arma::vec& la,
 
         // record this simulation
         output(r, 0) = tt; // time
-        output(r, 1) = xmean / i / np; // mean abundance per pop per time step
+        output(r, 1) = xmean / i; // mean abundance over time steps
         output(r, 2) = any_full_spec ? 1.0 : 0.0; // full speciation = 1
     }
 
