@@ -1,6 +1,7 @@
-abundolism
+knitr
+kableExtra
 dplyr
 ggplot2
 ggpointdensity
-cowplot
-knitr
+sf
+ape

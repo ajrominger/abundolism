@@ -1,0 +1,1011 @@
+% Options for packages loaded elsewhere
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
+%
+\documentclass[
+  letterpaper,
+  DIV=11,
+  numbers=noendperiod]{scrartcl}
+\usepackage{xcolor}
+\usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+% Make \paragraph and \subparagraph free-standing
+\makeatletter
+\ifx\paragraph\undefined\else
+  \let\oldparagraph\paragraph
+  \renewcommand{\paragraph}{
+    \@ifstar
+      \xxxParagraphStar
+      \xxxParagraphNoStar
+  }
+  \newcommand{\xxxParagraphStar}[1]{\oldparagraph*{#1}\mbox{}}
+  \newcommand{\xxxParagraphNoStar}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+  \let\oldsubparagraph\subparagraph
+  \renewcommand{\subparagraph}{
+    \@ifstar
+      \xxxSubParagraphStar
+      \xxxSubParagraphNoStar
+  }
+  \newcommand{\xxxSubParagraphStar}[1]{\oldsubparagraph*{#1}\mbox{}}
+  \newcommand{\xxxSubParagraphNoStar}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+\makeatother
+
+
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+
+
+% definitions for citeproc citations
+\NewDocumentCommand\citeproctext{}{}
+\NewDocumentCommand\citeproc{mm}{%
+  \begingroup\def\citeproctext{#2}\cite{#1}\endgroup}
+\makeatletter
+ % allow citations to break across lines
+ \let\@cite@ofmt\@firstofone
+ % avoid brackets around text for \cite:
+ \def\@biblabel#1{}
+ \def\@cite#1#2{{#1\if@tempswa , #2\fi}}
+\makeatother
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newenvironment{CSLReferences}[2] % #1 hanging-indent, #2 entry-spacing
+ {\begin{list}{}{%
+  \setlength{\itemindent}{0pt}
+  \setlength{\leftmargin}{0pt}
+  \setlength{\parsep}{0pt}
+  % turn on hanging indent if param 1 is 1
+  \ifodd #1
+   \setlength{\leftmargin}{\cslhangindent}
+   \setlength{\itemindent}{-1\cslhangindent}
+  \fi
+  % set entry spacing
+  \setlength{\itemsep}{#2\baselineskip}}}
+ {\end{list}}
+\usepackage{calc}
+\newcommand{\CSLBlock}[1]{\hfill\break\parbox[t]{\linewidth}{\strut\ignorespaces#1\strut}}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{\strut#1\strut}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{\strut#1\strut}}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
+
+
+
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+
+
+ 
+
+
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{colortbl}
+\usepackage{pdflscape}
+\usepackage{tabu}
+\usepackage{threeparttable}
+\usepackage{threeparttablex}
+\usepackage[normalem]{ulem}
+\usepackage{makecell}
+\usepackage{xcolor}
+\usepackage{xr}
+\externaldocument{ab_supp}
+\newcommand{\sfig}[1]{Supplementary Figure~\ref{#1}}
+\newcommand{\ssec}[1]{Supplementary Section~\ref{#1}}
+\KOMAoption{captions}{tableheading}
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\AtBeginDocument{%
+\ifdefined\contentsname
+  \renewcommand*\contentsname{Table of contents}
+\else
+  \newcommand\contentsname{Table of contents}
+\fi
+\ifdefined\listfigurename
+  \renewcommand*\listfigurename{List of Figures}
+\else
+  \newcommand\listfigurename{List of Figures}
+\fi
+\ifdefined\listtablename
+  \renewcommand*\listtablename{List of Tables}
+\else
+  \newcommand\listtablename{List of Tables}
+\fi
+\ifdefined\figurename
+  \renewcommand*\figurename{Figure}
+\else
+  \newcommand\figurename{Figure}
+\fi
+\ifdefined\tablename
+  \renewcommand*\tablename{Table}
+\else
+  \newcommand\tablename{Table}
+\fi
+}
+\@ifpackageloaded{float}{}{\usepackage{float}}
+\floatstyle{ruled}
+\@ifundefined{c@chapter}{\newfloat{codelisting}{h}{lop}}{\newfloat{codelisting}{h}{lop}[chapter]}
+\floatname{codelisting}{Listing}
+\newcommand*\listoflistings{\listof{codelisting}{List of Listings}}
+\makeatother
+\makeatletter
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
+\makeatother
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Intermediate abundance promotes speciation when dispersal is limited},
+  pdfauthor={Andrew J. Rominger; Luke J. Harmon; Isaac Overcast; Christine E. Parent; James L. Rosindell; Catherine E. Wagner},
+  colorlinks=true,
+  linkcolor={blue},
+  filecolor={Maroon},
+  citecolor={Blue},
+  urlcolor={Blue},
+  pdfcreator={LaTeX via pandoc}}
+
+
+\title{Intermediate abundance promotes speciation when dispersal is
+limited}
+\author{Andrew J. Rominger \and Luke J. Harmon \and Isaac
+Overcast \and Christine E. Parent \and James L. Rosindell \and Catherine
+E. Wagner}
+\date{}
+\begin{document}
+\maketitle
+
+
+\subsection{Abstract}\label{abstract}
+
+Why do some lineages diversify while others do not? This remains a
+central question in evolutionary ecology. A long-standing assumption,
+dating to Darwin and embedded in the Unified Neutral Theory of
+Biodiversity, holds that abundant species should speciate at higher
+rates. Conversely, theoretical and empirical work highlights the
+possibility that rare and dispersal limited clades might be more prone
+to speciation. Here we we show that abundance has a hump-shaped effect
+on probability of speciation using a birth-death-immigration model with
+protracted speciation in a multi-population landscape connected by
+limited dispersal. Our model reveals that intermediate abundance
+maximizes speciation probability because larger populations disperse
+more, swamping regional differentiation and inhibiting speciation
+completion, while smaller populations lack the persistence and incipient
+speciation needed to diversify. We find empirical support for this
+prediction with an analysis of arthropod data endemic to Hawai`i, where
+genus-level species richness shows a significant hump-shaped
+relationship with mean genus abundance. These findings provide a
+mechanistic explanation for a nuanced relationship between abundance and
+diversification.
+
+\subsection{Introduction}\label{introduction}
+
+A fundamental question in evolutionary ecology concerns why some clades
+are diverse while others are not. Are there properties of species and
+lineages that promote speciation? One line of inquiry with a long and
+convoluted history is the role of rarity and commonness is driving
+diversification. Going back over 150 years, Darwin (1859) argued that
+widespread, abundant species should be superior competitors and thus
+more likely to give rise to new species.
+
+This line of thinking carried forward to macroecologists who attempted
+to model, with some empirical support, the presumed positive association
+between commonness, fitness, and speciation (Maurer 1999).
+Paleontologists searched for relationships between commonness and
+diversification, alternately finding evidence for a positive
+relationship (Krug et al. 2008) but also a negative relationship
+{[}stanley1986; Jablonski and Roy (2003){]}. Empirical studies of modern
+taxa have largely found that commonness is negatively or inconclusively
+related to measures of diversification (Jablonski and Roy 2003,
+Makarieva and Gorshkov 2004, Greenberg and Mooers 2017, Smyčka et al.
+2023, Afonso Silva et al. 2025, but see Hay et al. 2022). While some of
+these studies focus specifically on average abundance, others on range
+size, and some on both, the two macroecological properties are most
+often strongly correlated (Brown 1995, Gaston 2003) and for now we will
+treat both as existing on a continuum between rarity and commonness.
+
+More recent theoretical and modeling work has largely assumed a positive
+relationship between commonness and diversification. Hubbell (2001)
+perhaps started this trend with the inclusion of ``point mutation''
+speciation in the Unified Neutral Theory of Biodiversity (UNTB). Because
+point mutation speciation assumes a constant probability of speciation
+for every individual, lineages with more individuals will experience
+more speciation events in the UNTB {[}Hubbell (2001);
+etienne2007modes{]}. The speciation mechanism first proposed by Hubbell
+(2001) was never an accurate model of real diversification, but even
+later attempts to increase the realism of speciation in the UNTB retain
+the emergent property that more abundant lineages will undergo more
+specaition: protracted speciation (Rosindell et al. 2010) again assumes
+that incipient speciation is constant across individuals and thus full
+speciation will scale positively with lineage abundance; fission
+speciation (Etienne and Haegeman 2011) also assumes the probability of
+fission (the event that leads to speciation) increases with the number
+of individuals in a species. Largely independently from UNTB and its
+descendants, phylogenetic models of geographic change and
+diversification also explicitly assume that more widespread species have
+greater opportunity for speciation (Goldberg et al. 2011).
+
+However, another process underlies speciation itself, the study of
+speciation in relation to commonness, and the relationship between
+abundance and range size: dispersal. Dispersal is a key mechanism by
+which populations can become isolated or connected, potentially leading
+to speciation or admixture (Yamaguchi 2022); it is a key process in
+phylogenetic models of geographic change and diversification (Matzke
+2014); it is necessary to maintain biodiversity in the UNTB (Hubbell
+2001); and it is the mechanism connecting abundance to range size in
+both neutral (Hubbell 2001) and non-neutral (Brown 1995) macroecological
+models.
+
+Due to the potential for dispersal to create population isolates but
+also swamp out regional differences that could have led to speciation,
+it remains an intriguing question what the connection is between
+dispersal ability as a biological trait and speciation as an
+evolutionary outcome (Yamaguchi 2022). Some empirical studies have found
+that measures of diversification have a hump-shaped or negative
+relationship with morphological proxies for dispersal ability (Price and
+Wagner 2004, Claramunt et al. 2012, Czekanski-Moir and Rundell 2019)
+while others have found a positive to flat relationship between
+dispersal ability and diversification (Claramunt et al. 2025).
+Agent-based model simulations have supported the idea of a trade-off
+between too little dispersal leading to population instability and too
+much dispersal leading to admixture with intermediate dispersal
+balancing the two extremes allowing for speciation (Birand et al. 2012,
+Ashby et al. 2020, Ciccheto et al. 2024).
+
+But dispersal is not just a trait connected to morphology or imposed in
+a simulation, it emerges from population dynamics: each individual
+carries some probability of dispersing, thus species with more
+individuals will present with higher dispersal. This is the assumption,
+a realistic one, in birth-death-immigration models (Kendall 1948) of
+which the UNTB is one {[}Hubbell (2001); alonso2004{]}. Therefore,
+commonness and dispersal are interconnected and interdependent in their
+effects on speciation if they indeed have any consistent effects. It
+also remains an open debate whether their effects result from the
+determinism of adaptive evolution as Darwin (1859) believed or instead
+emerge from chance.
+
+Here we develop a birth-death-immigration model with protracted
+specaition embedded in a landscape of multiple local populations
+connected with limited dispersal to investigate the role of abundance
+and chance in modulating the probability of speciation. Contrary to
+Darwin (1859) and UNTB (Hubbell 2001, Etienne et al. 2007, Rosindell et
+al. 2010, Etienne and Haegeman 2011), we find that intermediate
+abundances lead to the greatest probability for dispersal. Critically,
+this result does not depend in any way on whether populations are more
+or less adaptively fit, it only depends on a balance between large
+enough population sizes to accrue sufficient probability of incipient
+speciation but small enough population sizes to not loose regional
+differentiation due to increased dispersal. We also analyze real data on
+the species richness and abundance of endemic arthropods in Hawai`i
+finding empirical evidence for intermediate abundance promoting
+speciation.
+
+\subsection{Methods}\label{methods}
+
+\subsubsection{Simulating a birth-death-immigration process with
+speciation}\label{simulating-a-birth-death-immigration-process-with-speciation}
+
+All simulation code is written in R (R Core Team 2025) using \emph{Rcpp}
+(Eddelbuettel et al. 2025a) and \emph{RcppArmadillo} (Eddelbuettel et
+al. 2025b). We simulate a birth-death-immigration process (BDI) with
+speciation (BDIS) in a modified metapopulation (Hanski 1998) setting. In
+this setting there are a number of local populations connected by
+dispersal as well as an global source pool connected to each local
+population by dispersal. The global source pool is considered extremely
+large relative to local populations such that extinction of the global
+source pool is unlikely on the time scale of local dynamics (we
+approximate this assumption by never allowing the source pool to go
+extinct). Local populations grow and shrink according to local births
+and deaths, dispersal between local populations, and dispersal from the
+source pool. New species arise via a modified protracted speciation
+process (Rosindell et al. 2010) similar to the model of Tao et al.
+(2021). Our simulation model is consistent with other models derived
+from the Unified Neutral Theory of Biodiversity {[}UNTB; Hubbell (2001);
+Rosindell and Harmon (2013); Rosindell et al. (2015){]}, but unlike
+those models' multi-species perspectives, we only concern ourselves with
+a single species and whether that one species undergoes a speciation
+event. In that way we do not in fact make the assumption of per capita
+neutrality across species, meaning our results could be generalization
+to multi-species eco-evolutionary models based on niche theories {[}e.g.
+Tilman (1982); Chesson (2000); letten2017{]}.
+
+Our simulation proceeds according to these rules:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Birth, death, immigration, and speciation all happen independently and
+  are determined by their own respective rates
+\item
+  Speciation has 2 steps:
+
+  \begin{enumerate}
+  \def\labelenumii{\roman{enumii}.}
+  \tightlist
+  \item
+    incipient speciation happens by turning one local population into an
+    incipient new species
+  \item
+    if the incipient species lasts long enough it becomes a new species;
+    ``long engough'' is determined by a waiting time parameter
+    \(\tau\)---the larger \(\tau\), the longer an incipient species must
+    wait before becoming a genuinely new species
+  \end{enumerate}
+\item
+  Immigration between local communities and from the global source pool
+  slows the progress toward speciation; if an incipient species has to
+  wait \(\tau\) time (in the absence of immigration) until it is a full
+  species, each immigration event adds an increment to \(\tau\) of
+  \(\xi / n_i\) where \(\xi\) is a parameter we can set and \(n_i\) is
+  the population size of the incipient species
+\item
+  Once full speciation occurs the simulation is stopped; if the
+  simulation reaches the maximum designated number of iterations without
+  full speciation, then the simulation stops anyway
+\end{enumerate}
+
+\begin{figure}
+
+\centering{
+
+\pandocbounded{\includegraphics[keepaspectratio]{abundolism_files/figure-pdf/fig-concept-1.pdf}}
+
+}
+
+\caption{\label{fig-concept}Conceptual overview of our simulation model.
+Local popoulations are connected by immigration between populations and
+also from a global source pool. Within local populations birth and death
+determine population growth and decline, augmented by immigration.
+Random incipient specaition events can occur but do not lead to full
+specaition unless the lineage persists for at least a duration of
+\(\tau\) (possibly more in the face of immigration). If full speciation
+occurs the simulation stops. If no speciation occurs but the maximum
+number of iterations is reached, the simulation likewise stops.}
+
+\end{figure}%
+
+Full details of the simulation are provided in \ssec{sec-sim}.
+Underlying C++ and R source code is available in the R package
+\emph{abondolism} (Rominger 2026) accompanying this paper.
+
+\subsubsection{Simulation experiment}\label{simulation-experiment}
+
+Table~\ref{tbl-pars} summarizes the simulation parameters in our model
+and the range of values we use in our simulation experiment. In all
+cases parameter values are drawn from a uniform distribution. A total of
+5,000 simulations were run, each with a unique set of randomly sampled
+parameters. Parameter values and the number of iterations were chosen
+with three considerations in mind:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  speciation should be possible to observe in a reasonable number of
+  simulation iterations for computational practicality
+\item
+  population sizes should be within realistic ranges
+\item
+  timescales should be within reasonable bounds
+\end{enumerate}
+
+In the context of the speciation-related parameter values we used,
+timescales should be interpreted as in units of 10,000 years. Thus the
+maximum value of \(\tau\) is 2,000,000 years and the maximum rate of
+incipient speciation \(\nu\) is 0.1 per individual per 10,000 years.
+
+\begin{table}
+
+\caption{\label{tbl-pars}Parameters govering the simulation and their
+ranges over the simulation experiment. Mathematical parameter names are
+given first followed by their name in the simulation code. Note
+\texttt{np} and \texttt{nstep} were fixed throughout the course of the
+simulation experiment}
+
+\centering{
+
+\begin{tabular}{rrrr>{\raggedright\arraybackslash}p{3in}}
+\toprule
+\multicolumn{2}{c}{parameter} & \multicolumn{2}{c}{range} & \multicolumn{1}{c}{description} \\
+\cmidrule(l{3pt}r{3pt}){1-2} \cmidrule(l{3pt}r{3pt}){3-4} \cmidrule(l{3pt}r{3pt}){5-5}
+$\lambda$ & (\texttt{la}) & 0.1 & 4.0 & per capita local birth rate\\
+$\mu$ & (\texttt{mu}) & 0.1 & 4.0 & per capita local death rate\\
+$\gamma$ & (\texttt{g}) & 0.1 & 1.0 & dispersal rate from the global source pool to one local population\\
+$m_\text{prop}$ & (\texttt{m\_prop}) & 0.0 & 0.1 & proportional dispersal rate between local populations relative to global rate\\
+$\nu$ & (\texttt{nu}) & 0.0 & 0.1 & per capita incipient speciation rate\\
+\addlinespace
+$\tau$ & (\texttt{tau}) & 20.0 & 200.0 & wait time to full speciation in the absence of dispersal\\
+$\xi$ & (\texttt{xi}) & 10.0 & 100.0 & amount each dispersal event sets back the progression toward speciation\\
+$n_p$ & (\texttt{np}) & 10.0 & 10.0 & number of local populations\\
+$n_\text{step}$ & (\texttt{nstep}) & 10,000.0 & 10,000.0 & number of simulation iterations\\
+\bottomrule
+\end{tabular}
+
+}
+
+\end{table}%
+
+Parameter values were chosen as a balance between biological realism and
+computational efficiency: rates are sufficiently fast to allow for
+abundances to reach levels often found in survey data (e.g.~the
+arthropod survey data we analyze here) within
+
+\subsubsection{Analysis of arthropod richness and abundance from
+Hawai`i}\label{analysis-of-arthropod-richness-and-abundance-from-hawaii}
+
+To bring real data to bear on our insights from simulations, we analyze
+the richness and mean abundance of arthropod genera in Hawai`i. Although
+only an approximation, it has been recognized that most arthropod genera
+only arrived in Hawai`i once, meaning all endemic species of those
+genera represent \emph{in situ} diversification (Cowie and Holland
+2008). For the purpose of our analysis, we proceed with this
+approximation.
+
+To calculate species richness per genus we use the Bernice Pauahi Bishop
+Museum's checklist of arthropods in Hawai`i (Nishida 1992). To estimate
+mean abundance per genus we use an extensive survey of arthropods from
+across the Hawaiian Archipelago (Gruner 2007). The survey data from
+Gruner (2007) comprise sample locations from 45 trees across 5 sites.
+Genus abundance was estimated as the mean abundance of all species
+belonging to each genus across all sample locations.
+
+We are interested in determining if number of species per genus (a proxy
+for diversification) peaks at intermediate genus abundances. To do this
+we fit a quadratic generalized linear model with species richness as
+response and abundance as explanatory variable. But the question
+remains, what distribution should we assume for number of species?
+Kendall (1948) showed that a birth-death process will result in a
+geometric distribution of decedents. Conditional on lineage survival at
+time \(t\), we can parameterize the geometric probability mass function
+as
+
+\[
+f(y) = (1 - \psi(t))^{y-1}\psi(t)
+\] where \(y\) is number of species in a lineage. \(1 - \psi(t)\) is the
+probability of a bifurcation event occurring prior to time \(t\)
+\emph{and} decedents of that bifurcation event being extant at time
+\(t\), a probability that is also central in phylogenetic
+reconstructions of rates (Nee et al. 1994). We will call \(1 - \psi(t)\)
+the ``observable diversification probability.'' \(\psi(t)\) depends on
+rates of speciation and extinction in addition to time \(t\).
+
+The number of species in any given lineage \(i\) extant at time \(t\)
+will follow a geometric distribution with probability parameter
+\(p_i = \psi_i(t_i)\). But we do not know \(p_i\) because we do not know
+the arrival times of most arthropod lineages in Hawai`i---thus do not
+know \(t_i\)---and we do not know their rates of speciation and
+extinction. However, we can model our uncertainty in \(p_i\) by letting
+it be a random variable drawn from a beta distribution. This results in
+the beta-geometric distribution with parameters \(\alpha\) and
+\(\beta\). Interestingly enough, the Yule-Simons distribution,
+historically developed to model number of species in genera (Yule 1925),
+is a special case of the beta-geometric distribution when \(\beta = 1\)
+(Irwin 1975), so our approach has precedent. We will allow \(\beta\) to
+be a free parameter, thus not making the strict birth-only assumption of
+Yule (1925)
+
+Our final, quadratic model relating genus richness to genus abundance is
+
+\[
+\begin{aligned}
+y_i &\sim \text{BetaGeometric}(\alpha_i, \beta) \\
+\log(\alpha_i) &= a_0 + a_1 x_i + a_2 x_i^2 \\
+\log(\beta) &= b_0
+\end{aligned}
+\]
+
+where \(x_i\) is average abundance of lineage \(i\). This model means
+that we allow the \(\alpha\) parameter of the beta geometric
+distribution to change with lineage abundance but we assume the
+\(\beta\) parameter is fixed across lineages. A fixed \(\beta\) across
+lineages still allows sufficient flexibility of the model without
+introducing additional parameters for which there may be insufficient
+power to reliably estimate. From this model our estimate for the
+observable diversification probability for lineage \(i\) is
+\(1 - \hat{p_i} = 1 - \frac{\alpha_i}{\alpha_i + \beta}\).
+
+To evaluate the significance of an intermediate peak in diversification
+across abundances (i.e.~the quadratic term) we also fit a model without
+quadratic terms:
+
+\[
+\begin{aligned}
+y_i &\sim \text{BetaGeometric}(\alpha_i, \beta) \\
+\log(\alpha_i) &= a_0 + a_1 x_i \\
+\log(\beta) &= b_0
+\end{aligned}
+\] We then compare quadratic and linear models with a likelihood ratio
+test to evaluate significance of the intermediate peak.
+
+While the \emph{VGAM} package (Yee 2025) in R enables beta-geometric
+generalized linear modeling, its implementation is based on iterative
+Fisher scoring which is unnecessary and computationally slow for our
+application. Therefore, we use functionality from \emph{VGAM} to write a
+custom likelihood maximization routine (Rominger 2026) that we use to
+estimate model parameters. More details on this approach are provided in
+\ssec{sec-bgeom}.
+
+\subsection{Results}\label{results}
+
+\subsubsection{Simulating a birth-death-immigration process with
+speciation}\label{simulating-a-birth-death-immigration-process-with-speciation-1}
+
+\ssec{sec-sim-res} provides details on the outcomes of the simulation
+experiment, in particular documenting the effect of differing values for
+speciation rate, dispersal rate, and waiting time to full speciation
+
+\subsubsection{Simulation experiment: effect of abundance on
+speciation}\label{simulation-experiment-effect-of-abundance-on-speciation}
+
+In visualizing simulation runs that did and did not produce speciation
+events, we can see a clear peak in the probability of speciation at
+intermediate abundance Figure~\ref{fig-sim}. A logistic regression model
+with a quadratic term confirms this peak, finding that the coefficient
+on the quadratic term falls in the 95\% confidence interval (-0.416,
+-0.365)
+
+\begin{figure}
+
+\centering{
+
+\pandocbounded{\includegraphics[keepaspectratio]{abundolism_files/figure-pdf/fig-sim-1.pdf}}
+
+}
+
+\caption{\label{fig-sim}Relationship across simulation runs between
+average abundance and speciation. Points are jittered around 1 and 0 and
+are color coded according to local density of points all in an attempt
+to more clearly show the distribution of simulation results. Curve is a
+quadratic binomial generalize linear model and gray region shows 95\%
+confidence envelope.}
+
+\end{figure}%
+
+\subsubsection{Relationship between genus abundance and species richness
+in Hawa`i
+arthropods}\label{relationship-between-genus-abundance-and-species-richness-in-hawai-arthropods}
+
+Arthropods in Hawai`i show a hump-shaped relationship between abundance
+and species richness Figure~\ref{fig-arth}. There is a clear outlier
+with higher genus species richness (above 300) than expected based on
+abundance. This outlier is \emph{Drosophila}, which is not surprising
+given both the extensive systematics work on Hawaiian \emph{Drosophila}
+and their unique speciation mechanisms (O'Grady and DeSalle 2018), both
+of which could inflate the group's reported species richness.
+
+The hump-shaped relationship is confirmed by a likelihood ratio test
+comparing quadratic and linear models of richness across abundance. The
+quadratic model is favored with a likelihood ratio of 7.012 and a
+\emph{P}-value of 0.0081 from a \(\chi^2\) distribution with \(d.f.\) =
+1. Removing \emph{Drosophila} has no meaningful impact on the
+relationship or the statistical significance of the quadratic term (see
+\ssec{bgeom}).
+
+\begin{figure}
+
+\centering{
+
+\pandocbounded{\includegraphics[keepaspectratio]{abundolism_files/figure-pdf/fig-arth-1.pdf}}
+
+}
+
+\caption{\label{fig-arth}Relationship between genus abundance and
+species richness for arthropods endemic to Hawai`i. Panel A shows the
+fitted relationship between abundance and the observable diversification
+probability \(1 - \hat{p}\). Solid line is expected value and gray
+shaded region is 95\% confidence envelope. Panel B shows the pattern in
+the raw data along with the relationship predicted by the quadratic
+model with the solid black line again being the expected value and gray
+shaded regions the 95\% confidence envelope. Colors of points reflect
+the local density of data points and attempts to more clearly show the
+distribution of the data. The outlier with genus richenss above 300 is
+\emph{Drosophila} discussed further in the main text and
+\ssec{sec-bgeom}}
+
+\end{figure}%
+
+\subsection{Discussion}\label{discussion}
+
+Taken all together these results indicate support, from both theoretical
+and empirical perspectives, for the idea that intermediate abundances
+promote speciation. Using a theoretical simulation-based model we show
+that the chance of speciation peaks at intermediate abundances because
+these intermediate abundances represent a balance between dispersal,
+which slows speciation, and population persistence plus per capita
+incipient speciation, which are necessary for speciation. The balance
+results because dispersal is lowest at low abundance while persistence
+and incipient speciation are highest at high abundnace. This result is
+unique because it provides a counterfactual to the widespread assumption
+that more abundant lineages should be those that produce more new
+speciation---an assumption tracing back to Darwin (1859) and also
+integral to the unified neutral theory of biodiversity (Hubbell 2001).
+But our theoretical results are also grounded in published hypotheses,
+specifically the role of dispersal in modulating speciation (Price and
+Wagner 2004, Claramunt et al. 2012, Czekanski-Moir and Rundell 2019,
+Yamaguchi 2022).
+
+Our empirical results support the theoretical finding that speciation
+peaks at intermediate abundances. The empirical results are blustered by
+the unique evolutionary setting of the Hawaiian Archipelago, where
+extreme isolation aids in the direct observation of diversification
+(Wagner and Funk 1995, Price and Wagner 2004). However, inferring past
+diversification from modern-only data is fraught {[}{]} and so we
+emphasize that the empirical results should be interpreted in concert
+with the theoretical results, each adding distinct and complimentary
+support the idea of peak speciation at intermediate abundances.
+
+The empirical and theoretical results are also distinct and cannot be
+fully interoperated. While the x-axis locations of the quadratic curve
+peaks in Figure~\ref{fig-sim} and Figure~\ref{fig-arth} are roughly
+similar, this does not mean that the simulation model parameters have a
+one-to-one mapping onto the parameters of a hypothetical diversification
+model that could have produced the empirical patterns. The parameters of
+the simulation model have to be interpreted separate from the empirical
+results because of key differences between the simulation set-up and the
+empirical analysis. Firstly, the ``response variables'' of each analysis
+are different---the simulation is able to directly observe speciation
+and thus we directly analyze speciation probability; conversely, we
+cannot directly observe speciation in the empirical system and so
+instead model \(1 - \hat{p}\), the ``observable diversification
+probability.'' The fact that we stop a simulation run once speciation is
+achieved also makes the simulated results different from the empirical
+system---in the real world, time does not stop if speciation occurs;
+instead, clades continue to diversify and eventually go extinct. The
+continued diversification of real world clades could also explain the
+flatter relationship of \(1 - \hat{p}\) across abundances. Additionally,
+while both the simulation model and empirical analysis are concerned
+with abundance, how abundance is recorded in each is different. In the
+simulation we know the complete population size of every local
+population and we scale rates such that local population sizes are
+computationally manageable. Real world population sizes (perhaps up to
+\(10^8\)) would not be computationally manageable. The data we have also
+represent tiny subsamples of these populations.
+
+Nonetheless, the simulation model still bears on the real world. Again,
+it provides a proof-of-concept and a mechanism for how speciation might
+depend on abundance in a more nuanced way than previously considered.
+Critically, our model does not depend on a neutrality assumption to
+arrive at this conclusion. Although our model framework is inspired by
+the agent-based modeling approaches of neutral theories (Hubbell 2001,
+Rosindell and Harmon 2013, Rosindell et al. 2015) we only model
+populations of a single species and thus make no assumption about how
+multiple species interact or whether different species have different
+eco-evolutionary rates. Thus our findings apply regardless of whether
+one assumes neutral- or niche-based dynamics. The mechanism agnostic
+approach of our model highlights the unnecessary assumptions of previous
+approaches. In particular Darwin (1859) assumed that abundant lineages
+were biologically superior to less abundant lineages, and that this
+superiority promoted both abundance and diversification (Darwin 1859,
+Maurer 1999). A representative quote is reproduced below
+
+\begin{quote}
+Hence the struggle for the production of new and modified descendants
+will mainly lie between the larger groups, which are all trying to
+increase in number. One large group will slowly conquer another large
+group, reduce its numbers, and thus lessen its chance of further
+variation and improvement. Within the same large group, the later and
+more highly perfected sub-groups, from branching out and seizing on the
+many new places in the polity of Nature, will constantly tend to
+supplant and destroy the earlier and less improved sub-groups. Small and
+broken groups and sub-groups will finally tend to disappear. Looking
+into the future, we can predict that the groups which are now
+triumphant, and which as yet have suffered least extinction, will for a
+long period continue to increase. (Darwin 1859 pp. 125--26)
+\end{quote}
+
+Darwin's rhetoric about superior clades cannot be separated from
+discourse then and now that seeks to justify racism and colonial
+violence (Brantlinger 2003, Hesse 2007, Fuentes 2021, Diogo et al.
+2023). Beyond the inherit amorality of such assumptions, our work shows
+them to be scientifically irrelevant, unnecessary, and incorrect in
+explaining how and why abundance drives specaition.
+
+\subsection*{References}\label{references}
+\addcontentsline{toc}{subsection}{References}
+
+\phantomsection\label{refs}
+\begin{CSLReferences}{1}{1}
+\bibitem[\citeproctext]{ref-afonso2025}
+Afonso Silva, A. C., Maliet, O., Aristide, L., Nogués-Bravo, D., Upham,
+N., Jetz, W. and Morlon, H. 2025. Negative global-scale association
+between genetic diversity and speciation rates in mammals. - Nature
+communications 16: 1796.
+
+\bibitem[\citeproctext]{ref-ashby2020}
+Ashby, B., Shaw, A. K. and Kokko, H. 2020. An inordinate fondness for
+species with intermediate dispersal abilities. - Oikos 129: 311--319.
+
+\bibitem[\citeproctext]{ref-birand2012}
+Birand, A., Vose, A. and Gavrilets, S. 2012. Patterns of species ranges,
+speciation, and extinction. - The American Naturalist 179: 1--21.
+
+\bibitem[\citeproctext]{ref-brantlinger2003}
+Brantlinger, P. 2003. Dark vanishings: Discourse on the extinction of
+primitive races, 1800--1930. - Cornell University Press.
+
+\bibitem[\citeproctext]{ref-brown1995}
+Brown, J. H. 1995. Macroecology. - University of Chicago Press.
+
+\bibitem[\citeproctext]{ref-chesson2000}
+Chesson, P. 2000. Mechanisms of maintenance of species diversity. -
+Annual review of Ecology and Systematics 31: 343--366.
+
+\bibitem[\citeproctext]{ref-ciccheto2024}
+Ciccheto, J. R. M., Carnaval, A. C. and Araujo, S. B. L. 2024. The
+influence of fragmented landscapes on speciation. - Journal of
+Evolutionary Biology 37: 1499--1509.
+
+\bibitem[\citeproctext]{ref-claramunt2012}
+Claramunt, S., Derryberry, E. P., Remsen Jr, J. and Brumfield, R. T.
+2012. High dispersal ability inhibits speciation in a continental
+radiation of passerine birds. - Proceedings of the Royal Society B:
+Biological Sciences 279: 1567--1574.
+
+\bibitem[\citeproctext]{ref-claramunt2025}
+Claramunt, S., Sheard, C., Brown, J. W., Cortés-Ramı́rez, G., Cracraft,
+J., Su, M. M., Weeks, B. C. and Tobias, J. A. 2025. A new time tree of
+birds reveals the interplay between dispersal, geographic range size,
+and diversification. - Current Biology 35: 3883--3895.
+
+\bibitem[\citeproctext]{ref-cowie2008}
+Cowie, R. H. and Holland, B. S. 2008. Molecular biogeography and
+diversification of the endemic terrestrial fauna of the hawaiian
+islands. - Philosophical Transactions of the Royal Society B: Biological
+Sciences 363: 3363--3376.
+
+\bibitem[\citeproctext]{ref-czekanski2019}
+Czekanski-Moir, J. E. and Rundell, R. J. 2019. The ecology of
+nonecological speciation and nonadaptive radiations. - Trends in Ecology
+\& Evolution 34: 400--415.
+
+\bibitem[\citeproctext]{ref-darwin}
+Darwin, C. 1859. On the origin of species by means of natural selection,
+or the preservation of favoured races in the struggle for life. - John
+Murray.
+
+\bibitem[\citeproctext]{ref-diogo2023}
+Diogo, R., Adesomo, A., Farmer, K. S., Kim, R. J. and Jackson, F. 2023.
+Not just in the past: Racist and sexist biases still permeate biology,
+anthropology, medicine, and education. - Evolutionary Anthropology:
+Issues, News, and Reviews 32: 67--82.
+
+\bibitem[\citeproctext]{ref-rcpp}
+Eddelbuettel, D., Francois, R., Allaire, J., Ushey, K., Kou, Q.,
+Russell, N., Ucar, I., Bates, D. and Chambers, J. 2025a.
+\href{https://doi.org/10.32614/CRAN.package.Rcpp}{Rcpp: Seamless r and
+c++ integration}.
+
+\bibitem[\citeproctext]{ref-rcpparma}
+Eddelbuettel, D., Francois, R., Bates, D., Ni, B. and Sanderson, C.
+2025b.
+\href{https://doi.org/10.32614/CRAN.package.RcppArmadillo}{{RcppArmadillo}:
+'{Rcpp}' integration for the '{Armadillo}' templated linear algebra
+library}.
+
+\bibitem[\citeproctext]{ref-etienne2011fission}
+Etienne, R. S. and Haegeman, B. 2011. The neutral theory of biodiversity
+with random fission speciation. - Theoretical Ecology 4: 87--109.
+
+\bibitem[\citeproctext]{ref-etienne2007modes}
+Etienne, R. S., Apol, M. E. F., Olff, H. and Weissing, F. J. 2007. Modes
+of speciation and the neutral theory of biodiversity. - Oikos 116:
+241--258.
+
+\bibitem[\citeproctext]{ref-fuentes2021}
+Fuentes, A. 2021. {``The descent of man,''} 150 years on. - Science 372:
+769--769.
+
+\bibitem[\citeproctext]{ref-gaston2002}
+Gaston, K. J. 2003. The structure and dynamics of geographic ranges. -
+Oxford University Press.
+
+\bibitem[\citeproctext]{ref-goldberg2011}
+Goldberg, E. E., Lancaster, L. T. and Ree, R. H. 2011. Phylogenetic
+inference of reciprocal effects between geographic range evolution and
+diversification. - Systematic biology 60: 451--465.
+
+\bibitem[\citeproctext]{ref-greenberg2017}
+Greenberg, D. A. and Mooers, A. Ø. 2017. Linking speciation to
+extinction: Diversification raises contemporary extinction risk in
+amphibians. - Evolution Letters 1: 40--48.
+
+\bibitem[\citeproctext]{ref-gruner2007}
+Gruner, D. S. 2007. Geological age, ecosystem development, and local
+resource constraints on arthropod community structure in the hawaiian
+islands. - Biological Journal of the Linnean Society 90: 551--570.
+
+\bibitem[\citeproctext]{ref-hanski1998}
+Hanski, I. 1998. Metapopulation dynamics. - Nature 396: 41--49.
+
+\bibitem[\citeproctext]{ref-hay2022}
+Hay, E. M., McGee, M. D. and Chown, S. L. 2022. Geographic range size
+and speciation in honeyeaters. - BMC Ecology and Evolution 22: 86.
+
+\bibitem[\citeproctext]{ref-hesse2007}
+Hesse, B. 2007. Racialized modernity: An analytics of white mythologies.
+- Ethnic and Racial Studies 30: 643--663.
+
+\bibitem[\citeproctext]{ref-hubbell2001}
+Hubbell, S. P. 2001. The unified neutral theory of biodiversity and
+biogeography. - Princeton University Press.
+
+\bibitem[\citeproctext]{ref-irwin1975}
+Irwin, J. O. 1975. The generalized waring distribution. Part i. -
+Journal of the Royal Statistical Society: Series A (General) 138:
+18--31.
+
+\bibitem[\citeproctext]{ref-jablonski2003}
+Jablonski, D. and Roy, K. 2003. Geographical range and speciation in
+fossil and living molluscs. - Proceedings of the Royal Society of
+London. Series B: Biological Sciences 270: 401--406.
+
+\bibitem[\citeproctext]{ref-kendall1948}
+Kendall, D. G. 1948. On the generalized" birth-and-death" process. - The
+annals of mathematical statistics: 1--15.
+
+\bibitem[\citeproctext]{ref-krug2008}
+Krug, A. Z., Jablonski, D. and Valentine, J. W. 2008. Species--genus
+ratios reflect a global history of diversification and range expansion
+in marine bivalves. - Proceedings of the Royal Society B: Biological
+Sciences 275: 1117--1123.
+
+\bibitem[\citeproctext]{ref-makarieva2004}
+Makarieva, A. M. and Gorshkov, V. G. 2004. On the dependence of
+speciation rates on species abundance and characteristic population
+size. - Journal of Biosciences 29: 119--128.
+
+\bibitem[\citeproctext]{ref-matzke2014}
+Matzke, N. J. 2014. Model selection in historical biogeography reveals
+that founder-event speciation is a crucial process in island clades. -
+Systematic biology 63: 951--970.
+
+\bibitem[\citeproctext]{ref-maurer1999}
+Maurer, B. A. 1999. Untangling ecological complexity: The macroscopic
+perspective. - University of Chicago Press.
+
+\bibitem[\citeproctext]{ref-nee1994}
+Nee, S., May, R. M. and Harvey, P. H. 1994. The reconstructed
+evolutionary process. - Philosophical Transactions of the Royal Society
+of London. Series B: Biological Sciences 344: 305--311.
+
+\bibitem[\citeproctext]{ref-hichecklist}
+Nishida, G. M. 1992. Hawaiian terrestrial arthropod checklist. - Bishop
+University Press, Honolulu.
+
+\bibitem[\citeproctext]{ref-ogrady2018}
+O'Grady, P. and DeSalle, R. 2018. Hawaiian drosophila as an evolutionary
+model clade: Days of future past. - Bioessays 40: 1700246.
+
+\bibitem[\citeproctext]{ref-price2004}
+Price, J. P. and Wagner, W. L. 2004. Speciation in hawaiian angiosperm
+lineages: Cause, consequence, and mode. - Evolution 58: 2185--2200.
+
+\bibitem[\citeproctext]{ref-rcore}
+R Core Team 2025. \href{https://www.R-project.org/}{R: A language and
+environment for statistical computing}. - R Foundation for Statistical
+Computing.
+
+\bibitem[\citeproctext]{ref-abundolism-package}
+Rominger, A. J. 2026.
+\href{https://doi.org/10.5281/zenodo.18410689}{{abundolism}}.
+
+\bibitem[\citeproctext]{ref-rosindell2013}
+Rosindell, J. and Harmon, L. J. 2013. A unified model of species
+immigration, extinction and abundance on islands. - Journal of
+Biogeography 40: 1107--1118.
+
+\bibitem[\citeproctext]{ref-rosindell2010protracted}
+Rosindell, J., Cornell, S. J., Hubbell, S. P. and Etienne, R. S. 2010.
+Protracted speciation revitalizes the neutral theory of biodiversity. -
+Ecology Letters 13: 716--727.
+
+\bibitem[\citeproctext]{ref-rosindell2015}
+Rosindell, J., Harmon, L. J. and Etienne, R. S. 2015. Unifying ecology
+and macroevolution with individual-based theory. - Ecology letters 18:
+472--482.
+
+\bibitem[\citeproctext]{ref-smyvcka2023}
+Smyčka, J., Toszogyova, A. and Storch, D. 2023. The relationship between
+geographic range size and rates of species diversification. - Nature
+Communications 14: 5559.
+
+\bibitem[\citeproctext]{ref-tao2021}
+Tao, R., Sack, L. and Rosindell, J. 2021. Biogeographic drivers of
+evolutionary radiations. - Frontiers in Ecology and Evolution 9: 644328.
+
+\bibitem[\citeproctext]{ref-tilman1982}
+Tilman, D. 1982. Resource competition and community structure. -
+Princeton university press.
+
+\bibitem[\citeproctext]{ref-wagner-funk1995}
+Wagner, W. L. and Funk, V. A. 1995. Hawaiian biogeography: Evolution on
+a hot spot archipelago.
+
+\bibitem[\citeproctext]{ref-yamaguchi2022}
+Yamaguchi, R. 2022. Intermediate dispersal hypothesis of species
+diversity: New insights. - Ecological Research 37: 301--315.
+
+\bibitem[\citeproctext]{ref-vgam}
+Yee, T. W. 2025. \href{https://CRAN.R-project.org/package=VGAM}{{VGAM}:
+Vector generalized linear and additive models}.
+
+\bibitem[\citeproctext]{ref-yule}
+Yule, G. U. 1925. A mathematical theory of evolution, based on the
+conclusions of dr. JC willis, FR s. - Philosophical transactions of the
+Royal Society of London. Series B, containing papers of a biological
+character 213: 21--87.
+
+\end{CSLReferences}
+
+
+
+
+\end{document}
