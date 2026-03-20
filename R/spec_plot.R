@@ -30,11 +30,9 @@ spec_plot <- function(dat, x, xlab,
             breaks = \(x) {
                 log10(x) |>
                     (\(x) {
-                        seq(floor(x[1]), ceiling(x[2]), by = 0.2)
+                        seq(floor(x[1]), ceiling(x[2]), by = 1)
                     })() |>
-                    round(1) |>
-                    (\(x) 10^x)() |>
-                    round()
+                    (\(x) 10^x)()
             }
         ) +
         xlab(xlab) +
