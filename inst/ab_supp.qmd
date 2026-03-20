@@ -105,12 +105,12 @@ Simulation parameters are drawn from uniform distributions with the following mi
 par_range <- data.frame(
     param = c("la", "mu", "g", "m_prop", "nu", "tau", "xi"), 
     min   = c(0.1,  0.1,  0.1,  0,        0,     20,  10), 
-    max   = c(4,    4,    1,    0.1,      0.01,  200, 100)
+    max   = c(4,    4,    1,    0.1,      0.1,  200, 100)
 )
 
 
 # fixed params
-np <- 2
+np <- 10
 nstep <- 10000
 
 # number of simulation replicates
@@ -134,7 +134,7 @@ Parameter values for each simulation replicate are stored in a `data.frame` with
 #| cache: true
 
 # change or remove for different results
-# set.seed(123)
+set.seed(123)
 
 # data.frame of randomly sampled param values
 # one param per column
@@ -145,17 +145,16 @@ pars <- sapply(par_range$param, function(p) {
 }) |> 
     as.data.frame()
 
-# pars$tau <- 10 / (pars$la + pars$mu + runif(nrep, 0, 1))
-
 ```
+
+With those parameters sampled, we can now run the simulation, one realization for each parameter combination. For details on inputs and outputs of the simulation function `sim_BDI_spec` see the help documentation accessible with `?sim_BDI_spec`.
 
 ```{r}
 #| label: run-sim
 #| cache: true
 #| dependson: [par-range, par-sample]
 
-# now run the simulation, see `?sim_BDI_spec` for details 
-# on input and output
+# now run the simulation
 sim_dat <- sim_BDI_spec(la = pars$la, mu = pars$mu, g = pars$g, 
                         m_prop = pars$m_prop, nu = pars$nu, 
                         tau = pars$tau, xi = pars$xi, 
@@ -163,93 +162,136 @@ sim_dat <- sim_BDI_spec(la = pars$la, mu = pars$mu, g = pars$g,
 
 ```
 
-Now we can plot the results and find out how abundance relates to speciation in this model
+### Interpreting the simulation experiment
+
+Now we can visually inspect the results. Our main purpose is to study how abundance relates to speciation in this model, but first we check other relationships to ensure the model behaves as expected. In particular, population size should be larger when $\lambda > \mu$ and smaller, supported primarily by immigration. When $\lambda < \mu$ populations will grow indefinitely. When birth and death rates are equal ($\lambda = \mu$) the population could crash or expand depending on small random fluctuations and random immigration. @fig-la-mu shows exactly this pattern. Of note: simulation runs experiencing speciation diverge from the expected pattern but that is specifically because our simulation algorithm stops the simulation short (i.e. populations are not allowed to continue changing) once speciation occurs.
 
 ```{r}
-#| label: fig-messing
+#| label: fig-la-mu
 #| eval: false
 #| fig-width: 4
 #| fig-height: 3
 
-ggplot(sim_dat, 
-       aes(x = tau, speciation)) +
-    geom_pointdensity(method = "kde2d") +
-    scale_shape_binned() +
-    scale_color_viridis_c() +
-    # scale_x_log10() +
-    geom_smooth(method = "glm", 
-                method.args = list(family = "binomial"), 
-                color = "black")
-
-ggplot(sim_dat, aes(niter, time)) +
-    geom_pointdensity(method = "kde2d") +
-    scale_color_viridis_c() +
-    # scale_x_log10() +
-    scale_y_log10() +
-    facet_wrap(vars(speciation))
-
-
-ggplot(sim_dat, aes(time, mean_pop_size)) +
+ggplot(sim_dat, aes(la - mu, mean_pop_size)) +
     geom_point(data = select(sim_dat, !speciation), 
-               mapping = aes(time, mean_pop_size), color = "gray50") +
+               mapping = aes(la - mu, mean_pop_size), color = "gray50") +
     geom_pointdensity() + 
-    facet_wrap(vars(speciation)) +
-    scale_x_log10() +
+    facet_wrap(vars(speciation), 
+               labeller = as_labeller(c(`0` = "No speciation", 
+                                        `1` = "Yes speciation"))) +
     scale_y_log10() + 
     scale_color_viridis_c(trans = "log10")
 
-ggplot(sim_dat, aes(time, mean_pop_size)) +
-    geom_point(data = select(sim_dat, !speciation), 
-               mapping = aes(time, mean_pop_size), color = "gray50") +
-    geom_pointdensity() + 
-    facet_wrap(vars(speciation)) +
-    scale_x_log10() +
-    scale_y_log10() + 
-    scale_color_viridis_c(trans = "log10")
-
-ggplot(sim_dat[sim_dat$time < 100, ], aes(time, mean_pop_size)) +
-    geom_pointdensity() + 
-    facet_wrap(vars(speciation)) +
-    scale_x_log10() +
-    scale_y_log10() + 
-    scale_color_viridis_c(trans = "log10")
-
-ggplot(sim_dat, aes(time)) +
-    geom_histogram() +
-    facet_wrap(vars(speciation), ncol = 1) +
-    scale_x_log10()
 
 ```
 
-This is the main figure 
+```{r}
+#| label: nu-mod
+#| message: false
+
+# model of speciation changing with nu
+nu_mod <- glm(speciation ~ nu, data = sim_dat, family = binomial)
+nu_slope_ci <- confint(nu_mod, 2)
+
+
+```
+
+
+
+
+We also expect that probability of specification should increase with the parameter $\nu$, the rate of incipient speciation. @fig-nu confirms this expectation but shows the relationship to be weak, indicating that while this parameter obviously matters, its effect is modulated by other factors such as abundance and dispersal. A logistic regression model confirms this weakly positive but meaningful relationship estimating a 95% confidence interval on the slope of (`r round(nu_slope_ci[1], 3)`, `r round(nu_slope_ci[2], 3)`).
+
 
 ```{r}
-#| label: make-sim-fig
+#| label: fig-nu
 #| fig-width: 4
 #| fig-height: 3
+
+spec_plot(sim_dat, nu, 
+          xlab = expression("Speciation rate"~italic(nu)))
+
+```
+
+
+```{r}
+#| label: disp-mod
+#| message: false
+
+# model of speciation changing with dispersal
+disp_mod <- glm(speciation ~ I(log((g + m_prop * g) / la)), 
+                data = sim_dat, family = binomial)
+disp_slope_ci <- confint(disp_mod)
+```
+
+Additionally, we expect dispersal to decrease the chance of speciation because dispersal prolongs the wait time until full speciation. But we have to evaluate this expectation with respect to *relative* dispersal, that is dispersal relative to birth because these rate trade-off in determining whether a population grows due to intrinsic (birth) or extrinsic (dispersal) forces. Dispersal comes from two sources: global dispersal and local dispersal, so we add these two sources when considering total dispersal. @fig-disp Confirms the negative relationship between speciation and dispersal. The slope from a logistic regression model for log dispersal normalized by birth rate has a 95% confidence interval of (`r round(nu_slope_ci[1], 3)`, `r round(nu_slope_ci[2], 3)`).
+
+
+```{r}
+#| label: fig-disp
+#| fig-width: 4
+#| fig-height: 3
+
+spec_plot(sim_dat, (1 + m_prop) * g / la, xlog = TRUE, 
+          xlab = "Relative dpeciation rate")
+
+spec_plot(sim_dat[sim_dat$g > 0.5, ], tau, xlog = TRUE, 
+          xlab = "Wait time")
+```
+
+
+```{r}
+#| label: tau-mod
+#| message: false
+
+# model of speciation changing with wait time to full speciation
+tau_mod <- glm(speciation ~ log(tau) * I(log((1 + m_prop) * g / la)), 
+                data = sim_dat, family = binomial)
+confint(tau_mod)
+```
+
+We might also expect that speciation decreases with the duration of the wait time $\tau$ to full specaition. However, $\tau$ is only the initial value for the wait time, dispersal continually augments this wait time, thus $\tau$ by itself does not impact probability of speciation.
+
+
+### Evaluating the relationship between abundance and speciation
+
+These results are reported in the main text. Here we show how the results from the main text are derived. 
+
+First we build a quadratic model of probability of speciation as a function of abundance with the below code:
+
+```{r}
+#| label: sim-mod
 #| cache: true
 #| dependson: run-sim
 
-sim_fig <- ggplot(sim_dat,
-                  aes(x = mean_pop_size, y = speciation)) +
-    geom_pointdensity(method = "kde2d") +
-    scale_color_viridis_c() +
-    # scale_size_continuous(range = c(0.001, 4)) + 
-    scale_x_log10() +
-    scale_y_continuous(breaks = c(0, 1)) + 
-    xlab("Mean population size") +
-    ylab("Speciation probability") +
-    theme(panel.grid.minor.y = element_blank()) +
-    geom_smooth(method = glm, formula = y ~ x + I(x^2), 
-                method.args = list(family = "binomial"), color = "black")
+sim_dat$log_abund <- log(sim_dat$mean_pop_size)
+sim_mod <- glm(speciation ~ log_abund + I(log_abund^2), family = binomial, data = sim_dat)
 
-sim_fig
+sim_quad_ci <- confint(sim_mod, parm = 3)
+
+```
+
+
+The confidence interval for the quadratic term is far from 0:
+
+```{r}
+sim_quad_ci
+```
+
+We now turn to developing the figure of abundance versus speciation. 
+
+```{r}
+#| label: make-sim-fig
+#| cache: true
+#| dependson: run-sim
+
+sim_fig <- spec_plot(sim_dat, mean_pop_size, xlab = "Mean population size", 
+          xlog = TRUE, formula = y ~ x + I(x^2))
 
 ```
 
 ## Analyzing abundance and richness of arthropod genera in Hawai\`i
 
-
+The results of analyzing Hawai\`i arthropod data are presented in the main text. The code to produce these results is shown here. First we load and prepare the data. Preparation involves compiling mean abundance for genera based on data from @gruner2007 and compiling species richness for general based on the Bernice Pauahi Bishop Museum arthropod checklist [@hichecklist].
 
 ```{r}
 #| label: arth-data
@@ -265,20 +307,23 @@ arth_check <- read.csv("raw_data/hawaii_arthropod_checklist.csv")
 # calculate richness of genera from checklist
 gen_rich <- filter(arth_check, Genus != "") |>
     group_by(Genus) |>
-    summarize(nspp = length(unique(Genus.and.species))) |>
+    summarize(nspp = n_distinct(Genus.and.species)) |>
+    ungroup() |> 
     rename(genus = Genus)
 
 # calculate abundances of genera from survey data
 gen_abund <- group_by(arth, genus, species_code) |>
     summarize(abund = n()) |>
-    ungroup() |>
-    group_by(genus) |>
-    summarize(hmean_abund = n() / sum(1 / abund),
-              mean_abund = mean(abund))
+    ungroup(species_code) |>
+    summarize(mean_abund = mean(abund)) |> 
+    ungroup()
+
 
 # `gen` holds data ready to analyze for richness ~ abundance
 gen <- inner_join(gen_rich, gen_abund)
 ```
+
+With the prepared data we can compute a quadratic and linear model of genus richness versus abundance. As explained in the main text, these models are beta-binomial generalized linear models and are achieved with functions available in the *abundolism* package [@abundolism-package] associated with this paper. The main function is `glm_bgeom` which shares some common methods with `lm` and `glm` including `logLik`. 
 
 
 ```{r}
@@ -294,8 +339,12 @@ arth_mod <- glm_bgeom(nspp ~ log_abund + I(log_abund^2), data = gen)
 # straight line model
 arth_mod0 <- glm_bgeom(nspp ~ log_abund, data = gen)
 
+# view the model output
+arth_mod
+arth_mod0
 ```
 
+The likelihood ratio test comparing quadratic and linear models is achieved with a custom function `lrt_bgeom` from the *abundolism* package. 
 
 ```{r}
 #| label: lrt
@@ -303,9 +352,10 @@ arth_mod0 <- glm_bgeom(nspp ~ log_abund, data = gen)
 #| dependson: [arth-data, arth-mod]
 
 arth_lrt <- lrt_bgeom(arth_mod0, arth_mod)
-arth_lrt
 ```
 
+
+To produce visualizations of the arthropod data we make use of a custom `ci_bgeom` function from *abundolism* that calculates confidence intervals and predictions from the output of `glm_bgeom`.
 
 ```{r}
 #| label: fig-arth
@@ -340,7 +390,7 @@ gp_prb <- ggplot(arth_p_ci, aes(mean_abund, y = p_hat, ymin = p_lwr, ymax = p_up
     scale_x_log10() +
     ylim(0, 1) +
     xlab("Mean genus abundance") +
-    ylab(expression(italic(hat(p))))
+    ylab(expression(italic(1 - hat(p))))
 
 gp_arth <- plot_grid(gp_prb, gp_nspp, rel_widths = c(0.75, 1), 
                      labels = c("A", "B"), label_x = 0.02)
@@ -348,50 +398,22 @@ gp_arth
 ```
 
 
+There are two outliers (*Drosophila* with high richness given abudnance, and *Salina* with highest overall abundance). To make sure these do not bias results we re-run analysis without them.
 
 
-```{r}
-#| eval: false
-
-
-gen <- mutate(
-    gen, 
-    yhat = pred_geom(arth_mod, 
-                     newdata = data.frame(log_abund = log_abund)))
-
-ggplot(gen, aes(mean_abund, nspp)) +
-    geom_pointdensity(method = "kde2d") +
-    scale_x_continuous(trans = "log10") +
-    scale_y_continuous(trans = "log10") +
-    scale_color_viridis_c() + 
-    geom_line(aes(mean_abund, yhat))
-
-
-
-
-# outliers
-# gen[gen$nspp > 300, ]
-
-mean(gen$nspp[gen$mean_abund <= 3])
-?filter
-
-
-x <- 1:10
-stats::filter(x, rep(1, 3), sides = 1) / 3
-
-```
-
-
-Double check it's not just outliers
 
 ```{r}
 arth_mod <- glm_bgeom(nspp ~ log_abund + I(log_abund^2), 
                       data = gen[gen$nspp < 400 & gen$mean_abund < 1000, ])
-arth_mod0 <- glm_bgeom(nspp ~ log_abund, data = gen[gen$nspp < 400 & gen$mean_abund < 1000, ])
+arth_mod0 <- glm_bgeom(nspp ~ log_abund, 
+                       data = gen[gen$nspp < 400 & gen$mean_abund < 1000, ])
+```
 
+Based on a likelihood ratio test we find the quadratic model is still prefered
 
-
+```{r}
 lrt_bgeom(arth_mod0, arth_mod)
 ```
+
 
 ## References
