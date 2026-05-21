@@ -83,7 +83,7 @@ where $R = \gamma + \left( \sum_i^{n_p} x_i \right) (\lambda + \mu + \nu + m_{pr
 
 In the case of immigration (both local and from the source pool) the recipient of the dispersing individual must also be chosen. We choose the recipient local population at random with equal probability across local populations.
 
-Once an event is randomly sampled, the variables being tracked are updated. Birth and immigration (local or global) augment a local population by 1. Death decrements a local population by 1. Immigration events have no impact on the source or the dispersing individual. Time is updated following the Gillespie algorithm: the sojourn time between events is a random variable with an exponential probability distribution with rate R: $s \sim Exp(R)$. Each time step a random sojourn time is sampled and adding to the running total time since the start of the simulation.
+Once an event is randomly sampled, the variables being tracked are updated. Birth and immigration (local or global) augment a local population by 1. Death decrements a local population by 1. Immigration events have no impact on the source of the dispersing individual. Time is updated following the Gillespie algorithm: the sojourn time between events is a random variable with an exponential probability distribution with rate R: $s \sim Exp(R)$. Each time step a random sojourn time is sampled and added to the running total time since the start of the simulation.
 
 If a population experiences local extirpation all of its speciation-related information is re-set including removing any incipient speciation and restoring the wait time to full speciation back to the default of $\tau$.
 
