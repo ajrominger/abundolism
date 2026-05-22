@@ -306,11 +306,47 @@ We now turn to developing the figure of abundance versus speciation. These resul
 #| cache: true
 #| dependson: run-sim
 
+special_log10_breaks <- function(x) {
+    p <- seq(floor(x[1]),
+             ceiling(x[2]),
+             by = (floor(x[2]) - ceiling(x[1])) / 15)
+    
+    10^p
+}
 
+spec_by_bin <- mutate(sim_dat, 
+                      bins = cut(
+                          mean_pop_size, 
+                          log(mean_pop_size, 10) |> 
+                              range() |> 
+                              special_log10_breaks() 
+                      )) |> 
+    summarize(spec_prop = mean(speciation), 
+              n = n(),
+              .by = bins) |> 
+    mutate(xlo = gsub("\\(|,.*", "", bins) |> as.numeric(), 
+           xhi = gsub("\\]|.*,", "", bins) |> as.numeric()) |> 
+    arrange(xlo)
+
+# plotting
 sim_fig <- spec_plot(sim_dat, mean_pop_size, xlab = "Mean population size", 
-                     xlog = TRUE, formula = y ~ x + I(x^2))
+               xlog = TRUE, formula = y ~ x + I(x^2), 
+               se = FALSE) + 
+    geom_rect(data = spec_by_bin,
+              mapping = aes(xmin = xlo, xmax = xhi,
+                            ymin = 0, ymax = spec_prop),
+              alpha = 0.25,
+              inherit.aes = FALSE) 
 
+# change order of layer display
+sim_fig$layers <- sim_fig$layers[c(1, 3, 2)]
 
+# add background bars
+sim_fig <- sim_fig + 
+    theme(panel.background = element_rect(fill = "gray90"),
+          panel.grid.major.x = element_line(color = "white"),
+          panel.grid.minor.x = element_line(color = "white")) +
+    scale_x_log10(minor_breaks = spec_by_bin$xlo, expand = FALSE)
 ```
 
 ## Analyzing abundance and richness of arthropod genera in Hawai\`i {#sec-bgeom}

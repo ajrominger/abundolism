@@ -263,15 +263,16 @@ In visualizing simulation runs that did and did not produce speciation events, w
 
 ```{r}
 #| label: fig-sim
-#| fig-width: 4
+#| fig-width: 4.5
 #| fig-height: 3
 #| fig-cap: |
 #|     Relationship across simulation runs between average abundance 
-#|     and speciation. Points are jittered around 1 and 0 and are color coded 
-#|     according to local density of points to 
-#|     show the distribution of simulation results. Curve is a quadratic 
-#|     binomial generalized linear model and gray region shows 95% confidence 
-#|     envelope. 
+#|     and speciation. Points individual simulation outcomes and are jittered 
+#|     around 1 (yes speciation) and 0 (no speciation). Points are color coded 
+#|     according to local density of points to better show the distribution of 
+#|     simulation results. Gray bars are proportion of simulations that produced
+#|     speciation binned by mean population size. Curve is a quadratic 
+#|     binomial generalized linear model. 
 
 # loads `sim_fig`
 load_supp("make-sim-fig")
@@ -294,7 +295,7 @@ The hump-shaped relationship is supported by a likelihood ratio test comparing q
 
 ```{r}
 #| label: fig-arth
-#| fig-width: 6
+#| fig-width: 7
 #| fig-height: 3
 #| fig-cap: |
 #|     Relationship between genus abundance and species richness for arthropods 
@@ -329,7 +330,7 @@ The mechanism agnostic approach of our model highlights the unnecessary assumpti
 
 > Hence the struggle for the production of new and modified descendants will mainly lie between the larger groups, which are all trying to increase in number. One large group will slowly conquer another large group, reduce its numbers, and thus lessen its chance of further variation and improvement. Within the same large group, the later and more highly perfected sub-groups, from branching out and seizing on the many new places in the polity of Nature, will constantly tend to supplant and destroy the earlier and less improved sub-groups. Small and broken groups and sub-groups will finally tend to disappear. Looking into the future, we can predict that the groups which are now triumphant, and which as yet have suffered least extinction, will for a long period continue to increase. [@darwin, pp. 125--26]
 
-Darwin's rhetoric about "conquer[ing]" and "triumphant" clades cannot be separated from discourse then and now that seeks to justify racism and colonial violence [@brantlinger2003; @hesse2007; @fuentes2021; @diogo2023]. Beyond the inherent amorality of such assumptions, our work shows them to be scientifically irrelevant, unnecessary, and incorrect in explaining how and why abundance drives speciation.
+Darwin's rhetoric about "conquer[ing]" and "triumphant" clades cannot be separated from discourse then and now that seeks to justify racism and colonial violence [@brantlinger2003; @hesse2007; @fuentes2021; @diogo2023]. Beyond the inherent amorality of such assumptions, our work shows them to be scientifically irrelevant, unnecessary, and incorrect in explaining how and why abundance connects to speciation.
 
 
 
