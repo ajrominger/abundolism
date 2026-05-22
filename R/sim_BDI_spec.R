@@ -1,11 +1,11 @@
-#' @title sim_BDI_spec
+#' @title Simulate a birth-death-speciation model
 #' @description
 #' A fast simulation of speciation in a meta-population
 #' birth-death-immigration model
 #' @param la vector of bird rates
 #' @param mu vector of death rates
 #' @param g vector of immigration rates from global population
-#' @param m_prop vector of proportions (local immigration):(global immigartion)
+#' @param m_prop vector of proportions (local immigration):(global immigration)
 #' @param nu vector of rates of incipient speciation
 #' @param tau waiting time to full speciation
 #' @param xi vector of weights given to new immigrants in slowing progress to
@@ -25,11 +25,11 @@
 #' - `np`
 #' - `nstep`
 #' - `time`: simulation time step, if speciation occurred this number will
-#' be `< nstep`, if not this number will be `== nstep`
-#' - `niter`: number of iterations completed
+#'           be `< nstep`, if not this number will be `== nstep`
 #' - `mean_pop_size`: the mean population size across all time steps and
-#' populations
-#' - `speciation`: 0 (no speciation) or 1 (yes specaition)
+#'                    populations
+#' - `speciation`: 0 (no speciation) or 1 (yes speciation)
+#'
 #' @md
 #'
 #' @export

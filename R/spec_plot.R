@@ -11,11 +11,12 @@
 #' @param formula optional formula to pass to `geom_smooth`
 #' @param ... additional arguments to pass to `geom_smooth`
 #'
-#'
 #' @details
 #'     Not a general-purpose function, use only for intended scenarios
 #'
 #' @returns a `ggplot` object
+#'
+#' @md
 #'
 #' @export
 
