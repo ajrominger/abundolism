@@ -270,7 +270,7 @@ tau_mod <- glm(speciation ~ log(tau),
 tau_slope_ci <- confint(tau_mod, 2)
 ```
 
-We might also expect that speciation decreases with the duration of the wait time $\tau$ to full specaition. However, $\tau$ is only the initial value for the wait time, dispersal continually augments this wait time, thus $\tau$ by itself does not impact probability of speciation. The 95% confidence interval for the slope of speciation probability against $\log(\tau)$ is (`r round(tau_slope_ci[1], 3)`, `r round(tau_slope_ci[2], 3)`), which does skew toward negative values, but includes the value of slope = 0.
+We might also expect that speciation decreases with the duration of the wait time $\tau$ to full speciation. However, $\tau$ is only the initial value for the wait time, dispersal continually augments this wait time, thus $\tau$ by itself does not impact probability of speciation. The 95% confidence interval for the slope of speciation probability against $\log(\tau)$ is (`r round(tau_slope_ci[1], 3)`, `r round(tau_slope_ci[2], 3)`), which does skew toward negative values, but includes the value of slope = 0.
 
 
 ### Evaluating the relationship between abundance and speciation
@@ -299,7 +299,7 @@ The confidence interval for the quadratic term is far from 0:
 sim_quad_ci
 ```
 
-We now turn to developing the figure of abundance versus speciation. These results are reported in the main text, but the code below is used to create the visualization of specaition versus abundance.
+We now turn to developing the figure of abundance versus speciation. These results are reported in the main text, but the code below is used to create the visualization of speciation versus abundance.
 
 ```{r}
 #| label: make-sim-fig
