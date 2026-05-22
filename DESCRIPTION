@@ -3,19 +3,24 @@ Type: Package
 Title: foo
 Version: 0.1.0
 Date: 2022-09-15
-Author: Andrew Rominger
+Authors@R: person("Andrew", "Rominger", email = "rominger@hawaii.edu",
+    role = c("aut", "cre"))
 Description: testing
 License: GPL (>= 3) 
-LazyData: true
 Encoding: UTF-8
 Depends:
-    R (>= 3.5.0)
-Imports: 
+    R (>= 4.5.0)
+Imports:
     Rcpp,
-    RcppArmadillo
+    RcppArmadillo,
+    VGAM,
+    ggplot2,
+    ggpointdensity,
+    cowplot,
+    scales
+Suggests:
+    knitr
 LinkingTo: Rcpp, RcppArmadillo
 RoxygenNote: 7.3.2
 VignetteBuilder: knitr
-Additional_repositories:
-    https://stan-dev.r-universe.dev
 
