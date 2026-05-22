@@ -308,14 +308,14 @@ attached base packages:
 
 other attached packages:
 [1] knitr_1.50           cowplot_1.2.0.9000   ggpointdensity_0.2.1
-[4] ggplot2_4.0.1        dplyr_1.1.4          abundolism_0.1.0    
+[4] ggplot2_4.0.1        dplyr_1.2.1          abundolism_0.1.0    
 
 loaded via a namespace (and not attached):
- [1] vctrs_0.6.5        cli_3.6.5          rlang_1.1.6        xfun_0.52         
+ [1] vctrs_0.7.3        cli_3.6.5          rlang_1.2.0        xfun_0.52         
  [5] generics_0.1.4     S7_0.2.1           jsonlite_2.0.0     glue_1.8.0        
  [9] htmltools_0.5.8.1  scales_1.4.0       rmarkdown_2.29     grid_4.5.2        
 [13] evaluate_1.0.4     tibble_3.3.0       MASS_7.3-65        fastmap_1.2.0     
-[17] yaml_2.3.10        lifecycle_1.0.4    compiler_4.5.2     RColorBrewer_1.1-3
+[17] yaml_2.3.10        lifecycle_1.0.5    compiler_4.5.2     RColorBrewer_1.1-3
 [21] Rcpp_1.1.0         pkgconfig_2.0.3    rstudioapi_0.17.1  farver_2.1.2      
 [25] digest_0.6.39      R6_2.6.1           tidyselect_1.2.1   pillar_1.11.0     
 [29] magrittr_2.0.4     withr_3.0.2        tools_4.5.2        gtable_0.3.6      
@@ -325,7 +325,7 @@ The quarto (Allaire et al. 2025) document used to generate this
 supplement can be found with the R command
 \texttt{system.file("ab\_supp.qmd",\ package\ =\ "abundolism")}.
 
-\section{Simulation details}\label{sec-sim}
+\section{Additional simulation details}\label{sec-sim}
 
 The birth-death-immigration-speciation simulation tracks the following:
 
@@ -389,11 +389,11 @@ local populations.
 Once an event is randomly sampled, the variables being tracked are
 updated. Birth and immigration (local or global) augment a local
 population by 1. Death decrements a local population by 1. Immigration
-events have no impact on the source or the dispersing individual. Time
+events have no impact on the source of the dispersing individual. Time
 is updated following the Gillespie algorithm: the sojourn time between
 events is a random variable with an exponential probability distribution
 with rate R: \(s \sim Exp(R)\). Each time step a random sojourn time is
-sampled and adding to the running total time since the start of the
+sampled and added to the running total time since the start of the
 simulation.
 
 If a population experiences local extirpation all of its
@@ -523,7 +523,8 @@ speciation occurs.
     \FunctionTok{scale\_y\_log10}\NormalTok{() }\SpecialCharTok{+} 
     \FunctionTok{xlab}\NormalTok{(}\FunctionTok{expression}\NormalTok{(}\FunctionTok{italic}\NormalTok{(lambda }\SpecialCharTok{{-}}\NormalTok{ mu))) }\SpecialCharTok{+} 
     \FunctionTok{ylab}\NormalTok{(}\StringTok{"Mean population size"}\NormalTok{) }\SpecialCharTok{+}
-    \FunctionTok{scale\_color\_viridis\_c}\NormalTok{(}\AttributeTok{trans =} \StringTok{"log10"}\NormalTok{)}
+    \FunctionTok{scale\_color\_viridis\_c}\NormalTok{(}\AttributeTok{trans =} \StringTok{"log10"}\NormalTok{) }\SpecialCharTok{+}
+    \FunctionTok{theme\_cowplot}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
@@ -699,14 +700,58 @@ The confidence interval for the quadratic term is far from 0:
 
 We now turn to developing the figure of abundance versus speciation.
 These results are reported in the main text, but the code below is used
-to create the visualization of specaition versus abundnace.
+to create the visualization of specaition versus abundance.
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\NormalTok{special\_log10\_breaks }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(x) \{}
+\NormalTok{    p }\OtherTok{\textless{}{-}} \FunctionTok{seq}\NormalTok{(}\FunctionTok{floor}\NormalTok{(x[}\DecValTok{1}\NormalTok{]),}
+             \FunctionTok{ceiling}\NormalTok{(x[}\DecValTok{2}\NormalTok{]),}
+             \AttributeTok{by =}\NormalTok{ (}\FunctionTok{floor}\NormalTok{(x[}\DecValTok{2}\NormalTok{]) }\SpecialCharTok{{-}} \FunctionTok{ceiling}\NormalTok{(x[}\DecValTok{1}\NormalTok{])) }\SpecialCharTok{/} \DecValTok{15}\NormalTok{)}
+    
+    \DecValTok{10}\SpecialCharTok{\^{}}\NormalTok{p}
+\NormalTok{\}}
+
+\NormalTok{spec\_by\_bin }\OtherTok{\textless{}{-}} \FunctionTok{mutate}\NormalTok{(sim\_dat, }
+                      \AttributeTok{bins =} \FunctionTok{cut}\NormalTok{(}
+\NormalTok{                          mean\_pop\_size, }
+                          \FunctionTok{log}\NormalTok{(mean\_pop\_size, }\DecValTok{10}\NormalTok{) }\SpecialCharTok{|\textgreater{}} 
+                              \FunctionTok{range}\NormalTok{() }\SpecialCharTok{|\textgreater{}} 
+                              \FunctionTok{special\_log10\_breaks}\NormalTok{() }
+\NormalTok{                      )) }\SpecialCharTok{|\textgreater{}} 
+    \FunctionTok{summarize}\NormalTok{(}\AttributeTok{spec\_prop =} \FunctionTok{mean}\NormalTok{(speciation), }
+              \AttributeTok{n =} \FunctionTok{n}\NormalTok{(),}
+              \AttributeTok{.by =}\NormalTok{ bins) }\SpecialCharTok{|\textgreater{}} 
+    \FunctionTok{mutate}\NormalTok{(}\AttributeTok{xlo =} \FunctionTok{gsub}\NormalTok{(}\StringTok{"}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{(|,.*"}\NormalTok{, }\StringTok{""}\NormalTok{, bins) }\SpecialCharTok{|\textgreater{}} \FunctionTok{as.numeric}\NormalTok{(), }
+           \AttributeTok{xhi =} \FunctionTok{gsub}\NormalTok{(}\StringTok{"}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{]|.*,"}\NormalTok{, }\StringTok{""}\NormalTok{, bins) }\SpecialCharTok{|\textgreater{}} \FunctionTok{as.numeric}\NormalTok{()) }\SpecialCharTok{|\textgreater{}} 
+    \FunctionTok{arrange}\NormalTok{(xlo)}
+
+\CommentTok{\# plotting}
 \NormalTok{sim\_fig }\OtherTok{\textless{}{-}} \FunctionTok{spec\_plot}\NormalTok{(sim\_dat, mean\_pop\_size, }\AttributeTok{xlab =} \StringTok{"Mean population size"}\NormalTok{, }
-          \AttributeTok{xlog =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{formula =}\NormalTok{ y }\SpecialCharTok{\textasciitilde{}}\NormalTok{ x }\SpecialCharTok{+} \FunctionTok{I}\NormalTok{(x}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{))}
+               \AttributeTok{xlog =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{formula =}\NormalTok{ y }\SpecialCharTok{\textasciitilde{}}\NormalTok{ x }\SpecialCharTok{+} \FunctionTok{I}\NormalTok{(x}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{), }
+               \AttributeTok{se =} \ConstantTok{FALSE}\NormalTok{) }\SpecialCharTok{+} 
+    \FunctionTok{geom\_rect}\NormalTok{(}\AttributeTok{data =}\NormalTok{ spec\_by\_bin,}
+              \AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{xmin =}\NormalTok{ xlo, }\AttributeTok{xmax =}\NormalTok{ xhi,}
+                            \AttributeTok{ymin =} \DecValTok{0}\NormalTok{, }\AttributeTok{ymax =}\NormalTok{ spec\_prop),}
+              \AttributeTok{alpha =} \FloatTok{0.25}\NormalTok{,}
+              \AttributeTok{inherit.aes =} \ConstantTok{FALSE}\NormalTok{) }
+
+\CommentTok{\# change order of layer display}
+\NormalTok{sim\_fig}\SpecialCharTok{$}\NormalTok{layers }\OtherTok{\textless{}{-}}\NormalTok{ sim\_fig}\SpecialCharTok{$}\NormalTok{layers[}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{2}\NormalTok{)]}
+
+\CommentTok{\# add background bars}
+\NormalTok{sim\_fig }\OtherTok{\textless{}{-}}\NormalTok{ sim\_fig }\SpecialCharTok{+} 
+    \FunctionTok{theme}\NormalTok{(}\AttributeTok{panel.background =} \FunctionTok{element\_rect}\NormalTok{(}\AttributeTok{fill =} \StringTok{"gray90"}\NormalTok{),}
+          \AttributeTok{panel.grid.major.x =} \FunctionTok{element\_line}\NormalTok{(}\AttributeTok{color =} \StringTok{"white"}\NormalTok{),}
+          \AttributeTok{panel.grid.minor.x =} \FunctionTok{element\_line}\NormalTok{(}\AttributeTok{color =} \StringTok{"white"}\NormalTok{)) }\SpecialCharTok{+}
+    \FunctionTok{scale\_x\_log10}\NormalTok{(}\AttributeTok{minor\_breaks =}\NormalTok{ spec\_by\_bin}\SpecialCharTok{$}\NormalTok{xlo, }\AttributeTok{expand =} \ConstantTok{FALSE}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
+
+\begin{verbatim}
+Scale for x is already present.
+Adding another scale for x, which will replace the existing scale.
+\end{verbatim}
 
 \section{Analyzing abundance and richness of arthropod genera in
 Hawai`i}\label{sec-bgeom}
@@ -867,7 +912,8 @@ from that of \(1 - \hat{p}\) again with a change of variable approach.
     \FunctionTok{scale\_color\_viridis\_c}\NormalTok{() }\SpecialCharTok{+}
     \FunctionTok{geom\_line}\NormalTok{(}\AttributeTok{data =}\NormalTok{ arth\_mod\_ci, }
               \AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(mean\_abund, y\_hat), }
-              \AttributeTok{linewidth =} \DecValTok{1}\NormalTok{)}
+              \AttributeTok{linewidth =} \DecValTok{1}\NormalTok{) }\SpecialCharTok{+}
+    \FunctionTok{theme\_cowplot}\NormalTok{()}
 
 
 \NormalTok{gp\_prb }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(arth\_p\_ci, }\FunctionTok{aes}\NormalTok{(mean\_abund, }\AttributeTok{y =}\NormalTok{ p\_hat, }
@@ -877,7 +923,8 @@ from that of \(1 - \hat{p}\) again with a change of variable approach.
     \FunctionTok{scale\_x\_log10}\NormalTok{() }\SpecialCharTok{+}
     \FunctionTok{ylim}\NormalTok{(}\FloatTok{0.5}\NormalTok{, }\DecValTok{1}\NormalTok{) }\SpecialCharTok{+}
     \FunctionTok{xlab}\NormalTok{(}\StringTok{"Mean genus abundance"}\NormalTok{) }\SpecialCharTok{+}
-    \FunctionTok{ylab}\NormalTok{(}\FunctionTok{expression}\NormalTok{(}\FunctionTok{italic}\NormalTok{(}\DecValTok{1} \SpecialCharTok{{-}} \FunctionTok{hat}\NormalTok{(p))))}
+    \FunctionTok{ylab}\NormalTok{(}\FunctionTok{expression}\NormalTok{(}\FunctionTok{italic}\NormalTok{(}\DecValTok{1} \SpecialCharTok{{-}} \FunctionTok{hat}\NormalTok{(p)))) }\SpecialCharTok{+}
+    \FunctionTok{theme\_cowplot}\NormalTok{()}
 
 \NormalTok{gp\_arth }\OtherTok{\textless{}{-}} \FunctionTok{plot\_grid}\NormalTok{(gp\_prb, gp\_nspp, }\AttributeTok{rel\_widths =} \FunctionTok{c}\NormalTok{(}\FloatTok{0.75}\NormalTok{, }\DecValTok{1}\NormalTok{), }
                      \AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"A"}\NormalTok{, }\StringTok{"B"}\NormalTok{), }\AttributeTok{label\_x =} \FloatTok{0.02}\NormalTok{)}

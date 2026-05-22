@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex 2026.2.18)  20 MAR 2026 13:34
+This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex 2026.2.18)  22 MAY 2026 10:28
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1021,7 +1021,7 @@ Overfull \hbox (202.84853pt too wide) in paragraph at lines 322--322
 
 
 Overfull \hbox (13.13986pt too wide) in paragraph at lines 322--322
-[]\TU/lmtt/m/n/10.95 [17] yaml_2.3.10        lifecycle_1.0.4    compiler_4.5.2     RColorBrewer_1.1-3[] 
+[]\TU/lmtt/m/n/10.95 [17] yaml_2.3.10        lifecycle_1.0.5    compiler_4.5.2     RColorBrewer_1.1-3[] 
  []
 
 [2]
@@ -1054,7 +1054,7 @@ File: ab_supp_files/figure-pdf/fig-nu-1.pdf Graphic file (type pdf)
 [7]
 File: ab_supp_files/figure-pdf/fig-disp-1.pdf Graphic file (type pdf)
 <use ab_supp_files/figure-pdf/fig-disp-1.pdf>
-[8] [9] [10] [11] [12] [13] [14] (./ab_supp.aux)
+[8] [9] [10] [11] [12] [13] [14] [15] (./ab_supp.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
@@ -1063,10 +1063,10 @@ L3 programming layer <2026-01-19>
 Here is how much of TeX's memory you used:
  24127 strings out of 470129
  467801 string characters out of 5476274
- 1177342 words of memory out of 5000000
+ 1177353 words of memory out of 5000000
  52436 multiletter control sequences out of 15000+600000
  635284 words of font info for 96 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
  108i,10n,114p,11229b,521s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on ab_supp.pdf (14 pages).
+Output written on ab_supp.pdf (15 pages).
