@@ -1,7 +1,7 @@
 Package: abundolism
 Type: Package
 Title: foo
-Version: 0.1.0
+Version: 1.0
 Date: 2022-09-15
 Authors@R: person("Andrew", "Rominger", email = "rominger@hawaii.edu",
     role = c("aut", "cre"))
