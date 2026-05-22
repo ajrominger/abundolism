@@ -1,17 +1,34 @@
 ---
 title: "Intermediate abundance promotes speciation when dispersal is limited"
-author:
-  - name: Andrew J. Rominger
-  - name: Daniel S. Gruner
-  - name: Isaac Overcast
-  - name: James L. Rosindell
-  - name: Catherine E. Wagner
+# author:
+#   - name: Andrew J. Rominger
+#     orcid: 0000-0003-3755-4480
+#     affiliations:
+#       - name: University of Hawai`i at Mānoa
+#   - name: Daniel S. Gruner
+#     orcid: 0000-0002-3153-4297
+#     affiliations:
+#       - name: University of Maryland
+#   - name: Isaac Overcast
+#     orcid: 0000-0001-8614-6892
+#     affiliations:
+#       - name: Columbia University
+#   - name: James L. Rosindell
+#     orcid: 0000-0002-5060-9346
+#     affiliations:
+#       - name: Imperial College London
+#   - name: Catherine E. Wagner
+#     orcid: 0000-0001-8585-6120
+#     affiliations:
+#       - name: University of Wyoming
 format:
   pdf:
     keep-tex: true
-    include-in-header: 
+    linenumbers: true
+    include-in-header:
       text: |
         \usepackage{xr}
+        \usepackage{lineno}
         \externaldocument{ab_supp}
         \newcommand{\sfig}[1]{Supplementary Figure~\ref{#1}}
         \newcommand{\ssec}[1]{Supplementary Section~\ref{#1}}
@@ -19,11 +36,14 @@ csl: oikos.csl
 bibliography: abundolism.bib
 ---
 
+\linenumbers
+
 ## Abstract 
 
 
 Why do some lineages diversify while others do not? This remains a central question in evolutionary ecology. A long-standing assumption, dating to Darwin and embedded in the Unified Neutral Theory of Biodiversity, holds that abundant species should speciate at higher rates. Conversely, theoretical and empirical work highlights the possibility that rare and dispersal-limited clades might be more prone to speciation. Using a birth-death-immigration model with protracted speciation in a multi-population landscape connected by limited dispersal, we show that abundance has a hump-shaped effect on probability of speciation. Our model reveals that intermediate abundance maximizes speciation probability because larger populations disperse more, swamping regional differentiation and inhibiting speciation completion, while smaller populations lack the persistence and incipient speciation needed to diversify. We find empirical support for this prediction with an analysis of data from arthropods endemic to Hawai\`i, where genus-level species richness shows a significant hump-shaped relationship with mean genus abundance. These findings provide a mechanistic explanation for a nuanced relationship between abundance and diversification.
 
+\pagebreak
 
 ## Introduction
 
@@ -290,7 +310,7 @@ load_supp("make-fig-arth")
 
 Arthropods in Hawai\`i show a hump-shaped relationship between abundance and species richness [@fig-arth]. There is a clear outlier with higher genus species richness (above 300) than expected based on abundance. This outlier is *Drosophila*, which is not surprising given both the extensive systematics work on Hawaiian *Drosophila* and their unique speciation mechanisms [@ogrady2018], both of which could inflate the group's reported species richness. 
 
-The hump-shaped relationship is supported by a likelihood ratio test comparing quadratic and linear models of richness across abundance. The quadratic model is favored with a likelihood ratio of `r round(arth_lrt$Chisq[2], 3)` and a *P*-value of `r round(arth_lrt[["Pr(>Chisq)"]][2], 5)` from a $\chi^2$ distribution with $d.f.$ = `r arth_lrt$Df[2]`. Removing *Drosophila* has no meaningful impact on the relationship or the statistical significance of the quadratic term (see \ssec{bgeom}).
+The hump-shaped relationship is supported by a likelihood ratio test comparing quadratic and linear models of richness across abundance. The quadratic model is favored with a likelihood ratio of `r round(arth_lrt$Chisq[2], 3)` and a *P*-value of `r round(arth_lrt[["Pr(>Chisq)"]][2], 5)` from a $\chi^2$ distribution with $d.f.$ = `r arth_lrt$Df[2]`. Removing *Drosophila* has no meaningful impact on the relationship or the statistical significance of the quadratic term (see \ssec{sec-bgeom}).
 
 
 ```{r}
