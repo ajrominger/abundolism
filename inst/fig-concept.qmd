@@ -88,14 +88,15 @@ draw_popout <- function(x1, y1, x2, y2, h1, h2,
 
 
 # colors, sizes, pars
-src_blu <- "#3D9BBA"
-pop_blu <- "#1D4C7F"
-blk <- "#412925"
-gry <- "#C4B6B3"
-txt_gld <- "#FDB318"
-spe_gld <- "#CC6052"
-
-
+src_blu <- "#9466CC"
+pop_blu <- "#3B0F70FF"
+blk <- "#000004FF"
+gry <- "#BFBFBF"
+txt_gld <- "#FCFDBFFF"
+spe_gld <- "#F9795DFF"
+ 
+ 
+ 
 lw <- 2
 fsize <- 9
 
