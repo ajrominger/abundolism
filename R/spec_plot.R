@@ -27,13 +27,7 @@ spec_plot <- function(dat, x, xlab,
         scale_x_continuous(transform = ifelse(xlog, "log10", "identity")) +
         scale_color_viridis_c(
             transform = "log",
-            breaks = \(x) {
-                log10(x) |>
-                    (\(x) {
-                        seq(floor(x[1]), ceiling(x[2]), by = 1)
-                    })() |>
-                    (\(x) 10^x)()
-            }
+            breaks = scales::log_breaks(n = 6, base = 10)
         ) +
         xlab(xlab) +
         ylab("Probability of speciation") +
@@ -41,5 +35,6 @@ spec_plot <- function(dat, x, xlab,
                     method = "glm",
                     formula = formula,
                     method.args = list(family = "binomial"),
-                    color = "black")
+                    color = "black") +
+        cowplot::theme_cowplot()
 }
