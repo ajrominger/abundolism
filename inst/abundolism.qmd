@@ -2,9 +2,8 @@
 title: "Intermediate abundance promotes speciation when dispersal is limited"
 author:
   - name: Andrew J. Rominger
-  - name: Luke J. Harmon
+  - name: Daniel S. Gruner
   - name: Isaac Overcast
-  - name: Christine E. Parent
   - name: James L. Rosindell
   - name: Catherine E. Wagner
 format:
