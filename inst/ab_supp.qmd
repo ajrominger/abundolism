@@ -47,7 +47,7 @@ sessionInfo() |>
 The quarto [@quarto] document used to generate this supplement can be found with the R command `system.file("ab_supp.qmd", package = "abundolism")`.
 
 
-## Simulation details {#sec-sim}
+## Additional simulation details {#sec-sim}
 
 The birth-death-immigration-speciation simulation tracks the following:
 
