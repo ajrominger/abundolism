@@ -7,6 +7,9 @@
 #' @param dat output from simulation
 #' @param x name (unquoted) of predictor variable
 #' @param xlab label for x axis
+#' @param xlog logical, should x-axis be log-transformed (default FALSE)
+#' @param formula optional formula to pass to `geom_smooth`
+#' @param ... additional arguments to pass to `geom_smooth`
 #'
 #'
 #' @details
@@ -17,7 +20,7 @@
 #' @export
 
 spec_plot <- function(dat, x, xlab,
-                      xlog = FALSE, formula = NULL) {
+                      xlog = FALSE, formula = NULL, ...) {
     ggplot(dat,
            aes({{ x }},
                speciation + ifelse(speciation == 1, -1, 1) *
@@ -35,6 +38,7 @@ spec_plot <- function(dat, x, xlab,
                     method = "glm",
                     formula = formula,
                     method.args = list(family = "binomial"),
-                    color = "black") +
+                    color = "black", fill = "black", alpha = 0.5,
+                    ...) +
         cowplot::theme_cowplot()
 }
