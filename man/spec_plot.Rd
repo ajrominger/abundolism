@@ -4,7 +4,7 @@
 \alias{spec_plot}
 \title{Custom plotting routine for speciation as response variable}
 \usage{
-spec_plot(dat, x, xlab, xlog = FALSE, formula = NULL)
+spec_plot(dat, x, xlab, xlog = FALSE, formula = NULL, ...)
 }
 \arguments{
 \item{dat}{output from simulation}
@@ -12,6 +12,12 @@ spec_plot(dat, x, xlab, xlog = FALSE, formula = NULL)
 \item{x}{name (unquoted) of predictor variable}
 
 \item{xlab}{label for x axis}
+
+\item{xlog}{logical, should x-axis be log-transformed (default FALSE)}
+
+\item{formula}{optional formula to pass to `geom_smooth`}
+
+\item{...}{additional arguments to pass to `geom_smooth`}
 }
 \value{
 a `ggplot` object
