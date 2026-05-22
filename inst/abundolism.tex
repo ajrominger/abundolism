@@ -154,6 +154,7 @@
 \usepackage{makecell}
 \usepackage{xcolor}
 \usepackage{xr}
+\usepackage{lineno}
 \externaldocument{ab_supp}
 \newcommand{\sfig}[1]{Supplementary Figure~\ref{#1}}
 \newcommand{\ssec}[1]{Supplementary Section~\ref{#1}}
@@ -204,7 +205,6 @@
 \urlstyle{same}
 \hypersetup{
   pdftitle={Intermediate abundance promotes speciation when dispersal is limited},
-  pdfauthor={Andrew J. Rominger; Daniel S. Gruner; Isaac Overcast; James L. Rosindell; Catherine E. Wagner},
   colorlinks=true,
   linkcolor={blue},
   filecolor={Maroon},
@@ -215,12 +215,13 @@
 
 \title{Intermediate abundance promotes speciation when dispersal is
 limited}
-\author{Andrew J. Rominger \and Daniel S. Gruner \and Isaac
-Overcast \and James L. Rosindell \and Catherine E. Wagner}
+\author{}
 \date{}
 \begin{document}
 \maketitle
 
+
+\linenumbers
 
 \subsection{Abstract}\label{abstract}
 
@@ -243,6 +244,8 @@ where genus-level species richness shows a significant hump-shaped
 relationship with mean genus abundance. These findings provide a
 mechanistic explanation for a nuanced relationship between abundance and
 diversification.
+
+\pagebreak
 
 \subsection{Introduction}\label{introduction}
 
@@ -295,7 +298,7 @@ The speciation mechanism first proposed by Hubbell (2001) was never an
 accurate model of real diversification (Ricklefs 2003), but even later
 attempts to increase the realism of speciation in the UNTB retain the
 emergent property that more abundant lineages will undergo more
-specaition. Protracted speciation (Rosindell et al. 2010) again assumes
+speciation. Protracted speciation (Rosindell et al. 2010) again assumes
 that incipient speciation is constant across individuals and thus full
 speciation will scale positively with lineage abundance; fission
 speciation (Etienne and Haegeman 2011) also assumes the probability of
@@ -344,7 +347,7 @@ result from the determinism of adaptive evolution as Darwin (1859)
 believed or instead emerge from chance.
 
 Here we develop a birth-death-immigration model with protracted
-specaition embedded in a landscape of multiple local populations
+speciation embedded in a landscape of multiple local populations
 connected with limited dispersal to investigate the role of abundance
 and stochastic dispersal in modulating the probability of speciation.
 Contrary to Darwin (1859) and UNTB (Hubbell 2001, Etienne et al. 2007,
@@ -369,7 +372,7 @@ speciation}\label{simulating-a-birth-death-immigration-process-with-speciation}
 
 We simulate a birth-death-immigration process with speciation in a
 modified metapopulation (Hanski 1998) setting. For simplicity, we
-consider only a single species (not multispecies) metapopulation. In
+consider only a single species (not multi-species) metapopulation. In
 this setting there are a number of local populations (minimum two are
 needed, we simulate 10) fully connected by local dispersal as well as a
 global source population connected to each local population by
@@ -466,7 +469,7 @@ Further details of the simulation are provided in \ssec{sec-sim}. All
 simulation code is written in R (R Core Team 2025) using \emph{Rcpp}
 (Eddelbuettel et al. 2025a) and \emph{RcppArmadillo} (Eddelbuettel et
 al. 2025b). Underlying C++ and R source code is available in the R
-package \emph{abondolism} (Rominger 2026) accompanying this paper.
+package \emph{abundolism} (Rominger 2026) accompanying this paper.
 
 \subsubsection{Simulation experiment}\label{simulation-experiment}
 
@@ -682,7 +685,7 @@ quadratic model is favored with a likelihood ratio of 7.012 and a
 \emph{P}-value of 0.0081 from a \(\chi^2\) distribution with \(d.f.\) =
 1. Removing \emph{Drosophila} has no meaningful impact on the
 relationship or the statistical significance of the quadratic term (see
-\ssec{bgeom}).
+\ssec{sec-bgeom}).
 
 \begin{figure}
 
@@ -700,7 +703,7 @@ shaded region is 95\% confidence envelope. Panel B shows the pattern in
 the raw data along with the relationship predicted by the quadratic
 model. The solid black line represents the expected value and gray
 shaded regions the 95\% confidence envelope. Colors of points reflect
-the local density of data points. The outlier with genus richenss above
+the local density of data points. The outlier with genus richness above
 300 is \emph{Drosophila} discussed further in the main text and
 \ssec{sec-bgeom}}
 
@@ -1037,7 +1040,7 @@ model. - Oikos 100: 185--192.
 
 \bibitem[\citeproctext]{ref-abundolism-package}
 Rominger, A. J. 2026.
-\href{https://doi.org/10.5281/zenodo.18410689}{{abundolism}}.
+\href{https://doi.org/10.5281/zenodo.18410688}{{abundolism}}.
 
 \bibitem[\citeproctext]{ref-rosindell2013}
 Rosindell, J. and Harmon, L. J. 2013. A unified model of species
