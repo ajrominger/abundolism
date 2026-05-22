@@ -184,7 +184,8 @@ ggplot(sim_dat, aes(la - mu, mean_pop_size)) +
     scale_y_log10() + 
     xlab(expression(italic(lambda - mu))) + 
     ylab("Mean population size") +
-    scale_color_viridis_c(trans = "log10")
+    scale_color_viridis_c(trans = "log10") +
+    theme_cowplot()
 
 
 ```
@@ -220,8 +221,10 @@ With results from the simulation we report confidence intervals rather than hypo
 #|     binomial generalize linear model and gray region shows 95% confidence 
 #|     envelope. 
 
+
 spec_plot(sim_dat, nu, 
           xlab = expression("Incipient speciation rate"~italic(nu)))
+
 
 ```
 
@@ -250,6 +253,7 @@ We also expect dispersal to decrease the chance of speciation because dispersal 
 #|     show the distribution of simulation results. Curve is a 
 #|     binomial generalize linear model and gray region shows 95% confidence 
 #|     envelope. 
+
 
 spec_plot(sim_dat, (1 + m_prop) * g / la, xlog = TRUE, 
           xlab = "Relative dpeciation rate")
@@ -295,15 +299,17 @@ The confidence interval for the quadratic term is far from 0:
 sim_quad_ci
 ```
 
-We now turn to developing the figure of abundance versus speciation. These results are reported in the main text, but the code below is used to create the visualization of specaition versus abundnace.
+We now turn to developing the figure of abundance versus speciation. These results are reported in the main text, but the code below is used to create the visualization of specaition versus abundance.
 
 ```{r}
 #| label: make-sim-fig
 #| cache: true
 #| dependson: run-sim
 
+
 sim_fig <- spec_plot(sim_dat, mean_pop_size, xlab = "Mean population size", 
-          xlog = TRUE, formula = y ~ x + I(x^2))
+                     xlog = TRUE, formula = y ~ x + I(x^2))
+
 
 ```
 
@@ -411,7 +417,8 @@ gp_nspp <- ggplot(arth_mod_ci, aes(mean_abund, ymin = y_lwr, ymax = y_upr)) +
     scale_color_viridis_c() +
     geom_line(data = arth_mod_ci, 
               mapping = aes(mean_abund, y_hat), 
-              linewidth = 1)
+              linewidth = 1) +
+    theme_cowplot()
 
 
 gp_prb <- ggplot(arth_p_ci, aes(mean_abund, y = p_hat, 
@@ -421,7 +428,8 @@ gp_prb <- ggplot(arth_p_ci, aes(mean_abund, y = p_hat,
     scale_x_log10() +
     ylim(0.5, 1) +
     xlab("Mean genus abundance") +
-    ylab(expression(italic(1 - hat(p))))
+    ylab(expression(italic(1 - hat(p)))) +
+    theme_cowplot()
 
 gp_arth <- plot_grid(gp_prb, gp_nspp, rel_widths = c(0.75, 1), 
                      labels = c("A", "B"), label_x = 0.02)
