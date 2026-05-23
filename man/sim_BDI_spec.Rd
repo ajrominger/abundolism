@@ -2,7 +2,7 @@
 % Please edit documentation in R/sim_BDI_spec.R
 \name{sim_BDI_spec}
 \alias{sim_BDI_spec}
-\title{sim_BDI_spec}
+\title{Simulate a birth-death-speciation model}
 \usage{
 sim_BDI_spec(la, mu, g, m_prop, nu, tau, xi, np, nstep)
 }
@@ -13,7 +13,7 @@ sim_BDI_spec(la, mu, g, m_prop, nu, tau, xi, np, nstep)
 
 \item{g}{vector of immigration rates from global population}
 
-\item{m_prop}{vector of proportions (local immigration):(global immigartion)}
+\item{m_prop}{vector of proportions (local immigration):(global immigration)}
 
 \item{nu}{vector of rates of incipient speciation}
 
@@ -41,10 +41,9 @@ results
 \item \code{nstep}
 \item \code{time}: simulation time step, if speciation occurred this number will
 be \verb{< nstep}, if not this number will be \verb{== nstep}
-\item \code{niter}: number of iterations completed
 \item \code{mean_pop_size}: the mean population size across all time steps and
 populations
-\item \code{speciation}: 0 (no speciation) or 1 (yes specaition)
+\item \code{speciation}: 0 (no speciation) or 1 (yes speciation)
 }
 }
 \description{

@@ -15,16 +15,18 @@ spec_plot(dat, x, xlab, xlog = FALSE, formula = NULL, ...)
 
 \item{xlog}{logical, should x-axis be log-transformed (default FALSE)}
 
-\item{formula}{optional formula to pass to `geom_smooth`}
+\item{formula}{optional formula to pass to \code{geom_smooth}}
 
-\item{...}{additional arguments to pass to `geom_smooth`}
+\item{...}{additional arguments to pass to \code{geom_smooth}}
 }
 \value{
-a `ggplot` object
+a \code{ggplot} object
 }
 \description{
-Plot speciation against a predictor variable with glm prediction
+\if{html}{\out{<div class="sourceCode">}}\preformatted{Plot speciation against a predictor variable with glm prediction
+}\if{html}{\out{</div>}}
 }
 \details{
-Not a general-purpose function, use only for intended scenarios
+\if{html}{\out{<div class="sourceCode">}}\preformatted{Not a general-purpose function, use only for intended scenarios
+}\if{html}{\out{</div>}}
 }
