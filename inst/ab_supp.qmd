@@ -8,6 +8,7 @@ format:
       text: |
         \renewcommand{\thefigure}{S\arabic{figure}}
         \renewcommand{\thesection}{S\arabic{section}}
+        \renewcommand{\sfdefault}{\rmdefault}
 crossref:
   fig-title: "Supplementary Figure"
   fig-prefix: "Supplementary Figure"
