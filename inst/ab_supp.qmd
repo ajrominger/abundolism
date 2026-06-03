@@ -21,7 +21,7 @@ bibliography: abundolism.bib
 
 We make use of a custom R package *abundolism* which, for review purposes, is hosted on anonymous github: [https://anonymous.4open.science/api/repo/abundolism-2DC5](https://anonymous.4open.science/api/repo/abundolism-2DC5)
 
-It can be installed from anonymous github like this:
+It can be installed from anonymous github, but note that dependencies on *Rcpp* and *RcppArmadillo* can lead to installation challenges on some infrastructure configurations.
 
 ```{r}
 #| label: ab-setup
@@ -32,6 +32,7 @@ download.file(
     "https://anonymous.4open.science/api/repo/abundolism-2DC5/zip",
     destfile = tmp
 )
+
 remotes::install_local(tmp)
 ```
 
