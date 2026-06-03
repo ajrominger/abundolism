@@ -251,7 +251,9 @@ We make use of a custom R package \emph{abundolism} which, for review
 purposes, is hosted on anonymous github:
 \url{https://anonymous.4open.science/api/repo/abundolism-2DC5}
 
-It can be installed from anonymous github like this:
+It can be installed from anonymous github, but note that dependencies on
+\emph{Rcpp} and \emph{RcppArmadillo} can lead to installation challenges
+on some infrastructure configurations.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -260,6 +262,7 @@ It can be installed from anonymous github like this:
     \StringTok{"https://anonymous.4open.science/api/repo/abundolism{-}2DC5/zip"}\NormalTok{,}
     \AttributeTok{destfile =}\NormalTok{ tmp}
 \NormalTok{)}
+
 \NormalTok{remotes}\SpecialCharTok{::}\FunctionTok{install\_local}\NormalTok{(tmp)}
 \end{Highlighting}
 \end{Shaded}
