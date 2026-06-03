@@ -1,28 +1,5 @@
 ---
 title: "Intermediate abundance promotes speciation when dispersal is limited"
-author:
-  - name: Andrew J. Rominger
-    orcid: 0000-0003-3755-4480
-    affiliations:
-      - name: University of Hawai`i at Mānoa
-  - name: Daniel S. Gruner
-    orcid: 0000-0002-3153-4297
-    affiliations:
-      - name: University of Maryland
-  - name: Isaac Overcast
-    orcid: 0000-0001-8614-6892
-    affiliations:
-      - name: Columbia University
-  - name: James L. Rosindell
-    orcid: 0000-0002-5060-9346
-    affiliations:
-      - name: Imperial College London
-  - name: Catherine E. Wagner
-    orcid: 0000-0001-8585-6120
-    affiliations:
-      - name: University of Wyoming
-filters:
-  - authors.lua
 format:
   pdf:
     keep-tex: true
@@ -139,7 +116,7 @@ Because of the stopping conditions, each simulation replicate will either yield 
 {{< include fig-concept.qmd >}}
 
 
-Further details of the simulation are provided in \ssec{sec-sim}. All simulation code is written in R [@rcore] using *Rcpp* [@rcpp] and *RcppArmadillo* [@rcpparma]. Underlying C++ and R source code is available in the R package *abundolism* [@abundolism-package] accompanying this paper.
+Further details of the simulation are provided in \ssec{sec-sim}. All simulation code is written in R [@rcore] using *Rcpp* [@rcpp] and *RcppArmadillo* [@rcpparma]. Underlying C++ and R source code is available in the R package *abundolism* accompanying this paper. \ssec{sec-setup} explains how to access this custom R package.
 
 ### Simulation experiment
 
@@ -268,7 +245,7 @@ y_i &\sim \text{BetaGeometric}(\alpha_i, \beta) \\
 $$
 We then compare quadratic and linear models with a likelihood ratio test to evaluate significance of the intermediate peak.
 
-While the *VGAM* package [@vgam] in R enables beta-geometric generalized linear modeling, its implementation is based on iterative Fisher scoring which is unnecessary and computationally slow for our application. Therefore, we use functionality from *VGAM* to write a custom likelihood maximization routine [@abundolism-package] that we use to estimate model parameters. More details on this approach are provided in \ssec{sec-bgeom}.
+While the *VGAM* package [@vgam] in R enables beta-geometric generalized linear modeling, its implementation is based on iterative Fisher scoring which is unnecessary and computationally slow for our application. Therefore, we use functionality from *VGAM* to write a custom likelihood maximization routine that we use to estimate model parameters. More details on this approach are provided in \ssec{sec-bgeom}.
 
 
 

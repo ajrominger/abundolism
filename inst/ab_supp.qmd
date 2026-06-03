@@ -17,15 +17,22 @@ bibliography: abundolism.bib
 ---
 
 
-## Computation set-up
+## Computation set-up {#sec-setup}
 
-We make use of a custom R package *abundolism* [@abundolism-package] which can be installed from github. 
+We make use of a custom R package *abundolism* which, for review purposes, is hosted on anonymous github: [https://anonymous.4open.science/api/repo/abundolism-2DC5](https://anonymous.4open.science/api/repo/abundolism-2DC5)
+
+It can be installed from anonymous github like this:
 
 ```{r}
 #| label: ab-setup
 #| eval: false
 
-devtools::install_github("ajrominger/abundolism")
+tmp <- tempfile(fileext = ".zip")
+download.file(
+    "https://anonymous.4open.science/api/repo/abundolism-2DC5/zip",
+    destfile = tmp
+)
+remotes::install_local(tmp)
 ```
 
 The following R computing environment is used for all simulations and analyses:
