@@ -162,17 +162,6 @@
 \newcommand{\sfig}[1]{Supplementary Figure~\ref{#1}}
 \newcommand{\ssec}[1]{Supplementary Section~\ref{#1}}
 \KOMAoption{captions}{tableheading}
-\author[1]{Andrew J. Rominger\,\orcidlink{0000-0003-3755-4480}}
-\author[2]{Daniel S. Gruner\,\orcidlink{0000-0002-3153-4297}}
-\author[3]{Isaac Overcast\,\orcidlink{0000-0001-8614-6892}}
-\author[4]{James L. Rosindell\,\orcidlink{0000-0002-5060-9346}}
-\author[5]{Catherine E. Wagner\,\orcidlink{0000-0001-8585-6120}}
-\affil[1]{University of Hawai`i at Mānoa}
-\affil[2]{University of Maryland}
-\affil[3]{Columbia University}
-\affil[4]{Imperial College London}
-\affil[5]{University of Wyoming}
-\renewcommand*{\author}[2][]{}
 \makeatletter
 \@ifpackageloaded{caption}{}{\usepackage{caption}}
 \AtBeginDocument{%
@@ -483,7 +472,8 @@ Further details of the simulation are provided in \ssec{sec-sim}. All
 simulation code is written in R (R Core Team 2025) using \emph{Rcpp}
 (Eddelbuettel et al. 2025a) and \emph{RcppArmadillo} (Eddelbuettel et
 al. 2025b). Underlying C++ and R source code is available in the R
-package \emph{abundolism} (Rominger 2026) accompanying this paper.
+package \emph{abundolism} accompanying this paper. \ssec{sec-setup}
+explains how to access this custom R package.
 
 \subsubsection{Simulation experiment}\label{simulation-experiment}
 
@@ -640,8 +630,8 @@ While the \emph{VGAM} package (Yee 2025) in R enables beta-geometric
 generalized linear modeling, its implementation is based on iterative
 Fisher scoring which is unnecessary and computationally slow for our
 application. Therefore, we use functionality from \emph{VGAM} to write a
-custom likelihood maximization routine (Rominger 2026) that we use to
-estimate model parameters. More details on this approach are provided in
+custom likelihood maximization routine that we use to estimate model
+parameters. More details on this approach are provided in
 \ssec{sec-bgeom}.
 
 \subsection{Results}\label{results}
@@ -1051,10 +1041,6 @@ with molecular phylogenies. - Trends in Ecology \& Evolution 25: 68--74.
 \bibitem[\citeproctext]{ref-ricklefs2003}
 Ricklefs, R. E. 2003. A comment on hubbell's zero-sum ecological drift
 model. - Oikos 100: 185--192.
-
-\bibitem[\citeproctext]{ref-abundolism-package}
-Rominger, A. J. 2026.
-\href{https://doi.org/10.5281/zenodo.18410688}{{abundolism}}.
 
 \bibitem[\citeproctext]{ref-rosindell2013}
 Rosindell, J. and Harmon, L. J. 2013. A unified model of species

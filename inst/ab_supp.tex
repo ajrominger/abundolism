@@ -245,14 +245,22 @@ when dispersal is limited}}
 \maketitle
 
 
-\section{Computation set-up}\label{computation-set-up}
+\section{Computation set-up}\label{sec-setup}
 
-We make use of a custom R package \emph{abundolism} (Rominger 2026)
-which can be installed from github.
+We make use of a custom R package \emph{abundolism} which, for review
+purposes, is hosted on anonymous github:
+\url{https://anonymous.4open.science/api/repo/abundolism-2DC5}
+
+It can be installed from anonymous github like this:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{devtools}\SpecialCharTok{::}\FunctionTok{install\_github}\NormalTok{(}\StringTok{"ajrominger/abundolism"}\NormalTok{)}
+\NormalTok{tmp }\OtherTok{\textless{}{-}} \FunctionTok{tempfile}\NormalTok{(}\AttributeTok{fileext =} \StringTok{".zip"}\NormalTok{)}
+\FunctionTok{download.file}\NormalTok{(}
+    \StringTok{"https://anonymous.4open.science/api/repo/abundolism{-}2DC5/zip"}\NormalTok{,}
+    \AttributeTok{destfile =}\NormalTok{ tmp}
+\NormalTok{)}
+\NormalTok{remotes}\SpecialCharTok{::}\FunctionTok{install\_local}\NormalTok{(tmp)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -309,7 +317,7 @@ attached base packages:
 
 other attached packages:
 [1] knitr_1.50           cowplot_1.2.0.9000   ggpointdensity_0.2.1
-[4] ggplot2_4.0.1        dplyr_1.2.1          abundolism_0.1.0    
+[4] ggplot2_4.0.1        dplyr_1.2.1          abundolism_1.0.0    
 
 loaded via a namespace (and not attached):
  [1] vctrs_0.7.3        cli_3.6.5          rlang_1.2.0        xfun_0.52         
