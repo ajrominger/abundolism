@@ -392,7 +392,7 @@ gen_abund <- filter(arth, origin == "native-endemic") |>
 gen <- inner_join(gen_rich, gen_abund)
 ```
 
-With the prepared data we can compute a quadratic and linear model of genus richness versus abundance. As explained in the main text, these models are beta-binomial generalized linear models and are achieved with custom functions available in the *abundolism* package [@abundolism-package] associated with this paper. The main function is `glm_bgeom` which maximizes the log likelihood function and shares some common methods with `lm` and `glm` including `logLik` which enables likelihood analyses such as the likelihood ratio test. 
+With the prepared data we can compute a quadratic and linear model of genus richness versus abundance. As explained in the main text, these models are beta-binomial generalized linear models and are achieved with custom functions available in the *abundolism* package associated with this paper. The main function is `glm_bgeom` which maximizes the log likelihood function and shares some common methods with `lm` and `glm` including `logLik` which enables likelihood analyses such as the likelihood ratio test. 
 
 To summarize from the main text, our full quadratic model is 
 
