@@ -4,13 +4,17 @@
 \alias{glm_bgeom}
 \title{Maximum likelihood estimation for beta geometric glm}
 \usage{
-glm_bgeom(formula, data, ...)
+glm_bgeom(formula, data, a_init = NULL, ...)
 }
 \arguments{
 \item{formula}{an object of class "formula" that describes the model}
 
 \item{data}{a data.frame where the data live (unlike `glm` and `lm`,
 the data object is *required*)}
+
+\item{a_init}{optional initial values for linear terms, must be NULL or
+numerical vector of same length as number of terms on r.h.s
+of `formula`}
 
 \item{...}{arguments passed to `control` of `optim`}
 }
@@ -26,5 +30,7 @@ Find maximum likelihood parameters for glm assuming geometric
 Some methods that work for objects of class `glm` and `lm` will
     also work for the output of this function, specifically:
     `print`, `coef`, `logLik`, and `AIC`. A custom likelihood ratio test
-    function is provided by `lrt_geom`
+    function is provided by `lrt_geom`. In some edge cases the default
+    automatic initial values generator (`a_init = NULL`) will not work and
+    in those cases `a_init` can be used
 }

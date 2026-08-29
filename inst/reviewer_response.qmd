@@ -1,0 +1,137 @@
+---
+title: "reviewer_response"
+format: pdf
+---
+
+We have obtained two in-depth reviews by experts in the field and I have read the paper as well. Both reviewers and I liked many aspects of the paper. For example, it is really great that you bring together modeling results and data analysis. However, there are also substantial methodological concerns that at the moment make it hard to properly assess the results and conclusions.
+
+> We are grateful to the editor and reviewers for their detailed feedback. We respond to each point below.
+
+For example, both reviewers wonder whether the fact that you stop the simulation at the first speciation event biases the results. Further important methodological points concern the assumption that there can be only one incipient speciation at a time per patch, whether abundance is causal in the hump-shaped relationship, and whether it makes sense to make the additional waiting time to full speciation after an immigration event inversely proportional to the recipient population size. 
+
+> These are indeed good points, and we address them below in direct response to each reviewer
+
+Regarding the last point, I remember learning that the differentiation between subpopulations in an island model just depends on the absolute number of migrants per generation, not on how many migrants there are relative to the population size (see e.g. Mills & Allendorf 1996, https://urldefense.com/v3/__https://doi.org/10.1046/j.1523-1739.1996.10061509.x__;!!PvDODwlR4mBZyAb0!UiW_oIKEViGM0oBfRD8_ATeaqlCIYbbq1ByGaFnYcsLZ2KPIzm_NiBRHzvdJRdDnQHD_OzyyRROggJstO-ilUWPlmWwApw$ ), although this may also be quite simplified.
+
+> foo
+
+As reviewer 1 recommends, please bring more of the modeling results into the main text. I also agree with reviewer 2 that it would be better to shorten or even omit the final paragraph (p. 289-307) connecting back to Darwin. That you found that specific fitness mechanisms are not necessary to produce the pattern between abundance and speciation, does not mean that competition, fitness differences etc. are not also important in nature. After all, evolutionary theory is clearly not a neutral theory. Of course I completely agree that such arguments should never be used to justify racism or violence in humans, but not sure that you need to make this point in your paper.
+
+> These suggestions have been incorperated.
+
+The reviewers make many other excellent comments.
+
+Here are a few more comments of my own:
+
+- L108-109: For non-insiders, it would be helpful to explain a bit what protracted speciation means and what these models roughly assume.
+
+> Agreed, and added in foo
+
+- For me, some of the simulation rules seemed quite ad-hoc and a bit dubious. This may be because I am not so familiar with this type of speciation model. But to make the paper accessible and convincing to a broad range of readers, it would be good to explain the rules in more detail. For example, for point 3, what does it mean for the incipient species to survive long enough? That the individual that originally triggered the incipient speciation still has some progeny tau time units later? Or that the local patch population is not extinct tau time units later? And why does it make sense to assume such a constant waiting time? And for point 4, why does it make sense to add this increment to tau? And why is the incipient species status lost after dispersal? Can't the lineage continue its speciation elsewhere? Again, people more familiar with these model types might understand this, but to make your paper broadly understandable, more explanation would be good.
+
+> These questions help us to better explain our model, and the text now contains greater detail such that the questions, hopefully, would not arrise. Briefly: yes "survive long enough" means "the individual that originally triggered the incipient speciation still has some progeny tau time units later"; the constant wait-time is an approximation of cladogenesis established by the original protracted speciation model; allowing immigration to add to tau is an approximation of the dilution of novel variants accumulating in the incipiently speciating lineage; incipient species status is lost after immigration because its unique genotype is assumed to be lost through hybridization.
+
+> foo: maybe it is that the population as a whole persists, maybe we need to frame everything around populations
+
+> incipient speciation is accumulatin of genetic changes in the whole population, full speciation is when enough changes occur. another "incipient" event just contributes toward speciation, it doesnʻt set off a new lineage 
+
+- L179: Also conditional on the fact that there was a single species at time 0?
+
+> foo
+
+- L182-183: I found this interpretation of 1-phi a bit vague and hard to understand and I could not quickly find it in Nee et al. (1994) or Kendall (1948). Is it a per-lineage probability of bifurcation between time 0 and t? Do both resulting lineages need to survive? But then when lineages branch, the lineages have less than time t to further split, right? Or is the phi more a phenomenological parameter for the geometric distribution that comes from more complex derivations, but cannot be directly interpreted in terms of the original stochastic process?
+
+> foo
+
+- Fig. 2 caption: Points are individual simulation outcomes
+
+> foo
+
+- Fig. 3 caption: Is the phat the phi from earlier? Please clarify? What exactly do you mean with "Colors of points reflect the local density of data points"? Are there ten data points under one of the yellow points?
+
+> foo
+
+-L255-256: Please explain why it is fraught.
+
+> foo
+
+-L277-278: I could not understand what you mean in this last sentence.
+
+> foo
+
+-References: Please check for correct capitalization.
+
+> foo
+
+
+Reviewer(s)' Comments to Author:
+Reviewer: 1
+
+Comments to the Author
+The authors develop a birth–death–immigration model with protracted speciation across local populations connected by limited dispersal, and report that speciation probability is hump-shaped in abundance: large populations disperse more and reset the speciation clock, small ones lack persistence and incipient speciation. An empirical illustration follows, fitting a beta-geometric GLM of Hawaiian arthropod genus richness against mean genus abundance.
+The central idea is worth pursuing. Deriving an intermediate-abundance optimum from a process in which dispersal emerges from abundance, rather than being imposed as a trait, is a nice reframing of the intermediate-dispersal literature, and requiring no neutrality or fitness assumption is a genuine strength. My concerns are two modelling decisions: the cap on concurrent incipient lineages, and the restriction to a single speciation event. Until these are shown not to be generating the reported pattern, I do not think the central result can be assessed.
+
+> We appreciate the value the reviewer sees in this work and have reworked both the simulation and analysis to address the two main concerns. Details of that reworking are below, but first we highlight the point the reviewer makes that "requiring no neutrality or fitness assumption is a genuine strength." To retain this strength 
+
+Major comments
+1. Rule 3(i) ignores subsequent incipient speciation events once a local population contains one. This cap needs much closer scrutiny, because its consequences scale with abundance (the very axis of the paper). Incipient events arise in population i at rate νxᵢ, so the number initiated within a window τ is of order νxᵢτ, and the cap is innocuous only when νxᵢτ ≪ 1. With the sampled ranges (ν ≤ 0.1, τ ∈ [20, 200]) and the abundances in Fig. 2 (~1 to 5×10³), νxᵢτ is of order 10⁰–10³: the condition fails across the entire abundance range, and fails some three orders of magnitude more severely at the high-abundance end. The model therefore discards incipient speciation opportunities in proportion to population size — precisely the channel that would otherwise push speciation probability up at high abundance. The authors must establish that the descending arm is not partly an artifact of this cap, ideally by permitting concurrent incipient lineages, or at minimum by relaxing the cap and showing the result holds.
+Supplementary Fig. S2 is suggestive here. The effect of ν is surprisingly weak, which the authors attribute to modulation by other factors. Saturation under the cap is simpler: once νxᵢτ ≫ 1, the wait to the first incipient event is negligible against τ, so ν stops mattering. If so, the incipient channel contributes almost nothing to the ascending arm, and the mechanism asserted at l. 240–243 — persistence and incipient speciation jointly driving the low-abundance side — is not what the model does; persistence alone is. A decomposition of the two contributions would settle this.
+
+2. The simulation runs one lineage from one species to two and halts, whereas the empirical analysis concerns clades that accumulated many species through repeated speciation, and a single-event probability does not extrapolate to standing richness. First, per-lineage speciation rate is widely held to change as diversity accumulates — rising under diversity-begets-diversity arguments (e.g., Whittaker et al. 2007, Ecography), or declining as niche space fills (e.g., Yamaguchi et al. 2022, Proc. R. Soc. B) — yet mapping Fig. 2 onto Fig. 3 tacitly assumes it is constant across a radiation. Second, and more fundamentally, dispersal here can only homogenize: it resets the clock and does nothing else, with no channel by which it founds an isolate that subsequently diverges. The monotonic decline in Supplementary Fig. S3 is thus not an emergent finding but a structural consequence of the setup — dispersal has no upside to trade off against. This matters, because the intermediate-dispersal optimum the authors themselves describe in the Introduction arises precisely from balancing colonization against gene flow over repeated cycles. By restricting to a single event, the model removes the mechanism generating the phenomenon it is positioned against. The authors should either extend the simulation to multiple cycles, or state far more explicitly that their result concerns the probability of a first speciation event and is not a model of radiation.
+
+3. Mean population size is not a controlled input but an emergent summary of the sampled rates, dominated by λ−μ (Fig. S1), so the headline finding is a marginal association with a downstream product of the parameter draw. It is not obvious that λ−μ acts on speciation only through abundance; I would want the hump to survive conditioning on λ−μ, ν and relative dispersal, or better, a design varying abundance at fixed rates (a carrying capacity K would serve, and would give abundance a stable definition, which constant λ, μ cannot). Separately, speciating runs halt the instant speciation occurs, so they are time-averaged over systematically shorter windows than non-speciating runs, which could bend the very relationship the paper rests on. How mean population size is computed (over what window? including the source pool?) is never stated; this must be specified, and the hump shown to persist under a measure immune to early stopping (e.g., abundance at a fixed reference time common to all runs).
+
+4. The Results section is far too thin for a paper whose principal contribution is a model. The theoretical results occupy roughly ten lines, the first three of which merely redirect the reader to Section S4. The model’s actual behaviour (the effects of ν, dispersal and τ, and the λ−μ–abundance relationship of Fig. S1) is relegated to the supplement, and Fig. S1 receives no interpretation in the main text despite being the key diagnostic for how abundance emerges from the rates (and thus central to comment 3). Please bring the substance of S4 into the main text and, crucially, explain how the assumed mechanism produces the pattern in Fig. 2. For a theory paper that explanation is the intellectual core, and it is currently outsourced.
+
+5. The setback rule (Rule 4) adds ξ/n per immigration event. Because this shrinks with population size while event number grows with abundance, the balance producing the hump is governed rather directly by this one functional choice. Please justify the ξ/n form biologically and show the result survives plausible alternatives (constant ξ, or ξ/√n).
+
+6. Mean genus abundance is per-species abundance averaged over species in a genus, so if a genus’s individuals are divided among more species, mean per-species abundance falls with richness by simple arithmetic, which could by itself produce the descending arm of Fig. 3. Drawing richness from the checklist (Nishida 1992) and abundance from a separate survey (Gruner 2007) helps but does not dispel this. Please discuss whether the metric is independent of species number and check robustness against an alternative such as total genus abundance. Relatedly, abundance comes from 45 trees at 5 sites while richness comes from a comprehensive checklist, so rare genera are poorly sampled; some check that the low-abundance arm is not a sampling artifact would help.
+
+Minors
+1. Supplementary Fig. S3, x-axis: “Relative dpeciation rate” should read “Relative dispersal rate.”
+
+2. Section S4 states that population size is larger when λ > μ, then that “when λ < μ populations will grow indefinitely.” This is a sign error contradicting the preceding sentence; unbounded growth occurs when λ > μ.
+
+3. Line 115: the citation “letten2017” is an unrendered reference key.
+
+4. The dispersal recipient is chosen uniformly across local populations (S2). Please state whether a size-weighted rule was considered and whether it affects the results, since it bears on how differentiation is homogenized.
+
+5. Further typographical errors: “specification”/“specaition” for “speciation” (Fig. 1 label; S4, repeatedly), “interoperated” (l. 260, 279), “complimentary” → “complementary” (l. 258). A careful proofread is needed.
+
+Reviewer: 2
+
+Comments to the Author
+The paper is developed around the idea that abundance and dispersal are intrinsically linked because larger populations generate more dispersers, and hypothesizes that this relationship can produce a hump-shaped association between abundance and speciation. Specifically, the authors predict that small populations have limited persistence and fewer opportunities for incipient speciation, whereas very large populations experience sufficient dispersal to prevent regional differentiation from progressing to full speciation. Intermediate population sizes should therefore maximize the probability of speciation. The paper is well written, and the main conceptual hypothesis is clear and interesting. I particularly appreciate the attempt to connect demographic processes with speciation patterns and to derive dispersal from population dynamics rather than simply treating dispersal as an externally imposed species trait. The combination of a theoretical model and an empirical example from Hawaiian arthropods also has the potential to make the study relevant to multiple fields.
+
+However, I have some concerns about the current implementation and interpretation of the analyses. Most importantly, I am not totally convinced that the simulation design demonstrates a causal effect of abundance on speciation, and I think that some aspects of the empirical analysis require clarification before the Hawaiian data can be considered support for the mechanism proposed by the model. I therefore think that the manuscript could become a strong contribution, but substantial revision is needed.
+
+Major comments
+1. The stopping rule of the simulations may generate a problem when mean population size is subsequently used as the explanatory variable. The simulation stops either when full speciation occurs or when the maximum number of iterations is reached. So, simulations in which speciation occurs are terminated earlier, while simulations without speciation continue until 10,000 iterations. Mean population size is then calculated across the realized trajectory and used to explain whether speciation occurred. Therefore, the period over which abundance is estimated depends directly on the response variable itself. This is particularly concerning because the Supplementary Material already shows that simulations experiencing speciation deviate from the expected relationship between population growth and mean population size precisely because these simulations are stopped prematurely.
+I think this issue needs to be addressed before the main result in Fig. 2 can be interpreted carefully. One possibility would be to allow all simulations to continue for the same amount of time while recording the time of the first speciation event. Alternatively, the authors need to address this issue in the text, either by providing a clear justification for this methodological choice or by considering this potential bias in the Discussion.
+2. The implementation and interpretation of dispersal need to be clearer. According to the available Supplementary Material, a local immigration event increases the recipient population by one individual but does not reduce the population from which the dispersing individual originated. This seems closer to propagule production than to migration among populations. It is also assumed that recipient populations are chosen randomly with equal probability, but it is not completely clear whether the source population itself can be selected as the recipient. This matters because the manuscript interprets local immigration as dispersal connecting populations and potentially homogenizing them. I suggest that the authors clarify the biological meaning of this process and, if possible, test whether the result is robust to true migration, in which one population gains an individual and another loses one.
+3. The abundance data represent contemporary ecological abundance, whereas the diversification processes responsible for current richness occurred over potentially millions of years. Thus, present abundance cannot necessarily be assumed to represent the abundance of the lineage during its diversification. Reverse causality is also possible: diversification itself could influence the contemporary abundance of species within a genus. For these reasons, statements such as “our empirical results support the theoretical finding that speciation peaks at intermediate abundances” should be moderated. I would suggest stating instead that Hawaiian arthropods show a richness-abundance relationship qualitatively consistent with the model prediction, while emphasizing that this analysis does not directly estimate historical speciation rates. Related to this point, the manuscript would benefit from discussing literature on the effects of clade age and taxonomic rank on species richness, particularly McPeek and Brown (2007), Avise and Liu (2011), Scholl and Wiens (2016), and Yu and Wiens (2024).
+4. About the definition and implementation of abundance in the Hawaiian analysis: The main text states that genus abundance was estimated as the mean abundance of all species belonging to each genus across sample locations. However, the code in the Supplement appears to count observations for each genus × species combination and then calculate the mean of these species-level counts. This does not appear to be the same as estimating genus-level abundance across sampling locations. If I am interpreting the code correctly, this distinction is important because mean abundance per species could itself depend on genus richness. If total ecological abundance is constrained, dividing individuals among an increasing number of species could mechanically reduce mean species abundance in species-rich genera. I therefore think the authors should define the abundance metric very precisely and, if possible, test the robustness of the result to alternative measures, such as total genus abundance, occurrence frequency, or standardized abundance per sampling effort.
+
+Minor comments
+Lines 20-22. The statement that Darwin argued that widespread, abundant species “should be superior competitors and thus more likely to give rise to new species” is quite strong. I would suggest distinguishing more carefully between Darwin's discussion of dominant groups, abundance and production of varieties rather than translating the argument directly into contemporary terminology of speciation rates.
+Lines 37-43. “This correlation is no doubt caused…” is too categorical. Several mechanisms may contribute to abundance-range size relationships. I suggest replacing “no doubt caused” with something like “may be caused, at least partly”.
+Lines 77-83. The statement that increased dispersal simply emerges because every individual has some probability of dispersing is important for the manuscript and deserves a more explicit distinction between per-capita dispersal probability and total number of dispersal events.
+Lines 108-109. “A new species arise” should be “A new species arises.”
+Line 115. letten2017 is an unresolved citation key. This is presumably Letten, Ke and Fukami (2017), which should be properly cited.
+Lines 163-173. Please provide the number of genera retained after combining the Nishida and Gruner datasets. This information is essential for evaluating the empirical analysis. The authors should also explain the spatial and ecological scope of the Gruner dataset more explicitly rather than describing it broadly as an arthropod survey “across the Hawaiian Archipelago.”
+Lines 168-170. The authors use the 1992 Hawaiian arthropod checklist. In my own search, I found that a later edition of the checklist was published in 2002. I suggest updating the taxonomic dataset or explaining why the older version is preferable.
+
+Lines 181-183. “descendants of that bifurcation event being survive” could be better written as “descendants of that bifurcation event surviving.”
+Lines 218-221. Please report the coefficient estimate itself in addition to its 95% confidence interval and, more importantly, the estimated population abundance at which predicted speciation probability reaches its maximum.
+Fig. 2. “Points individual simulation outcomes” should be “Points represent individual simulation outcomes.”
+Lines 224-234/Fig. 3. Please report the sample size, complete model coefficients and confidence intervals.
+Lines 256-259. “complimentary support” should be “complementary support.”
+Line 260. “cannot be fully interoperated” is unclear. I suggest “cannot be directly compared” or “cannot be interpreted as quantitatively equivalent.”
+Lines 286-288. The suggestion that density-dependent dispersal would “likely further accentuate” the result should either be tested or expressed more cautiously. Positive and negative density-dependent dispersal could have different consequences.
+Lines 289-290. I would avoid calling the model “mechanism agnostic”. The model contains explicit assumptions about protracted speciation and the effect of immigration. “Fitness-agnostic” or “independent of adaptive differences among species” may better capture the intended point.
+Lines 293-307. I would substantially shorten the final paragraph concerning Darwin, racism and colonialism. The historical context may be relevant, but in its current form it appears disconnected from the analyses and ends with a stronger conclusion than the model demonstrates. In particular, the simulations show that adaptive dominance is not necessary to generate the abundance-speciation relationship considered here; they do not demonstrate that Darwin's broader ideas are scientifically “irrelevant” or “incorrect.”
+Supplementary Material S4. The sentence stating that populations grow indefinitely when (\lambda<\mu) appears to be reversed; without density regulation, unbounded growth should occur when (\lambda>\mu) - but I may be misinterpreting this.
+Supplementary Fig. S2. “binomial generalize linear model” should be “binomial generalized linear model.”
+Supplementary Fig. S3. “Relative dpeciation rate” should be corrected to “Relative dispersal rate.”
+Supplementary S5. The text refers to “beta-binomial generalized linear models”, whereas the analysis appears to use beta-geometric models. This should be inspected.
+
