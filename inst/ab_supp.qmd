@@ -372,24 +372,62 @@ arth <- read.csv("raw_data/arth.csv")
 # read checklist data
 arth_check <- read.csv("raw_data/hawaii_arthropod_checklist.csv")
 
-# calculate richness of genera from checklist
-gen_rich <- filter(arth_check, Genus != "") |>
-    group_by(Genus) |>
-    summarize(nspp = n_distinct(Genus.and.species)) |>
-    ungroup() |> 
-    rename(genus = Genus)
-
 # calculate abundances of genera from survey data
 gen_abund <- filter(arth, origin == "native-endemic") |> 
     group_by(genus, species_code) |>
     summarize(abund = n()) |>
     ungroup(species_code) |>
-    summarize(mean_abund = mean(abund)) |> 
+    summarize(mean_abund = mean(abund), 
+              survey_nspp = n_distinct(species_code)) |>
     ungroup()
+
+
+# calculate richness of genera from checklist
+gen_rich <- filter(arth_check, Genus != "") |>
+    group_by(Genus) |>
+    summarize(nspp = n_distinct(Genus.and.species), 
+              status = first(Status)) |>
+    ungroup() |> 
+    rename(genus = Genus) |> 
+    # make `status` column indicate if genus is found in survey data
+    mutate(status = ifelse(genus %in% gen_abund$genus, 
+                           "in survey", 
+                           status))
+
+# prop and total of danʻs genera not found in checklist
+mean(!(gen_abund$genus %in% gen_rich$genus))
+sum(!(gen_abund$genus %in% gen_rich$genus))
+
+# endemic checklist genera not found in danʻs data
+
+n_checklist_missing <- sum(grepl("end", gen_rich$status))
+mean(!(gen_rich$genus[grepl("end", gen_rich$status)] %in% gen_abund$genus))
+sum(!(gen_rich$genus[grepl("end", gen_rich$status)] %in% gen_abund$genus))
+
+filter(gen_rich, grepl("end|survey", status)) |> 
+    ggplot(aes(status, nspp)) +
+    geom_violin() +
+    scale_y_log10()
 
 
 # `gen` holds data ready to analyze for richness ~ abundance
 gen <- inner_join(gen_rich, gen_abund)
+
+
+
+ggplot(gen, aes(nspp, survey_nspp)) +
+    geom_point() +
+    scale_x_log10() +
+    scale_y_log10() +
+    geom_abline(intercept = 0, slope = 1)
+
+
+ggplot(gen, aes(nspp * mean_abund, survey_nspp * mean_abund, color = survey_nspp / nspp)) +
+    geom_point() +
+    geom_abline(intercept = 0, slope = 1) +
+    scale_color_viridis_c(transform = "log10")
+
+mean(gen_abund$genus %in% gen$genus)
 ```
 
 With the prepared data we can compute a quadratic and linear model of genus richness versus abundance. As explained in the main text, these models are beta-binomial generalized linear models and are achieved with custom functions available in the *abundolism* package associated with this paper. The main function is `glm_bgeom` which maximizes the log likelihood function and shares some common methods with `lm` and `glm` including `logLik` which enables likelihood analyses such as the likelihood ratio test. 
@@ -435,6 +473,25 @@ The likelihood ratio test comparing quadratic and linear models is achieved with
 arth_lrt <- lrt_bgeom(arth_mod0, arth_mod)
 ```
 
+
+```{r}
+#| label: what-if
+
+# what if we had a bunch of rare, low richness genera
+gen_what_if <- rbind(select(gen, c(genus, nspp, log_abund)), 
+                     data.frame(genus = paste0("fake_", 1:n_checklist_missing), 
+                                nspp = 1, 
+                                log_abund = 0))
+
+# quadratic model
+what_if_mod <- glm_bgeom(nspp ~ log_abund + I(log_abund^2), data = gen_what_if)
+
+# straight line model
+what_if_mod0 <- glm_bgeom(nspp ~ log_abund, data = gen_what_if, 
+                          a_init = c(1, 1))
+
+lrt_bgeom(what_if_mod0, what_if_mod)
+```
 
 To produce visualizations of the arthropod data we make use of a custom `ci_bgeom` function from *abundolism* that calculates confidence intervals and predictions from the output of `glm_bgeom`. This function first calculates standard errors for the $\log(\alpha)$ and $\log(\beta)$ terms of the beta-geometric GLM using the Wald approximation and then computes the standard error for $1 - \hat{p}$ using a change of variable approach. The predicted value $\hat{y}$ for numbers of species per genus is then $\hat{y} = \frac{1}{1 - \hat{p}}$ and its standard error is calculated from that of $1 - \hat{p}$ again with a change of variable approach.
 
