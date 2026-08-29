@@ -7,33 +7,42 @@
 #' @param formula an object of class "formula" that describes the model
 #' @param data a data.frame where the data live (unlike `glm` and `lm`,
 #'             the data object is *required*)
+#' @param a_init optional initial values for linear terms, must be NULL or
+#'               numerical vector of same length as number of terms on r.h.s
+#'               of `formula`
 #' @param ... arguments passed to `control` of `optim`
 #'
 #' @details
 #'     Some methods that work for objects of class `glm` and `lm` will
 #'     also work for the output of this function, specifically:
 #'     `print`, `coef`, `logLik`, and `AIC`. A custom likelihood ratio test
-#'     function is provided by `lrt_geom`
+#'     function is provided by `lrt_geom`. In some edge cases the default
+#'     automatic initial values generator (`a_init = NULL`) will not work and
+#'     in those cases `a_init` can be used
 #'
 #' @returns an object of class `glmBGeom` inspired by, but not strictly
 #'     inheriting from, `glm` and `lm`
 #'
 #' @export
 
-glm_bgeom <- function(formula, data, ...) {
+glm_bgeom <- function(formula, data, a_init = NULL, ...) {
     m <- model.frame(formula, data)
 
     # model matrix and reponse
     X <- model.matrix(formula, m)
     y <- model.response(m)
 
-    # use yule-simons model for starting param values
-    m0 <- suppressWarnings(
-        VGAM::vglm(formula, data = data,
-                   family = VGAM::yulesimon)
-    )
+    if(is.null(a_init)) {
+        # use yule-simons model for starting param values
+        m0 <- suppressWarnings(
+            VGAM::vglm(formula, data = data,
+                       family = VGAM::yulesimon)
+        )
 
-    p0 <- c(coef(m0), 0)
+        a_init <- coef(m0)
+    }
+
+    p0 <- c(a_init, 0)
 
     # mle
     fit <- optim(p0, fn = bgeo_ll, mx = X, my = y,
