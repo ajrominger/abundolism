@@ -360,7 +360,12 @@ sim_fig <- sim_fig +
 
 ## Analyzing abundance and richness of arthropod genera in Hawai\`i {#sec-bgeom}
 
-The results of analyzing Hawai\`i arthropod data are presented in the main text. The code to produce these results is shown here. First we load and prepare the data. Preparation involves filtering data to only endemic taxa and compiling mean abundance for genera based on data from @gruner2007 and compiling species richness for general based on the Bernice Pauahi Bishop Museum arthropod checklist [@hichecklist].
+The results of analyzing Hawai\`i arthropod data are presented in the main text. The code to produce these results is shown here. 
+
+
+### Preparing the data
+
+First we load and prepare the data. Preparation involves filtering data to only endemic taxa and compiling average per-species abundance for genera based on data from @gruner2007 and compiling species richness for genera based on the Bernice Pauahi Bishop Museum arthropod checklist [@hichecklist].
 
 ```{r}
 #| label: arth-data
@@ -372,12 +377,14 @@ arth <- read.csv("raw_data/arth.csv")
 # read checklist data
 arth_check <- read.csv("raw_data/hawaii_arthropod_checklist.csv")
 
+hmean <- function(x) length(x) / sum(1 / x)
+
 # calculate abundances of genera from survey data
 gen_abund <- filter(arth, origin == "native-endemic") |> 
     group_by(genus, species_code) |>
     summarize(abund = n()) |>
     ungroup(species_code) |>
-    summarize(mean_abund = mean(abund), 
+    summarize(mean_abund = median(abund), 
               survey_nspp = n_distinct(species_code)) |>
     ungroup()
 
@@ -394,41 +401,43 @@ gen_rich <- filter(arth_check, Genus != "") |>
                            "in survey", 
                            status))
 
-# prop and total of danʻs genera not found in checklist
-mean(!(gen_abund$genus %in% gen_rich$genus))
-sum(!(gen_abund$genus %in% gen_rich$genus))
-
-# endemic checklist genera not found in danʻs data
-
-n_checklist_missing <- sum(grepl("end", gen_rich$status))
-mean(!(gen_rich$genus[grepl("end", gen_rich$status)] %in% gen_abund$genus))
-sum(!(gen_rich$genus[grepl("end", gen_rich$status)] %in% gen_abund$genus))
-
-filter(gen_rich, grepl("end|survey", status)) |> 
-    ggplot(aes(status, nspp)) +
-    geom_violin() +
-    scale_y_log10()
-
-
 # `gen` holds data ready to analyze for richness ~ abundance
 gen <- inner_join(gen_rich, gen_abund)
-
-
-
-ggplot(gen, aes(nspp, survey_nspp)) +
-    geom_point() +
-    scale_x_log10() +
-    scale_y_log10() +
-    geom_abline(intercept = 0, slope = 1)
-
-
-ggplot(gen, aes(nspp * mean_abund, survey_nspp * mean_abund, color = survey_nspp / nspp)) +
-    geom_point() +
-    geom_abline(intercept = 0, slope = 1) +
-    scale_color_viridis_c(transform = "log10")
-
-mean(gen_abund$genus %in% gen$genus)
 ```
+
+<!-- In merging the checklist data (providing species richness) with field survey data (providing abundance estimates) some genera were lost due to not being detected in the survey data. -->
+
+<!-- ```{r} -->
+<!-- # endemic checklist genera not found in danʻs data -->
+<!-- # only need to search for "end" because those with  -->
+<!-- # status "end" that are in gruner data had their -->
+<!-- # status switched to "in survey" -->
+<!-- n_checklist_missing <- sum(gen_rich$status == "end") -->
+<!-- n_checklist_missing -->
+
+<!-- ``` -->
+
+<!-- `r n_checklist_missing` endemic genera from the checklist were absent from the survey data, representing `r round(100 * n_checklist_missing / sum(gen_rich$status %in% c("end", "in survey")), 2)`% of endemic genera from the checklist. -->
+
+<!-- While this is a large percentage, it is also not unexpected. The survey data constitute a very small sample of the geographic space of the Hawaiian Archipelago as well as a small sample of the extremely heterogeneous environmental space of the archipelago. It is still worth evaluating how the distributions of species richnesses differ between those genera included in the survey data and those missing. @fig-rich-comp shows that genera not found in the survey data are skewed toward those with low species richness.  -->
+
+<!-- ```{r} -->
+<!-- #| label: fig-rich-comp -->
+
+<!-- filter(gen_rich, status %in% c("end", "in survey")) |> -->
+<!--     mutate(status = factor(ifelse(status == "end", "no", "yes"), -->
+<!--                           levels = c("yes", "no"))) |> -->
+<!--     ggplot(aes(status, nspp)) + -->
+<!--     geom_violin(fill = "gray") + -->
+<!--     scale_y_log10() + -->
+<!--     theme_cowplot() + -->
+<!--     xlab("Found in survey data") + -->
+<!--     ylab("Number of species in genus") -->
+<!-- ``` -->
+
+<!-- It is impossible to evaluate how these missing genera might change the relationship (estimated in @sec-arth-mod) because it is impossible to know what their abundances. These genera could be absent from the survey data because their constituent species are rare (i.e. low average per-species abundance) or because their constituent species are restricted to different habitats and/or islands (i.e. potentially high average per-species abundance found elsewhere). In another hypothetical survey data set that did include these currently missing genera, the abundance of genera found in the real data set at hand would likely be wildly different or missing for the same reasons. -->
+
+### Model of within genus richness and average per-species abundance {#sec-arth-mod}
 
 With the prepared data we can compute a quadratic and linear model of genus richness versus abundance. As explained in the main text, these models are beta-binomial generalized linear models and are achieved with custom functions available in the *abundolism* package associated with this paper. The main function is `glm_bgeom` which maximizes the log likelihood function and shares some common methods with `lm` and `glm` including `logLik` which enables likelihood analyses such as the likelihood ratio test. 
 
@@ -473,25 +482,6 @@ The likelihood ratio test comparing quadratic and linear models is achieved with
 arth_lrt <- lrt_bgeom(arth_mod0, arth_mod)
 ```
 
-
-```{r}
-#| label: what-if
-
-# what if we had a bunch of rare, low richness genera
-gen_what_if <- rbind(select(gen, c(genus, nspp, log_abund)), 
-                     data.frame(genus = paste0("fake_", 1:n_checklist_missing), 
-                                nspp = 1, 
-                                log_abund = 0))
-
-# quadratic model
-what_if_mod <- glm_bgeom(nspp ~ log_abund + I(log_abund^2), data = gen_what_if)
-
-# straight line model
-what_if_mod0 <- glm_bgeom(nspp ~ log_abund, data = gen_what_if, 
-                          a_init = c(1, 1))
-
-lrt_bgeom(what_if_mod0, what_if_mod)
-```
 
 To produce visualizations of the arthropod data we make use of a custom `ci_bgeom` function from *abundolism* that calculates confidence intervals and predictions from the output of `glm_bgeom`. This function first calculates standard errors for the $\log(\alpha)$ and $\log(\beta)$ terms of the beta-geometric GLM using the Wald approximation and then computes the standard error for $1 - \hat{p}$ using a change of variable approach. The predicted value $\hat{y}$ for numbers of species per genus is then $\hat{y} = \frac{1}{1 - \hat{p}}$ and its standard error is calculated from that of $1 - \hat{p}$ again with a change of variable approach.
 
@@ -556,5 +546,119 @@ Based on a likelihood ratio test we find the quadratic model is still preferred.
 lrt_bgeom(arth_nodro0, arth_nodro)
 ```
 
+### Evaluating impact of missing genera
+
+In merging the checklist data (providing species richness) with field survey data (providing abundance estimates) some genera were lost due to not being detected in the survey data.
+
+```{r}
+# endemic checklist genera not found in danʻs data
+# only need to search for "end" because those with
+# status "end" that are in gruner data had their
+# status switched to "in survey"
+n_checklist_missing <- sum(gen_rich$status == "end")
+n_checklist_missing
+
+```
+
+`r n_checklist_missing` endemic genera from the checklist were absent from the survey data, representing `r round(100 * n_checklist_missing / sum(gen_rich$status %in% c("end", "in survey")), 2)`% of endemic genera from the checklist.
+
+While this is a large percentage, it is also not unexpected. The survey data constitute a very small sample of the geographic space of the Hawaiian Archipelago as well as a small sample of the extremely heterogeneous environmental space of the archipelago. It is still worth evaluating how the distributions of species richnesses differ between those genera included in the survey data and those missing. @fig-rich-comp shows that genera not found in the survey data are highly skewed toward those with low species richness.
+
+```{r}
+#| label: fig-rich-comp
+
+filter(gen_rich, status %in% c("end", "in survey")) |>
+    mutate(status = factor(ifelse(status == "end", "no", "yes"),
+                          levels = c("yes", "no"))) |>
+    ggplot(aes(status, nspp)) +
+    geom_violin(fill = "gray") +
+    scale_y_log10() +
+    theme_cowplot() +
+    xlab("Found in survey data") +
+    ylab("Number of species in genus")
+```
+
+Any evaluation of how these missing genera might change the relationship of average per-species abundance and genus richness (estimated in @sec-arth-mod) will be compromised because it is impossible to know the abundances of the species in the missing genera. These genera could be absent from the survey data because their constituent species are rare (i.e. low average per-species abundance) or because their constituent species are restricted to different habitats and/or islands (i.e. potentially high average per-species abundance found elsewhere). However, for the sake of producing any kind of evaluation, we assume that if any of these missing genera were to be present in the survey data, they would be very rare. Thus, we re-run our analysis of the relationship between average per-species abundance and genus richness with artificial data (representing these missing genera) augmented onto the real data. We augment the data with the real species richness of each missing genus and an average per-species abundance of 1. The analysis of these augmented data yields the same answer: the hump-shaped relationship between average per-species abundance and genus richness is strongly supported by a likelihood ratio test
+
+```{r}
+#| label: what-if
+
+# what if we had a bunch of rare, low richness genera
+gen_what_if <- rbind(select(gen, c(genus, nspp, log_abund)),
+                     data.frame(genus = paste0("fake_", 1:n_checklist_missing),
+                                # actual abundances of missing genera
+                                nspp = 1, #gen_rich$nspp[gen_rich$status == "end"],
+                                # log(1) = 0
+                                log_abund = 0))
+
+# quadratic model
+what_if_mod <- glm_bgeom(nspp ~ log_abund + I(log_abund^2), data = gen_what_if)
+
+# straight line model
+what_if_mod0 <- glm_bgeom(nspp ~ log_abund, data = gen_what_if,
+                          a_init = c(1, 1))
+
+lrt_bgeom(what_if_mod0, what_if_mod)
+```
+
+### Assessing the choice of average per-species abundance {#sec-tot-abund}
+
+We should evaluate if the choice of mean per-species abundance produces any unintended artifacts in our analysis of how mean per-species abundance relates to within genus richness. The primary concern would be if genera themselves somehow had a carrying capacity, then the more species contained in a genus, the less abundant, on average, each species would have to be. Two observations from the data dispel this concern: first, the vast majority of genera are represented by only a single species at a sampling location [@fig-site-gen-rich], making the partitioning of a hypothetical genus-level carrying capacity moot at all but the few sites where genera are represented by multiple species. 
+
+```{r}
+#| label: fig-gen-site-rich
+#| fig-width: 4
+#| fig-height: 3
+#| fig-cap: |
+#|     Distribution of numbers of species per genus observed in survey data 
+#|     [@gruner2007].
+
+# computing number of species per genus and total genus abundance per site
+gen_by_site <- summarize(arth, 
+          rich = n_distinct(species_code),
+          tot_abund = n(),
+          .by = c(site, genus))
+
+ggplot(gen_by_site, aes(rich)) +
+    geom_histogram(binwidth = 1, color = "black", fill = "gray") +
+    scale_x_continuous(breaks = 1:12) +
+    theme_cowplot()
+
+```
+
+Next, if a hypothetical genus carrying capacity were partitioned across multiple species, then at sites with multiple congeners there should be a flat relationship between number of congeners and total genus abundance per site. However, @fig-gen-rich-trend shows there is a positive relationship between number of congeners and total genus abundance, suggesting that the abundance of any one species in a genus does not trade-off with the abundances of other congeners, but rather they all add to a larger total genus abundance. The positive relationship is significant by a likelihood ratio test applied to a Poisson GLM of abundance predicted by log number of congeners (note: excluded are any data points in which only a single species in a genus is present at a site).
+
+```{r}
+#| label: gen-rich-lrt
+
+gen_site_mod <- glm(tot_abund ~ log(rich), 
+                    data = gen_by_site[gen_by_site$rich > 1, ], 
+                    family = "poisson")
+
+anova(gen_site_mod)
+```
+
+```{r}
+#| label: fig-gen-rich-trend
+#| fig-width: 4
+#| fig-height: 3
+#| fig-cap: |
+#|     Relationship between number of congeners at a site and total genus 
+#|     abundance at that site. Trend line (black line) and 95% confidence envelope 
+#|     (gray shaded region) are from a Poisson GLM. Data p
+
+
+    
+ggplot(gen_by_site[gen_by_site$rich > 1, ], 
+       aes(rich, tot_abund)) +
+    geom_smooth(color = "black", 
+                method = "glm", 
+                method.args = list(family = "poisson")) +
+    geom_pointdensity() +
+    scale_x_log10() +
+    scale_y_log10() +
+    scale_color_viridis_c()
+
+```
 
 ## References
