@@ -6,7 +6,6 @@
 #' @param formula optional formula to pass to `geom_smooth`
 
 logistic_hist_plot <- function(data, x, xlab, xlog, formula) {
-    # browser()
     data$fitted <- glm(formula, data = data, family = "binomial") |>
         predict(type = "response")
 
@@ -19,9 +18,10 @@ logistic_hist_plot <- function(data, x, xlab, xlog, formula) {
                     ymin = min(data$fitted),
                     ymax = max(data$fitted),
                     top = TRUE) +
-        # geom_line(aes(y = fitted)) +
+        geom_line(aes(y = fitted)) +
         xlab(xlab) +
-        ylab("Speciation")
+        ylab("Speciation") +
+        cowplot::theme_cowplot()
 }
 
 hist_helper <- function(data, x, ymin = 0, ymax = 1, top = FALSE, bins = 30) {
