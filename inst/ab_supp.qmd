@@ -181,10 +181,11 @@ Now we can visually inspect the results. Our main purpose is to study how abunda
 #| fig-width: 4
 #| fig-height: 3
 #| fig-cap: |
-#|     Relationship across simulation runs between growth rate ($\lambda - \mu$) 
-#|     and mean population size. Panels show simulation runs without and with 
-#|     speciation. Points are color coded according to local density of points 
-#|     in an attempt to more clearly show the distribution of simulation results.
+#|     Relationship across simulation run windowss between growth rate 
+#|     ($\lambda - \mu$) and mean population size. Panels show simulation runs 
+#|     without and with full speciation. Points are color coded according to 
+#|     local density of points in an attempt to more clearly show the 
+#|     distribution of simulation results.
 
 ggplot(sim_dat, aes(la - mu, mean_pop_size)) +
     geom_hex(data = select(sim_dat, !speciation), 
@@ -226,19 +227,20 @@ With results from the simulation we report confidence intervals rather than hypo
 #| fig-width: 4
 #| fig-height: 3
 #| fig-cap: |
-#|     Relationship across simulation runs between incipient speciation rate
-#|     and speciation. Points are jittered around 1 and 0 and are color coded 
-#|     according to local density of points all in an attempt to more clearly 
-#|     show the distribution of simulation results. Curve is a 
-#|     binomial generalize linear model and gray region shows 95% confidence 
-#|     envelope. 
+#|     Relationship across simulation run windows between incipient speciation 
+#|     rate and probability of full speciation. Histograms across bottom and top 
+#|     show the frequencies of windows without speciation (bottom) and with 
+#|     full-speciation (top) across different different incipient speciation 
+#|     rates. Curve is a binomial generalize linear model and shaded region 
+#|     shows 95% confidence envelope. 
+#|     
 
 
 logistic_hist_plot(sim_dat, nu, 
                    xlab = expression("Incipient speciation rate"~italic(nu)), 
                    xlog = FALSE,
                    ymin = 0, ymax = 0.008,
-                   formula = speciation ~ nu)
+                   formula = y ~ x)
 
 
 ```
@@ -264,18 +266,18 @@ The slope from the logistic regression model for log dispersal normalized by bir
 #| fig-width: 4
 #| fig-height: 3
 #| fig-cap: |
-#|     Relationship across simulation runs between relative dispersal rate
-#|     and speciation. Points are jittered around 1 and 0 and are color coded 
-#|     according to local density of points all in an attempt to more clearly 
-#|     show the distribution of simulation results. Curve is a 
-#|     binomial generalize linear model and gray region shows 95% confidence 
+#|     Relationship across simulation run windows between relative dispersal 
+#|     rate and full speciation. Histograms across bottom and top show the 
+#|     frequencies of windows without speciation (bottom) and with full-
+#|     speciation (top) across different incipient speciation rates. Curve is a 
+#|     binomial generalize linear model and shaded region shows 95% confidence 
 #|     envelope. 
 
-
-logistic_hist_plot(sim_dat, (1 + m_prop) * g / la, xlog = TRUE, 
-          xlab = "Relative dispersal rate", 
-          ymin = -0.003, ymax = 0.02,
-          formula = speciation ~ log((1 + m_prop) * g / la))
+logistic_hist_plot(sim_dat, (1 + m_prop) * g / la, 
+                   xlog = TRUE, 
+                   xlab = "Relative dispersal rate", 
+                   ymin = -0.003, ymax = 0.02,
+                   formula = y ~ x)
 ```
 
 We might also expect that speciation decreases with the duration of the wait time $\tau$ to full speciation. However, $\tau$ is only the initial value for the wait time, dispersal continually augments this wait time, thus $\tau$ by itself does not impact probability of speciation.
@@ -330,52 +332,61 @@ We now turn to developing the figure of abundance versus speciation. These resul
 sim_fig <- logistic_hist_plot(sim_dat, mean_pop_size, xlog = TRUE, 
           xlab = "Mean population size", 
           ymin = 0, ymax = 0.018,
-          formula = speciation ~ log(mean_pop_size) + I(log(mean_pop_size)^2))
+          formula = y ~ x + I(x^2))
 
-sim_fig
-
-# special_log10_breaks <- function(x) {
-#     p <- seq(floor(x[1]),
-#              ceiling(x[2]),
-#              by = (floor(x[2]) - ceiling(x[1])) / 15)
-#     
-#     10^p
-# }
-# 
-# spec_by_bin <- mutate(sim_dat, 
-#                       bins = cut(
-#                           mean_pop_size, 
-#                           log(mean_pop_size, 10) |> 
-#                               range() |> 
-#                               special_log10_breaks() 
-#                       )) |> 
-#     summarize(spec_prop = mean(speciation), 
-#               n = n(),
-#               .by = bins) |> 
-#     mutate(xlo = gsub("\\(|,.*", "", bins) |> as.numeric(), 
-#            xhi = gsub("\\]|.*,", "", bins) |> as.numeric()) |> 
-#     arrange(xlo)
-# 
-# # plotting
-# sim_fig <- spec_plot(sim_dat, mean_pop_size, xlab = "Mean population size", 
-#                xlog = TRUE, formula = y ~ x + I(x^2), 
-#                se = FALSE) + 
-#     geom_rect(data = spec_by_bin,
-#               mapping = aes(xmin = xlo, xmax = xhi,
-#                             ymin = 0, ymax = spec_prop),
-#               alpha = 0.25,
-#               inherit.aes = FALSE) 
-# 
-# # change order of layer display
-# sim_fig$layers <- sim_fig$layers[c(1, 3, 2)]
-# 
-# # add background bars
-# sim_fig <- sim_fig + 
-#     theme(panel.background = element_rect(fill = "gray90"),
-#           panel.grid.major.x = element_line(color = "white"),
-#           panel.grid.minor.x = element_line(color = "white")) +
-#     scale_x_log10(minor_breaks = spec_by_bin$xlo, expand = FALSE)
 ```
+
+
+### Assessing the effect of binning window size {#sec-window}
+
+In the main analysis we use a bin window size of 100 time steps. Here we re-run the analysis with windows of 50 or 200 to evaluate the impact of window size. @fig-window shows the intermediate abundance hump remains in the two alternative bin window sizes.
+
+```{r}
+#| label: fig-window
+#| cache: true
+#| dependson: [par-range, par-sample]
+#| fig-width: 8
+#| fig-height: 3
+#| fig-cap: |
+#|     Effect of window size on relationship between mean population size and 
+#|     full speciation within a window. In both cases of window size = 50 or
+#|     200, a mid-abundance hump in speciation probability is observed.
+
+
+# now run the simulation
+sim_dat_50 <- sim_BDI_spec(la = pars$la, mu = pars$mu, g = pars$g, 
+                           m_prop = pars$m_prop, nu = pars$nu, 
+                           tau = pars$tau, xi = pars$xi, 
+                           np = np, nstep = nstep, w = 50)
+
+sim_dat_200 <- sim_BDI_spec(la = pars$la, mu = pars$mu, g = pars$g, 
+                            m_prop = pars$m_prop, nu = pars$nu, 
+                            tau = pars$tau, xi = pars$xi, 
+                            np = np, nstep = nstep, w = 200)
+
+w50 <- logistic_hist_plot(sim_dat_50, mean_pop_size, xlog = TRUE, 
+                          xlab = "Mean population size", 
+                          ymin = 0, ymax = 0.018,
+                          formula = y ~ x + I(x^2)) +
+    facet_grid(cols = vars(w), 
+               labeller = as_labeller(c(`50` = "window = 50")))
+
+w200 <- logistic_hist_plot(sim_dat_200, mean_pop_size, xlog = TRUE, 
+                           xlab = "Mean population size", 
+                           ymin = 0, ymax = 0.018,
+                           formula = y ~ x + I(x^2)) +
+    ylab("") +
+    theme(axis.text.y = element_blank(), 
+          axis.line.y = element_blank(), 
+          axis.ticks.y = element_blank()) +
+    facet_grid(cols = vars(w), 
+               labeller = as_labeller(c(`200` = "window = 200")))
+    
+    
+plot_grid(w50, w200, rel_widths = c(1.25, 1))
+
+```
+
 
 ## Analyzing abundance and richness of arthropod genera in Hawai\`i {#sec-bgeom}
 
@@ -648,5 +659,7 @@ ggplot(gen_by_site[gen_by_site$rich > 1, ],
     scale_color_viridis_c()
 
 ```
+
+
 
 ## References
