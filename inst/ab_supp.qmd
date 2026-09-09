@@ -165,118 +165,16 @@ With those parameters sampled, we can now run the simulation, one realization fo
 sim_dat <- sim_BDI_spec(la = pars$la, mu = pars$mu, g = pars$g, 
                         m_prop = pars$m_prop, nu = pars$nu, 
                         tau = pars$tau, xi = pars$xi, 
-                        np = np, nstep = nstep, w = 500)
-
-
-pair_dat <- filter(initial_sim, speciation == 1 & time_step > 1) |> 
-    (\(x) {
-        replicate(
-            5, 
-            sim_BDI_spec(
-                la = sample(pars$la, nrow(x)), 
-                mu = sample(pars$mu, nrow(x)), 
-                g = sample(pars$g, nrow(x)), 
-                m_prop = sample(pars$m_prop, nrow(x)), 
-                nu = sample(pars$nu, nrow(x)), 
-                tau = sample(pars$tau, nrow(x)), 
-                xi = sample(pars$xi, nrow(x)), 
-                np = np, 
-                nstep = x$time_step
-            ), 
-            simplify = FALSE
-        )
-    })() |> 
-    setNames(paste0("try_", 1:5)) |>
-    lapply(mutate, sim_id = 1:n()) |> 
-    bind_rows(.id = "run") |> 
-    filter(speciation == 0) |> 
-    filter(!duplicated(sim_id))
-
-
-sim_dat <- select(pair_dat, !sim_id) |> 
-    bind_rows(filter(initial_sim, speciation == 1 & time_step > 1))
-
-# pair_2_choose <- mutate(pair_dat, foo = 1) |> 
-#     pivot_wider(id_cols = c(sim_id, la:time_step), 
-#                 names_from = run, 
-#                 values_from = foo, 
-#                 values_fill = 0) 
-# 
-# select(pair_2_choose, try_1:try_3) |> 
-#     head() |> 
-#     summarize(choice = \(x) {
-#         
-#     })
-# 
-# # find digital pairs without speciation
-# pair_dat <- replicate(
-#     3, 
-#     sim_BDI_spec(
-#         la = pars$la, mu = pars$mu, g = pars$g, 
-#         m_prop = pars$m_prop, nu = pars$nu, 
-#         tau = pars$tau, xi = pars$xi, 
-#         np = np, 
-#         nstep = sample(sim_dat$time_step[sim_dat$speciation == 1 &
-#                                              sim_dat$time_step > 1], 
-#                        nrow(pars), replace = TRUE)
-#     ), 
-#     simplify = FALSE
-# )
-# 
-# 
-# foo <- do.call(rbind, pair_dat) |> 
-#     rbind(sim_dat[sim_dat$speciation == 1 &
-#                       sim_dat$nstep > 1, ])
-# 
-# sim_dat <- foo
+                        np = np, nstep = nstep, w = 100)
 
 ```
 
-```{r}
-ggplot(sim_dat[sim_dat$speciation == 1, ], aes(time)) +
-    geom_histogram() +
-    scale_x_log10()
-    
-spec_time_dist <- filter(sim_dat, speciation == 1) |> 
-    pull(time) |> 
-    log() |> 
-    hist(breaks = 32, plot = FALSE) |> 
-    (\(h) {
-        stepfun(h$breaks, 
-                c(0, h$counts, 0) / (sum(h$counts) * diff(h$breaks)[1]))
-    })()
-
-no_time_dist <- filter(sim_dat, speciation == 0) |> 
-    pull(time) |> 
-    log() |> 
-    hist(breaks = 32, plot = FALSE) |> 
-    (\(h) {
-        stepfun(h$breaks, 
-                c(0, h$counts, 0) / (sum(h$counts) * diff(h$breaks)[1]))
-    })()
-
-plot(spec_time_dist)
-lines(no_time_dist, col = "red")
-
-abline(v = 1.2)
-m <- spec_time_dist(1.2)
-
-dat_no_spec <- filter(sim_dat, speciation == 0) |> 
-    mutate(log_time = log(time), 
-           r = runif(n(), 0, m), 
-           keep = r <= spec_time_dist(log_time))
-
-ggplot(dat_no_spec[dat_no_spec$keep, ], aes(time)) +
-    geom_histogram() +
-    scale_x_log10()
-
-foo <- sim_dat
-```
+Simulation outputs are analyzed in binned windows of timesteps, in this case `w = 100` steps in width. Bins are non-overlapping.
 
 
 ## Interpreting the simulation experiment {#sec-sim-res}
 
-Now we can visually inspect the results. Our main purpose is to study how abundance relates to speciation in this model, but first we check other relationships to ensure the model behaves as expected. In particular, population size should be larger when $\lambda > \mu$ and smaller, supported primarily by immigration. When $\lambda < \mu$ populations will grow indefinitely. When birth and death rates are equal ($\lambda = \mu$) the population could crash or expand depending on small random fluctuations and random immigration. @fig-la-mu shows exactly this pattern. Of note: simulation runs experiencing speciation diverge from the expected pattern but that is specifically because our simulation algorithm stops the simulation short (i.e. populations are not allowed to continue changing) once speciation occurs.
+Now we can visually inspect the results. Our main purpose is to study how abundance relates to speciation in this model, but first we check other relationships to ensure the model behaves as expected. In particular, population size should be larger when $\lambda > \mu$ and smaller, supported primarily by immigration. When $\lambda < \mu$ populations will grow indefinitely. When birth and death rates are equal ($\lambda = \mu$) the population could crash or expand depending on small random fluctuations and random immigration. @fig-la-mu shows exactly this pattern. Smaller population sizes for $\lambda > \mu$ likely correspond to time bin windows earlier in the simulation as well as those that stochastically drifted to smaller sizes.
 
 ```{r}
 #| label: fig-la-mu
@@ -288,22 +186,24 @@ Now we can visually inspect the results. Our main purpose is to study how abunda
 #|     speciation. Points are color coded according to local density of points 
 #|     in an attempt to more clearly show the distribution of simulation results.
 
-pdf("~/la-mu.pdf")
 ggplot(sim_dat, aes(la - mu, mean_pop_size)) +
-    geom_point(data = select(sim_dat, !speciation), 
-               mapping = aes(la - mu, mean_pop_size), color = "gray50") +
-    geom_pointdensity() + 
+    geom_hex(data = select(sim_dat, !speciation), 
+             mapping = aes(la - mu, mean_pop_size), 
+             fill = "gray50") +
+    geom_hex() + 
     facet_wrap(vars(speciation), 
                labeller = as_labeller(c(`0` = "No speciation", 
                                         `1` = "Yes speciation"))) +
     scale_y_log10() + 
     xlab(expression(italic(lambda - mu))) + 
     ylab("Mean population size") +
-    scale_color_viridis_c(trans = "log10") +
+    scale_fill_viridis_c(trans = "log10") +
     theme_cowplot()
 
-dev.off()
 ```
+
+
+We also expect that probability of specification should increase with the parameter $\nu$, the rate of incipient speciation. @fig-nu confirms this expectation but shows the relationship to be weak, indicating that while this parameter obviously matters, its effect is modulated by other factors such as abundance and dispersal. This finding is confirmed with logistic regression.
 
 ```{r}
 #| label: nu-mod
@@ -316,10 +216,7 @@ nu_slope_ci <- confint(nu_mod, 2)
 
 ```
 
-
-
-
-We also expect that probability of specification should increase with the parameter $\nu$, the rate of incipient speciation. @fig-nu confirms this expectation but shows the relationship to be weak, indicating that while this parameter obviously matters, its effect is modulated by other factors such as abundance and dispersal. A logistic regression model confirms this weakly positive but meaningful relationship estimating a 95% confidence interval on the slope of (`r round(nu_slope_ci[1], 3)`, `r round(nu_slope_ci[2], 3)`).
+The 95% confidence interval on the slope of $\nu$ is (`r round(nu_slope_ci[1], 3)`, `r round(nu_slope_ci[2], 3)`).
 
 With results from the simulation we report confidence intervals rather than hypothesis tests because sample sizes from simulations are arbitrary and thus degrees of freedom can be manipulated to produce statistically significant results from biologically meaningless patterns. By contrast, confidence intervals more meaningfully indicate the magnitude of effects in the simulation experiment.
 
@@ -337,12 +234,17 @@ With results from the simulation we report confidence intervals rather than hypo
 #|     envelope. 
 
 
-spec_plot(sim_dat, nu, 
-          xlab = expression("Incipient speciation rate"~italic(nu)))
+logistic_hist_plot(sim_dat, nu, 
+                   xlab = expression("Incipient speciation rate"~italic(nu)), 
+                   xlog = FALSE,
+                   ymin = 0, ymax = 0.008,
+                   formula = speciation ~ nu)
 
 
 ```
 
+
+We also expect dispersal to decrease the chance of speciation because dispersal prolongs the wait time until full speciation. But we have to evaluate this expectation with respect to *relative* dispersal, that is dispersal relative to birth because these rate trade-off in determining whether a population grows due to intrinsic (birth) or extrinsic (dispersal) forces. Dispersal comes from two sources: global dispersal and local dispersal, so we add these two sources when considering total dispersal. @fig-disp Confirms the negative relationship between speciation and dispersal. We again preform a binomial regression of this relationship.
 
 ```{r}
 #| label: disp-mod
@@ -354,7 +256,7 @@ disp_mod <- glm(speciation ~ I(log((g + m_prop * g) / la)),
 disp_slope_ci <- confint(disp_mod)
 ```
 
-We also expect dispersal to decrease the chance of speciation because dispersal prolongs the wait time until full speciation. But we have to evaluate this expectation with respect to *relative* dispersal, that is dispersal relative to birth because these rate trade-off in determining whether a population grows due to intrinsic (birth) or extrinsic (dispersal) forces. Dispersal comes from two sources: global dispersal and local dispersal, so we add these two sources when considering total dispersal. @fig-disp Confirms the negative relationship between speciation and dispersal. The slope from a logistic regression model for log dispersal normalized by birth rate has a 95% confidence interval of (`r round(disp_slope_ci[1], 3)`, `r round(disp_slope_ci[2], 3)`).
+The slope from the logistic regression model for log dispersal normalized by birth rate has a 95% confidence interval of (`r round(disp_slope_ci[1], 3)`, `r round(disp_slope_ci[2], 3)`).
 
 
 ```{r}
@@ -370,10 +272,13 @@ We also expect dispersal to decrease the chance of speciation because dispersal 
 #|     envelope. 
 
 
-spec_plot(sim_dat, (1 + m_prop) * g / la, xlog = TRUE, 
-          xlab = "Relative dispersal rate")
+logistic_hist_plot(sim_dat, (1 + m_prop) * g / la, xlog = TRUE, 
+          xlab = "Relative dispersal rate", 
+          ymin = -0.003, ymax = 0.02,
+          formula = speciation ~ log((1 + m_prop) * g / la))
 ```
 
+We might also expect that speciation decreases with the duration of the wait time $\tau$ to full speciation. However, $\tau$ is only the initial value for the wait time, dispersal continually augments this wait time, thus $\tau$ by itself does not impact probability of speciation.
 
 ```{r}
 #| label: tau-mod
@@ -385,7 +290,7 @@ tau_mod <- glm(speciation ~ log(tau),
 tau_slope_ci <- confint(tau_mod, 2)
 ```
 
-We might also expect that speciation decreases with the duration of the wait time $\tau$ to full speciation. However, $\tau$ is only the initial value for the wait time, dispersal continually augments this wait time, thus $\tau$ by itself does not impact probability of speciation. The 95% confidence interval for the slope of speciation probability against $\log(\tau)$ is (`r round(tau_slope_ci[1], 3)`, `r round(tau_slope_ci[2], 3)`), which does skew toward negative values, but includes the value of slope = 0.
+The 95% confidence interval for the slope of speciation probability against $\log(\tau)$ is (`r round(tau_slope_ci[1], 3)`, `r round(tau_slope_ci[2], 3)`), which does skew toward negative values, but includes the value of slope = 0.
 
 
 ### Evaluating the relationship between abundance and speciation
@@ -421,51 +326,55 @@ We now turn to developing the figure of abundance versus speciation. These resul
 #| cache: true
 #| dependson: run-sim
 
-special_log10_breaks <- function(x) {
-    p <- seq(floor(x[1]),
-             ceiling(x[2]),
-             by = (floor(x[2]) - ceiling(x[1])) / 15)
-    
-    10^p
-}
 
-spec_by_bin <- mutate(sim_dat, 
-                      bins = cut(
-                          mean_pop_size, 
-                          log(mean_pop_size, 10) |> 
-                              range() |> 
-                              special_log10_breaks() 
-                      )) |> 
-    summarize(spec_prop = mean(speciation), 
-              n = n(),
-              .by = bins) |> 
-    mutate(xlo = gsub("\\(|,.*", "", bins) |> as.numeric(), 
-           xhi = gsub("\\]|.*,", "", bins) |> as.numeric()) |> 
-    arrange(xlo)
+sim_fig <- logistic_hist_plot(sim_dat, mean_pop_size, xlog = TRUE, 
+          xlab = "Mean population size", 
+          ymin = 0, ymax = 0.018,
+          formula = speciation ~ log(mean_pop_size) + I(log(mean_pop_size)^2))
 
-# plotting
-sim_fig <- spec_plot(sim_dat, mean_pop_size, xlab = "Mean population size", 
-               xlog = TRUE, formula = y ~ x + I(x^2), 
-               se = FALSE) + 
-    geom_rect(data = spec_by_bin,
-              mapping = aes(xmin = xlo, xmax = xhi,
-                            ymin = 0, ymax = spec_prop),
-              alpha = 0.25,
-              inherit.aes = FALSE) 
+sim_fig
 
-# change order of layer display
-sim_fig$layers <- sim_fig$layers[c(1, 3, 2)]
-
-# add background bars
-sim_fig <- sim_fig + 
-    theme(panel.background = element_rect(fill = "gray90"),
-          panel.grid.major.x = element_line(color = "white"),
-          panel.grid.minor.x = element_line(color = "white")) +
-    scale_x_log10(minor_breaks = spec_by_bin$xlo, expand = FALSE)
-
-ggplot(sim_dat, aes(as.factor(speciation), mean_pop_size)) +
-    geom_violin() +
-    scale_y_log10()
+# special_log10_breaks <- function(x) {
+#     p <- seq(floor(x[1]),
+#              ceiling(x[2]),
+#              by = (floor(x[2]) - ceiling(x[1])) / 15)
+#     
+#     10^p
+# }
+# 
+# spec_by_bin <- mutate(sim_dat, 
+#                       bins = cut(
+#                           mean_pop_size, 
+#                           log(mean_pop_size, 10) |> 
+#                               range() |> 
+#                               special_log10_breaks() 
+#                       )) |> 
+#     summarize(spec_prop = mean(speciation), 
+#               n = n(),
+#               .by = bins) |> 
+#     mutate(xlo = gsub("\\(|,.*", "", bins) |> as.numeric(), 
+#            xhi = gsub("\\]|.*,", "", bins) |> as.numeric()) |> 
+#     arrange(xlo)
+# 
+# # plotting
+# sim_fig <- spec_plot(sim_dat, mean_pop_size, xlab = "Mean population size", 
+#                xlog = TRUE, formula = y ~ x + I(x^2), 
+#                se = FALSE) + 
+#     geom_rect(data = spec_by_bin,
+#               mapping = aes(xmin = xlo, xmax = xhi,
+#                             ymin = 0, ymax = spec_prop),
+#               alpha = 0.25,
+#               inherit.aes = FALSE) 
+# 
+# # change order of layer display
+# sim_fig$layers <- sim_fig$layers[c(1, 3, 2)]
+# 
+# # add background bars
+# sim_fig <- sim_fig + 
+#     theme(panel.background = element_rect(fill = "gray90"),
+#           panel.grid.major.x = element_line(color = "white"),
+#           panel.grid.minor.x = element_line(color = "white")) +
+#     scale_x_log10(minor_breaks = spec_by_bin$xlo, expand = FALSE)
 ```
 
 ## Analyzing abundance and richness of arthropod genera in Hawai\`i {#sec-bgeom}
@@ -515,37 +424,6 @@ gen_rich <- filter(arth_check, Genus != "") |>
 gen <- inner_join(gen_rich, gen_abund)
 ```
 
-<!-- In merging the checklist data (providing species richness) with field survey data (providing abundance estimates) some genera were lost due to not being detected in the survey data. -->
-
-<!-- ```{r} -->
-<!-- # endemic checklist genera not found in danʻs data -->
-<!-- # only need to search for "end" because those with  -->
-<!-- # status "end" that are in gruner data had their -->
-<!-- # status switched to "in survey" -->
-<!-- n_checklist_missing <- sum(gen_rich$status == "end") -->
-<!-- n_checklist_missing -->
-
-<!-- ``` -->
-
-<!-- `r n_checklist_missing` endemic genera from the checklist were absent from the survey data, representing `r round(100 * n_checklist_missing / sum(gen_rich$status %in% c("end", "in survey")), 2)`% of endemic genera from the checklist. -->
-
-<!-- While this is a large percentage, it is also not unexpected. The survey data constitute a very small sample of the geographic space of the Hawaiian Archipelago as well as a small sample of the extremely heterogeneous environmental space of the archipelago. It is still worth evaluating how the distributions of species richnesses differ between those genera included in the survey data and those missing. @fig-rich-comp shows that genera not found in the survey data are skewed toward those with low species richness.  -->
-
-<!-- ```{r} -->
-<!-- #| label: fig-rich-comp -->
-
-<!-- filter(gen_rich, status %in% c("end", "in survey")) |> -->
-<!--     mutate(status = factor(ifelse(status == "end", "no", "yes"), -->
-<!--                           levels = c("yes", "no"))) |> -->
-<!--     ggplot(aes(status, nspp)) + -->
-<!--     geom_violin(fill = "gray") + -->
-<!--     scale_y_log10() + -->
-<!--     theme_cowplot() + -->
-<!--     xlab("Found in survey data") + -->
-<!--     ylab("Number of species in genus") -->
-<!-- ``` -->
-
-<!-- It is impossible to evaluate how these missing genera might change the relationship (estimated in @sec-arth-mod) because it is impossible to know what their abundances. These genera could be absent from the survey data because their constituent species are rare (i.e. low average per-species abundance) or because their constituent species are restricted to different habitats and/or islands (i.e. potentially high average per-species abundance found elsewhere). In another hypothetical survey data set that did include these currently missing genera, the abundance of genera found in the real data set at hand would likely be wildly different or missing for the same reasons. -->
 
 ### Model of within genus richness and average per-species abundance {#sec-arth-mod}
 
