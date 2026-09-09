@@ -165,9 +165,114 @@ With those parameters sampled, we can now run the simulation, one realization fo
 sim_dat <- sim_BDI_spec(la = pars$la, mu = pars$mu, g = pars$g, 
                         m_prop = pars$m_prop, nu = pars$nu, 
                         tau = pars$tau, xi = pars$xi, 
-                        np = np, nstep = nstep)
+                        np = np, nstep = nstep, w = 500)
+
+
+pair_dat <- filter(initial_sim, speciation == 1 & time_step > 1) |> 
+    (\(x) {
+        replicate(
+            5, 
+            sim_BDI_spec(
+                la = sample(pars$la, nrow(x)), 
+                mu = sample(pars$mu, nrow(x)), 
+                g = sample(pars$g, nrow(x)), 
+                m_prop = sample(pars$m_prop, nrow(x)), 
+                nu = sample(pars$nu, nrow(x)), 
+                tau = sample(pars$tau, nrow(x)), 
+                xi = sample(pars$xi, nrow(x)), 
+                np = np, 
+                nstep = x$time_step
+            ), 
+            simplify = FALSE
+        )
+    })() |> 
+    setNames(paste0("try_", 1:5)) |>
+    lapply(mutate, sim_id = 1:n()) |> 
+    bind_rows(.id = "run") |> 
+    filter(speciation == 0) |> 
+    filter(!duplicated(sim_id))
+
+
+sim_dat <- select(pair_dat, !sim_id) |> 
+    bind_rows(filter(initial_sim, speciation == 1 & time_step > 1))
+
+# pair_2_choose <- mutate(pair_dat, foo = 1) |> 
+#     pivot_wider(id_cols = c(sim_id, la:time_step), 
+#                 names_from = run, 
+#                 values_from = foo, 
+#                 values_fill = 0) 
+# 
+# select(pair_2_choose, try_1:try_3) |> 
+#     head() |> 
+#     summarize(choice = \(x) {
+#         
+#     })
+# 
+# # find digital pairs without speciation
+# pair_dat <- replicate(
+#     3, 
+#     sim_BDI_spec(
+#         la = pars$la, mu = pars$mu, g = pars$g, 
+#         m_prop = pars$m_prop, nu = pars$nu, 
+#         tau = pars$tau, xi = pars$xi, 
+#         np = np, 
+#         nstep = sample(sim_dat$time_step[sim_dat$speciation == 1 &
+#                                              sim_dat$time_step > 1], 
+#                        nrow(pars), replace = TRUE)
+#     ), 
+#     simplify = FALSE
+# )
+# 
+# 
+# foo <- do.call(rbind, pair_dat) |> 
+#     rbind(sim_dat[sim_dat$speciation == 1 &
+#                       sim_dat$nstep > 1, ])
+# 
+# sim_dat <- foo
 
 ```
+
+```{r}
+ggplot(sim_dat[sim_dat$speciation == 1, ], aes(time)) +
+    geom_histogram() +
+    scale_x_log10()
+    
+spec_time_dist <- filter(sim_dat, speciation == 1) |> 
+    pull(time) |> 
+    log() |> 
+    hist(breaks = 32, plot = FALSE) |> 
+    (\(h) {
+        stepfun(h$breaks, 
+                c(0, h$counts, 0) / (sum(h$counts) * diff(h$breaks)[1]))
+    })()
+
+no_time_dist <- filter(sim_dat, speciation == 0) |> 
+    pull(time) |> 
+    log() |> 
+    hist(breaks = 32, plot = FALSE) |> 
+    (\(h) {
+        stepfun(h$breaks, 
+                c(0, h$counts, 0) / (sum(h$counts) * diff(h$breaks)[1]))
+    })()
+
+plot(spec_time_dist)
+lines(no_time_dist, col = "red")
+
+abline(v = 1.2)
+m <- spec_time_dist(1.2)
+
+dat_no_spec <- filter(sim_dat, speciation == 0) |> 
+    mutate(log_time = log(time), 
+           r = runif(n(), 0, m), 
+           keep = r <= spec_time_dist(log_time))
+
+ggplot(dat_no_spec[dat_no_spec$keep, ], aes(time)) +
+    geom_histogram() +
+    scale_x_log10()
+
+foo <- sim_dat
+```
+
 
 ## Interpreting the simulation experiment {#sec-sim-res}
 
@@ -183,6 +288,7 @@ Now we can visually inspect the results. Our main purpose is to study how abunda
 #|     speciation. Points are color coded according to local density of points 
 #|     in an attempt to more clearly show the distribution of simulation results.
 
+pdf("~/la-mu.pdf")
 ggplot(sim_dat, aes(la - mu, mean_pop_size)) +
     geom_point(data = select(sim_dat, !speciation), 
                mapping = aes(la - mu, mean_pop_size), color = "gray50") +
@@ -196,7 +302,7 @@ ggplot(sim_dat, aes(la - mu, mean_pop_size)) +
     scale_color_viridis_c(trans = "log10") +
     theme_cowplot()
 
-
+dev.off()
 ```
 
 ```{r}
@@ -265,7 +371,7 @@ We also expect dispersal to decrease the chance of speciation because dispersal 
 
 
 spec_plot(sim_dat, (1 + m_prop) * g / la, xlog = TRUE, 
-          xlab = "Relative dpeciation rate")
+          xlab = "Relative dispersal rate")
 ```
 
 
@@ -356,6 +462,10 @@ sim_fig <- sim_fig +
           panel.grid.major.x = element_line(color = "white"),
           panel.grid.minor.x = element_line(color = "white")) +
     scale_x_log10(minor_breaks = spec_by_bin$xlo, expand = FALSE)
+
+ggplot(sim_dat, aes(as.factor(speciation), mean_pop_size)) +
+    geom_violin() +
+    scale_y_log10()
 ```
 
 ## Analyzing abundance and richness of arthropod genera in Hawai\`i {#sec-bgeom}
