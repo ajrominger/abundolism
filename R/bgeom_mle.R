@@ -47,11 +47,15 @@ glm_bgeom <- function(formula, data, a_init = NULL, ...) {
     # mle
     fit <- optim(p0, fn = bgeo_ll, mx = X, my = y,
                  hessian = TRUE,
-                 control = list(fnscale = -1, reltol = .Machine$double.eps^0.75,
+                 control = list(fnscale = -1,
+                                reltol = .Machine$double.eps^0.75,
+                                maxit = 1000,
                                 ...))
 
     if(fit$convergence != 0) {
-        stop("bad convergence when maximizing log likelihood function")
+        stop("bad convergence when maximizing log likelihood function \n",
+             "convergence code = ", fit$convergence,
+             "\n", "see ?optim for interpretation")
     }
 
     beta_hat <- fit$par
