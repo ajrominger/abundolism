@@ -31,7 +31,7 @@ BEGIN_RCPP
 END_RCPP
 }
 // sim_spec_abund
-arma::mat sim_spec_abund(const arma::vec& la, const arma::vec& mu, const arma::vec& g, const arma::vec& m_prop, const arma::vec& nu, const arma::vec& tau, const arma::vec& xi, int np, int nstep);
+Rcpp::List sim_spec_abund(const arma::vec& la, const arma::vec& mu, const arma::vec& g, const arma::vec& m_prop, const arma::vec& nu, const arma::vec& tau, const arma::vec& xi, int np, int nstep);
 RcppExport SEXP _abundolism_sim_spec_abund(SEXP laSEXP, SEXP muSEXP, SEXP gSEXP, SEXP m_propSEXP, SEXP nuSEXP, SEXP tauSEXP, SEXP xiSEXP, SEXP npSEXP, SEXP nstepSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
