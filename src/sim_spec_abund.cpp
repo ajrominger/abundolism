@@ -15,8 +15,7 @@ Rcpp::List sim_spec_abund(const arma::vec& la,
                           const arma::vec& tau,
                           const arma::vec& xi,
                           int np,
-                          int nstep,
-                          bool scale_setback) {
+                          int nstep) {
 
     // calculate dispersal rates
     vec m = m_prop % g;
@@ -145,12 +144,7 @@ Rcpp::List sim_spec_abund(const arma::vec& la,
 
                 // update wait time to speciation
                 if(s(receiving_pop) > 0) {
-                    if(scale_setback) {
-                        stau(receiving_pop) += xi(r) / x(receiving_pop);
-                    } else {
-                        stau(receiving_pop) += xi(r);
-                    }
-
+                    stau(receiving_pop) += xi(r) / x(receiving_pop);
                 }
             } else if(e_type == 1) { // birth
                 x(e_pop) ++;
