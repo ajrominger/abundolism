@@ -174,7 +174,7 @@ Simulation outputs are analyzed in binned windows of timesteps, in this case `w 
 
 ## Interpreting the simulation experiment {#sec-sim-res}
 
-Now we can visually inspect the results. Our main purpose is to study how abundance relates to speciation in this model, but first we check other relationships to ensure the model behaves as expected. In particular, population size should be larger when $\lambda > \mu$ and smaller, supported primarily by immigration. When $\lambda < \mu$ populations will grow indefinitely. When birth and death rates are equal ($\lambda = \mu$) the population could crash or expand depending on small random fluctuations and random immigration. @fig-la-mu shows exactly this pattern. Smaller population sizes for $\lambda > \mu$ likely correspond to time bin windows earlier in the simulation as well as those that stochastically drifted to smaller sizes.
+Now we can visually inspect the results. Our main purpose is to study how abundance relates to speciation in this model, but first we check other relationships to ensure the model behaves as expected. In particular, population size should be larger when $\lambda > \mu$ and smaller when $\labmda < \mu$, supported primarily by immigration. When $\lambda > \mu$ populations will grow indefinitely. When birth and death rates are equal ($\lambda = \mu$) the population could crash or expand depending on small random fluctuations and random immigration. @fig-la-mu shows exactly this pattern. Smaller population sizes for $\lambda > \mu$ likely correspond to time bin windows earlier in the simulation as well as those that stochastically drifted to smaller sizes.
 
 ```{r}
 #| label: fig-la-mu
@@ -204,7 +204,7 @@ ggplot(sim_dat, aes(la - mu, mean_pop_size)) +
 ```
 
 
-We also expect that probability of specification should increase with the parameter $\nu$, the rate of incipient speciation. @fig-nu confirms this expectation but shows the relationship to be weak, indicating that while this parameter obviously matters, its effect is modulated by other factors such as abundance and dispersal. This finding is confirmed with logistic regression.
+We also expect that probability of speciation should increase with the parameter $\nu$, the rate of incipient speciation. @fig-nu confirms this expectation but shows the relationship to be weak, indicating that while this parameter obviously matters, its effect is modulated by other factors such as abundance and dispersal. This finding is confirmed with logistic regression.
 
 ```{r}
 #| label: nu-mod
@@ -231,7 +231,7 @@ With results from the simulation we report confidence intervals rather than hypo
 #|     rate and probability of full speciation. Histograms across bottom and top 
 #|     show the frequencies of windows without speciation (bottom) and with 
 #|     full-speciation (top) across different different incipient speciation 
-#|     rates. Curve is a binomial generalize linear model and shaded region 
+#|     rates. Curve is a binomial generalized linear model and shaded region 
 #|     shows 95% confidence envelope. 
 #|     
 
@@ -409,7 +409,7 @@ arth_check <- read.csv("raw_data/hawaii_arthropod_checklist.csv")
 
 hmean <- function(x) length(x) / sum(1 / x)
 
-# calculate abundances of genera from survey data
+# calculate average per-species abundances of genera from survey data
 gen_abund <- filter(arth, origin == "native-endemic") |> 
     group_by(genus, species_code) |>
     summarize(abund = n()) |>
@@ -438,7 +438,7 @@ gen <- inner_join(gen_rich, gen_abund)
 
 ### Model of within genus richness and average per-species abundance {#sec-arth-mod}
 
-With the prepared data we can compute a quadratic and linear model of genus richness versus abundance. As explained in the main text, these models are beta-binomial generalized linear models and are achieved with custom functions available in the *abundolism* package associated with this paper. The main function is `glm_bgeom` which maximizes the log likelihood function and shares some common methods with `lm` and `glm` including `logLik` which enables likelihood analyses such as the likelihood ratio test. 
+With the prepared data we can compute a quadratic and linear model of genus richness versus average per-species abundance. As explained in the main text, these models are beta-geometric generalized linear models and are achieved with custom functions available in the *abundolism* package associated with this paper. The main function is `glm_bgeom` which maximizes the log likelihood function and shares some common methods with `lm` and `glm` including `logLik` which enables likelihood analyses such as the likelihood ratio test. 
 
 To summarize from the main text, our full quadratic model is 
 
@@ -450,7 +450,7 @@ y_i &\sim \text{BetaGeometric}(\alpha_i, \beta) \\
 \end{aligned}
 $$
 
-where $x_i$ is mean abundance of lineage $i$ and our estimate for the observable diversification probability for lineage $i$ is $1 - \hat{p_i} = 1 - \frac{\alpha_i}{\alpha_i + \beta}$.
+where $x_i$ is average per-species abundance of lineage $i$ and our estimate for the observable diversification probability for lineage $i$ is $1 - \hat{p_i} = 1 - \frac{\alpha_i}{\alpha_i + \beta}$.
 
 
 ```{r}
@@ -470,6 +470,14 @@ arth_mod0 <- glm_bgeom(nspp ~ log_abund, data = gen)
 arth_mod
 arth_mod0
 ```
+
+We can also look at the confidence intervals for parameters of the quadratic model (note: these are Wald confidence intervals).
+
+```{r}
+confint(arth_mod)
+
+```
+
 
 The likelihood ratio test comparing quadratic and linear models is achieved with a custom function `lrt_bgeom` from the *abundolism* package. 
 
@@ -501,7 +509,7 @@ gp_nspp <- ggplot(arth_mod_ci, aes(mean_abund, ymin = y_lwr, ymax = y_upr)) +
     geom_ribbon(fill = "gray60", alpha = 0.5) +
     scale_x_log10() +
     scale_y_log10() +
-    xlab("Mean genus abundance") +
+    xlab("Average per-species abundance") +
     ylab("Genus richness") +
     geom_pointdensity(data = gen, mapping = aes(mean_abund, nspp), 
                       inherit.aes = FALSE) +
@@ -518,7 +526,7 @@ gp_prb <- ggplot(arth_p_ci, aes(mean_abund, y = p_hat,
     geom_line(linewidth = 1) +
     scale_x_log10() +
     ylim(0.5, 1) +
-    xlab("Mean genus abundance") +
+    xlab("Average per-species abundance") +
     ylab(expression(italic(1 - hat(p)))) +
     theme_cowplot()
 
@@ -528,7 +536,7 @@ gp_arth <- plot_grid(gp_prb, gp_nspp, rel_widths = c(0.75, 1),
 
 ### Evaluating impact of outliers {#sec-outlier}
 
-There is one clear outlier: *Drosophila* with high richness given abundance. To make sure this outlier does not bias results we re-run the analysis of genus richness versus abundance without *Drosophila*.
+There is one clear outlier: *Drosophila* with high richness given abundance. To make sure this outlier does not bias results we re-run the analysis of genus richness versus average per-species abundance without *Drosophila*.
 
 
 
@@ -602,7 +610,7 @@ lrt_bgeom(what_if_mod0, what_if_mod)
 
 ### Assessing the choice of average per-species abundance {#sec-tot-abund}
 
-We should evaluate if the choice of mean per-species abundance produces any unintended artifacts in our analysis of how mean per-species abundance relates to within genus richness. The primary concern would be if genera themselves somehow had a carrying capacity, then the more species contained in a genus, the less abundant, on average, each species would have to be. Two observations from the data dispel this concern: first, the vast majority of genera are represented by only a single species at a sampling location [@fig-site-gen-rich], making the partitioning of a hypothetical genus-level carrying capacity moot at all but the few sites where genera are represented by multiple species. 
+We should evaluate if the choice of average per-species abundance produces any unintended artifacts in our analysis of how average per-species abundance relates to within genus richness. The primary concern would be if genera themselves somehow had a carrying capacity, then the more species contained in a genus, the less abundant, on average, each species would have to be. Two observations from the data dispel this concern: first, the vast majority of genera are represented by only a single species at a sampling location [@fig-site-gen-rich], making the partitioning of a hypothetical genus-level carrying capacity moot at all but the few sites where genera are represented by multiple species. 
 
 ```{r}
 #| label: fig-gen-site-rich
