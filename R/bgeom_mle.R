@@ -15,10 +15,10 @@
 #' @details
 #'     Some methods that work for objects of class `glm` and `lm` will
 #'     also work for the output of this function, specifically:
-#'     `print`, `coef`, `logLik`, and `AIC`. A custom likelihood ratio test
-#'     function is provided by `lrt_geom`. In some edge cases the default
+#'     `print`, `coef`, `confint`, `logLik`, and `AIC`. A custom likelihood
+#'     ratio test is provided by `lrt_geom`. In some edge cases the default
 #'     automatic initial values generator (`a_init = NULL`) will not work and
-#'     in those cases `a_init` can be used
+#'     in those cases `a_init` can be used to specify a custom starting place.
 #'
 #' @returns an object of class `glmBGeom` inspired by, but not strictly
 #'     inheriting from, `glm` and `lm`
@@ -109,6 +109,24 @@ print.glmBGeom <- function(object) {
     cat("\nLog likelihood:", "\n")
     print(logLik(object))
 
+}
+
+
+# note: these are wald confidence intervals
+#' @export
+confint.glmBGeom <- function(object, parm, level = 0.95) {
+    sig <- solve(-object$hess) |>
+        diag() |>
+        sqrt()
+
+    alpha <- 1 - level
+    lwr <- object$coefficients + qnorm(alpha / 2) * sig
+    upr <- object$coefficients + qnorm(1 - alpha / 2) * sig
+
+    mat <- cbind(lwr, upr)
+    colnames(mat) <- paste(round(c(alpha / 2, 1 - alpha / 2) * 100, 1), "%")
+
+    mat
 }
 
 
