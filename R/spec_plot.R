@@ -4,7 +4,6 @@
 #'     Plot speciation against a predictor variable with glm prediction
 #'
 #' @param dat simulatin output `data.frame`
-#' @param dat output from simulation
 #' @param x name (unquoted) of predictor variable
 #' @param xlab label for x axis
 #' @param xlog logical, should x-axis be log-transformed (default FALSE)
