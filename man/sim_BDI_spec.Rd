@@ -4,7 +4,7 @@
 \alias{sim_BDI_spec}
 \title{Simulate a birth-death-speciation model}
 \usage{
-sim_BDI_spec(la, mu, g, m_prop, nu, tau, xi, np, nstep)
+sim_BDI_spec(la, mu, g, m_prop, nu, tau, xi, np, nstep, w)
 }
 \arguments{
 \item{la}{vector of bird rates}
@@ -25,11 +25,14 @@ full speciation}
 \item{np}{number of local populations in the meta population}
 
 \item{nstep}{scalar, number of simulation steps}
+
+\item{w}{scalar, number of simulation steps in window for sliding average}
 }
 \value{
 a data.frame with columns for input parameter values and output
 results
 \itemize{
+\item \code{sim_id}
 \item \code{la}
 \item \code{mu}
 \item \code{g}
@@ -39,8 +42,7 @@ results
 \item \code{xi}
 \item \code{np}
 \item \code{nstep}
-\item \code{time}: simulation time step, if speciation occurred this number will
-be \verb{< nstep}, if not this number will be \verb{== nstep}
+\item \code{w}
 \item \code{mean_pop_size}: the mean population size across all time steps and
 populations
 \item \code{speciation}: 0 (no speciation) or 1 (yes speciation)

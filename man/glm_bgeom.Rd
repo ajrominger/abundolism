@@ -29,8 +29,8 @@ Find maximum likelihood parameters for glm assuming geometric
 \details{
 Some methods that work for objects of class `glm` and `lm` will
     also work for the output of this function, specifically:
-    `print`, `coef`, `logLik`, and `AIC`. A custom likelihood ratio test
-    function is provided by `lrt_geom`. In some edge cases the default
+    `print`, `coef`, `confint`, `logLik`, and `AIC`. A custom likelihood
+    ratio test is provided by `lrt_geom`. In some edge cases the default
     automatic initial values generator (`a_init = NULL`) will not work and
-    in those cases `a_init` can be used
+    in those cases `a_init` can be used to specify a custom starting place.
 }

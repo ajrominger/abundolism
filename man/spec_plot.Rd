@@ -7,7 +7,7 @@
 spec_plot(dat, x, xlab, xlog = FALSE, formula = NULL, ...)
 }
 \arguments{
-\item{dat}{output from simulation}
+\item{dat}{simulatin output \code{data.frame}}
 
 \item{x}{name (unquoted) of predictor variable}
 
