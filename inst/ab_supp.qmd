@@ -312,6 +312,37 @@ sim_mod <- glm(speciation ~ log_abund + I(log_abund^2),
 
 sim_quad_ci <- confint(sim_mod, parm = 3)
 
+
+library(lme4)
+
+sim_dat$sim_id <- as.factor(sim_dat$sim_id)
+sim_dat$rel_disp <- (1 + sim_dat$m_prop) * sim_dat$g / sim_dat$la
+sim_dat$rel_disp_bin <- cut(log(sim_dat$rel_disp), breaks = 5)
+
+
+ggplot(sim_dat, aes(log_abund, speciation)) +
+    geom_hex(bins = 40) +
+    scale_fill_viridis_c(transform = "log10") +
+    facet_wrap(vars(rel_disp_bin))
+
+m <- glmer(speciation ~ (log_abund + I(log_abund^2)) * log(rel_disp) + (1 | sim_id), 
+           family = "binomial", 
+           data = sim_dat)
+
+mm <- glmer(speciation ~ (log_abund + I(log_abund^2)) * log(nu) + (1 | sim_id), 
+           family = "binomial", 
+           data = sim_dat)
+
+sim_dat$r <- sim_dat$la - sim_dat$mu
+
+mmm <- glmer(speciation ~ (log_abund + I(log_abund^2)) * r + (1 | sim_id), 
+           family = "binomial", 
+           data = sim_dat)
+
+cor(sim_dat$r, sim_dat$log_abund)
+
+logistic_hist_plot(sim_dat, r, "R", xlog = FALSE, formula = y ~ x)
+
 ```
 
 
@@ -553,11 +584,13 @@ Based on a likelihood ratio test we find the quadratic model is still preferred.
 lrt_bgeom(arth_nodro0, arth_nodro)
 ```
 
-### Evaluating impact of missing genera
+### Evaluating impact of missing genera {#sec-miss-gen}
 
 In merging the checklist data (providing species richness) with field survey data (providing abundance estimates) some genera were lost due to not being detected in the survey data.
 
 ```{r}
+#| label: miss-gen
+
 # endemic checklist genera not found in danʻs data
 # only need to search for "end" because those with
 # status "end" that are in gruner data had their
