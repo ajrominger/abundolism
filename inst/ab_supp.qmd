@@ -47,6 +47,7 @@ library(ggplot2)
 library(ggpointdensity)
 library(cowplot)
 library(knitr)
+library(glmmTMB)
 
 sessionInfo() |> 
     print(locale = FALSE)
@@ -174,34 +175,266 @@ Simulation outputs are analyzed in binned windows of timesteps, in this case `w 
 
 ## Interpreting the simulation experiment {#sec-sim-res}
 
-Now we can visually inspect the results. Our main purpose is to study how abundance relates to speciation in this model, but first we check other relationships to ensure the model behaves as expected. In particular, population size should be larger when $\lambda > \mu$ and smaller when $\labmda < \mu$, supported primarily by immigration. When $\lambda > \mu$ populations will grow indefinitely. When birth and death rates are equal ($\lambda = \mu$) the population could crash or expand depending on small random fluctuations and random immigration. @fig-la-mu shows exactly this pattern. Smaller population sizes for $\lambda > \mu$ likely correspond to time bin windows earlier in the simulation as well as those that stochastically drifted to smaller sizes.
+Now we can visually inspect the results. Our main purpose is to study how abundance relates to speciation in this model, but first we check other relationships to ensure the model behaves as expected. In particular, population size should be larger when $\lambda > \mu$ and smaller when $\lambda < \mu$, supported primarily by immigration. When $\lambda > \mu$ populations will grow indefinitely. When birth and death rates are equal ($\lambda = \mu$) the population could crash or expand depending on small random fluctuations and random immigration. @fig-la-mu shows exactly this pattern. Smaller population sizes for $\lambda > \mu$ likely correspond to time bin windows earlier in the simulation as well as those that stochastically drifted to smaller sizes.
 
 ```{r}
-#| label: fig-la-mu
+#| label: mk-fig-la-mu
 #| fig-width: 4
 #| fig-height: 3
+#| dependson: [run-sim]
+#| cache: true
 #| fig-cap: |
-#|     Relationship across simulation run windowss between growth rate 
+#|     Relationship across simulation run windows between growth rate 
 #|     ($\lambda - \mu$) and mean population size. Panels show simulation runs 
-#|     without and with full speciation. Points are color coded according to 
-#|     local density of points in an attempt to more clearly show the 
+#|     without and with full speciation. 
+#|     Colored hexagons show the number of points with values in that small
+#|     neighborhood in order to more clearly show the 
 #|     distribution of simulation results.
 
-ggplot(sim_dat, aes(la - mu, mean_pop_size)) +
-    geom_hex(data = select(sim_dat, !speciation), 
-             mapping = aes(la - mu, mean_pop_size), 
-             fill = "gray50") +
-    geom_hex() + 
-    facet_wrap(vars(speciation), 
-               labeller = as_labeller(c(`0` = "No speciation", 
-                                        `1` = "Yes speciation"))) +
+
+fig_la_mu <- mutate(sim_dat, 
+                    disp_bin = cut(g * (1 + m_prop), 
+                                   breaks = c(-Inf, 0.33, 0.66, Inf))) |> 
+    ggplot(aes(la - mu, mean_pop_size)) +
+    geom_hex() +
+    facet_grid(
+        cols = vars(speciation), 
+        labeller = as_labeller(c(`0` = "No speciation",
+                                 `1` = "Yes speciation"))
+    ) +
     scale_y_log10() + 
     xlab(expression(italic(lambda - mu))) + 
     ylab("Mean population size") +
-    scale_fill_viridis_c(trans = "log10") +
+    scale_fill_viridis_c(transform = "log10") +
     theme_cowplot()
 
+fig_la_mu
 ```
+
+
+```{r}
+#| label: mk-fig-g
+#| fig-width: 4
+#| fig-height: 3
+#| dependson: [run-sim]
+#| cache: true
+#| fig-cap: |
+#|     Relationship across simulation run windows between total dispersal rate 
+#|     (global plus local) and mean population size. Panel columns show 
+#|     simulation run windows without and with full speciation while panel rows 
+#|     show simulation run windows of different growth rate ($\lambda - \mu$). 
+#|     Colored hexagons show the number of points with values in that small
+#|     neighborhood in order to more clearly show the 
+#|     distribution of simulation results.
+
+
+fig_g <- mutate(sim_dat, 
+                growth_bin = cut(la - mu, 
+                                 breaks = c(-Inf, -2, 0, 2, Inf), 
+                                 labels = c("lo", "mid_lo", "mid_hi", "hi"))) |> 
+    mutate(growth_bin = factor(growth_bin, 
+                               levels = c("hi", "mid_hi", "mid_lo", "lo"))) |> 
+    ggplot(aes(g * (1 + m_prop), mean_pop_size)) +
+    geom_hex(bins = 30) +
+    facet_grid(rows = vars(growth_bin),
+               cols = vars(speciation),
+               scales = "free_y",
+               labeller = as_labeller(c(`0` = "No~speciation", 
+                                        `1` = "Yes~speciation", 
+                                        lo = "lambda - mu <= -2", 
+                                        mid_lo = "lambda - m <= 0",
+                                        mid_hi = "\"0 <\"~lambda - mu",
+                                        hi = "\"2 <\"~lambda - mu"), 
+                                      label_parsed)) +
+    scale_y_log10(limits = function(y) {
+        print(range(y))
+        if(max(y) < 10) {
+            return(c(min(y), 10))
+        } else {
+            return(range(y))
+        }
+    }) + 
+    xlab(expression("Global + local dispersal rate")) + 
+    ylab("Mean population size") +
+    scale_fill_viridis_c(transform = "log10") +
+    theme_cowplot()
+
+fig_g
+```
+
+
+We now evaluate the effects of model parameters and emergent simulated abundance on the probability of speciation. We would expect that: 
+
+- greater $\nu$, the rate of incipient speciation, increases probability of speciation
+- greater $\tau$, the base wait time to full speciation, decreases probability of speciation
+- greater dispersal relative to birth decreases probability of speciation. 
+
+It is also worth investigating if growth rate ($\lambda - \mu$) impacts probability of speciation besides through its effect on abundance. 
+
+We evaluate the relationships between each of these model parameters and the presence or absence of speciation in simulation run windows by fitting binomial generalized linear mixed effects models [GLMMs, fit using the *glmmTMB* package @glmmTMB] that also include quadratic abundance as a covariate. 
+
+
+```{r}
+#| label: spec-mods
+#| cache: true
+#| dependson: [run-sim]
+
+# add columns with computed variables
+sim_dat <- mutate(sim_dat, 
+                  log_abund = log(mean_pop_size), 
+                  rel_disp = g * (1 + m_prop), 
+                  growth = la - mu)
+
+
+# nu model
+nu_mod <- glmmTMB(speciation ~ (log_abund + I(log_abund^2)) * nu +
+                      (1 | sim_id), 
+                  family = binomial, data = sim_dat)
+
+nu_ci <- confint(nu_mod)
+
+# tau model
+tau_mod <- glmmTMB(speciation ~ (log_abund + I(log_abund^2)) * tau +
+                      (1 | sim_id), 
+                  family = binomial, data = sim_dat)
+
+tau_ci <- confint(tau_mod)
+
+# relative dispersal model
+disp_mod <- glmmTMB(speciation ~ (log_abund + I(log_abund^2)) * rel_disp +
+                (1 | sim_id), 
+            family = binomial, data = sim_dat)
+
+disp_ci <- confint(disp_mod)
+
+# growth rate model
+growth_mod <- glmmTMB(speciation ~ (log_abund + I(log_abund^2)) * growth +
+                (1 | sim_id), 
+            family = binomial, data = sim_dat)
+
+growth_ci <- confint(growth_mod)
+
+```
+
+The 95% confidence intervals of the effects of model parameters, summarized in @tab-param-ci, show that most expectations are born out, except that the 95% CI for $\tau$ overlaps 0. The effect of growth rate ($\lambda - \mu$) is strongly positive. 
+
+Now we visualize these relationships in Supp. Figures Figs. [-@fig-nu]-[-@fig-growth].
+
+```{r}
+#| label: fig-nu
+#| fig-width: 4
+#| fig-height: 3
+#| dependson: run-sim
+#| fig-cap: |
+#|     Relationship across simulation run windows between incipient speciation 
+#|     rate and probability of full speciation. Histograms across bottom and 
+#|     top show the frequencies of windows without speciation (bottom) and with 
+#|     full-speciation (top) across different different incipient speciation 
+#|     rates. Curve is a binomial generalized linear model and shaded region 
+#|     shows 95% confidence envelope. 
+#|     
+
+
+fig_nu <- logistic_hist_plot(
+    sim_dat, nu, 
+    xlab = expression("Incipient speciation rate"~italic(nu)), 
+    xlog = FALSE,
+    ymin = 0, ymax = 0.005,
+    formula = y ~ x
+)
+
+fig_nu +
+    geom_ribbon(data = boo, 
+                mapping = aes(nu, 
+                              ymin = fit - 2 * se_fit, 
+                              ymax = fit + 2 * se_fit), 
+                inherit.aes = FALSE)
+
+
+ggplot(boo, aes(nu, fit)) +
+    geom_point()
+```
+
+
+```{r}
+#| label: fig-tau
+#| fig-width: 4
+#| fig-height: 3
+#| dependson: run-sim
+#| fig-cap: |
+#|     Relationship across simulation run windows between incipient speciation 
+#|     rate and probability of full speciation. Histograms across bottom and 
+#|     top show the frequencies of windows without speciation (bottom) and with 
+#|     full-speciation (top) across different different incipient speciation 
+#|     rates. Curve is a binomial generalized linear model and shaded region 
+#|     shows 95% confidence envelope. 
+#|     
+
+
+fig_tau <- logistic_hist_plot(
+    sim_dat, tau, 
+    xlab = expression("Wait time to full speciation"~italic(tau)), 
+    xlog = FALSE,
+    ymin = 0, ymax = 0.065,
+    formula = y ~ x
+)
+
+fig_tau
+```
+
+
+
+```{r}
+#| label: fig-disp
+#| fig-width: 4
+#| fig-height: 3
+#| dependson: run-sim
+#| fig-cap: |
+#|     Relationship across simulation run windows between relative dispersal 
+#|     rate and full speciation. Histograms across bottom and top show the 
+#|     frequencies of windows without speciation (bottom) and with full-
+#|     speciation (top) across different incipient speciation rates. Curve is a 
+#|     binomial generalized linear model and shaded region shows 95% confidence 
+#|     envelope. 
+
+fig_disp <- logistic_hist_plot(
+    sim_dat, (1 + m_prop) * g / la, 
+    xlog = TRUE, 
+    xlab = "Relative dispersal rate", 
+    ymin = 0, ymax = 0.065,
+    formula = y ~ x
+)
+
+fig_disp
+```
+
+```{r}
+#| label: fig-growth
+#| fig-width: 4
+#| fig-height: 3
+#| dependson: run-sim
+#| fig-cap: |
+#|     Relationship across simulation run windows between growth 
+#|     rate ($\lambda - \mu$) and full speciation. Histograms across bottom and 
+#|     top show the 
+#|     frequencies of windows without speciation (bottom) and with full-
+#|     speciation (top) across different incipient speciation rates. Curve is a 
+#|     binomial generalized linear model and shaded region shows 95% confidence 
+#|     envelope. 
+
+fig_growth <- logistic_hist_plot(
+    sim_dat, la - mu, 
+    xlog = FALSE, 
+    xlab = "Growth rate", 
+    ymin = 0, ymax = 0.065,
+    formula = y ~ x
+)
+
+fig_growth
+```
+
+
+
 
 
 We also expect that probability of speciation should increase with the parameter $\nu$, the rate of incipient speciation. @fig-nu confirms this expectation but shows the relationship to be weak, indicating that while this parameter obviously matters, its effect is modulated by other factors such as abundance and dispersal. This finding is confirmed with logistic regression.
@@ -209,41 +442,28 @@ We also expect that probability of speciation should increase with the parameter
 ```{r}
 #| label: nu-mod
 #| message: false
+#| dependson: [run-sim]
 
 # model of speciation changing with nu
-nu_mod <- glm(speciation ~ nu, data = sim_dat, family = binomial)
-nu_slope_ci <- confint(nu_mod, 2)
 
+nu_mod <- glmer(speciation ~ nu + (1 | sim_id), data = sim_dat, 
+                family = binomial)
+
+spec_mod0 <- glmmTMB(speciation ~ (1 | sim_id), data = sim_dat, 
+                     family = binomial)
+
+
+nu_slope_ci <- confint(nu_mod, 2)
+anova(nu_mod, spec_mod0)
 
 ```
 
 The 95% confidence interval on the slope of $\nu$ is (`r round(nu_slope_ci[1], 3)`, `r round(nu_slope_ci[2], 3)`).
 
-With results from the simulation we report confidence intervals rather than hypothesis tests because sample sizes from simulations are arbitrary and thus degrees of freedom can be manipulated to produce statistically significant results from biologically meaningless patterns. By contrast, confidence intervals more meaningfully indicate the magnitude of effects in the simulation experiment.
 
 
-```{r}
-#| label: fig-nu
-#| fig-width: 4
-#| fig-height: 3
-#| fig-cap: |
-#|     Relationship across simulation run windows between incipient speciation 
-#|     rate and probability of full speciation. Histograms across bottom and top 
-#|     show the frequencies of windows without speciation (bottom) and with 
-#|     full-speciation (top) across different different incipient speciation 
-#|     rates. Curve is a binomial generalized linear model and shaded region 
-#|     shows 95% confidence envelope. 
-#|     
 
 
-logistic_hist_plot(sim_dat, nu, 
-                   xlab = expression("Incipient speciation rate"~italic(nu)), 
-                   xlog = FALSE,
-                   ymin = 0, ymax = 0.008,
-                   formula = y ~ x)
-
-
-```
 
 
 We also expect dispersal to decrease the chance of speciation because dispersal prolongs the wait time until full speciation. But we have to evaluate this expectation with respect to *relative* dispersal, that is dispersal relative to birth because these rate trade-off in determining whether a population grows due to intrinsic (birth) or extrinsic (dispersal) forces. Dispersal comes from two sources: global dispersal and local dispersal, so we add these two sources when considering total dispersal. @fig-disp Confirms the negative relationship between speciation and dispersal. We again preform a binomial regression of this relationship.
@@ -265,12 +485,13 @@ The slope from the logistic regression model for log dispersal normalized by bir
 #| label: fig-disp
 #| fig-width: 4
 #| fig-height: 3
+#| dependson: run-sim
 #| fig-cap: |
 #|     Relationship across simulation run windows between relative dispersal 
 #|     rate and full speciation. Histograms across bottom and top show the 
 #|     frequencies of windows without speciation (bottom) and with full-
 #|     speciation (top) across different incipient speciation rates. Curve is a 
-#|     binomial generalize linear model and shaded region shows 95% confidence 
+#|     binomial generalized linear model and shaded region shows 95% confidence 
 #|     envelope. 
 
 logistic_hist_plot(sim_dat, (1 + m_prop) * g / la, 
@@ -313,7 +534,7 @@ sim_mod <- glm(speciation ~ log_abund + I(log_abund^2),
 sim_quad_ci <- confint(sim_mod, parm = 3)
 
 
-library(lme4)
+
 
 sim_dat$sim_id <- as.factor(sim_dat$sim_id)
 sim_dat$rel_disp <- (1 + sim_dat$m_prop) * sim_dat$g / sim_dat$la
@@ -339,9 +560,16 @@ mmm <- glmer(speciation ~ (log_abund + I(log_abund^2)) * r + (1 | sim_id),
            family = "binomial", 
            data = sim_dat)
 
+
+tau_mod <- glmmTMB(speciation ~ (log_abund + I(log_abund^2)) * tau + (1 | sim_id), 
+           family = "binomial", 
+           data = sim_dat)
+
 cor(sim_dat$r, sim_dat$log_abund)
 
 logistic_hist_plot(sim_dat, r, "R", xlog = FALSE, formula = y ~ x)
+
+logistic_hist_plot(sim_dat, tau, "tau", xlog = FALSE, formula = y ~ x)
 
 ```
 
@@ -701,6 +929,6 @@ ggplot(gen_by_site[gen_by_site$rich > 1, ],
 
 ```
 
-
+This analysis of number of congeners and total genus abundance at the scale of individual sampling locations is distinct from the analysis of average per-species abundance and total genus richness at the scale of the archipelago, the later being the one that found a hump-shaped relationship between abundance and richness. The sampling location-scale analysis is intended to evaluate a possible genus-level carrying capacity at the scale of an individual site. The sampling location-scale analysis calculates abundance on a site-by-site basis (not averaged across all sites as in the archipelago-wide analysis) and uses the observed number of congeners at a site (not the total richness of a genus from across the archipelago).
 
 ## References
