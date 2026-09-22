@@ -179,7 +179,7 @@ Now we can visually inspect the results. Our main purpose is to study how abunda
 
 ```{r}
 #| label: mk-fig-la-mu
-#| fig-width: 4
+#| fig-width: 5
 #| fig-height: 3
 #| dependson: [run-sim]
 #| cache: true
@@ -214,8 +214,8 @@ fig_la_mu
 
 ```{r}
 #| label: mk-fig-g
-#| fig-width: 4
-#| fig-height: 3
+#| fig-width: 5
+#| fig-height: 6
 #| dependson: [run-sim]
 #| cache: true
 #| fig-cap: |
@@ -241,13 +241,12 @@ fig_g <- mutate(sim_dat,
                scales = "free_y",
                labeller = as_labeller(c(`0` = "No~speciation", 
                                         `1` = "Yes~speciation", 
-                                        lo = "lambda - mu <= -2", 
-                                        mid_lo = "lambda - m <= 0",
-                                        mid_hi = "\"0 <\"~lambda - mu",
-                                        hi = "\"2 <\"~lambda - mu"), 
+                                        lo = "\"-2\">=lambda - mu", 
+                                        mid_lo = "0 >= lambda - mu~\"> -2\"",
+                                        mid_hi = "2 >= lambda - mu~\"> 0\"",
+                                        hi = "lambda - mu > 2"), 
                                       label_parsed)) +
     scale_y_log10(limits = function(y) {
-        print(range(y))
         if(max(y) < 10) {
             return(c(min(y), 10))
         } else {
@@ -826,6 +825,7 @@ In merging the checklist data (providing species richness) with field survey dat
 
 ```{r}
 #| label: miss-gen
+#| cache: true
 
 # endemic checklist genera not found in danʻs data
 # only need to search for "end" because those with

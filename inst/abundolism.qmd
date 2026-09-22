@@ -140,6 +140,7 @@ Because of the stopping conditions, each simulation replicate will either yield 
 #| label: fig-concept
 #| fig-width: 8
 #| fig-height: 3
+#| out-width: "0.9\\linewidth"
 #| fig-cap: |
 #|     Conceptual overview of our simulation model. Local populations are 
 #|     connected by immigration between populations and also from a global 
@@ -337,7 +338,7 @@ spec_summ <- summarize(sim_dat,
 
 ```{r}
 #| label: fig-la-mu
-#| fig-width: 4
+#| fig-width: 5
 #| fig-height: 3
 #| cache: true
 #| fig-cap: |
@@ -357,8 +358,8 @@ fig_la_mu
 
 ```{r}
 #| label: fig-g
-#| fig-width: 4
-#| fig-height: 3
+#| fig-width: 5
+#| fig-height: 6
 #| fig-cap: |
 #|     Relationship across simulation run windows between total dispersal rate 
 #|     (global plus local) and mean population size. Panel columns show 
