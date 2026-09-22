@@ -73,9 +73,9 @@ In each iteration of the simulation an event is chosen at random. Possible event
 - local birth
 - local death
 - local speciation
-- local immigration
+- local dispersal
 
-There is also one possible global event: immigration from the source pool.
+There is also one possible global event: dispersal from the source pool.
 
 If there are $n_p$ local populations then the total number of possible events are $n_p \times 4 + 1$. Which event occurs during any given simulation iteration is chosen at random according to the probability of each event. With a local population size of $x_i$, the probability of each event is proportional to its respective rate:
 
@@ -84,20 +84,20 @@ If there are $n_p$ local populations then the total number of possible events ar
 \mathbb{P}(\text{birth in pop. } i) &= \frac{\lambda x_i}{R} \\
 \mathbb{P}(\text{death in pop. } i) &= \frac{\mu x_i}{R} \\
 \mathbb{P}(\text{speciation in pop. } i) &= \frac{\nu x_i}{R} \\
-\mathbb{P}(\text{local immigration from pop. } i) &= \frac{m_{prop}\gamma x_i}{R} \\
-\mathbb{P}(\text{global immigration}) &= \frac{\gamma}{R}
+\mathbb{P}(\text{local emigration from pop. } i) &= \frac{m_{prop}\gamma x_i}{R} \\
+\mathbb{P}(\text{global emigration}) &= \frac{\gamma}{R}
 \end{align}
 
 
 where $R = \gamma + \left( \sum_i^{n_p} x_i \right) (\lambda + \mu + \nu + m_{prop} \gamma)$ is a normalization constant.
 
-In the case of immigration (both local and from the source pool) the recipient of the dispersing individual must also be chosen. We choose the recipient local population at random with equal probability across local populations.
+In the case of dispersal (both local and from the source pool), the recipient of the dispersing individual must also be chosen. We choose the recipient local population at random with equal probability across local populations.
 
-Once an event is randomly sampled, the variables being tracked are updated. Birth and immigration (local or global) augment a local population by 1. Death decrements a local population by 1. Immigration events have no impact on the source of the dispersing individual. Time is updated following the Gillespie algorithm: the sojourn time between events is a random variable with an exponential probability distribution with rate R: $s \sim Exp(R)$. Each time step a random sojourn time is sampled and added to the running total time since the start of the simulation.
+Once an event is randomly sampled, the variables being tracked are updated. Birth and immigration (local or global) augment a local population by 1. Death decrements a local population by 1. Dispersal events have no impact on the source of the dispersing individual. Time is updated following the Gillespie algorithm: the sojourn time between events is a random variable with an exponential probability distribution with rate R: $s \sim Exp(R)$. Each time step a random sojourn time is sampled and added to the running total time since the start of the simulation.
 
 If a population experiences local extirpation all of its speciation-related information is re-set including removing any incipient speciation and restoring the wait time to full speciation back to the default of $\tau$.
 
-If full speciation is achieved the simulation stops. If no speciation occurs but the specified number of simulation iterations is reached, the simulation stops. Once stopped, the simulation returns the tracked variables of time, mean population size, and whether full speciation has occurred.
+If full speciation is achieved the simulation stops. If no speciation occurs but the specified number of simulation iterations is reached, the simulation stops. Once stopped, the simulation returns the tracked variables of time, mean population size (i.e. abundance), and whether full speciation has occurred.
 
 
 
@@ -175,7 +175,7 @@ Simulation outputs are analyzed in binned windows of timesteps, in this case `w 
 
 ## Interpreting the simulation experiment {#sec-sim-res}
 
-Now we can visually inspect the results. Our main purpose is to study how abundance relates to speciation in this model, but first we check other relationships to ensure the model behaves as expected. In particular, population size should be larger when $\lambda > \mu$ and smaller when $\lambda < \mu$, supported primarily by immigration. When $\lambda > \mu$ populations will grow indefinitely. When birth and death rates are equal ($\lambda = \mu$) the population could crash or expand depending on small random fluctuations and random immigration. @fig-la-mu shows exactly this pattern. Smaller population sizes for $\lambda > \mu$ likely correspond to time bin windows earlier in the simulation as well as those that stochastically drifted to smaller sizes.
+Now we can visually inspect the results. Our main purpose is to study how abundance relates to speciation in this model, but first we check other relationships to ensure the model behaves as expected. In particular, abundance should be larger when $\lambda > \mu$ and smaller when $\lambda < \mu$, supported primarily by immigration. When $\lambda > \mu$ populations will grow indefinitely. When birth and death rates are equal ($\lambda = \mu$) the population could crash or expand depending on small random fluctuations and random immigration. The figure below shows exactly this pattern. Smaller abundances for $\lambda > \mu$ likely correspond to time bin windows earlier in the simulation as well as those that stochastically drifted to smaller sizes.
 
 ```{r}
 #| label: mk-fig-la-mu
@@ -185,7 +185,7 @@ Now we can visually inspect the results. Our main purpose is to study how abunda
 #| cache: true
 #| fig-cap: |
 #|     Relationship across simulation run windows between growth rate 
-#|     ($\lambda - \mu$) and mean population size. Panels show simulation runs 
+#|     ($\lambda - \mu$) and abundance. Panels show simulation runs 
 #|     without and with full speciation. 
 #|     Colored hexagons show the number of points with values in that small
 #|     neighborhood in order to more clearly show the 
@@ -204,7 +204,7 @@ fig_la_mu <- mutate(sim_dat,
     ) +
     scale_y_log10() + 
     xlab(expression(italic(lambda - mu))) + 
-    ylab("Mean population size") +
+    ylab("Abundance") +
     scale_fill_viridis_c(transform = "log10") +
     theme_cowplot()
 
@@ -219,8 +219,8 @@ fig_la_mu
 #| dependson: [run-sim]
 #| cache: true
 #| fig-cap: |
-#|     Relationship across simulation run windows between total dispersal rate 
-#|     (global plus local) and mean population size. Panel columns show 
+#|     Relationship across simulation run windows between combined dispersal rate 
+#|     (global plus local) and abundance. Panel columns show 
 #|     simulation run windows without and with full speciation while panel rows 
 #|     show simulation run windows of different growth rate ($\lambda - \mu$). 
 #|     Colored hexagons show the number of points with values in that small
@@ -254,7 +254,7 @@ fig_g <- mutate(sim_dat,
         }
     }) + 
     xlab(expression("Global + local dispersal rate")) + 
-    ylab("Mean population size") +
+    ylab("Abundance") +
     scale_fill_viridis_c(transform = "log10") +
     theme_cowplot()
 
@@ -293,7 +293,7 @@ The confidence interval for the quadratic term is far from 0:
 sim_quad_ci
 ```
 
-It should also be noted that the confidence interval for the quadratic abundance does not overlap zero in all GLMMs that included simulation model parameters as covariates along with abundance [@mk-fig-param-ci].
+It should also be noted that the confidence interval for the quadratic term for abundance does not overlap zero in any of the GLMMs that included simulation model parameters as covariates along with abundance (see figure below).
 
 We now turn to developing the figure of abundance versus speciation. These results are reported in the main text, but the code below is used to create the visualization of speciation versus abundance.
 
@@ -312,9 +312,8 @@ sim_pred <- pred_binom(sim_mod) |>
 
 # base plot of simulation results
 sim_fig_base <- logistic_hist_plot(sim_dat, mean_pop_size, xlog = TRUE, 
-          xlab = "Mean population size", 
-          ymin = 0, ymax = 0.002,
-          formula = y ~ x + I(x^2))
+          xlab = "Abundance", 
+          ymin = 0, ymax = 0.002)
 
 
 
@@ -335,9 +334,9 @@ sim_fig <- sim_fig_base +
 sim_fig
 ```
 
-the fact that the peak of the GLMM does not clearly align with the peak of the speciation histogram is both because the peak captures the proportion of speciating to non-speciating windows and because the model accounts for random effects.
+The fact that the peak of the GLMM does not clearly align with the peak of the speciation histogram is both because the peak captures the proportion of speciating to non-speciating windows and because the model accounts for random effects.
 
-The mean population size, and its confidence interval, at which speciation probability peaks can be calculated as
+The mean abundance, and its confidence interval, at which speciation probability peaks can be calculated as
 
 ```{r}
 #| label: sim-hump-loc
@@ -370,7 +369,7 @@ exp(log_peak_ci)
 
 ### Assessing the interaction of abundance with simulation model parameters
 
-We now evaluate the effects of simulation model parameters interacting with emergent simulated abundance to predict the probability of speciation. We look at how probability of speciation changes with linear and quadratic terms for mean abundance interact with $\nu$, the per captia rate of incipient speciation; $\tau$, the base wait time to full speciation; the combined dispersal rate (per capita local + global); and the per capita growth rate ($\lambda - \mu$).
+We now evaluate the effects of simulation model parameters interacting with emergent simulated abundance to predict the probability of speciation. We look at how the linear and quadratic terms for mean abundance interact with $\nu$, the per capita rate of incipient speciation; $\tau$, the base wait time to full speciation; the combined dispersal rate (per capita local + global); and the per capita growth rate ($\lambda - \mu$).
 
 We evaluate the relationships between each of these model parameters and the presence or absence of speciation in simulation run windows by fitting binomial generalized linear mixed effects models [GLMMs, fit using the *glmmTMB* package @glmmTMB]. 
 
@@ -383,7 +382,7 @@ We evaluate the relationships between each of these model parameters and the pre
 # add columns with computed variables
 sim_dat <- mutate(sim_dat, 
                   log_abund = log(mean_pop_size), 
-                  rel_disp = g * (1 + m_prop), 
+                  tot_disp = g * (1 + m_prop), 
                   growth = la - mu)
 
 
@@ -409,7 +408,7 @@ tau_ci <- confint(tau_mod)
 # relative dispersal model
 disp_mod <- glmmTMB(speciation ~ 
                         (log_abund + I(log_abund^2)) *
-                        scale(rel_disp) + 
+                        scale(tot_disp) + 
                         (1 | sim_id), 
                     family = binomial, data = sim_dat)
 
@@ -428,7 +427,7 @@ growth_ci <- confint(growth_mod)
 
 
 
-@mk-fig-param-ci shows that estimated effect sizes and 95% CIs of the model parameters along. @mk-fig-param-ci shows that the 95% CI for quadratic term for abundance never overlaps 0.
+The figure below shows estimated effect sizes and 95% CIs of the model parameters, along with the estimated quadratic term for abundance, whose 95% CI never overlaps 0 in any of these models.
 
 
 
@@ -491,7 +490,7 @@ cis <- list(
     }) |> 
     bind_rows() |> 
     mutate(param = factor(gsub("scale\\(|\\)", "", param), 
-                          levels = c("growth", "rel_disp", "tau", "nu")),
+                          levels = c("growth", "tot_disp", "tau", "nu")),
            type = factor(type, 
                          levels = c("covar", "quad_abund", "delta_peak"))) |> 
     rename(ci_low = `2.5 %`, 
@@ -562,7 +561,7 @@ sim_dat_200 <- sim_BDI_spec(la = pars$la, mu = pars$mu, g = pars$g,
 #| fig-width: 8
 #| fig-height: 3
 #| fig-cap: |
-#|     Effect of window size on relationship between mean population size and 
+#|     Effect of window size on relationship between abundance and 
 #|     full speciation within a window. In both cases of window size = 50 or
 #|     200, a mid-abundance hump in speciation probability is observed.
 
@@ -582,9 +581,8 @@ mk_window_plot <- function(dat, ymax = 0.002) {
     
     # base plot
     gp_base <- logistic_hist_plot(dat, mean_pop_size, xlog = TRUE, 
-                                  xlab = "Mean population size", 
-                                  ymin = 0, ymax = ymax,
-                                  formula = y ~ x + I(x^2))
+                                  xlab = "Abundance", 
+                                  ymin = 0, ymax = ymax)
     
     gp_base + 
         geom_ribbon(data = pred, 
@@ -619,7 +617,7 @@ plot_grid(w50, w200, rel_widths = c(1.05, 1))
 
 ```
 
-One thing to note in @fig-window is the difference in y-axis limits. This difference in limits reflects the fact that in smaller windows, the probability of encountering a speciation event is smaller, thus the fact that the probability of full speciation (the y-axis) is overall lower in the `window = 50` panel compared to the `window = 200` panel.
+One thing to note in @fig-window is the difference in y-axis limits. This difference in limits reflects the fact that in smaller windows, the probability of encountering a speciation event is smaller, so the probability of full speciation (the y-axis) is overall lower in the `window = 50` panel compared to the `window = 200` panel.
 
 
 
@@ -882,7 +880,7 @@ lrt_bgeom(what_if_mod0, what_if_mod)
 
 ### Assessing the choice of average per-species abundance {#sec-tot-abund}
 
-We should evaluate if the choice of average per-species abundance produces any unintended artifacts in our analysis of how average per-species abundance relates to within genus richness. The primary concern would be if genera themselves somehow had a carrying capacity, then the more species contained in a genus, the less abundant, on average, each species would have to be. Two observations from the data dispel this concern: first, the vast majority of genera are represented by only a single species at a sampling location [@fig-site-gen-rich], making the partitioning of a hypothetical genus-level carrying capacity moot at all but the few sites where genera are represented by multiple species. 
+We should evaluate if the choice of average per-species abundance produces any unintended artifacts in our analysis of how average per-species abundance relates to within genus richness. The primary concern would be if genera themselves somehow had a carrying capacity, then the more species contained in a genus, the less abundant, on average, each species would have to be. Two observations from the data dispel this concern: first, the vast majority of genera are represented by only a single species at a sampling location [@fig-gen-site-rich], making the partitioning of a hypothetical genus-level carrying capacity moot at all but the few sites where genera are represented by multiple species. 
 
 ```{r}
 #| label: fig-gen-site-rich
@@ -928,7 +926,8 @@ anova(gen_site_mod)
 #| fig-cap: |
 #|     Relationship between number of congeners at a site and total genus 
 #|     abundance at that site. Trend line (black line) and 95% confidence envelope 
-#|     (gray shaded region) are from a Poisson GLM. Data p
+#|     (gray shaded region) are from a Poisson GLM. Data points are
+#|     colored by local point density.
 
 
     
@@ -947,6 +946,6 @@ ggplot(gen_by_site[gen_by_site$rich > 1, ],
 
 ```
 
-This analysis of number of congeners and total genus abundance at the scale of individual sampling locations is distinct from the analysis of average per-species abundance and total genus richness at the scale of the archipelago, the later being the one that found a hump-shaped relationship between abundance and richness. The sampling location-scale analysis is intended to evaluate a possible genus-level carrying capacity at the scale of an individual site. The sampling location-scale analysis calculates abundance on a site-by-site basis (not averaged across all sites as in the archipelago-wide analysis) and uses the observed number of congeners at a site (not the total richness of a genus from across the archipelago).
+This analysis of number of congeners and total genus abundance at the scale of individual sampling locations is distinct from the analysis of average per-species abundance and total genus richness at the scale of the archipelago, the latter being the one that found a hump-shaped relationship between abundance and richness. The sampling location-scale analysis is intended to evaluate a possible genus-level carrying capacity at the scale of an individual site. The sampling location-scale analysis calculates abundance on a site-by-site basis (not averaged across all sites as in the archipelago-wide analysis) and uses the observed number of congeners at a site (not the total richness of a genus from across the archipelago).
 
 ## References
