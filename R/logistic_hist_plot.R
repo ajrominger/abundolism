@@ -5,51 +5,44 @@
 #' @param xlog logical, should x-axis be log-transformed (default FALSE)
 #' @param ymin optional minimum for y-axis
 #' @param ymax optional maximum for y-axis
-#' @param formula optional formula to pass to `geom_smooth`
 #' @export
 
-logistic_hist_plot <- function(data, x, xlab, xlog, ymin, ymax, formula) {
+logistic_hist_plot <- function(data, x, xlab, xlog, ymin, ymax) {
     # data$fitted <- glm(formula, data = data, family = "binomial") |>
     #     predict(type = "response")
 
-    p <- ggplot(data, aes({{ x }})) +
-        scale_x_continuous(transform = ifelse(xlog, "log10", "identity")) +
-        geom_smooth(mapping = aes({{ x }}, speciation),
-                    method = "glm",
-                    formula = formula,
-                    method.args = list(family = "binomial"),
-                    color = "#006B99", fill = "#006B99", alpha = 0.5) +
-        xlab(xlab) +
-        ylab("Prob. of Full Speciation") +
+    p <- ggplot2::ggplot(data, aes({{ x }})) +
+        ggplot2::scale_x_continuous(transform = ifelse(xlog,
+                                                       "log10",
+                                                       "identity")) +
+        ggplot2::xlab(xlab) +
+        ggplot2::ylab("Prob. of Full Speciation") +
         cowplot::theme_cowplot()
 
-    if(missing(ymin)) ymin <- layer_scales(p)$y$get_limits()[1]
-    if(missing(ymax)) ymax <- layer_scales(p)$y$get_limits()[2]
+    if(missing(ymin)) ymin <- ggplot2::layer_scales(p)$y$get_limits()[1]
+    if(missing(ymax)) ymax <- ggplot2::layer_scales(p)$y$get_limits()[2]
 
-    p <- p +
-        hist_helper(filter(data, speciation == 0), {{ x }},
+    p +
+        hist_helper(dplyr::filter(data, speciation == 0), {{ x }},
                     ymin = ymin,
                     ymax = ymax) +
-        hist_helper(filter(data, speciation == 1), {{ x }},
+        hist_helper(dplyr::filter(data, speciation == 1), {{ x }},
                     ymin = ymin,
                     ymax = ymax,
                     top = TRUE)
-    p$layers <- p$layers[c(2, 3, 1)]
-
-    p
 }
 
 hist_helper <- function(data, x, ymin = 0, ymax = 1, top = FALSE, bins = 30) {
-    geom_histogram(
+    ggplot2::geom_histogram(
         data = data,
         aes(
             x = {{ x }},
             y = ifelse(top, -1, 1) * 0.3 * abs(ymax - ymin) *
-                after_stat(count) / max(after_stat(count))
+                ggplot2::after_stat(count) / max(ggplot2::after_stat(count))
         ),
         bins = bins,
         fill = "gray80",
-        position = position_nudge(y = ifelse(top, ymax, ymin))
+        position = ggplot2::position_nudge(y = ifelse(top, ymax, ymin))
     )
 }
 
