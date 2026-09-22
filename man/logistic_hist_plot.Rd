@@ -4,7 +4,7 @@
 \alias{logistic_hist_plot}
 \title{Plot logistic data as paired histograms}
 \usage{
-logistic_hist_plot(data, x, xlab, xlog, ymin, ymax, formula)
+logistic_hist_plot(data, x, xlab, xlog, ymin, ymax)
 }
 \arguments{
 \item{data}{simulatin output `data.frame`; must have a `speciation` column}
@@ -18,8 +18,6 @@ logistic_hist_plot(data, x, xlab, xlog, ymin, ymax, formula)
 \item{ymin}{optional minimum for y-axis}
 
 \item{ymax}{optional maximum for y-axis}
-
-\item{formula}{optional formula to pass to `geom_smooth`}
 }
 \description{
 Plot logistic data as paired histograms
