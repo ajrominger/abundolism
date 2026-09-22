@@ -346,8 +346,6 @@ The mean population size, and its confidence interval, at which speciation proba
 #| dependson: run-sim
 
 
-delta_peak(1.66, -0.3, 0.48, 0.004)
-
 # MLE of peak location
 abund_coef <- fixef(sim_mod)[[1]][2:3]
 log_abund_peak <- -abund_coef[1] / (2 * abund_coef[2])
@@ -369,6 +367,168 @@ exp(log_abund_peak)
 exp(log_peak_ci)
 
 ```
+
+
+### Assessing the interaction of abundance with simulation model parameters
+
+We now evaluate the effects of simulation model parameters interacting with emergent simulated abundance to predict the probability of speciation. We look at how probability of speciation changes with linear and quadratic terms for mean abundance interact with $\nu$, the per captia rate of incipient speciation; $\tau$, the base wait time to full speciation; the combined dispersal rate (per capita local + global); and the per capita growth rate ($\lambda - \mu$).
+
+We evaluate the relationships between each of these model parameters and the presence or absence of speciation in simulation run windows by fitting binomial generalized linear mixed effects models [GLMMs, fit using the *glmmTMB* package @glmmTMB]. 
+
+
+```{r}
+#| label: spec-mods
+#| cache: true
+#| dependson: [run-sim]
+
+# add columns with computed variables
+sim_dat <- mutate(sim_dat, 
+                  log_abund = log(mean_pop_size), 
+                  rel_disp = g * (1 + m_prop), 
+                  growth = la - mu)
+
+
+# nu model
+nu_mod <- glmmTMB(speciation ~ 
+                      (log_abund + I(log_abund^2)) *
+                      scale(nu) +
+                      (1 | sim_id), 
+                  family = binomial, data = sim_dat)
+
+nu_ci <- confint(nu_mod)
+
+
+# tau model
+tau_mod <- glmmTMB(speciation ~ 
+                       (log_abund + I(log_abund^2)) *
+                       scale(tau) +
+                       (1 | sim_id), 
+                   family = binomial, data = sim_dat)
+
+tau_ci <- confint(tau_mod)
+
+# relative dispersal model
+disp_mod <- glmmTMB(speciation ~ 
+                        (log_abund + I(log_abund^2)) *
+                        scale(rel_disp) + 
+                        (1 | sim_id), 
+                    family = binomial, data = sim_dat)
+
+disp_ci <- confint(disp_mod)
+
+# growth rate model
+growth_mod <- glmmTMB(speciation ~ 
+                          (log_abund + I(log_abund^2)) *
+                          scale(growth) + 
+                          (1 | sim_id), 
+                      family = binomial, data = sim_dat)
+
+growth_ci <- confint(growth_mod)
+
+```
+
+
+
+@mk-fig-param-ci shows that estimated effect sizes and 95% CIs of the model parameters along. @mk-fig-param-ci shows that the 95% CI for quadratic term for abundance never overlaps 0.
+
+
+
+```{r}
+#| label: mk-fig-param-ci
+#| cache: true
+#| fig-width: 8
+#| fig-height: 3
+#| dependson: spec-mods
+#| fig-cap: |
+#|     Summary of different GLMMs predicting speciation probability. Different
+#|     models are shown across the y-axis, labeled by the simulation model
+#|     parameter included as a covariate along with the hump-shaped relationship
+#|     effect of abundance. Estimated effect sizes and 95% confidence intervals 
+#|     are shown in the left hand panel. The quadratic term for abundance from 
+#|     each model is shown in the middle 
+#|     panel. The right hand panel shows the shift in abundance value at which 
+#|     probability of speciation reaches its peak. This shift is shown relative
+#|     to the model without simulaton model parameters as covariates. The 
+#|     magnitudes each arrow represent how the location of peak speciation
+#|     probability would shift with an increase in the simulation model 
+#|     covariate. 
+
+
+# assumes simulation model covariates have been scaled and centered
+delta_peak <- function(b1, b2, b1_int, b2_int) {
+    -(b1 + b1_int) / (2 * (b2 + b2_int))
+}
+
+
+cis <- list(
+    nu_ci,
+    tau_ci,
+    disp_ci,
+    growth_ci
+) |> 
+    lapply(function(x) {
+        
+        # quadratic abundance and covariate coefs
+        params <- x[3:4, ]
+        
+        # shift in peak
+        d_peak <- delta_peak(x[2, 3], x[3, 3], x[5, 3], x[6, 3])
+        
+        out <- rbind(params, 
+                     # first 2 elements of below are not CI but used for 
+                     # plot limits
+                     cbind(exp(d_peak) - exp(log_abund_peak), 
+                           0, 
+                           d_peak))
+        
+        
+        # add columns
+        out <- as.data.frame(out) |> 
+            mutate(param = rownames(params)[2], 
+                   type = c("quad_abund", "covar", "delta_peak"))
+        
+        rownames(out) <- NULL
+        out
+    }) |> 
+    bind_rows() |> 
+    mutate(param = factor(gsub("scale\\(|\\)", "", param), 
+                          levels = c("growth", "rel_disp", "tau", "nu")),
+           type = factor(type, 
+                         levels = c("covar", "quad_abund", "delta_peak"))) |> 
+    rename(ci_low = `2.5 %`, 
+           ci_hi = `97.5 %`)
+
+
+
+
+
+fig_covar <- ggplot(cis, aes(x = ci_hi, xend = ci_low, param)) +
+    geom_segment() +
+    scale_y_discrete(labels = c(expression(lambda - mu), 
+                                 expression("dispersal"), 
+                                 expression(tau), 
+                                 expression(nu))) +
+    facet_grid(cols = vars(type), scales = "free_x", 
+               labeller = as_labeller(c(covar = "Estimated effect", 
+                                        quad_abund = "Estimated\nquadratic term", 
+                                        delta_peak = "Change in peak\nspeciation prob.")), 
+               switch = "x") +
+    geom_vline(xintercept = 0, linetype = 2) +
+    geom_segment(data = filter(cis, type == "delta_peak"), 
+                 arrow = arrow(length = unit(10, "pt"))) +
+    geom_point(data = filter(cis, type != "delta_peak"), 
+               mapping = aes(x = Estimate)) +
+    theme_cowplot() +
+    theme(panel.border = element_rect(color = "black", linewidth = 0.5), 
+          strip.placement = "outside", 
+          strip.background = element_blank(), 
+          axis.title = element_blank(), 
+          panel.spacing.x = unit(20, "pt"))
+
+fig_covar 
+```
+
+
 
 
 ### Assessing the effect of binning window size {#sec-window}
@@ -461,156 +621,6 @@ plot_grid(w50, w200, rel_widths = c(1.05, 1))
 ```
 
 One thing to note in @fig-window is the difference in y-axis limits. This difference in limits reflects the fact that in smaller windows, the probability of encountering a speciation event is smaller, thus the fact that the probability of full speciation (the y-axis) is overall lower in the `window = 50` panel compared to the `window = 200` panel.
-
-### Assessing the interaction of abundance with simulation model parameters
-
-We now evaluate the effects of simulation model parameters interacting with emergent simulated abundance to predict the probability of speciation. We look at how probability of speciation changes with linear and quadratic terms for mean abundance interact with $\nu$, the per captia rate of incipient speciation; $\tau$, the base wait time to full speciation; the combined dispersal rate (per capita local + global); and the per capita growth rate ($\lambda - \mu$).
-
-We evaluate the relationships between each of these model parameters and the presence or absence of speciation in simulation run windows by fitting binomial generalized linear mixed effects models [GLMMs, fit using the *glmmTMB* package @glmmTMB]. 
-
-
-```{r}
-#| label: spec-mods
-#| cache: true
-#| dependson: [run-sim]
-
-# add columns with computed variables
-sim_dat <- mutate(sim_dat, 
-                  log_abund = log(mean_pop_size), 
-                  rel_disp = g * (1 + m_prop) / g, 
-                  growth = la - mu)
-
-
-# nu model
-nu_mod <- glmmTMB(speciation ~ 
-                      (log_abund + I(log_abund^2)) *
-                      scale(nu) +
-                      (1 | sim_id), 
-                  family = binomial, data = sim_dat)
-
-nu_ci <- confint(nu_mod)
-
-
-# tau model
-tau_mod <- glmmTMB(speciation ~ 
-                       (log_abund + I(log_abund^2)) *
-                       scale(tau) +
-                       (1 | sim_id), 
-                   family = binomial, data = sim_dat)
-
-tau_ci <- confint(tau_mod)
-
-# relative dispersal model
-disp_mod <- glmmTMB(speciation ~ 
-                        (log_abund + I(log_abund^2)) *
-                        scale(log(rel_disp)) + 
-                        (1 | sim_id), 
-                    family = binomial, data = sim_dat)
-
-disp_ci <- confint(disp_mod)
-
-# growth rate model
-growth_mod <- glmmTMB(speciation ~ 
-                          (log_abund + I(log_abund^2)) *
-                          scale(growth) + 
-                          (1 | sim_id), 
-                      family = binomial, data = sim_dat)
-
-growth_ci <- confint(growth_mod)
-
-```
-
-
-
-@mk-fig-param-ci shows that estimated effect sizes and 95% CIs of the model parameters along. @mk-fig-param-ci shows that the 95% CI for quadratic term for abundance never overlaps 0.
-
-
-
-```{r}
-#| label: mk-fig-param-ci
-#| cache: true
-#| dependson: spec-mods
-#| fig-cap: |
-#|     Estimated effect sizes and 95% confidence intervals for simulation model
-#|     parameters (first panel) and the quadratic term for abundance (middle 
-#|     panel). The right hand panel shows how the abundance value at which 
-#|     probability of speciation reaches its peak. This shift is shown relative
-#|     to the model without simulaton model parameters as covariates and the 
-#|     magnitude of the arrow represents how the location of peak speciation
-#|     probability would shift if the simulation model parameter increased by
-#|     one standard deviation.
-
-
-# assumes simulation model covariates have been scaled and centered
-delta_peak <- function(b1, b2, b1_int, b2_int) {
-    -(b1 + b1_int) / (2 * (b2 + b2_int))
-}
-
-
-cis <- list(
-    nu_ci,
-    tau_ci,
-    disp_ci,
-    growth_ci
-) |> 
-    lapply(function(x) {
-        
-        # quadratic abundance and covariate coefs
-        params <- x[3:4, ]
-        
-        # shift in peak
-        d_peak <- delta_peak(x[2, 3], x[3, 3], x[5, 3], x[6, 3])
-        
-        # significance of interaction
-        int_signif <- (length(unique(sign(x[5, ]))) == 1) |
-            (length(unique(sign(x[6, ]))) == 1)
-        
-        out <- rbind(params, 
-                     # first 2 elements of below just indicate significance
-                     # of interaction term and will be used for plot limits
-                     # if all same sign ==> significant
-                     cbind(d_peak, 
-                           ifelse(int_signif,
-                                  1e-10 * sign(d_peak), 
-                                  -1e-10 * sign(d_peak)), 
-                           d_peak))
-        
-        
-        # add columns
-        out <- as.data.frame(out) |> 
-            mutate(param = rownames(params)[2], 
-                   type = c("quad_abund", "covar", "delta_peak"))
-        
-        rownames(out) <- NULL
-        out
-    }) |> 
-    bind_rows() |> 
-    mutate(param = factor(gsub("scale\\(|\\)", "", param), 
-                          levels = c("growth", "rel_disp", "tau", "nu")),
-           type = factor(type, 
-                         levels = c("covar", "quad_abund", "delta_peak"))) |> 
-    rename(ci_low = `2.5 %`, 
-           ci_hi = `97.5 %`)
-
-
-
-
-
-ggplot(cis, aes(x = ci_hi, xend = ci_low, param)) +
-    geom_segment() +
-    facet_grid(cols = vars(type), scales = "free_x") +
-    geom_vline(xintercept = 0, linetype = 2) +
-    geom_segment(data = filter(cis, type == "delta_peak"), 
-                 aes(color = sign(ci_low) == sign(ci_hi)),
-                 arrow = arrow(length = unit(10, "pt"))) +
-    scale_color_discrete(palette = c("gray", "#006B99")) +
-    geom_point(data = filter(cis, type != "delta_peak"), 
-               mapping = aes(x = Estimate)) +
-    theme_cowplot() +
-    theme(panel.border = element_rect(color = "black", linewidth = 0.5), 
-          legend.position = "none")
-
-```
 
 
 
