@@ -300,6 +300,7 @@ The following objects are masked from 'package:base':
 \FunctionTok{library}\NormalTok{(ggpointdensity)}
 \FunctionTok{library}\NormalTok{(cowplot)}
 \FunctionTok{library}\NormalTok{(knitr)}
+\FunctionTok{library}\NormalTok{(glmmTMB)}
 
 \FunctionTok{sessionInfo}\NormalTok{() }\SpecialCharTok{|\textgreater{}} 
     \FunctionTok{print}\NormalTok{(}\AttributeTok{locale =} \ConstantTok{FALSE}\NormalTok{)}
@@ -319,18 +320,27 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
-[1] knitr_1.50           cowplot_1.2.0.9000   ggpointdensity_0.2.1
-[4] ggplot2_4.0.1        dplyr_1.2.1          abundolism_1.0.0    
+[1] glmmTMB_1.1.14       knitr_1.50           cowplot_1.2.0.9000  
+[4] ggpointdensity_0.2.1 ggplot2_4.0.1        dplyr_1.2.1         
+[7] abundolism_1.0.0    
 
 loaded via a namespace (and not attached):
- [1] vctrs_0.7.3        cli_3.6.5          rlang_1.2.0        xfun_0.52         
- [5] generics_0.1.4     S7_0.2.1           jsonlite_2.0.0     glue_1.8.0        
- [9] htmltools_0.5.8.1  scales_1.4.0       rmarkdown_2.29     grid_4.5.2        
-[13] evaluate_1.0.4     tibble_3.3.0       MASS_7.3-65        fastmap_1.2.0     
-[17] yaml_2.3.10        lifecycle_1.0.5    compiler_4.5.2     RColorBrewer_1.1-3
-[21] Rcpp_1.1.0         pkgconfig_2.0.3    rstudioapi_0.17.1  farver_2.1.2      
-[25] digest_0.6.39      R6_2.6.1           tidyselect_1.2.1   pillar_1.11.0     
-[29] magrittr_2.0.4     withr_3.0.2        tools_4.5.2        gtable_0.3.6      
+ [1] sandwich_3.1-3      generics_0.1.4      lattice_0.22-7     
+ [4] lme4_1.1-38         digest_0.6.39       magrittr_2.0.4     
+ [7] evaluate_1.0.4      grid_4.5.2          RColorBrewer_1.1-3 
+[10] fastmap_1.2.0       jsonlite_2.0.0      Matrix_1.7-4       
+[13] mgcv_1.9-3          scales_1.4.0        numDeriv_2016.8-1.1
+[16] reformulas_0.4.4    Rdpack_2.6.4        cli_3.6.5          
+[19] rlang_1.2.0         rbibutils_2.3       splines_4.5.2      
+[22] withr_3.0.2         yaml_2.3.10         tools_4.5.2        
+[25] nloptr_2.2.1        minqa_1.2.8         boot_1.3-32        
+[28] vctrs_0.7.3         R6_2.6.1            zoo_1.8-14         
+[31] lifecycle_1.0.5     MASS_7.3-65         pkgconfig_2.0.3    
+[34] pillar_1.11.0       gtable_0.3.6        glue_1.8.0         
+[37] Rcpp_1.1.0          xfun_0.52           tibble_3.3.0       
+[40] tidyselect_1.2.1    rstudioapi_0.17.1   farver_2.1.2       
+[43] htmltools_0.5.8.1   nlme_3.1-168        rmarkdown_2.29     
+[46] TMB_1.9.21          compiler_4.5.2      S7_0.2.1           
 \end{verbatim}
 
 The quarto (Allaire et al. 2025) document used to generate this
@@ -369,11 +379,10 @@ Possible events for each local population are
 \item
   local speciation
 \item
-  local immigration
+  local dispersal
 \end{itemize}
 
-There is also one possible global event: immigration from the source
-pool.
+There is also one possible global event: dispersal from the source pool.
 
 If there are \(n_p\) local populations then the total number of possible
 events are \(n_p \times 4 + 1\). Which event occurs during any given
@@ -385,22 +394,22 @@ each event is proportional to its respective rate:
 \mathbb{P}(\text{birth in pop. } i) &= \frac{\lambda x_i}{R} \\
 \mathbb{P}(\text{death in pop. } i) &= \frac{\mu x_i}{R} \\
 \mathbb{P}(\text{speciation in pop. } i) &= \frac{\nu x_i}{R} \\
-\mathbb{P}(\text{local immigration from pop. } i) &= \frac{m_{prop}\gamma x_i}{R} \\
-\mathbb{P}(\text{global immigration}) &= \frac{\gamma}{R}
+\mathbb{P}(\text{local emigration from pop. } i) &= \frac{m_{prop}\gamma x_i}{R} \\
+\mathbb{P}(\text{global emigration}) &= \frac{\gamma}{R}
 \end{align}
 
 where
 \(R = \gamma + \left( \sum_i^{n_p} x_i \right) (\lambda + \mu + \nu + m_{prop} \gamma)\)
 is a normalization constant.
 
-In the case of immigration (both local and from the source pool) the
+In the case of dispersal (both local and from the source pool), the
 recipient of the dispersing individual must also be chosen. We choose
 the recipient local population at random with equal probability across
 local populations.
 
 Once an event is randomly sampled, the variables being tracked are
 updated. Birth and immigration (local or global) augment a local
-population by 1. Death decrements a local population by 1. Immigration
+population by 1. Death decrements a local population by 1. Dispersal
 events have no impact on the source of the dispersing individual. Time
 is updated following the Gillespie algorithm: the sojourn time between
 events is a random variable with an exponential probability distribution
@@ -416,8 +425,8 @@ to the default of \(\tau\).
 If full speciation is achieved the simulation stops. If no speciation
 occurs but the specified number of simulation iterations is reached, the
 simulation stops. Once stopped, the simulation returns the tracked
-variables of time, mean population size, and whether full speciation has
-occurred.
+variables of time, mean population size (i.e.~abundance), and whether
+full speciation has occurred.
 
 \section{Simulation experiment
 details}\label{simulation-experiment-details}
@@ -503,179 +512,118 @@ documentation accessible with \texttt{?sim\_BDI\_spec}.
 \NormalTok{sim\_dat }\OtherTok{\textless{}{-}} \FunctionTok{sim\_BDI\_spec}\NormalTok{(}\AttributeTok{la =}\NormalTok{ pars}\SpecialCharTok{$}\NormalTok{la, }\AttributeTok{mu =}\NormalTok{ pars}\SpecialCharTok{$}\NormalTok{mu, }\AttributeTok{g =}\NormalTok{ pars}\SpecialCharTok{$}\NormalTok{g, }
                         \AttributeTok{m\_prop =}\NormalTok{ pars}\SpecialCharTok{$}\NormalTok{m\_prop, }\AttributeTok{nu =}\NormalTok{ pars}\SpecialCharTok{$}\NormalTok{nu, }
                         \AttributeTok{tau =}\NormalTok{ pars}\SpecialCharTok{$}\NormalTok{tau, }\AttributeTok{xi =}\NormalTok{ pars}\SpecialCharTok{$}\NormalTok{xi, }
-                        \AttributeTok{np =}\NormalTok{ np, }\AttributeTok{nstep =}\NormalTok{ nstep)}
+                        \AttributeTok{np =}\NormalTok{ np, }\AttributeTok{nstep =}\NormalTok{ nstep, }\AttributeTok{w =} \DecValTok{100}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
+
+Simulation outputs are analyzed in binned windows of timesteps, in this
+case \texttt{w\ =\ 100} steps in width. Bins are non-overlapping.
 
 \section{Interpreting the simulation experiment}\label{sec-sim-res}
 
 Now we can visually inspect the results. Our main purpose is to study
 how abundance relates to speciation in this model, but first we check
 other relationships to ensure the model behaves as expected. In
-particular, population size should be larger when \(\lambda > \mu\) and
-smaller, supported primarily by immigration. When \(\lambda < \mu\)
-populations will grow indefinitely. When birth and death rates are equal
-(\(\lambda = \mu\)) the population could crash or expand depending on
-small random fluctuations and random immigration. Supplementary
-Figure~\ref{fig-la-mu} shows exactly this pattern. Of note: simulation
-runs experiencing speciation diverge from the expected pattern but that
-is specifically because our simulation algorithm stops the simulation
-short (i.e.~populations are not allowed to continue changing) once
-speciation occurs.
+particular, abundance should be larger when \(\lambda > \mu\) and
+smaller when \(\lambda < \mu\), supported primarily by immigration. When
+\(\lambda > \mu\) populations will grow indefinitely. When birth and
+death rates are equal (\(\lambda = \mu\)) the population could crash or
+expand depending on small random fluctuations and random immigration.
+The figure below shows exactly this pattern. Smaller abundances for
+\(\lambda > \mu\) likely correspond to time bin windows earlier in the
+simulation as well as those that stochastically drifted to smaller
+sizes.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{ggplot}\NormalTok{(sim\_dat, }\FunctionTok{aes}\NormalTok{(la }\SpecialCharTok{{-}}\NormalTok{ mu, mean\_pop\_size)) }\SpecialCharTok{+}
-    \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{data =} \FunctionTok{select}\NormalTok{(sim\_dat, }\SpecialCharTok{!}\NormalTok{speciation), }
-               \AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(la }\SpecialCharTok{{-}}\NormalTok{ mu, mean\_pop\_size), }\AttributeTok{color =} \StringTok{"gray50"}\NormalTok{) }\SpecialCharTok{+}
-    \FunctionTok{geom\_pointdensity}\NormalTok{() }\SpecialCharTok{+} 
-    \FunctionTok{facet\_wrap}\NormalTok{(}\FunctionTok{vars}\NormalTok{(speciation), }
-               \AttributeTok{labeller =} \FunctionTok{as\_labeller}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{0}\StringTok{\textasciigrave{}} \OtherTok{=} \StringTok{"No speciation"}\NormalTok{, }
-                                        \StringTok{\textasciigrave{}}\AttributeTok{1}\StringTok{\textasciigrave{}} \OtherTok{=} \StringTok{"Yes speciation"}\NormalTok{))) }\SpecialCharTok{+}
+\NormalTok{fig\_la\_mu }\OtherTok{\textless{}{-}} \FunctionTok{mutate}\NormalTok{(sim\_dat, }
+                    \AttributeTok{disp\_bin =} \FunctionTok{cut}\NormalTok{(g }\SpecialCharTok{*}\NormalTok{ (}\DecValTok{1} \SpecialCharTok{+}\NormalTok{ m\_prop), }
+                                   \AttributeTok{breaks =} \FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\ConstantTok{Inf}\NormalTok{, }\FloatTok{0.33}\NormalTok{, }\FloatTok{0.66}\NormalTok{, }\ConstantTok{Inf}\NormalTok{))) }\SpecialCharTok{|\textgreater{}} 
+    \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(la }\SpecialCharTok{{-}}\NormalTok{ mu, mean\_pop\_size)) }\SpecialCharTok{+}
+    \FunctionTok{geom\_hex}\NormalTok{() }\SpecialCharTok{+}
+    \FunctionTok{facet\_grid}\NormalTok{(}
+        \AttributeTok{cols =} \FunctionTok{vars}\NormalTok{(speciation), }
+        \AttributeTok{labeller =} \FunctionTok{as\_labeller}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{0}\StringTok{\textasciigrave{}} \OtherTok{=} \StringTok{"No speciation"}\NormalTok{,}
+                                 \StringTok{\textasciigrave{}}\AttributeTok{1}\StringTok{\textasciigrave{}} \OtherTok{=} \StringTok{"Yes speciation"}\NormalTok{))}
+\NormalTok{    ) }\SpecialCharTok{+}
     \FunctionTok{scale\_y\_log10}\NormalTok{() }\SpecialCharTok{+} 
     \FunctionTok{xlab}\NormalTok{(}\FunctionTok{expression}\NormalTok{(}\FunctionTok{italic}\NormalTok{(lambda }\SpecialCharTok{{-}}\NormalTok{ mu))) }\SpecialCharTok{+} 
-    \FunctionTok{ylab}\NormalTok{(}\StringTok{"Mean population size"}\NormalTok{) }\SpecialCharTok{+}
-    \FunctionTok{scale\_color\_viridis\_c}\NormalTok{(}\AttributeTok{trans =} \StringTok{"log10"}\NormalTok{) }\SpecialCharTok{+}
+    \FunctionTok{ylab}\NormalTok{(}\StringTok{"Abundance"}\NormalTok{) }\SpecialCharTok{+}
+    \FunctionTok{scale\_fill\_viridis\_c}\NormalTok{(}\AttributeTok{transform =} \StringTok{"log10"}\NormalTok{) }\SpecialCharTok{+}
     \FunctionTok{theme\_cowplot}\NormalTok{()}
+
+\NormalTok{fig\_la\_mu}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{figure}[H]
 
-\centering{
-
-\pandocbounded{\includegraphics[keepaspectratio]{ab_supp_files/figure-pdf/fig-la-mu-1.pdf}}
+{\centering \pandocbounded{\includegraphics[keepaspectratio]{ab_supp_files/figure-pdf/mk-fig-la-mu-1.pdf}}
 
 }
 
-\caption{\label{fig-la-mu}Relationship across simulation runs between
-growth rate (\(\lambda - \mu\)) and mean population size. Panels show
-simulation runs without and with speciation. Points are color coded
-according to local density of points in an attempt to more clearly show
-the distribution of simulation results.}
+\caption{Relationship across simulation run windows between growth rate
+(\(\lambda - \mu\)) and abundance. Panels show simulation runs without
+and with full speciation. Colored hexagons show the number of points
+with values in that small neighborhood in order to more clearly show the
+distribution of simulation results.}
 
 \end{figure}%
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{\# model of speciation changing with nu}
-\NormalTok{nu\_mod }\OtherTok{\textless{}{-}} \FunctionTok{glm}\NormalTok{(speciation }\SpecialCharTok{\textasciitilde{}}\NormalTok{ nu, }\AttributeTok{data =}\NormalTok{ sim\_dat, }\AttributeTok{family =}\NormalTok{ binomial)}
-\NormalTok{nu\_slope\_ci }\OtherTok{\textless{}{-}} \FunctionTok{confint}\NormalTok{(nu\_mod, }\DecValTok{2}\NormalTok{)}
+\NormalTok{fig\_g }\OtherTok{\textless{}{-}} \FunctionTok{mutate}\NormalTok{(sim\_dat, }
+                \AttributeTok{growth\_bin =} \FunctionTok{cut}\NormalTok{(la }\SpecialCharTok{{-}}\NormalTok{ mu, }
+                                 \AttributeTok{breaks =} \FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\ConstantTok{Inf}\NormalTok{, }\SpecialCharTok{{-}}\DecValTok{2}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{2}\NormalTok{, }\ConstantTok{Inf}\NormalTok{), }
+                                 \AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"lo"}\NormalTok{, }\StringTok{"mid\_lo"}\NormalTok{, }\StringTok{"mid\_hi"}\NormalTok{, }\StringTok{"hi"}\NormalTok{))) }\SpecialCharTok{|\textgreater{}} 
+    \FunctionTok{mutate}\NormalTok{(}\AttributeTok{growth\_bin =} \FunctionTok{factor}\NormalTok{(growth\_bin, }
+                               \AttributeTok{levels =} \FunctionTok{c}\NormalTok{(}\StringTok{"hi"}\NormalTok{, }\StringTok{"mid\_hi"}\NormalTok{, }\StringTok{"mid\_lo"}\NormalTok{, }\StringTok{"lo"}\NormalTok{))) }\SpecialCharTok{|\textgreater{}} 
+    \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(g }\SpecialCharTok{*}\NormalTok{ (}\DecValTok{1} \SpecialCharTok{+}\NormalTok{ m\_prop), mean\_pop\_size)) }\SpecialCharTok{+}
+    \FunctionTok{geom\_hex}\NormalTok{(}\AttributeTok{bins =} \DecValTok{30}\NormalTok{) }\SpecialCharTok{+}
+    \FunctionTok{facet\_grid}\NormalTok{(}\AttributeTok{rows =} \FunctionTok{vars}\NormalTok{(growth\_bin),}
+               \AttributeTok{cols =} \FunctionTok{vars}\NormalTok{(speciation),}
+               \AttributeTok{scales =} \StringTok{"free\_y"}\NormalTok{,}
+               \AttributeTok{labeller =} \FunctionTok{as\_labeller}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{0}\StringTok{\textasciigrave{}} \OtherTok{=} \StringTok{"No\textasciitilde{}speciation"}\NormalTok{, }
+                                        \StringTok{\textasciigrave{}}\AttributeTok{1}\StringTok{\textasciigrave{}} \OtherTok{=} \StringTok{"Yes\textasciitilde{}speciation"}\NormalTok{, }
+                                        \AttributeTok{lo =} \StringTok{"}\SpecialCharTok{\textbackslash{}"}\StringTok{{-}2}\SpecialCharTok{\textbackslash{}"}\StringTok{\textgreater{}=lambda {-} mu"}\NormalTok{, }
+                                        \AttributeTok{mid\_lo =} \StringTok{"0 \textgreater{}= lambda {-} mu\textasciitilde{}}\SpecialCharTok{\textbackslash{}"}\StringTok{\textgreater{} {-}2}\SpecialCharTok{\textbackslash{}"}\StringTok{"}\NormalTok{,}
+                                        \AttributeTok{mid\_hi =} \StringTok{"2 \textgreater{}= lambda {-} mu\textasciitilde{}}\SpecialCharTok{\textbackslash{}"}\StringTok{\textgreater{} 0}\SpecialCharTok{\textbackslash{}"}\StringTok{"}\NormalTok{,}
+                                        \AttributeTok{hi =} \StringTok{"lambda {-} mu \textgreater{} 2"}\NormalTok{), }
+\NormalTok{                                      label\_parsed)) }\SpecialCharTok{+}
+    \FunctionTok{scale\_y\_log10}\NormalTok{(}\AttributeTok{limits =} \ControlFlowTok{function}\NormalTok{(y) \{}
+        \ControlFlowTok{if}\NormalTok{(}\FunctionTok{max}\NormalTok{(y) }\SpecialCharTok{\textless{}} \DecValTok{10}\NormalTok{) \{}
+            \FunctionTok{return}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\FunctionTok{min}\NormalTok{(y), }\DecValTok{10}\NormalTok{))}
+\NormalTok{        \} }\ControlFlowTok{else}\NormalTok{ \{}
+            \FunctionTok{return}\NormalTok{(}\FunctionTok{range}\NormalTok{(y))}
+\NormalTok{        \}}
+\NormalTok{    \}) }\SpecialCharTok{+} 
+    \FunctionTok{xlab}\NormalTok{(}\FunctionTok{expression}\NormalTok{(}\StringTok{"Global + local dispersal rate"}\NormalTok{)) }\SpecialCharTok{+} 
+    \FunctionTok{ylab}\NormalTok{(}\StringTok{"Abundance"}\NormalTok{) }\SpecialCharTok{+}
+    \FunctionTok{scale\_fill\_viridis\_c}\NormalTok{(}\AttributeTok{transform =} \StringTok{"log10"}\NormalTok{) }\SpecialCharTok{+}
+    \FunctionTok{theme\_cowplot}\NormalTok{()}
+
+\NormalTok{fig\_g}
 \end{Highlighting}
 \end{Shaded}
-
-We also expect that probability of specification should increase with
-the parameter \(\nu\), the rate of incipient speciation. Supplementary
-Figure~\ref{fig-nu} confirms this expectation but shows the relationship
-to be weak, indicating that while this parameter obviously matters, its
-effect is modulated by other factors such as abundance and dispersal. A
-logistic regression model confirms this weakly positive but meaningful
-relationship estimating a 95\% confidence interval on the slope of
-(1.512, 5.748).
-
-With results from the simulation we report confidence intervals rather
-than hypothesis tests because sample sizes from simulations are
-arbitrary and thus degrees of freedom can be manipulated to produce
-statistically significant results from biologically meaningless
-patterns. By contrast, confidence intervals more meaningfully indicate
-the magnitude of effects in the simulation experiment.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{spec\_plot}\NormalTok{(sim\_dat, nu, }
-          \AttributeTok{xlab =} \FunctionTok{expression}\NormalTok{(}\StringTok{"Incipient speciation rate"}\SpecialCharTok{\textasciitilde{}}\FunctionTok{italic}\NormalTok{(nu)))}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-`geom_smooth()` using formula = 'y ~ x'
-\end{verbatim}
 
 \begin{figure}[H]
 
-\centering{
-
-\pandocbounded{\includegraphics[keepaspectratio]{ab_supp_files/figure-pdf/fig-nu-1.pdf}}
+{\centering \pandocbounded{\includegraphics[keepaspectratio]{ab_supp_files/figure-pdf/mk-fig-g-1.pdf}}
 
 }
 
-\caption{\label{fig-nu}Relationship across simulation runs between
-incipient speciation rate and speciation. Points are jittered around 1
-and 0 and are color coded according to local density of points all in an
-attempt to more clearly show the distribution of simulation results.
-Curve is a binomial generalize linear model and gray region shows 95\%
-confidence envelope.}
+\caption{Relationship across simulation run windows between combined
+dispersal rate (global plus local) and abundance. Panel columns show
+simulation run windows without and with full speciation while panel rows
+show simulation run windows of different growth rate
+(\(\lambda - \mu\)). Colored hexagons show the number of points with
+values in that small neighborhood in order to more clearly show the
+distribution of simulation results.}
 
 \end{figure}%
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{\# model of speciation changing with dispersal}
-\NormalTok{disp\_mod }\OtherTok{\textless{}{-}} \FunctionTok{glm}\NormalTok{(speciation }\SpecialCharTok{\textasciitilde{}} \FunctionTok{I}\NormalTok{(}\FunctionTok{log}\NormalTok{((g }\SpecialCharTok{+}\NormalTok{ m\_prop }\SpecialCharTok{*}\NormalTok{ g) }\SpecialCharTok{/}\NormalTok{ la)), }
-                \AttributeTok{data =}\NormalTok{ sim\_dat, }\AttributeTok{family =}\NormalTok{ binomial)}
-\NormalTok{disp\_slope\_ci }\OtherTok{\textless{}{-}} \FunctionTok{confint}\NormalTok{(disp\_mod)}
-\end{Highlighting}
-\end{Shaded}
-
-We also expect dispersal to decrease the chance of speciation because
-dispersal prolongs the wait time until full speciation. But we have to
-evaluate this expectation with respect to \emph{relative} dispersal,
-that is dispersal relative to birth because these rate trade-off in
-determining whether a population grows due to intrinsic (birth) or
-extrinsic (dispersal) forces. Dispersal comes from two sources: global
-dispersal and local dispersal, so we add these two sources when
-considering total dispersal. Supplementary Figure~\ref{fig-disp}
-Confirms the negative relationship between speciation and dispersal. The
-slope from a logistic regression model for log dispersal normalized by
-birth rate has a 95\% confidence interval of (-1.695, -0.602).
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{spec\_plot}\NormalTok{(sim\_dat, (}\DecValTok{1} \SpecialCharTok{+}\NormalTok{ m\_prop) }\SpecialCharTok{*}\NormalTok{ g }\SpecialCharTok{/}\NormalTok{ la, }\AttributeTok{xlog =} \ConstantTok{TRUE}\NormalTok{, }
-          \AttributeTok{xlab =} \StringTok{"Relative dpeciation rate"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-`geom_smooth()` using formula = 'y ~ x'
-\end{verbatim}
-
-\begin{figure}[H]
-
-\centering{
-
-\pandocbounded{\includegraphics[keepaspectratio]{ab_supp_files/figure-pdf/fig-disp-1.pdf}}
-
-}
-
-\caption{\label{fig-disp}Relationship across simulation runs between
-relative dispersal rate and speciation. Points are jittered around 1 and
-0 and are color coded according to local density of points all in an
-attempt to more clearly show the distribution of simulation results.
-Curve is a binomial generalize linear model and gray region shows 95\%
-confidence envelope.}
-
-\end{figure}%
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{\# model of speciation changing with wait time to full speciation}
-\NormalTok{tau\_mod }\OtherTok{\textless{}{-}} \FunctionTok{glm}\NormalTok{(speciation }\SpecialCharTok{\textasciitilde{}} \FunctionTok{log}\NormalTok{(tau), }
-                \AttributeTok{data =}\NormalTok{ sim\_dat, }\AttributeTok{family =}\NormalTok{ binomial)}
-\NormalTok{tau\_slope\_ci }\OtherTok{\textless{}{-}} \FunctionTok{confint}\NormalTok{(tau\_mod, }\DecValTok{2}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-We might also expect that speciation decreases with the duration of the
-wait time \(\tau\) to full speciation. However, \(\tau\) is only the
-initial value for the wait time, dispersal continually augments this
-wait time, thus \(\tau\) by itself does not impact probability of
-speciation. The 95\% confidence interval for the slope of speciation
-probability against \(\log(\tau)\) is (-0.132, 0.073), which does skew
-toward negative values, but includes the value of slope = 0.
 
 \subsection{Evaluating the relationship between abundance and
-speciation}\label{evaluating-the-relationship-between-abundance-and-speciation}
+speciation}\label{sec-sim-mod}
 
 These results are reported in the main text. Here we show how the
 results from the main text are derived.
@@ -685,17 +633,12 @@ function of abundance with the below code:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{sim\_dat}\SpecialCharTok{$}\NormalTok{log\_abund }\OtherTok{\textless{}{-}} \FunctionTok{log}\NormalTok{(sim\_dat}\SpecialCharTok{$}\NormalTok{mean\_pop\_size)}
-\NormalTok{sim\_mod }\OtherTok{\textless{}{-}} \FunctionTok{glm}\NormalTok{(speciation }\SpecialCharTok{\textasciitilde{}}\NormalTok{ log\_abund }\SpecialCharTok{+} \FunctionTok{I}\NormalTok{(log\_abund}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{), }
-               \AttributeTok{family =}\NormalTok{ binomial, }\AttributeTok{data =}\NormalTok{ sim\_dat)}
+\NormalTok{sim\_mod }\OtherTok{\textless{}{-}} \FunctionTok{glmmTMB}\NormalTok{(speciation }\SpecialCharTok{\textasciitilde{}}\NormalTok{ log\_abund }\SpecialCharTok{+} \FunctionTok{I}\NormalTok{(log\_abund}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{) }\SpecialCharTok{+}\NormalTok{ (}\DecValTok{1} \SpecialCharTok{|}\NormalTok{ sim\_id), }
+                   \AttributeTok{family =}\NormalTok{ binomial, }\AttributeTok{data =}\NormalTok{ sim\_dat)}
 
 \NormalTok{sim\_quad\_ci }\OtherTok{\textless{}{-}} \FunctionTok{confint}\NormalTok{(sim\_mod, }\AttributeTok{parm =} \DecValTok{3}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
-
-\begin{verbatim}
-Waiting for profiling to be done...
-\end{verbatim}
 
 The confidence interval for the quadratic term is far from 0:
 
@@ -706,9 +649,14 @@ The confidence interval for the quadratic term is far from 0:
 \end{Shaded}
 
 \begin{verbatim}
-     2.5 %     97.5 % 
--0.4156320 -0.3651633 
+                    2.5 %     97.5 %   Estimate
+I(log_abund^2) -0.3109405 -0.2573601 -0.2841503
 \end{verbatim}
+
+It should also be noted that the confidence interval for the quadratic
+term for abundance does not overlap zero in any of the GLMMs that
+included simulation model parameters as covariates along with abundance
+(see figure below).
 
 We now turn to developing the figure of abundance versus speciation.
 These results are reported in the main text, but the code below is used
@@ -716,64 +664,374 @@ to create the visualization of speciation versus abundance.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{special\_log10\_breaks }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(x) \{}
-\NormalTok{    p }\OtherTok{\textless{}{-}} \FunctionTok{seq}\NormalTok{(}\FunctionTok{floor}\NormalTok{(x[}\DecValTok{1}\NormalTok{]),}
-             \FunctionTok{ceiling}\NormalTok{(x[}\DecValTok{2}\NormalTok{]),}
-             \AttributeTok{by =}\NormalTok{ (}\FunctionTok{floor}\NormalTok{(x[}\DecValTok{2}\NormalTok{]) }\SpecialCharTok{{-}} \FunctionTok{ceiling}\NormalTok{(x[}\DecValTok{1}\NormalTok{])) }\SpecialCharTok{/} \DecValTok{15}\NormalTok{)}
-    
-    \DecValTok{10}\SpecialCharTok{\^{}}\NormalTok{p}
-\NormalTok{\}}
+\CommentTok{\# model prediction}
+\NormalTok{sim\_pred }\OtherTok{\textless{}{-}} \FunctionTok{pred\_binom}\NormalTok{(sim\_mod) }\SpecialCharTok{|\textgreater{}} 
+    \FunctionTok{mutate}\NormalTok{(}\AttributeTok{abund =} \FunctionTok{exp}\NormalTok{(log\_abund))}
 
-\NormalTok{spec\_by\_bin }\OtherTok{\textless{}{-}} \FunctionTok{mutate}\NormalTok{(sim\_dat, }
-                      \AttributeTok{bins =} \FunctionTok{cut}\NormalTok{(}
-\NormalTok{                          mean\_pop\_size, }
-                          \FunctionTok{log}\NormalTok{(mean\_pop\_size, }\DecValTok{10}\NormalTok{) }\SpecialCharTok{|\textgreater{}} 
-                              \FunctionTok{range}\NormalTok{() }\SpecialCharTok{|\textgreater{}} 
-                              \FunctionTok{special\_log10\_breaks}\NormalTok{() }
-\NormalTok{                      )) }\SpecialCharTok{|\textgreater{}} 
-    \FunctionTok{summarize}\NormalTok{(}\AttributeTok{spec\_prop =} \FunctionTok{mean}\NormalTok{(speciation), }
-              \AttributeTok{n =} \FunctionTok{n}\NormalTok{(),}
-              \AttributeTok{.by =}\NormalTok{ bins) }\SpecialCharTok{|\textgreater{}} 
-    \FunctionTok{mutate}\NormalTok{(}\AttributeTok{xlo =} \FunctionTok{gsub}\NormalTok{(}\StringTok{"}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{(|,.*"}\NormalTok{, }\StringTok{""}\NormalTok{, bins) }\SpecialCharTok{|\textgreater{}} \FunctionTok{as.numeric}\NormalTok{(), }
-           \AttributeTok{xhi =} \FunctionTok{gsub}\NormalTok{(}\StringTok{"}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{]|.*,"}\NormalTok{, }\StringTok{""}\NormalTok{, bins) }\SpecialCharTok{|\textgreater{}} \FunctionTok{as.numeric}\NormalTok{()) }\SpecialCharTok{|\textgreater{}} 
-    \FunctionTok{arrange}\NormalTok{(xlo)}
 
-\CommentTok{\# plotting}
-\NormalTok{sim\_fig }\OtherTok{\textless{}{-}} \FunctionTok{spec\_plot}\NormalTok{(sim\_dat, mean\_pop\_size, }\AttributeTok{xlab =} \StringTok{"Mean population size"}\NormalTok{, }
-               \AttributeTok{xlog =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{formula =}\NormalTok{ y }\SpecialCharTok{\textasciitilde{}}\NormalTok{ x }\SpecialCharTok{+} \FunctionTok{I}\NormalTok{(x}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{), }
-               \AttributeTok{se =} \ConstantTok{FALSE}\NormalTok{) }\SpecialCharTok{+} 
-    \FunctionTok{geom\_rect}\NormalTok{(}\AttributeTok{data =}\NormalTok{ spec\_by\_bin,}
-              \AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{xmin =}\NormalTok{ xlo, }\AttributeTok{xmax =}\NormalTok{ xhi,}
-                            \AttributeTok{ymin =} \DecValTok{0}\NormalTok{, }\AttributeTok{ymax =}\NormalTok{ spec\_prop),}
-              \AttributeTok{alpha =} \FloatTok{0.25}\NormalTok{,}
-              \AttributeTok{inherit.aes =} \ConstantTok{FALSE}\NormalTok{) }
+\CommentTok{\# base plot of simulation results}
+\NormalTok{sim\_fig\_base }\OtherTok{\textless{}{-}} \FunctionTok{logistic\_hist\_plot}\NormalTok{(sim\_dat, mean\_pop\_size, }\AttributeTok{xlog =} \ConstantTok{TRUE}\NormalTok{, }
+          \AttributeTok{xlab =} \StringTok{"Abundance"}\NormalTok{, }
+          \AttributeTok{ymin =} \DecValTok{0}\NormalTok{, }\AttributeTok{ymax =} \FloatTok{0.002}\NormalTok{)}
 
-\CommentTok{\# change order of layer display}
-\NormalTok{sim\_fig}\SpecialCharTok{$}\NormalTok{layers }\OtherTok{\textless{}{-}}\NormalTok{ sim\_fig}\SpecialCharTok{$}\NormalTok{layers[}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{2}\NormalTok{)]}
 
-\CommentTok{\# add background bars}
-\NormalTok{sim\_fig }\OtherTok{\textless{}{-}}\NormalTok{ sim\_fig }\SpecialCharTok{+} 
-    \FunctionTok{theme}\NormalTok{(}\AttributeTok{panel.background =} \FunctionTok{element\_rect}\NormalTok{(}\AttributeTok{fill =} \StringTok{"gray90"}\NormalTok{),}
-          \AttributeTok{panel.grid.major.x =} \FunctionTok{element\_line}\NormalTok{(}\AttributeTok{color =} \StringTok{"white"}\NormalTok{),}
-          \AttributeTok{panel.grid.minor.x =} \FunctionTok{element\_line}\NormalTok{(}\AttributeTok{color =} \StringTok{"white"}\NormalTok{)) }\SpecialCharTok{+}
-    \FunctionTok{scale\_x\_log10}\NormalTok{(}\AttributeTok{minor\_breaks =}\NormalTok{ spec\_by\_bin}\SpecialCharTok{$}\NormalTok{xlo, }\AttributeTok{expand =} \ConstantTok{FALSE}\NormalTok{)}
+
+\CommentTok{\# add glmm CI and prediction}
+\NormalTok{sim\_fig }\OtherTok{\textless{}{-}}\NormalTok{ sim\_fig\_base }\SpecialCharTok{+}
+    \FunctionTok{geom\_ribbon}\NormalTok{(}\AttributeTok{data =}\NormalTok{ sim\_pred, }
+                \AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(abund, }
+                              \AttributeTok{ymin =}\NormalTok{ fit }\SpecialCharTok{{-}} \DecValTok{2} \SpecialCharTok{*}\NormalTok{ se\_fit, }
+                              \AttributeTok{ymax =}\NormalTok{ fit }\SpecialCharTok{+} \DecValTok{2} \SpecialCharTok{*}\NormalTok{ se\_fit), }
+                \AttributeTok{fill =} \StringTok{"\#006B99"}\NormalTok{, }\AttributeTok{alpha =} \FloatTok{0.5}\NormalTok{,}
+                \AttributeTok{inherit.aes =} \ConstantTok{FALSE}\NormalTok{) }\SpecialCharTok{+}
+    \FunctionTok{geom\_line}\NormalTok{(}\AttributeTok{data =}\NormalTok{ sim\_pred,}
+              \AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(abund, fit), }
+              \AttributeTok{color =} \StringTok{"\#006B99"}\NormalTok{, }
+              \AttributeTok{linewidth =} \DecValTok{1}\NormalTok{,}
+              \AttributeTok{inherit.aes =} \ConstantTok{FALSE}\NormalTok{)}
+
+\NormalTok{sim\_fig}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}[H]
+
+{\centering \pandocbounded{\includegraphics[keepaspectratio]{ab_supp_files/figure-pdf/make-sim-fig-1.pdf}}
+
+}
+
+\caption{Relationship between abundance and probability of full
+speciation. This figure is presented and discussed in more detail in the
+main text.}
+
+\end{figure}%
+
+The fact that the peak of the GLMM does not clearly align with the peak
+of the speciation histogram is both because the peak captures the
+proportion of speciating to non-speciating windows and because the model
+accounts for random effects.
+
+The mean abundance, and its confidence interval, at which speciation
+probability peaks can be calculated as
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# MLE of peak location}
+\NormalTok{abund\_coef }\OtherTok{\textless{}{-}} \FunctionTok{fixef}\NormalTok{(sim\_mod)[[}\DecValTok{1}\NormalTok{]][}\DecValTok{2}\SpecialCharTok{:}\DecValTok{3}\NormalTok{]}
+\NormalTok{log\_abund\_peak }\OtherTok{\textless{}{-}} \SpecialCharTok{{-}}\NormalTok{abund\_coef[}\DecValTok{1}\NormalTok{] }\SpecialCharTok{/}\NormalTok{ (}\DecValTok{2} \SpecialCharTok{*}\NormalTok{ abund\_coef[}\DecValTok{2}\NormalTok{])}
+
+\CommentTok{\# var cov matrix of acund coef}
+\NormalTok{V }\OtherTok{\textless{}{-}} \FunctionTok{vcov}\NormalTok{(sim\_mod)}\SpecialCharTok{$}\NormalTok{cond[}\DecValTok{2}\SpecialCharTok{:}\DecValTok{3}\NormalTok{, }\DecValTok{2}\SpecialCharTok{:}\DecValTok{3}\NormalTok{]}
+
+\CommentTok{\# gradient}
+\NormalTok{grad }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{1} \SpecialCharTok{/}\NormalTok{ (}\DecValTok{2} \SpecialCharTok{*}\NormalTok{ abund\_coef[}\DecValTok{2}\NormalTok{]), abund\_coef[}\DecValTok{1}\NormalTok{] }\SpecialCharTok{/}\NormalTok{ (}\DecValTok{2} \SpecialCharTok{*}\NormalTok{ abund\_coef[}\DecValTok{2}\NormalTok{]}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{))}
+
+\CommentTok{\# ci calc}
+\NormalTok{log\_peak\_se }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(}\FunctionTok{t}\NormalTok{(grad) }\SpecialCharTok{\%*\%}\NormalTok{ V }\SpecialCharTok{\%*\%}\NormalTok{ grad) }\SpecialCharTok{|\textgreater{}} 
+    \FunctionTok{sqrt}\NormalTok{()}
+
+\NormalTok{log\_peak\_ci }\OtherTok{\textless{}{-}}\NormalTok{ log\_abund\_peak }\SpecialCharTok{+} \FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{) }\SpecialCharTok{*} \FloatTok{1.96} \SpecialCharTok{*}\NormalTok{ log\_peak\_se}
+
+\CommentTok{\# putting things on a linear scale}
+\FunctionTok{exp}\NormalTok{(log\_abund\_peak)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-Scale for x is already present.
-Adding another scale for x, which will replace the existing scale.
+log_abund 
+ 105.0223 
 \end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{exp}\NormalTok{(log\_peak\_ci)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1]  88.85298 124.13402
+\end{verbatim}
+
+\subsection{Assessing the interaction of abundance with simulation model
+parameters}\label{assessing-the-interaction-of-abundance-with-simulation-model-parameters}
+
+We now evaluate the effects of simulation model parameters interacting
+with emergent simulated abundance to predict the probability of
+speciation. We look at how the linear and quadratic terms for mean
+abundance interact with \(\nu\), the per capita rate of incipient
+speciation; \(\tau\), the base wait time to full speciation; the
+combined dispersal rate (per capita local + global); and the per capita
+growth rate (\(\lambda - \mu\)).
+
+We evaluate the relationships between each of these model parameters and
+the presence or absence of speciation in simulation run windows by
+fitting binomial generalized linear mixed effects models (GLMMs, fit
+using the \emph{glmmTMB} package McGillycuddy et al. 2025).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# add columns with computed variables}
+\NormalTok{sim\_dat }\OtherTok{\textless{}{-}} \FunctionTok{mutate}\NormalTok{(sim\_dat, }
+                  \AttributeTok{log\_abund =} \FunctionTok{log}\NormalTok{(mean\_pop\_size), }
+                  \AttributeTok{tot\_disp =}\NormalTok{ g }\SpecialCharTok{*}\NormalTok{ (}\DecValTok{1} \SpecialCharTok{+}\NormalTok{ m\_prop), }
+                  \AttributeTok{growth =}\NormalTok{ la }\SpecialCharTok{{-}}\NormalTok{ mu)}
+
+
+\CommentTok{\# nu model}
+\NormalTok{nu\_mod }\OtherTok{\textless{}{-}} \FunctionTok{glmmTMB}\NormalTok{(speciation }\SpecialCharTok{\textasciitilde{}} 
+\NormalTok{                      (log\_abund }\SpecialCharTok{+} \FunctionTok{I}\NormalTok{(log\_abund}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{)) }\SpecialCharTok{*}
+                      \FunctionTok{scale}\NormalTok{(nu) }\SpecialCharTok{+}
+\NormalTok{                      (}\DecValTok{1} \SpecialCharTok{|}\NormalTok{ sim\_id), }
+                  \AttributeTok{family =}\NormalTok{ binomial, }\AttributeTok{data =}\NormalTok{ sim\_dat)}
+
+\NormalTok{nu\_ci }\OtherTok{\textless{}{-}} \FunctionTok{confint}\NormalTok{(nu\_mod)}
+
+
+\CommentTok{\# tau model}
+\NormalTok{tau\_mod }\OtherTok{\textless{}{-}} \FunctionTok{glmmTMB}\NormalTok{(speciation }\SpecialCharTok{\textasciitilde{}} 
+\NormalTok{                       (log\_abund }\SpecialCharTok{+} \FunctionTok{I}\NormalTok{(log\_abund}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{)) }\SpecialCharTok{*}
+                       \FunctionTok{scale}\NormalTok{(tau) }\SpecialCharTok{+}
+\NormalTok{                       (}\DecValTok{1} \SpecialCharTok{|}\NormalTok{ sim\_id), }
+                   \AttributeTok{family =}\NormalTok{ binomial, }\AttributeTok{data =}\NormalTok{ sim\_dat)}
+
+\NormalTok{tau\_ci }\OtherTok{\textless{}{-}} \FunctionTok{confint}\NormalTok{(tau\_mod)}
+
+\CommentTok{\# relative dispersal model}
+\NormalTok{disp\_mod }\OtherTok{\textless{}{-}} \FunctionTok{glmmTMB}\NormalTok{(speciation }\SpecialCharTok{\textasciitilde{}} 
+\NormalTok{                        (log\_abund }\SpecialCharTok{+} \FunctionTok{I}\NormalTok{(log\_abund}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{)) }\SpecialCharTok{*}
+                        \FunctionTok{scale}\NormalTok{(tot\_disp) }\SpecialCharTok{+} 
+\NormalTok{                        (}\DecValTok{1} \SpecialCharTok{|}\NormalTok{ sim\_id), }
+                    \AttributeTok{family =}\NormalTok{ binomial, }\AttributeTok{data =}\NormalTok{ sim\_dat)}
+
+\NormalTok{disp\_ci }\OtherTok{\textless{}{-}} \FunctionTok{confint}\NormalTok{(disp\_mod)}
+
+\CommentTok{\# growth rate model}
+\NormalTok{growth\_mod }\OtherTok{\textless{}{-}} \FunctionTok{glmmTMB}\NormalTok{(speciation }\SpecialCharTok{\textasciitilde{}} 
+\NormalTok{                          (log\_abund }\SpecialCharTok{+} \FunctionTok{I}\NormalTok{(log\_abund}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{)) }\SpecialCharTok{*}
+                          \FunctionTok{scale}\NormalTok{(growth) }\SpecialCharTok{+} 
+\NormalTok{                          (}\DecValTok{1} \SpecialCharTok{|}\NormalTok{ sim\_id), }
+                      \AttributeTok{family =}\NormalTok{ binomial, }\AttributeTok{data =}\NormalTok{ sim\_dat)}
+
+\NormalTok{growth\_ci }\OtherTok{\textless{}{-}} \FunctionTok{confint}\NormalTok{(growth\_mod)}
+\end{Highlighting}
+\end{Shaded}
+
+The figure below shows estimated effect sizes and 95\% CIs of the model
+parameters, along with the estimated quadratic term for abundance, whose
+95\% CI never overlaps 0 in any of these models.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# assumes simulation model covariates have been scaled and centered}
+\NormalTok{delta\_peak }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(b1, b2, b1\_int, b2\_int) \{}
+    \SpecialCharTok{{-}}\NormalTok{(b1 }\SpecialCharTok{+}\NormalTok{ b1\_int) }\SpecialCharTok{/}\NormalTok{ (}\DecValTok{2} \SpecialCharTok{*}\NormalTok{ (b2 }\SpecialCharTok{+}\NormalTok{ b2\_int))}
+\NormalTok{\}}
+
+
+\NormalTok{cis }\OtherTok{\textless{}{-}} \FunctionTok{list}\NormalTok{(}
+\NormalTok{    nu\_ci,}
+\NormalTok{    tau\_ci,}
+\NormalTok{    disp\_ci,}
+\NormalTok{    growth\_ci}
+\NormalTok{) }\SpecialCharTok{|\textgreater{}} 
+    \FunctionTok{lapply}\NormalTok{(}\ControlFlowTok{function}\NormalTok{(x) \{}
+        
+        \CommentTok{\# quadratic abundance and covariate coefs}
+\NormalTok{        params }\OtherTok{\textless{}{-}}\NormalTok{ x[}\DecValTok{3}\SpecialCharTok{:}\DecValTok{4}\NormalTok{, ]}
+        
+        \CommentTok{\# shift in peak}
+\NormalTok{        d\_peak }\OtherTok{\textless{}{-}} \FunctionTok{delta\_peak}\NormalTok{(x[}\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{], x[}\DecValTok{3}\NormalTok{, }\DecValTok{3}\NormalTok{], x[}\DecValTok{5}\NormalTok{, }\DecValTok{3}\NormalTok{], x[}\DecValTok{6}\NormalTok{, }\DecValTok{3}\NormalTok{])}
+        
+\NormalTok{        out }\OtherTok{\textless{}{-}} \FunctionTok{rbind}\NormalTok{(params, }
+                     \CommentTok{\# first 2 elements of below are not CI but used for }
+                     \CommentTok{\# plot limits}
+                     \FunctionTok{cbind}\NormalTok{(}\FunctionTok{exp}\NormalTok{(d\_peak) }\SpecialCharTok{{-}} \FunctionTok{exp}\NormalTok{(log\_abund\_peak), }
+                           \DecValTok{0}\NormalTok{, }
+\NormalTok{                           d\_peak))}
+        
+        
+        \CommentTok{\# add columns}
+\NormalTok{        out }\OtherTok{\textless{}{-}} \FunctionTok{as.data.frame}\NormalTok{(out) }\SpecialCharTok{|\textgreater{}} 
+            \FunctionTok{mutate}\NormalTok{(}\AttributeTok{param =} \FunctionTok{rownames}\NormalTok{(params)[}\DecValTok{2}\NormalTok{], }
+                   \AttributeTok{type =} \FunctionTok{c}\NormalTok{(}\StringTok{"quad\_abund"}\NormalTok{, }\StringTok{"covar"}\NormalTok{, }\StringTok{"delta\_peak"}\NormalTok{))}
+        
+        \FunctionTok{rownames}\NormalTok{(out) }\OtherTok{\textless{}{-}} \ConstantTok{NULL}
+\NormalTok{        out}
+\NormalTok{    \}) }\SpecialCharTok{|\textgreater{}} 
+    \FunctionTok{bind\_rows}\NormalTok{() }\SpecialCharTok{|\textgreater{}} 
+    \FunctionTok{mutate}\NormalTok{(}\AttributeTok{param =} \FunctionTok{factor}\NormalTok{(}\FunctionTok{gsub}\NormalTok{(}\StringTok{"scale}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{(|}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{)"}\NormalTok{, }\StringTok{""}\NormalTok{, param), }
+                          \AttributeTok{levels =} \FunctionTok{c}\NormalTok{(}\StringTok{"growth"}\NormalTok{, }\StringTok{"tot\_disp"}\NormalTok{, }\StringTok{"tau"}\NormalTok{, }\StringTok{"nu"}\NormalTok{)),}
+           \AttributeTok{type =} \FunctionTok{factor}\NormalTok{(type, }
+                         \AttributeTok{levels =} \FunctionTok{c}\NormalTok{(}\StringTok{"covar"}\NormalTok{, }\StringTok{"quad\_abund"}\NormalTok{, }\StringTok{"delta\_peak"}\NormalTok{))) }\SpecialCharTok{|\textgreater{}} 
+    \FunctionTok{rename}\NormalTok{(}\AttributeTok{ci\_low =} \StringTok{\textasciigrave{}}\AttributeTok{2.5 \%}\StringTok{\textasciigrave{}}\NormalTok{, }
+           \AttributeTok{ci\_hi =} \StringTok{\textasciigrave{}}\AttributeTok{97.5 \%}\StringTok{\textasciigrave{}}\NormalTok{)}
+
+
+
+
+
+\NormalTok{fig\_covar }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(cis, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ ci\_hi, }\AttributeTok{xend =}\NormalTok{ ci\_low, param)) }\SpecialCharTok{+}
+    \FunctionTok{geom\_segment}\NormalTok{() }\SpecialCharTok{+}
+    \FunctionTok{scale\_y\_discrete}\NormalTok{(}\AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\FunctionTok{expression}\NormalTok{(lambda }\SpecialCharTok{{-}}\NormalTok{ mu), }
+                                 \FunctionTok{expression}\NormalTok{(}\StringTok{"dispersal"}\NormalTok{), }
+                                 \FunctionTok{expression}\NormalTok{(tau), }
+                                 \FunctionTok{expression}\NormalTok{(nu))) }\SpecialCharTok{+}
+    \FunctionTok{facet\_grid}\NormalTok{(}\AttributeTok{cols =} \FunctionTok{vars}\NormalTok{(type), }\AttributeTok{scales =} \StringTok{"free\_x"}\NormalTok{, }
+               \AttributeTok{labeller =} \FunctionTok{as\_labeller}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\AttributeTok{covar =} \StringTok{"Estimated effect"}\NormalTok{, }
+                                        \AttributeTok{quad\_abund =} \StringTok{"Estimated}\SpecialCharTok{\textbackslash{}n}\StringTok{quadratic term"}\NormalTok{, }
+                                        \AttributeTok{delta\_peak =} \StringTok{"Change in peak}\SpecialCharTok{\textbackslash{}n}\StringTok{speciation prob."}\NormalTok{)), }
+               \AttributeTok{switch =} \StringTok{"x"}\NormalTok{) }\SpecialCharTok{+}
+    \FunctionTok{geom\_vline}\NormalTok{(}\AttributeTok{xintercept =} \DecValTok{0}\NormalTok{, }\AttributeTok{linetype =} \DecValTok{2}\NormalTok{) }\SpecialCharTok{+}
+    \FunctionTok{geom\_segment}\NormalTok{(}\AttributeTok{data =} \FunctionTok{filter}\NormalTok{(cis, type }\SpecialCharTok{==} \StringTok{"delta\_peak"}\NormalTok{), }
+                 \AttributeTok{arrow =} \FunctionTok{arrow}\NormalTok{(}\AttributeTok{length =} \FunctionTok{unit}\NormalTok{(}\DecValTok{10}\NormalTok{, }\StringTok{"pt"}\NormalTok{))) }\SpecialCharTok{+}
+    \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{data =} \FunctionTok{filter}\NormalTok{(cis, type }\SpecialCharTok{!=} \StringTok{"delta\_peak"}\NormalTok{), }
+               \AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Estimate)) }\SpecialCharTok{+}
+    \FunctionTok{theme\_cowplot}\NormalTok{() }\SpecialCharTok{+}
+    \FunctionTok{theme}\NormalTok{(}\AttributeTok{panel.border =} \FunctionTok{element\_rect}\NormalTok{(}\AttributeTok{color =} \StringTok{"black"}\NormalTok{, }\AttributeTok{linewidth =} \FloatTok{0.5}\NormalTok{), }
+          \AttributeTok{strip.placement =} \StringTok{"outside"}\NormalTok{, }
+          \AttributeTok{strip.background =} \FunctionTok{element\_blank}\NormalTok{(), }
+          \AttributeTok{axis.title =} \FunctionTok{element\_blank}\NormalTok{(), }
+          \AttributeTok{panel.spacing.x =} \FunctionTok{unit}\NormalTok{(}\DecValTok{20}\NormalTok{, }\StringTok{"pt"}\NormalTok{))}
+
+\NormalTok{fig\_covar }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}[H]
+
+{\centering \pandocbounded{\includegraphics[keepaspectratio]{ab_supp_files/figure-pdf/mk-fig-param-ci-1.pdf}}
+
+}
+
+\caption{Summary of different GLMMs predicting speciation probability.
+Different models are shown across the y-axis, labeled by the simulation
+model parameter included as a covariate along with the hump-shaped
+relationship effect of abundance. Estimated effect sizes and 95\%
+confidence intervals are shown in the left hand panel. The quadratic
+term for abundance from each model is shown in the middle panel. The
+right hand panel shows the shift in abundance value at which probability
+of speciation reaches its peak. This shift is shown relative to the
+model without simulaton model parameters as covariates. The magnitudes
+each arrow represent how the location of peak speciation probability
+would shift with an increase in the simulation model covariate.}
+
+\end{figure}%
+
+\subsection{Assessing the effect of binning window
+size}\label{sec-window}
+
+In the main analysis we use a bin window size of 100 time steps. Here we
+re-run the analysis with windows of 50 or 200 to evaluate the impact of
+window size. Supplementary Figure~\ref{fig-window} shows the
+intermediate abundance hump remains in the two alternative bin window
+sizes. As with the main analysis, the fact that the peak of the GLMM
+does not clearly align with the peak of the speciation histogram is both
+because the peak captures the proportion of speciating to non-speciating
+windows and because the model accounts for random effects.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# run the simulation with different window sizes}
+\NormalTok{sim\_dat\_50 }\OtherTok{\textless{}{-}} \FunctionTok{sim\_BDI\_spec}\NormalTok{(}\AttributeTok{la =}\NormalTok{ pars}\SpecialCharTok{$}\NormalTok{la, }\AttributeTok{mu =}\NormalTok{ pars}\SpecialCharTok{$}\NormalTok{mu, }\AttributeTok{g =}\NormalTok{ pars}\SpecialCharTok{$}\NormalTok{g, }
+                           \AttributeTok{m\_prop =}\NormalTok{ pars}\SpecialCharTok{$}\NormalTok{m\_prop, }\AttributeTok{nu =}\NormalTok{ pars}\SpecialCharTok{$}\NormalTok{nu, }
+                           \AttributeTok{tau =}\NormalTok{ pars}\SpecialCharTok{$}\NormalTok{tau, }\AttributeTok{xi =}\NormalTok{ pars}\SpecialCharTok{$}\NormalTok{xi, }
+                           \AttributeTok{np =}\NormalTok{ np, }\AttributeTok{nstep =}\NormalTok{ nstep, }\AttributeTok{w =} \DecValTok{50}\NormalTok{)}
+
+\NormalTok{sim\_dat\_200 }\OtherTok{\textless{}{-}} \FunctionTok{sim\_BDI\_spec}\NormalTok{(}\AttributeTok{la =}\NormalTok{ pars}\SpecialCharTok{$}\NormalTok{la, }\AttributeTok{mu =}\NormalTok{ pars}\SpecialCharTok{$}\NormalTok{mu, }\AttributeTok{g =}\NormalTok{ pars}\SpecialCharTok{$}\NormalTok{g, }
+                            \AttributeTok{m\_prop =}\NormalTok{ pars}\SpecialCharTok{$}\NormalTok{m\_prop, }\AttributeTok{nu =}\NormalTok{ pars}\SpecialCharTok{$}\NormalTok{nu, }
+                            \AttributeTok{tau =}\NormalTok{ pars}\SpecialCharTok{$}\NormalTok{tau, }\AttributeTok{xi =}\NormalTok{ pars}\SpecialCharTok{$}\NormalTok{xi, }
+                            \AttributeTok{np =}\NormalTok{ np, }\AttributeTok{nstep =}\NormalTok{ nstep, }\AttributeTok{w =} \DecValTok{200}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# wrapper function to combine plotting steps}
+\NormalTok{mk\_window\_plot }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(dat, }\AttributeTok{ymax =} \FloatTok{0.002}\NormalTok{) \{}
+    \CommentTok{\# add log abund}
+\NormalTok{    dat}\SpecialCharTok{$}\NormalTok{log\_abund }\OtherTok{\textless{}{-}} \FunctionTok{log}\NormalTok{(dat}\SpecialCharTok{$}\NormalTok{mean\_pop\_size)}
+    
+    \CommentTok{\# make model}
+\NormalTok{    mod }\OtherTok{\textless{}{-}} \FunctionTok{glmmTMB}\NormalTok{(speciation }\SpecialCharTok{\textasciitilde{}}\NormalTok{ log\_abund }\SpecialCharTok{+} \FunctionTok{I}\NormalTok{(log\_abund}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{) }\SpecialCharTok{+}\NormalTok{ (}\DecValTok{1} \SpecialCharTok{|}\NormalTok{ sim\_id), }
+                   \AttributeTok{family =}\NormalTok{ binomial, }\AttributeTok{data =}\NormalTok{ dat)}
+    
+    \CommentTok{\# get pred and SE for plotting}
+\NormalTok{    pred }\OtherTok{\textless{}{-}} \FunctionTok{pred\_binom}\NormalTok{(mod) }\SpecialCharTok{|\textgreater{}} 
+        \FunctionTok{mutate}\NormalTok{(}\AttributeTok{abund =} \FunctionTok{exp}\NormalTok{(log\_abund))}
+    
+    \CommentTok{\# base plot}
+\NormalTok{    gp\_base }\OtherTok{\textless{}{-}} \FunctionTok{logistic\_hist\_plot}\NormalTok{(dat, mean\_pop\_size, }\AttributeTok{xlog =} \ConstantTok{TRUE}\NormalTok{, }
+                                  \AttributeTok{xlab =} \StringTok{"Abundance"}\NormalTok{, }
+                                  \AttributeTok{ymin =} \DecValTok{0}\NormalTok{, }\AttributeTok{ymax =}\NormalTok{ ymax)}
+    
+\NormalTok{    gp\_base }\SpecialCharTok{+} 
+        \FunctionTok{geom\_ribbon}\NormalTok{(}\AttributeTok{data =}\NormalTok{ pred, }
+                    \AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(abund, }
+                                  \AttributeTok{ymin =}\NormalTok{ fit }\SpecialCharTok{{-}} \DecValTok{2} \SpecialCharTok{*}\NormalTok{ se\_fit, }
+                                  \AttributeTok{ymax =}\NormalTok{ fit }\SpecialCharTok{+} \DecValTok{2} \SpecialCharTok{*}\NormalTok{ se\_fit), }
+                    \AttributeTok{fill =} \StringTok{"\#006B99"}\NormalTok{, }\AttributeTok{alpha =} \FloatTok{0.5}\NormalTok{,}
+                    \AttributeTok{inherit.aes =} \ConstantTok{FALSE}\NormalTok{) }\SpecialCharTok{+}
+        \FunctionTok{geom\_line}\NormalTok{(}\AttributeTok{data =}\NormalTok{ pred,}
+                  \AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(abund, fit), }
+                  \AttributeTok{color =} \StringTok{"\#006B99"}\NormalTok{, }
+                  \AttributeTok{linewidth =} \DecValTok{1}\NormalTok{,}
+                  \AttributeTok{inherit.aes =} \ConstantTok{FALSE}\NormalTok{)}
+    
+\NormalTok{\}}
+
+
+\CommentTok{\# make plots for each window size}
+\NormalTok{w50 }\OtherTok{\textless{}{-}} \FunctionTok{mk\_window\_plot}\NormalTok{(sim\_dat\_50, }\AttributeTok{ymax =} \FloatTok{0.00008}\NormalTok{) }\SpecialCharTok{+}
+    \FunctionTok{facet\_grid}\NormalTok{(}\AttributeTok{cols =} \FunctionTok{vars}\NormalTok{(w), }
+               \AttributeTok{labeller =} \FunctionTok{as\_labeller}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{50}\StringTok{\textasciigrave{}} \OtherTok{=} \StringTok{"window = 50"}\NormalTok{)))}
+
+\NormalTok{w200 }\OtherTok{\textless{}{-}} \FunctionTok{mk\_window\_plot}\NormalTok{(sim\_dat\_200, }\AttributeTok{ymax =} \FloatTok{0.02}\NormalTok{) }\SpecialCharTok{+}
+    \FunctionTok{ylab}\NormalTok{(}\StringTok{""}\NormalTok{) }\SpecialCharTok{+}
+    \FunctionTok{theme}\NormalTok{(}\AttributeTok{axis.title.y =} \FunctionTok{element\_blank}\NormalTok{()) }\SpecialCharTok{+}
+    \FunctionTok{facet\_grid}\NormalTok{(}\AttributeTok{cols =} \FunctionTok{vars}\NormalTok{(w), }
+               \AttributeTok{labeller =} \FunctionTok{as\_labeller}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{200}\StringTok{\textasciigrave{}} \OtherTok{=} \StringTok{"window = 200"}\NormalTok{)))}
+
+
+\CommentTok{\# combine individual plots}
+\FunctionTok{plot\_grid}\NormalTok{(w50, w200, }\AttributeTok{rel\_widths =} \FunctionTok{c}\NormalTok{(}\FloatTok{1.05}\NormalTok{, }\DecValTok{1}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}[H]
+
+\centering{
+
+\pandocbounded{\includegraphics[keepaspectratio]{ab_supp_files/figure-pdf/fig-window-1.pdf}}
+
+}
+
+\caption{\label{fig-window}Effect of window size on relationship between
+abundance and full speciation within a window. In both cases of window
+size = 50 or 200, a mid-abundance hump in speciation probability is
+observed.}
+
+\end{figure}%
+
+One thing to note in Supplementary Figure~\ref{fig-window} is the
+difference in y-axis limits. This difference in limits reflects the fact
+that in smaller windows, the probability of encountering a speciation
+event is smaller, so the probability of full speciation (the y-axis) is
+overall lower in the \texttt{window\ =\ 50} panel compared to the
+\texttt{window\ =\ 200} panel.
 
 \section{Analyzing abundance and richness of arthropod genera in
 Hawai`i}\label{sec-bgeom}
 
 The results of analyzing Hawai`i arthropod data are presented in the
-main text. The code to produce these results is shown here. First we
-load and prepare the data. Preparation involves filtering data to only
-endemic taxa and compiling mean abundance for genera based on data from
-Gruner (2007) and compiling species richness for general based on the
-Bernice Pauahi Bishop Museum arthropod checklist (Nishida 1992).
+main text. The code to produce these results is shown here.
+
+\subsection{Preparing the data}\label{preparing-the-data}
+
+First we load and prepare the data. Preparation involves filtering data
+to only endemic taxa and compiling average per-species abundance for
+genera based on data from Gruner (2007) and compiling species richness
+for genera based on the Bernice Pauahi Bishop Museum arthropod checklist
+(Nishida 2002).
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -783,30 +1041,42 @@ Bernice Pauahi Bishop Museum arthropod checklist (Nishida 1992).
 \CommentTok{\# read checklist data}
 \NormalTok{arth\_check }\OtherTok{\textless{}{-}} \FunctionTok{read.csv}\NormalTok{(}\StringTok{"raw\_data/hawaii\_arthropod\_checklist.csv"}\NormalTok{)}
 
-\CommentTok{\# calculate richness of genera from checklist}
-\NormalTok{gen\_rich }\OtherTok{\textless{}{-}} \FunctionTok{filter}\NormalTok{(arth\_check, Genus }\SpecialCharTok{!=} \StringTok{""}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
-    \FunctionTok{group\_by}\NormalTok{(Genus) }\SpecialCharTok{|\textgreater{}}
-    \FunctionTok{summarize}\NormalTok{(}\AttributeTok{nspp =} \FunctionTok{n\_distinct}\NormalTok{(Genus.and.species)) }\SpecialCharTok{|\textgreater{}}
-    \FunctionTok{ungroup}\NormalTok{() }\SpecialCharTok{|\textgreater{}} 
-    \FunctionTok{rename}\NormalTok{(}\AttributeTok{genus =}\NormalTok{ Genus)}
+\NormalTok{hmean }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(x) }\FunctionTok{length}\NormalTok{(x) }\SpecialCharTok{/} \FunctionTok{sum}\NormalTok{(}\DecValTok{1} \SpecialCharTok{/}\NormalTok{ x)}
 
-\CommentTok{\# calculate abundances of genera from survey data}
+\CommentTok{\# calculate average per{-}species abundances of genera from survey data}
 \NormalTok{gen\_abund }\OtherTok{\textless{}{-}} \FunctionTok{filter}\NormalTok{(arth, origin }\SpecialCharTok{==} \StringTok{"native{-}endemic"}\NormalTok{) }\SpecialCharTok{|\textgreater{}} 
     \FunctionTok{group\_by}\NormalTok{(genus, species\_code) }\SpecialCharTok{|\textgreater{}}
     \FunctionTok{summarize}\NormalTok{(}\AttributeTok{abund =} \FunctionTok{n}\NormalTok{()) }\SpecialCharTok{|\textgreater{}}
     \FunctionTok{ungroup}\NormalTok{(species\_code) }\SpecialCharTok{|\textgreater{}}
-    \FunctionTok{summarize}\NormalTok{(}\AttributeTok{mean\_abund =} \FunctionTok{mean}\NormalTok{(abund)) }\SpecialCharTok{|\textgreater{}} 
+    \FunctionTok{summarize}\NormalTok{(}\AttributeTok{mean\_abund =} \FunctionTok{mean}\NormalTok{(abund), }
+              \AttributeTok{survey\_nspp =} \FunctionTok{n\_distinct}\NormalTok{(species\_code)) }\SpecialCharTok{|\textgreater{}}
     \FunctionTok{ungroup}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-`summarise()` has grouped output by 'genus'. You can override using the
-`.groups` argument.
+`summarise()` has regrouped the output.
+i Summaries were computed grouped by genus and species_code.
+i Output is grouped by genus.
+i Use `summarise(.groups = "drop_last")` to silence this message.
+i Use `summarise(.by = c(genus, species_code))` for per-operation grouping
+  (`?dplyr::dplyr_by`) instead.
 \end{verbatim}
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\CommentTok{\# calculate richness of genera from checklist}
+\NormalTok{gen\_rich }\OtherTok{\textless{}{-}} \FunctionTok{filter}\NormalTok{(arth\_check, Genus }\SpecialCharTok{!=} \StringTok{""}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+    \FunctionTok{group\_by}\NormalTok{(Genus) }\SpecialCharTok{|\textgreater{}}
+    \FunctionTok{summarize}\NormalTok{(}\AttributeTok{nspp =} \FunctionTok{n\_distinct}\NormalTok{(Genus.and.species), }
+              \AttributeTok{status =} \FunctionTok{first}\NormalTok{(Status)) }\SpecialCharTok{|\textgreater{}}
+    \FunctionTok{ungroup}\NormalTok{() }\SpecialCharTok{|\textgreater{}} 
+    \FunctionTok{rename}\NormalTok{(}\AttributeTok{genus =}\NormalTok{ Genus) }\SpecialCharTok{|\textgreater{}} 
+    \CommentTok{\# make \textasciigrave{}status\textasciigrave{} column indicate if genus is found in survey data}
+    \FunctionTok{mutate}\NormalTok{(}\AttributeTok{status =} \FunctionTok{ifelse}\NormalTok{(genus }\SpecialCharTok{\%in\%}\NormalTok{ gen\_abund}\SpecialCharTok{$}\NormalTok{genus, }
+                           \StringTok{"in survey"}\NormalTok{, }
+\NormalTok{                           status))}
+
 \CommentTok{\# \textasciigrave{}gen\textasciigrave{} holds data ready to analyze for richness \textasciitilde{} abundance}
 \NormalTok{gen }\OtherTok{\textless{}{-}} \FunctionTok{inner\_join}\NormalTok{(gen\_rich, gen\_abund)}
 \end{Highlighting}
@@ -816,14 +1086,18 @@ Bernice Pauahi Bishop Museum arthropod checklist (Nishida 1992).
 Joining with `by = join_by(genus)`
 \end{verbatim}
 
+\subsection{Model of within genus richness and average per-species
+abundance}\label{sec-arth-mod}
+
 With the prepared data we can compute a quadratic and linear model of
-genus richness versus abundance. As explained in the main text, these
-models are beta-binomial generalized linear models and are achieved with
-custom functions available in the \emph{abundolism} package associated
-with this paper. The main function is \texttt{glm\_bgeom} which
-maximizes the log likelihood function and shares some common methods
-with \texttt{lm} and \texttt{glm} including \texttt{logLik} which
-enables likelihood analyses such as the likelihood ratio test.
+genus richness versus average per-species abundance. As explained in the
+main text, these models are beta-geometric generalized linear models and
+are achieved with custom functions available in the \emph{abundolism}
+package associated with this paper. The main function is
+\texttt{glm\_bgeom} which maximizes the log likelihood function and
+shares some common methods with \texttt{lm} and \texttt{glm} including
+\texttt{logLik} which enables likelihood analyses such as the likelihood
+ratio test.
 
 To summarize from the main text, our full quadratic model is
 
@@ -835,9 +1109,9 @@ y_i &\sim \text{BetaGeometric}(\alpha_i, \beta) \\
 \end{aligned}
 \]
 
-where \(x_i\) is mean abundance of lineage \(i\) and our estimate for
-the observable diversification probability for lineage \(i\) is
-\(1 - \hat{p_i} = 1 - \frac{\alpha_i}{\alpha_i + \beta}\).
+where \(x_i\) is average per-species abundance of lineage \(i\) and our
+estimate for the observable diversification probability for lineage
+\(i\) is \(1 - \hat{p_i} = 1 - \frac{\alpha_i}{\alpha_i + \beta}\).
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -883,6 +1157,23 @@ Log likelihood:
 'log Lik.' -497.2671 (df=3)
 \end{verbatim}
 
+We can also look at the confidence intervals for parameters of the
+quadratic model (note: these are Wald confidence intervals).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{confint}\NormalTok{(arth\_mod)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+                       2.5 %     97.5 %
+(Intercept)       0.20710475  1.6337954
+log_abund        -0.92232423 -0.1684037
+I(log_abund^2)    0.03009513  0.1699574
+(Intercept):beta  2.12655203  3.7958437
+\end{verbatim}
+
 The likelihood ratio test comparing quadratic and linear models is
 achieved with a custom function \texttt{lrt\_bgeom} from the
 \emph{abundolism} package.
@@ -892,6 +1183,48 @@ achieved with a custom function \texttt{lrt\_bgeom} from the
 \NormalTok{arth\_lrt }\OtherTok{\textless{}{-}} \FunctionTok{lrt\_bgeom}\NormalTok{(arth\_mod0, arth\_mod)}
 \end{Highlighting}
 \end{Shaded}
+
+As with the simulation results, we can calculate the average per-species
+abundance where predicted genus richness (and therefore \(1 - \hat{p}\))
+is at its maximum
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# MLE of peak location}
+\NormalTok{arth\_coef }\OtherTok{\textless{}{-}} \FunctionTok{coef}\NormalTok{(arth\_mod)[}\DecValTok{2}\SpecialCharTok{:}\DecValTok{3}\NormalTok{]}
+\NormalTok{log\_arth\_peak }\OtherTok{\textless{}{-}} \SpecialCharTok{{-}}\NormalTok{arth\_coef[}\DecValTok{1}\NormalTok{] }\SpecialCharTok{/}\NormalTok{ (}\DecValTok{2} \SpecialCharTok{*}\NormalTok{ arth\_coef[}\DecValTok{2}\NormalTok{])}
+
+\CommentTok{\# var cov matrix of abund coef}
+\NormalTok{V\_arth }\OtherTok{\textless{}{-}} \FunctionTok{solve}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{arth\_mod}\SpecialCharTok{$}\NormalTok{hess[}\DecValTok{2}\SpecialCharTok{:}\DecValTok{3}\NormalTok{, }\DecValTok{2}\SpecialCharTok{:}\DecValTok{3}\NormalTok{])}
+
+\CommentTok{\# gradient}
+\NormalTok{grad\_arth }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{1} \SpecialCharTok{/}\NormalTok{ (}\DecValTok{2} \SpecialCharTok{*}\NormalTok{ arth\_coef[}\DecValTok{2}\NormalTok{]), arth\_coef[}\DecValTok{1}\NormalTok{] }\SpecialCharTok{/}\NormalTok{ (}\DecValTok{2} \SpecialCharTok{*}\NormalTok{ arth\_coef[}\DecValTok{2}\NormalTok{]}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{))}
+
+\CommentTok{\# ci calc}
+\NormalTok{log\_arth\_peak\_se }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(}\FunctionTok{t}\NormalTok{(grad\_arth) }\SpecialCharTok{\%*\%}\NormalTok{ V\_arth }\SpecialCharTok{\%*\%}\NormalTok{ grad\_arth) }\SpecialCharTok{|\textgreater{}} 
+    \FunctionTok{sqrt}\NormalTok{()}
+
+\NormalTok{log\_arth\_peak\_ci }\OtherTok{\textless{}{-}}\NormalTok{ log\_arth\_peak }\SpecialCharTok{+} \FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{) }\SpecialCharTok{*} \FloatTok{1.96} \SpecialCharTok{*}\NormalTok{ log\_arth\_peak\_se}
+
+\CommentTok{\# putting things on a linear scale}
+\FunctionTok{exp}\NormalTok{(log\_arth\_peak)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+log_abund 
+ 15.27326 
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{exp}\NormalTok{(log\_arth\_peak\_ci)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1]  8.64135 26.99493
+\end{verbatim}
 
 To produce visualizations of the arthropod data we make use of a custom
 \texttt{ci\_bgeom} function from \emph{abundolism} that calculates
@@ -916,7 +1249,7 @@ from that of \(1 - \hat{p}\) again with a change of variable approach.
     \FunctionTok{geom\_ribbon}\NormalTok{(}\AttributeTok{fill =} \StringTok{"gray60"}\NormalTok{, }\AttributeTok{alpha =} \FloatTok{0.5}\NormalTok{) }\SpecialCharTok{+}
     \FunctionTok{scale\_x\_log10}\NormalTok{() }\SpecialCharTok{+}
     \FunctionTok{scale\_y\_log10}\NormalTok{() }\SpecialCharTok{+}
-    \FunctionTok{xlab}\NormalTok{(}\StringTok{"Mean genus abundance"}\NormalTok{) }\SpecialCharTok{+}
+    \FunctionTok{xlab}\NormalTok{(}\StringTok{"Average per{-}species abundance"}\NormalTok{) }\SpecialCharTok{+}
     \FunctionTok{ylab}\NormalTok{(}\StringTok{"Genus richness"}\NormalTok{) }\SpecialCharTok{+}
     \FunctionTok{geom\_pointdensity}\NormalTok{(}\AttributeTok{data =}\NormalTok{ gen, }\AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(mean\_abund, nspp), }
                       \AttributeTok{inherit.aes =} \ConstantTok{FALSE}\NormalTok{) }\SpecialCharTok{+}
@@ -933,20 +1266,25 @@ from that of \(1 - \hat{p}\) again with a change of variable approach.
     \FunctionTok{geom\_line}\NormalTok{(}\AttributeTok{linewidth =} \DecValTok{1}\NormalTok{) }\SpecialCharTok{+}
     \FunctionTok{scale\_x\_log10}\NormalTok{() }\SpecialCharTok{+}
     \FunctionTok{ylim}\NormalTok{(}\FloatTok{0.5}\NormalTok{, }\DecValTok{1}\NormalTok{) }\SpecialCharTok{+}
-    \FunctionTok{xlab}\NormalTok{(}\StringTok{"Mean genus abundance"}\NormalTok{) }\SpecialCharTok{+}
+    \FunctionTok{xlab}\NormalTok{(}\StringTok{"Average per{-}species abundance"}\NormalTok{) }\SpecialCharTok{+}
     \FunctionTok{ylab}\NormalTok{(}\FunctionTok{expression}\NormalTok{(}\FunctionTok{italic}\NormalTok{(}\DecValTok{1} \SpecialCharTok{{-}} \FunctionTok{hat}\NormalTok{(p)))) }\SpecialCharTok{+}
     \FunctionTok{theme\_cowplot}\NormalTok{()}
 
 \NormalTok{gp\_arth }\OtherTok{\textless{}{-}} \FunctionTok{plot\_grid}\NormalTok{(gp\_prb, gp\_nspp, }\AttributeTok{rel\_widths =} \FunctionTok{c}\NormalTok{(}\FloatTok{0.75}\NormalTok{, }\DecValTok{1}\NormalTok{), }
                      \AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"A"}\NormalTok{, }\StringTok{"B"}\NormalTok{), }\AttributeTok{label\_x =} \FloatTok{0.02}\NormalTok{)}
+
+\NormalTok{gp\_arth}
 \end{Highlighting}
 \end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{ab_supp_files/figure-pdf/make-fig-arth-1.pdf}}
 
 \subsection{Evaluating impact of outliers}\label{sec-outlier}
 
 There is one clear outlier: \emph{Drosophila} with high richness given
 abundance. To make sure this outlier does not bias results we re-run the
-analysis of genus richness versus abundance without \emph{Drosophila}.
+analysis of genus richness versus average per-species abundance without
+\emph{Drosophila}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -979,6 +1317,249 @@ Model 1   4 -483.10  1 6.9828    0.00823 **
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 \end{verbatim}
 
+\subsection{Evaluating impact of missing genera}\label{sec-miss-gen}
+
+In merging the checklist data (providing species richness) with field
+survey data (providing abundance estimates) some genera were lost due to
+not being detected in the survey data.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# endemic checklist genera not found in danʻs data}
+\CommentTok{\# only need to search for "end" because those with}
+\CommentTok{\# status "end" that are in gruner data had their}
+\CommentTok{\# status switched to "in survey"}
+\NormalTok{n\_checklist\_missing }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(gen\_rich}\SpecialCharTok{$}\NormalTok{status }\SpecialCharTok{==} \StringTok{"end"}\NormalTok{)}
+\NormalTok{n\_checklist\_missing}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 479
+\end{verbatim}
+
+479 endemic genera from the checklist were absent from the survey data,
+representing 80.23\% of endemic genera from the checklist.
+
+While this is a large percentage, it is also not unexpected. The survey
+data constitute a very small sample of the geographic space of the
+Hawaiian Archipelago as well as a small sample of the extremely
+heterogeneous environmental space of the archipelago. It is still worth
+evaluating how the distributions of species richnesses differ between
+those genera included in the survey data and those missing.
+Supplementary Figure~\ref{fig-rich-comp} shows that genera not found in
+the survey data are highly skewed toward those with low species
+richness.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{filter}\NormalTok{(gen\_rich, status }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"end"}\NormalTok{, }\StringTok{"in survey"}\NormalTok{)) }\SpecialCharTok{|\textgreater{}}
+    \FunctionTok{mutate}\NormalTok{(}\AttributeTok{status =} \FunctionTok{factor}\NormalTok{(}\FunctionTok{ifelse}\NormalTok{(status }\SpecialCharTok{==} \StringTok{"end"}\NormalTok{, }\StringTok{"no"}\NormalTok{, }\StringTok{"yes"}\NormalTok{),}
+                          \AttributeTok{levels =} \FunctionTok{c}\NormalTok{(}\StringTok{"yes"}\NormalTok{, }\StringTok{"no"}\NormalTok{))) }\SpecialCharTok{|\textgreater{}}
+    \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(status, nspp)) }\SpecialCharTok{+}
+    \FunctionTok{geom\_violin}\NormalTok{(}\AttributeTok{fill =} \StringTok{"gray"}\NormalTok{) }\SpecialCharTok{+}
+    \FunctionTok{scale\_y\_log10}\NormalTok{() }\SpecialCharTok{+}
+    \FunctionTok{theme\_cowplot}\NormalTok{() }\SpecialCharTok{+}
+    \FunctionTok{xlab}\NormalTok{(}\StringTok{"Found in survey data"}\NormalTok{) }\SpecialCharTok{+}
+    \FunctionTok{ylab}\NormalTok{(}\StringTok{"Number of species in genus"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}[H]
+
+\centering{
+
+\pandocbounded{\includegraphics[keepaspectratio]{ab_supp_files/figure-pdf/fig-rich-comp-1.pdf}}
+
+}
+
+\caption{\label{fig-rich-comp}Distribution of per genus richnesses for
+those genera found in the survey data (Gruner 2007) and those not found
+in the survey data.}
+
+\end{figure}%
+
+Any evaluation of how these missing genera might change the relationship
+of average per-species abundance and genus richness (estimated in
+Section~\ref{sec-arth-mod}) will be compromised because it is impossible
+to know the abundances of the species in the missing genera. These
+genera could be absent from the survey data because their constituent
+species are rare (i.e.~low average per-species abundance) or because
+their constituent species are restricted to different habitats and/or
+islands (i.e.~potentially high average per-species abundance found
+elsewhere). However, for the sake of producing any kind of evaluation,
+we assume that if any of these missing genera were to be present in the
+survey data, they would be very rare. Thus, we re-run our analysis of
+the relationship between average per-species abundance and genus
+richness with artificial data (representing these missing genera)
+augmented onto the real data. We augment the data with the real species
+richness of each missing genus and an average per-species abundance of
+1. The analysis of these augmented data yields the same answer: the
+hump-shaped relationship between average per-species abundance and genus
+richness is strongly supported by a likelihood ratio test
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# what if we had a bunch of rare, low richness genera}
+\NormalTok{gen\_what\_if }\OtherTok{\textless{}{-}} \FunctionTok{rbind}\NormalTok{(}\FunctionTok{select}\NormalTok{(gen, }\FunctionTok{c}\NormalTok{(genus, nspp, log\_abund)),}
+                     \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{genus =} \FunctionTok{paste0}\NormalTok{(}\StringTok{"fake\_"}\NormalTok{, }\DecValTok{1}\SpecialCharTok{:}\NormalTok{n\_checklist\_missing),}
+                                \CommentTok{\# actual abundances of missing genera}
+                                \AttributeTok{nspp =} \DecValTok{1}\NormalTok{, }\CommentTok{\#gen\_rich$nspp[gen\_rich$status == "end"],}
+                                \CommentTok{\# log(1) = 0}
+                                \AttributeTok{log\_abund =} \DecValTok{0}\NormalTok{))}
+
+\CommentTok{\# quadratic model}
+\NormalTok{what\_if\_mod }\OtherTok{\textless{}{-}} \FunctionTok{glm\_bgeom}\NormalTok{(nspp }\SpecialCharTok{\textasciitilde{}}\NormalTok{ log\_abund }\SpecialCharTok{+} \FunctionTok{I}\NormalTok{(log\_abund}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{), }\AttributeTok{data =}\NormalTok{ gen\_what\_if)}
+
+\CommentTok{\# straight line model}
+\NormalTok{what\_if\_mod0 }\OtherTok{\textless{}{-}} \FunctionTok{glm\_bgeom}\NormalTok{(nspp }\SpecialCharTok{\textasciitilde{}}\NormalTok{ log\_abund, }\AttributeTok{data =}\NormalTok{ gen\_what\_if,}
+                          \AttributeTok{a\_init =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{))}
+
+\FunctionTok{lrt\_bgeom}\NormalTok{(what\_if\_mod0, what\_if\_mod)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Likelihood ratio test
+
+Model 0: nspp ~ log_abund
+Model 1: nspp ~ log_abund + I(log_abund^2)
+
+        #Df  LogLik Df  Chisq Pr(>Chisq)    
+Model 0   3 -707.37                         
+Model 1   4 -675.57  1 63.599  1.525e-15 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+\end{verbatim}
+
+\subsection{Assessing the choice of average per-species
+abundance}\label{sec-tot-abund}
+
+We should evaluate if the choice of average per-species abundance
+produces any unintended artifacts in our analysis of how average
+per-species abundance relates to within genus richness. The primary
+concern would be if genera themselves somehow had a carrying capacity,
+then the more species contained in a genus, the less abundant, on
+average, each species would have to be. Two observations from the data
+dispel this concern: first, the vast majority of genera are represented
+by only a single species at a sampling location Supplementary
+Figure~\ref{fig-gen-site-rich}, making the partitioning of a
+hypothetical genus-level carrying capacity moot at all but the few sites
+where genera are represented by multiple species.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# computing number of species per genus and total genus abundance per site}
+\NormalTok{gen\_by\_site }\OtherTok{\textless{}{-}} \FunctionTok{summarize}\NormalTok{(arth, }
+          \AttributeTok{rich =} \FunctionTok{n\_distinct}\NormalTok{(species\_code),}
+          \AttributeTok{tot\_abund =} \FunctionTok{n}\NormalTok{(),}
+          \AttributeTok{.by =} \FunctionTok{c}\NormalTok{(site, genus))}
+
+\FunctionTok{ggplot}\NormalTok{(gen\_by\_site, }\FunctionTok{aes}\NormalTok{(rich)) }\SpecialCharTok{+}
+    \FunctionTok{geom\_histogram}\NormalTok{(}\AttributeTok{binwidth =} \DecValTok{1}\NormalTok{, }\AttributeTok{color =} \StringTok{"black"}\NormalTok{, }\AttributeTok{fill =} \StringTok{"gray"}\NormalTok{) }\SpecialCharTok{+}
+    \FunctionTok{scale\_x\_continuous}\NormalTok{(}\AttributeTok{breaks =} \DecValTok{1}\SpecialCharTok{:}\DecValTok{12}\NormalTok{) }\SpecialCharTok{+}
+    \FunctionTok{xlab}\NormalTok{(}\StringTok{"Number of congeners at a site"}\NormalTok{) }\SpecialCharTok{+}
+    \FunctionTok{ylab}\NormalTok{(}\StringTok{"Count"}\NormalTok{) }\SpecialCharTok{+}
+    \FunctionTok{theme\_cowplot}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}[H]
+
+\centering{
+
+\pandocbounded{\includegraphics[keepaspectratio]{ab_supp_files/figure-pdf/fig-gen-site-rich-1.pdf}}
+
+}
+
+\caption{\label{fig-gen-site-rich}Distribution of numbers of species per
+genus observed in survey data (Gruner 2007).}
+
+\end{figure}%
+
+Next, if a hypothetical genus carrying capacity were partitioned across
+multiple species, then at sites with multiple congeners there should be
+a flat relationship between number of congeners and total genus
+abundance per site. However, Supplementary
+Figure~\ref{fig-gen-rich-trend} shows there is a positive relationship
+between number of congeners and total genus abundance, suggesting that
+the abundance of any one species in a genus does not trade-off with the
+abundances of other congeners, but rather they all add to a larger total
+genus abundance. The positive relationship is significant by a
+likelihood ratio test applied to a Poisson GLM of abundance predicted by
+log number of congeners (note: excluded are any data points in which
+only a single species in a genus is present at a site).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{gen\_site\_mod }\OtherTok{\textless{}{-}} \FunctionTok{glm}\NormalTok{(tot\_abund }\SpecialCharTok{\textasciitilde{}} \FunctionTok{log}\NormalTok{(rich), }
+                    \AttributeTok{data =}\NormalTok{ gen\_by\_site[gen\_by\_site}\SpecialCharTok{$}\NormalTok{rich }\SpecialCharTok{\textgreater{}} \DecValTok{1}\NormalTok{, ], }
+                    \AttributeTok{family =} \StringTok{"poisson"}\NormalTok{)}
+
+\FunctionTok{anova}\NormalTok{(gen\_site\_mod)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Analysis of Deviance Table
+
+Model: poisson, link: log
+
+Response: tot_abund
+
+Terms added sequentially (first to last)
+
+          Df Deviance Resid. Df Resid. Dev  Pr(>Chi)    
+NULL                        145      20347              
+log(rich)  1   9252.3       144      11095 < 2.2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(gen\_by\_site[gen\_by\_site}\SpecialCharTok{$}\NormalTok{rich }\SpecialCharTok{\textgreater{}} \DecValTok{1}\NormalTok{, ], }
+       \FunctionTok{aes}\NormalTok{(rich, tot\_abund)) }\SpecialCharTok{+}
+    \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{color =} \StringTok{"black"}\NormalTok{, }
+                \AttributeTok{method =} \StringTok{"glm"}\NormalTok{, }
+                \AttributeTok{method.args =} \FunctionTok{list}\NormalTok{(}\AttributeTok{family =} \StringTok{"poisson"}\NormalTok{)) }\SpecialCharTok{+}
+    \FunctionTok{geom\_pointdensity}\NormalTok{() }\SpecialCharTok{+}
+    \FunctionTok{scale\_x\_log10}\NormalTok{() }\SpecialCharTok{+}
+    \FunctionTok{scale\_y\_log10}\NormalTok{() }\SpecialCharTok{+}
+    \FunctionTok{scale\_color\_viridis\_c}\NormalTok{() }\SpecialCharTok{+}
+    \FunctionTok{xlab}\NormalTok{(}\StringTok{"Number of congeners at a site"}\NormalTok{) }\SpecialCharTok{+}
+    \FunctionTok{ylab}\NormalTok{(}\StringTok{"Total genus abundance"}\NormalTok{) }\SpecialCharTok{+}
+    \FunctionTok{theme\_cowplot}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}[H]
+
+\centering{
+
+\pandocbounded{\includegraphics[keepaspectratio]{ab_supp_files/figure-pdf/fig-gen-rich-trend-1.pdf}}
+
+}
+
+\caption{\label{fig-gen-rich-trend}Relationship between number of
+congeners at a site and total genus abundance at that site. Trend line
+(black line) and 95\% confidence envelope (gray shaded region) are from
+a Poisson GLM. Data points are colored by local point density.}
+
+\end{figure}%
+
+This analysis of number of congeners and total genus abundance at the
+scale of individual sampling locations is distinct from the analysis of
+average per-species abundance and total genus richness at the scale of
+the archipelago, the latter being the one that found a hump-shaped
+relationship between abundance and richness. The sampling location-scale
+analysis is intended to evaluate a possible genus-level carrying
+capacity at the scale of an individual site. The sampling location-scale
+analysis calculates abundance on a site-by-site basis (not averaged
+across all sites as in the archipelago-wide analysis) and uses the
+observed number of congeners at a site (not the total richness of a
+genus from across the archipelago).
+
 \section*{References}\label{references}
 \addcontentsline{toc}{section}{References}
 
@@ -994,9 +1575,14 @@ Gruner, D. S. 2007. Geological age, ecosystem development, and local
 resource constraints on arthropod community structure in the hawaiian
 islands. - Biological Journal of the Linnean Society 90: 551--570.
 
+\bibitem[\citeproctext]{ref-glmmTMB}
+McGillycuddy, M., Warton, D. I., Popovic, G. and Bolker, B. M. 2025.
+\href{https://doi.org/10.18637/jss.v112.i01}{Parsimoniously fitting
+large multivariate random effects in {glmmTMB}}. - Journal of
+Statistical Software 112: 1--19.
+
 \bibitem[\citeproctext]{ref-hichecklist}
-Nishida, G. M. 1992. Hawaiian terrestrial arthropod checklist. - Bishop
-University Press, Honolulu.
+Nishida, G. M. 2002. Hawaiian terrestrial arthropod checklist.
 
 \end{CSLReferences}
 
