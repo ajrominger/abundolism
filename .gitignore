@@ -4,3 +4,5 @@
 .Ruserdata
 .DS_Store
 .Rbuildignore
+inst/ab_supp_cache
+inst/abundolism_cache
