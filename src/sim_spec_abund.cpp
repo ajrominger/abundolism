@@ -49,7 +49,7 @@ Rcpp::List sim_spec_abund(const arma::vec& la,
         // re-set book keeping objects
         x.zeros();
         s.zeros();
-        stau.zeros();
+        stau.fill(tau(r));
         sfull.zeros();
         tt = 0.0;
         any_full_spec = false;
