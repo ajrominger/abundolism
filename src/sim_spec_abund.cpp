@@ -15,6 +15,7 @@ Rcpp::List sim_spec_abund(const arma::vec& la,
                           const arma::vec& tau,
                           const arma::vec& xi,
                           int np,
+                          double tmax,
                           int nstep) {
 
     // calculate dispersal rates
@@ -38,6 +39,7 @@ Rcpp::List sim_spec_abund(const arma::vec& la,
     uvec sfull(np); // vector of booleans to indicate full speciation
     double tt;      // track total simulation time
     bool any_full_spec = false; // speciation tracker
+    bool full_run = false; // tracks whether `tmax` has been reached
 
     // set-up random number generators
     std::random_device rd;
@@ -53,10 +55,11 @@ Rcpp::List sim_spec_abund(const arma::vec& la,
         sfull.zeros();
         tt = 0.0;
         any_full_spec = false;
+        full_run = false;
 
         // pre-allocate this sim's matrix at max dim possible (nstep rows),
         // will trim to actual size before storing in the list
-        mat sim_output(nstep, 4);
+        mat sim_output(nstep, 6);
 
         // track this separate from `i` for trimming outside loop, relevant
         // in cases of early stopping
@@ -144,7 +147,7 @@ Rcpp::List sim_spec_abund(const arma::vec& la,
 
                 // update wait time to speciation
                 if(s(receiving_pop) > 0) {
-                    stau(receiving_pop) += xi(r) / x(receiving_pop);
+                    stau(receiving_pop) += xi(r); // / x(receiving_pop);
                 }
             } else if(e_type == 1) { // birth
                 x(e_pop) ++;
@@ -173,15 +176,23 @@ Rcpp::List sim_spec_abund(const arma::vec& la,
             sfull = s > stau;
             any_full_spec = any(sfull);
 
+            // check conditions for ending the simulation
+            if(any_full_spec or tt >= tmax) {
+                full_run = true;
+            }
+
             // record this step
-            sim_output(step_count, 0) = r;
-            sim_output(step_count, 1) = sum(conv_to<vec>::from(x));
-            sim_output(step_count, 2) = st;
-            sim_output(step_count, 3) = any_full_spec ? 1.0 : 0.0;
+            sim_output(step_count, 0) = r; // iteration step
+            sim_output(step_count, 1) = sum(conv_to<vec>::from(x)); // pop size
+            sim_output(step_count, 2) = st; // sojourn time
+            sim_output(step_count, 3) = any_full_spec ? 1.0 : 0.0; // 1 = spec
+            sim_output(step_count, 4) = tt; // clock time
+            sim_output(step_count, 5) = full_run ? 1.0 : 0.0; // 1 = full run
+
             step_count++;
 
-
-            if(any_full_spec) {
+            // break on speciation or reaching `tmax`
+            if(full_run) {
                 break;
             }
         }
