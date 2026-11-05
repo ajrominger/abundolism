@@ -11,7 +11,10 @@
 #' @param xi vector of weights given to new immigrants in slowing progress to
 #'           full speciation
 #' @param np number of local populations in the meta population
-#' @param nstep scalar, number of simulation steps
+#' @param nstep scalar, number of simulation steps to use in attempt to reach
+#'              either speciation or `tmax` (acts as precaution against
+#'              excessively long loops)
+#' @param tmax scalar, stop simulation runs at this clock time
 #' @param w scalar, number of simulation steps in window for sliding average
 #'
 #' @returns a data.frame with columns for input parameter values and output
@@ -37,11 +40,20 @@
 #'
 #' @export
 
-sim_BDI_spec <- function(la, mu, g, m_prop, nu, tau, xi, np, nstep, w) {
+sim_BDI_spec <- function(la, mu, g, m_prop, nu, tau, xi, np, nstep, tmax, w) {
     # if(length(nstep) == 1) nstep <- rep(nstep, length(la))
 
-    raw_sim <- sim_spec_abund(la, mu, g, m_prop, nu, tau, xi, np, nstep)
+    raw_sim <- sim_spec_abund(la, mu, g, m_prop, nu, tau, xi, np, tmax, nstep)
 
+    # discard sims that don't end either at desired `tmax` or in speciation
+    good_sims <- sapply(raw_sim, function(x) {
+        any(x[, 6] == 1)
+    })
+
+    bad_sim <- raw_sim[!good_sims]
+    raw_sim <- raw_sim[good_sims]
+
+    browser()
     sim <- lapply(1:length(raw_sim), function(i) {
         # this sim
         x <- raw_sim[[i]]
